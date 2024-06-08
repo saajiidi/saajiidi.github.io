@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Resume</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body id="page-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+    <a class="navbar-brand js-scroll-trigger" href="#page-top">
+      <span class="d-block d-lg-none">Sajid Islam</span>
+      <span class="d-none d-lg-block">
+        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/profile.jpg" alt="Profile Picture">
+      </span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav" id="navbarItems"></ul>
+    </div>
+  </nav>
+
+  <div class="container-fluid p-0">
+    <div id="contentSections"></div>
+  </div>
+
+  <script>
+    const navigationLinks = [
+      { id: 'about', text: 'About' },
+      { id: 'experience', text: 'Experience' },
+      { id: 'education', text: 'Education' },
+      { id: 'skills', text: 'Skills' },
+      { id: 'interests', text: 'Interests' },
+      { id: 'awards', text: 'Awards & Certifications' },
+      { id: 'projects', text: 'Projects' }
+    ];
+
+    const experiences = [
+      // Add your experience objects here
+    ];
+
+    const education = [
+      // Add your education objects here
+    ];
+
+    const skills = [
+      // Add your skills objects here
+    ];
+
+    const toolsFrameworks = [
+      // Add your tools and frameworks objects here
+    ];
+
+    const workflow = [
+      // Add your workflow items here
+    ];
+
+    const interests = [
+      // Add your interests here
+    ];
+
+    const awards = [
+      // Add your awards objects here
+    ];
+
+    const projects = [
+      // Add your projects objects here
+    ];
+
+    function createNavLink(link) {
+      return `<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#${link.id}">${link.text}</a></li>`;
+    }
+
+    function createExperienceItem(item) {
+      return `
+        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+          <div class="resume-content">
+            <h3 class="mb-0">${item.role}</h3>
+            <div class="subheading mb-3"><a href="${item.companyLink}" target="_blank">${item.company}</a></div>
+            <ul class="fa-ul mb-0">${item.tasks.map(task => `<li><i class="fa-li fa fa-check"></i>${task}</li>`).join('')}</ul>
+          </div>
+          <div class="resume-date text-md-right">
+            <span class="text-primary">${item.date}</span>
+          </div>
+        </div>`;
+    }
+
+    function createEducationItem(item) {
+      return `
+        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+          <div class="resume-content">
+            <h3 class="mb-0">${item.degree}</h3>
+            <div class="subheading mb-3"><a href="${item.institutionLink}" target="_blank">${item.institution}</a></div>
+            <div>${item.field}</div>
+          </div>
+          <div class="resume-date text-md-right">
+            <span class="text-primary">${item.date}</span>
+          </div>
+        </div>`;
+    }
+
+    function createSkillItem(skill) {
+      return `<li><i class="fa-li fa ${skill.icon}"></i>${skill.text}</li>`;
+    }
+
+    function createToolItem(tool) {
+      return `<li><i class="${tool.icon}"></i>${tool.title}</li>`;
+    }
+
+    function createWorkflowItem(workflowItem) {
+      return `<li>${workflowItem}</li>`;
+    }
+
+    function createInterestItem(interest) {
+      return `<p>${interest}</p>`;
+    }
+
+    function createAwardItem(award) {
+      return `
+        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+          <div class="resume-content">
+            <h3 class="mb-0">${award.title}</h3>
+            <div class="subheading mb-3"><a href="${award.link}" target="_blank">${award.link}</a></div>
+            <div>${award.summary || ''}</div>
+          </div>
+        </div>`;
+    }
+
+    function createProjectItem(project) {
+      return `<p><a href="${project.link}" target="_blank">${project.title}</a></p>`;
+    }
+
+    function renderNavigation() {
+      const navbarItems = document.getElementById('navbarItems');
+      navbarItems.innerHTML = navigationLinks.map(createNavLink).join('');
+    }
+
+    function renderContent() {
+      const contentSections = document.getElementById('contentSections');
+
+      const sections = [
+        {
+          id: 'about',
+          title: 'About',
+          content: `
+            <section class="resume-section" id="about">
+              <div class="resume-section-content">
+                <h1 class="mb-0">Sajid
+                  <span class="text-primary">Islam</span>
+                </h1>
+                <div class="subheading mb-5">
+                  Your Address · Your Phone Number ·
+                  <a href="mailto:your-email@example.com">your-email@example.com</a>
+                </div>
+                <p class="lead mb-5">Your brief introduction or summary goes here.</p>
+              </div>
+            </section>`
+        },
+        {
+          id: 'experience',
+          title: 'Experience',
+          content: `
+            <section class="resume-section" id="experience">
+              <div class="resume-section-content">
+                <h2 class="mb-5">Experience</h2>
+                ${experiences.map(createExperienceItem).join('')}
+              </div>
+            </section>`
+        },
+        {
+          id: 'education',
+          title: 'Education',
+          content: `
+            <section class="resume-section" id="education">
+              <div class="resume-section-content">
+                <h2 class="mb-5">Education</h2>
+                ${education.map(createEducationItem).join('')}
+              </div>
+            </section>`
+        },
+        {
+          id: 'skills',
+          title: 'Skills',
+          content: `
+            <section class="resume-section" id="skills">
+              <div class="resume-section-content">
+                <h2 class="mb-5">Skills</h2>
+                <div class="subheading mb-3">Technical Skills</div>
+                <ul class="fa-ul mb-0">${skills.map(createSkillItem).join('')}</ul>
+                <div class="subheading mb-3">Tools & Frameworks</div>
+                <ul class="list-inline dev-icons">${toolsFrameworks.map(createToolItem).join('')}</ul>
+                <div class="subheading mb-3">Workflow</div>
+                <ul class="fa-ul mb-0">${workflow.map(createWorkflowItem).join('')}</ul>
+              </div>
+            </section>`
+        },
+        {
+          id: 'interests',
+          title: 'Interests',
+          content: `
+            <section class="resume-section" id="interests">
+              <div class="resume-section-content">
+                <h2 class="mb-5">Interests</h2>
+                ${interests.map(createInterestItem).join('')}
+              </div>
+            </section>`
+        },
+        {
+          id: 'awards',
+          title: 'Awards & Certifications',
+          content: `
+            <section class="resume-section" id="awards">
+              <div class="resume-section-content">
+                <h2 class="mb-5">Awards & Certifications</h2>
+                ${awards.map(createAwardItem).join('')}
+              </div>
+            </section>`
+        },
+        {
+          id: 'projects',
+          title: 'Projects',
+          content: `
+            <section class="resume-section" id="projects">
+              <div class="resume-section-content">
+                <h2 class="mb-5">Projects</h2>
+                ${projects.map(createProjectItem).join('')}
+              </div>
+            </section>`
+        }
+      ];
+
+      contentSections.innerHTML = sections.map(section => section.content).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      renderNavigation();
+      renderContent();
+    });
+  </script>
+
+</body>
+
+</html>

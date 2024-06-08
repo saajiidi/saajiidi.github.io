@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Sajid Islam || Portfolio</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/resume.min.css" rel="stylesheet">
+
+  <style>
+    .fa-ul .fa-li {
+      position: relative;
+      left: 0;
+    }
+  </style>
+</head>
+
+<body id="page-top">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+    <a class="navbar-brand js-scroll-trigger" href="#page-top">
+      <span class="d-block d-lg-none">Sajid Islam</span>
+      <span class="d-none d-lg-block">
+        <img class="img-fluid img-profile rounded-circle mx-auto mb-5" src="img/profile.jpg" alt="">
+      </span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav" id="navbarItems">
+        <!-- Navigation items will be injected here -->
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container-fluid p-0">
+    <div id="contentSections">
+      <!-- Content sections will be injected here -->
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="js/resume.min.js"></script>
+
+  <script>
+    const navigationLinks = [
+      { href: '#about', text: 'About' },
+      { href: '#experience', text: 'Experience' },
+      { href: '#education', text: 'Education' },
+      { href: '#skills', text: 'Skills' },
+      { href: '#interests', text: 'Interests' },
+      { href: '#awards', text: 'Awards' },
+      { href: '#projects', text: 'Projects' },
+      { href: 'https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link', text: 'Resume', external: true }
+    ];
+
+    const experiences = [
+      {
+        role: 'Jr. Executive - Marketplace',
+        company: 'Daraz - Alibaba Group',
+        companyLink: 'https://www.daraz.com.bd',
+        tasks: ['Business & Marketplace Analysis', 'Brand & Partner Acquisition', 'Partner Development Project'],
+        date: 'January 2020 - January 2022'
+      },
+      {
+        role: 'Associate - Home Kitchen & Street Food',
+        company: 'HungryNaki - Alibaba Group',
+        companyLink: 'https://hungrynaki.com',
+        tasks: ['Business & Marketplace Analysis', 'Brand & Partner Acquisition', 'Partner Development Project'],
+        date: 'July 2021 - January 2022'
+      },
+      {
+        role: 'IT Executive - Quality Control',
+        company: 'NZ Fabrics - NZ TEXTILE GROUP',
+        companyLink: 'https://nztexgroup.com',
+        tasks: ['Info & Tech Support to the Quality Control Team', 'Associating with the Research & Development Team', 'Presentation & Reporting to the Authorities & Buyers'],
+        date: 'April 2023 - May 2023'
+      },
+      {
+        role: 'Associate - Online Sales & Customer Supports',
+        company: 'Thriving Skill',
+        companyLink: 'https://thrivingskill.com',
+        tasks: ['Business & Marketplace Analysis', 'Sales Growth Strategies', 'Customer Relationship Management'],
+        date: 'June 2023 - June 2024'
+      },
+      {
+        role: 'Co-Founder',
+        company: 'Gear Master',
+        companyLink: 'https://www.facebook.com/profile.php?id=61558077623189',
+        tasks: ['Bike Accessories Retail Shop'],
+        date: 'April 2024 - Present'
+      }
+    ];
+
+    const education = [
+      {
+        degree: 'Executive Masters of Business Administration',
+        institution: 'University of Dhaka',
+        institutionLink: 'https://www.du.ac.bd',
+        field: 'Management Information System (Studying)',
+        date: '2024'
+      },
+      {
+        degree: 'Bachelor of Science',
+        institution: 'North South University',
+        institutionLink: 'https://www.northsouth.edu',
+        field: 'Computer Science & Engineering',
+        date: '2019'
+      },
+      {
+        degree: 'Higher Secondary School',
+        institution: 'Bangladesh Air Force Shaheen College Dhaka',
+        institutionLink: 'https://bafsd.edu.bd',
+        field: 'Science Division',
+        date: '2013'
+      },
+      {
+        degree: 'Secondary School',
+        institution: 'Uttara High School & College',
+        institutionLink: 'https://uhscdhaka.edu.bd',
+        field: 'Science Division',
+        date: '2011'
+      }
+    ];
+
+    const skills = [
+      { icon: 'fa-chart-line', text: 'Digital Sales & Marketing' },
+      { icon: 'fa-chart-bar', text: 'Data Analysis & Reporting' },
+      { icon: 'fa-search', text: 'Market Analysis & Research' },
+      { icon: 'fa-tasks', text: 'Product Development & Management' }
+    ];
+
+    const toolsFrameworks = [
+      { icon: 'fab fa-react', title: 'React' },
+      { icon: 'fas fa-database', title: 'SQL' },
+      { icon: 'fas fa-chart-line', title: 'Power BI' },
+      { icon: 'fas fa-file-excel', title: 'Excel' },
+      { icon: 'fas fa-square-root-alt', title: 'NumPy' },
+      { icon: 'fas fa-chart-bar', title: 'Matplotlib' },
+      { icon: 'fab fa-ubuntu', title: 'Ubuntu' }
+    ];
+
+    const workflow = [
+      'Cross Functional Teams',
+      'Agile Development & Scrum'
+    ];
+
+    const interests = [
+      'Data Science',
+      'Economics',
+      'Business',
+      'History',
+      'Politics',
+      'War'
+    ];
+
+    const awards = [
+      {
+        title: 'Data Mining Techniques to Categorize Single Paragraph-Formed Self-Narrated Stories at ICT Analysis and Applications Proceedings of ICT4SD 2020, Volume 2 Page 701-714 - Dec 14, 2020',
+        link: 'https://ict4sd.org/link/proceedings/ICT4SD-2020-VOL2.pdf',
+        summary: 'Detecting sentiment in stories has become popular, often using deep learning. When data is limited, machine learning is used. Sentiment analysis is hard due to slang, ambiguity, and sarcasm, which can confuse people and machines. This study is part of ongoing research on categorizing paragraphs by sentiment. The dataset includes narrated stories from various sources.'
+      },
+      { title: 'Certification Link1', link: 'https://drive.google.com/file/d/1cJxcJJur1n3MiXFETv5k30SDP0WP9wOm/view?usp=sharing' },
+      { title: 'Certification Link2', link: 'https://drive.google.com/file/d/1O7O6jJRN58WGiyJu8hYrGhv-DtP89bEI/view?usp=sharing' }
+    ];
+
+    const projects = [
+      { title: 'My Portfolio with React App & TypeScript', link: 'https://saajiidi.github.io/portfolio/' },
+      { title: 'My Portfolio with Next JS & Tailwind CSS', link: 'https://sajid-islam-portfolio.vercel.app/' }
+    ];
+
+    function createNavLink(item) {
+      return `
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="${item.href}" ${item.external ? 'target="_blank"' : ''}>${item.text}</a>
+        </li>`;
+    }
+
+    function createExperienceItem(item) {
+      return `
+        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+          <div class="resume-content">
+            <h3 class="mb-0">${item.role}</h3>
+            <div class="subheading mb-3"><a href="${item.companyLink}" target="_blank">${item.company}</a></div>
+            <ul class="fa-ul mb-0">${item.tasks.map(task => `<li><i class="fa-li fa fa-check"></i>${task}</li>`).join('')}</ul>
+          </div>
+          <div class="resume-date text-md-right">
+            <span class="text-primary">${item.date}</span>
+          </div>
+        </div>`;
+    }
+
+    function createEducationItem(item) {
+      return `
+        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+          <div class="resume-content">
+            <h3 class="mb-0">${item.degree}</h3>
+            <div class="subheading mb-3"><a href="${item.institutionLink}" target="_blank">${item.institution}</a></div>
+            <div>${item.field}</div>
+          </div>
+          <div class="resume-date text-md-right">
+            <span class="text-primary">${item.date}</span>
+          </div>
+        </div>`;
+    }
+
+    function createSkillItem(skill) {
+      return `<li><i class="fa-li fa ${skill.icon}"></i>${skill.text}</li>`;
+    }
+
+    function createToolItem(tool) {
+      return `<li class="list-inline-item"><i class="${tool.icon}"></i>${tool.title}</li>`;
+    }
+
+    function createWorkflowItem(workflowItem) {
+      return `<li><i class="fa-li fa fa-check"></i>${workflowItem}</li>`;
+    }
+
+    function createInterestItem(interest) {
+      return `<p>${interest}</p>`;
+    }
+
+    function createAwardItem(award) {
+      return `
+        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+          <div class="resume-content">
+            <h3 class="mb-0">${award.title}</h3>
+            <div class="subheading mb-3"><a href="${award.link}" target="_blank">${award.link}</a></div>
+            <div>${award.summary || ''}</div>
+          </div>
+        </div>`;
+    }
+
+    function createProjectItem(project) {
+      return `<p><a href="${project.link}" target="_blank">${project.title}</a></p>`;
+    }
+
+    function renderNavigation() {
+      const navbarItems = document.getElementById('navbarItems');
+      navbarItems.innerHTML = navigationLinks.map(createNavLink).join('');
+    }
+
+    function renderContent() {
+      const contentSections = document.getElementById('contentSections');
+
+      const sections = [
+        {
+          id: 'about',
+          title: 'About',
+          content: `
+            <section class="resume-section" id="about">
+              <div class="resume-section-content">
+                <h1 class="mb-0">Sajid
+                  <span class="text-primary">Islam</span>
+                </h1>
+                <div class="subheading mb-5">
+                  Your Address · Your Phone Number ·
+                  <a href="mailto:your-email@example.com">your-email@example.com</a>
+                </div>
+                <p class="lead mb-5">Your brief introduction or summary goes here.</p>
+              </div>
+            </section>`
+        },
+        {
+          id: 'experience',
+          title: 'Experience',
+          content: `
+            <section class="resume-section" id="experience">
+              <div class="resume-section-content">
+                <h2 class="mb-5">Experience</h2>
+                ${experiences.map(createExperienceItem).join('')}
+              </div>
+            </section>`
+        },
+        {
+          id: 'education',
+          title: 'Education',
+          content: `
+            <section class="resume-section" id="education">
+              <div class="resume-section-content">
+                <h2 class="mb-5">Education</h2>
+                ${education.map(createEducationItem).join('')}
+              </div>
+            </section>`
+        },
+        {
+          id: 'skills',
+          title: 'Skills',
+          content: `
+            <section class="resume-section" id="skills">
+              <div class="resume-section-content">
+                <h2 class="mb-5">Skills</h2>
+                <div class="subheading mb-3">Technical Skills</div>
+                <ul class="fa-ul mb-0">${skills.map(createSkillItem).join('')}</ul>
+                <div class="subheading mb-3">Tools & Frameworks</div>
+                <ul class="list-inline dev-icons">${toolsFrameworks.map(createToolItem).join('')}</ul>
+                <div class="subheading mb-3">Workflow</div>
+                <ul class="fa-ul mb-0">${workflow.map(createWorkflowItem).join('')}</ul>
+              </div>
+            </section>`
+        },
+        {
+          id: 'interests',
+          title: 'Interests',
+          content: `
+            <section class="resume-section" id="interests">
+              <div class="resume-section-content">
+                <h2 class="mb-5">Interests</h2>
+                ${interests.map(createInterestItem).join('')}
+              </div>
+            </section>`
+        },
+        {
+          id: 'awards',
+          title: 'Awards & Certifications',
+          content: `
+            <section class="resume-section" id="awards">
+              <div class="resume-section-content">
+                <h2 class="mb-5">Awards & Certifications</h2>
+                ${awards.map(createAwardItem).join('')}
+              </div>
+            </section>`
+        },
+        {
+          id: 'projects',
+          title: 'Projects',
+          content: `
+            <section class="resume-section" id="projects">
+              <div class="resume-section-content">
+                <h2 class="mb-5">Projects</h2>
+                ${projects.map(createProjectItem).join('')}
+              </div>
+            </section>`
+        }
+      ];
+
+      contentSections.innerHTML = sections.map(section => section.content).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      renderNavigation();
+      renderContent();
+    });
+  </script>
+
+</body>
+
+</html>
