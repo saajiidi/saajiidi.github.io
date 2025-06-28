@@ -1,10 +1,18 @@
-// Global styling for this template
+// Global styling for Data Analyst Portfolio
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   @include body-font;
   padding-top: 54px;
   color: $gray-600;
+  line-height: 1.6;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
 }
+
 @media (min-width: 992px) {
   body {
     padding-top: 0;
@@ -12,6 +20,7 @@ body {
   }
 }
 
+// Enhanced Typography
 h1,
 h2,
 h3,
@@ -22,24 +31,44 @@ h6 {
   font-weight: 700;
   text-transform: uppercase;
   color: $gray-800;
+  margin-bottom: 1rem;
 }
 
 h1 {
   font-size: 6rem;
   line-height: 5.5rem;
+  background: linear-gradient(135deg, $primary 0%, $purple 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 h2 {
   font-size: 3.5rem;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, $primary 0%, $teal 100%);
+    border-radius: 2px;
+  }
 }
 
 h3 {
   font-size: 2rem;
+  color: $primary;
 }
 
 p.lead {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 400;
+  color: $gray-700;
+  line-height: 1.8;
 }
 
 .subheading {
@@ -47,34 +76,125 @@ p.lead {
   font-weight: 500;
   @include heading-font;
   font-size: 1.5rem;
+  color: $primary;
+  
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: $transition-base;
+    
+    &:hover {
+      color: $teal;
+    }
+  }
 }
 
+// Enhanced Social Icons
 .social-icons {
   a {
     display: inline-block;
     height: 3.5rem;
     width: 3.5rem;
-    background-color: $gray-700;
+    background: linear-gradient(135deg, $gray-700 0%, $gray-600 100%);
     color: $white !important;
-    border-radius: 100%;
+    border-radius: 50%;
     text-align: center;
     font-size: 1.5rem;
     line-height: 3.5rem;
     margin-right: 1rem;
+    transition: $transition-base;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    
     &:last-child {
       margin-right: 0;
     }
+    
     &:hover {
-      background-color: $primary;
+      background: linear-gradient(135deg, $primary 0%, $teal 100%);
+      transform: $hover-transform;
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
     }
   }
 }
 
+// Enhanced Tech Icons
 .dev-icons {
   font-size: 3rem;
-  .list-inline-item i {
-    &:hover {
-      color: $primary;
+  
+  .list-inline-item {
+    margin-bottom: 1rem;
+    transition: $transition-base;
+    
+    i {
+      color: $gray-600;
+      transition: $transition-base;
+      
+      &:hover {
+        color: $primary;
+        transform: scale(1.1);
+      }
     }
   }
+}
+
+// Modern Resume Section
+.resume-section {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  margin-bottom: 2rem;
+  border-radius: $border-radius-lg;
+  box-shadow: $box-shadow-lg;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: $transition-base;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// Enhanced Skills Section
+.skill-item {
+  background: $white;
+  padding: 1.5rem;
+  border-radius: $border-radius-lg;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: $transition-base;
+  border-left: 4px solid $primary;
+  
+  &:hover {
+    transform: $hover-transform;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+}
+
+// Data Analyst specific enhancements
+.data-highlight {
+  background: linear-gradient(135deg, $teal 0%, $cyan 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+
+.chart-icon {
+  color: $chart-color-1;
+  font-size: 1.2em;
+  margin-right: 0.5rem;
+}
+
+// Animated elements
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-on-scroll {
+  animation: fadeInUp 0.6s ease-out forwards;
 }
