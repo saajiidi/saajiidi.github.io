@@ -4,7 +4,7 @@
 const autoprefixer = require("gulp-autoprefixer");
 const browsersync = require("browser-sync").create();
 const cleanCSS = require("gulp-clean-css");
-const del = require("del");
+const { deleteSync } = require("del");
 const gulp = require("gulp");
 const header = require("gulp-header");
 const merge = require("merge-stream");
