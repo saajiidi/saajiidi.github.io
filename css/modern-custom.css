@@ -167,8 +167,9 @@ body.light-mode .navbar-toggler-icon {
 }
 
 /* Sidebar Styling */
+/* Sidebar Styling */
 #sideNav {
-    background-color: var(--bg-dark);
+    background-color: var(--sidenav-bg);
     border-right: var(--glass-border);
     backdrop-filter: blur(10px);
     transition: all 0.3s ease-in-out;
@@ -192,7 +193,7 @@ body.light-mode .navbar-toggler-icon {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05rem;
-    color: var(--text-secondary);
+    color: var(--sidenav-text);
 }
 
 #sideNav .navbar-nav .nav-item .nav-link:hover,
