@@ -129,6 +129,7 @@ a:hover {
     background-color: var(--bg-dark);
     border-right: var(--glass-border);
     backdrop-filter: blur(10px);
+    transition: all 0.3s ease-in-out;
 }
 
 #sideNav .navbar-brand .img-profile {
@@ -153,6 +154,48 @@ a:hover {
 #sideNav .navbar-nav .nav-item .nav-link:hover,
 #sideNav .navbar-nav .nav-item .nav-link.active {
     color: var(--primary-color);
+}
+
+/* Responsive Sidebar Layout */
+@media (min-width: 992px) {
+    #sideNav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        width: var(--sidebar-width);
+        height: 100vh;
+        /* Override fixed-top width */
+        right: auto;
+    }
+
+    #sideNav .navbar-brand {
+        display: flex;
+        margin: auto auto 0;
+        padding: 0.5rem;
+    }
+
+    #sideNav .navbar-collapse {
+        display: flex;
+        align-items: flex-start;
+        flex-grow: 0;
+        width: 100%;
+        margin-bottom: auto;
+    }
+
+    #sideNav .navbar-collapse .navbar-nav {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    #sideNav .navbar-collapse .navbar-nav .nav-item {
+        display: block;
+    }
+
+    #sideNav .navbar-collapse .navbar-nav .nav-item .nav-link {
+        display: block;
+    }
 }
 
 /* Section Styling */
