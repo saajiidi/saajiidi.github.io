@@ -1,9 +1,11 @@
 /* Modern Global Variables */
 :root {
-    /* Primary Color Palette - Teal/Cyan centered for modern tech feel */
-    --primary-color: #0d6efd;
+    /* Primary Color Palette - Deep Orange Theme */
+    --primary-color: #ff5722;
+    /* Deep Orange */
     --secondary-color: #6c757d;
-    --accent-color: #0dcaf0;
+    --accent-color: #ff9800;
+    /* Orange for accent */
 
     /* Dark Theme Colors */
     --bg-dark: #0b1120;
@@ -14,8 +16,8 @@
     /* Pure white for primary text */
     --text-secondary: #cbd5e1;
     /* Lighter gray for secondary text */
-    --text-highlight: #38bdf8;
-    /* Bright sky blue for highlights */
+    --text-highlight: #ff7043;
+    /* Lighter deep orange for highlights */
 
     /* Spacing & Layout */
     --sidebar-width: 17rem;
@@ -269,9 +271,8 @@ body.light-mode .navbar-toggler-icon {
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Cards & Glassmorphism */
-.card-glass,
-.resume-item {
+/* Modern Project Cards (Eye-Catching) */
+.card-glass {
     background: var(--glass-bg);
     border: var(--glass-border);
     box-shadow: var(--glass-shadow);
@@ -280,18 +281,93 @@ body.light-mode .navbar-toggler-icon {
     border-radius: 16px;
     padding: 2rem;
     margin-bottom: 2rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Bouncy pop effect */
+    position: relative;
+    overflow: hidden;
 }
 
-.card-glass:hover,
-.resume-item:hover {
+.card-glass::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.card-glass:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.card-glass:hover::before {
+    transform: scaleX(1);
+}
+
+/* Interest Cards: Side-by-Side Layout */
+.interest-card {
+    display: flex;
+    /* Side-by-side layout */
+    align-items: center;
+    /* Center vertically */
+    padding: 1.5rem;
+    background: var(--glass-bg);
+    border: var(--glass-border);
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+
+.interest-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
 }
 
-/* Experience & Education Items */
+.interest-icon {
+    flex-shrink: 0;
+    margin-right: 1.5rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    /* Subtle background for icon */
+    border-radius: 50%;
+}
+
+.interest-content {
+    flex-grow: 1;
+}
+
+.interest-content h5 {
+    margin-bottom: 0.25rem;
+    color: var(--text-primary);
+    /* Dynamic text color */
+    font-size: 1.25rem;
+}
+
+.interest-content p {
+    margin-bottom: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Resume Item (Experience/Education) */
 .resume-item {
+    background: var(--glass-bg);
+    border: var(--glass-border);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 16px;
+    transition: transform 0.3s ease;
     display: flex;
     flex-direction: column;
 }
