@@ -55,19 +55,7 @@ window.addEventListener('DOMContentLoaded', event => {
     });
   }
 
-  // Smooth scroll for navigation links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    });
-  });
+  // Smooth scroll JS removed in favor of CSS html { scroll-behavior: smooth; }
 
   // Intersection Observer for Animations
   const observerOptions = {

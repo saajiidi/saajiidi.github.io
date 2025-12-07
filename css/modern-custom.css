@@ -6,10 +6,16 @@
     --accent-color: #0dcaf0;
 
     /* Dark Theme Colors */
-    --bg-dark: #0f172a;
-    --bg-card: rgba(30, 41, 59, 0.7);
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
+    --bg-dark: #0b1120;
+    /* Darker background for contrast */
+    --bg-card: rgba(15, 23, 42, 0.8);
+    /* Darker, less transparent cards */
+    --text-primary: #ffffff;
+    /* Pure white for primary text */
+    --text-secondary: #cbd5e1;
+    /* Lighter gray for secondary text */
+    --text-highlight: #38bdf8;
+    /* Bright sky blue for highlights */
 
     /* Spacing & Layout */
     --sidebar-width: 17rem;
@@ -18,6 +24,10 @@
     --glass-bg: rgba(15, 23, 42, 0.6);
     --glass-border: 1px solid rgba(255, 255, 255, 0.1);
     --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+
+    /* Navbar Colors (Inverted): Default Dark Mode has WHITE/LIGHT Navbar */
+    --sidenav-bg: rgba(255, 255, 255, 0.95);
+    --sidenav-text: #0f172a;
 }
 
 /* Light Mode Overrides */
@@ -28,6 +38,16 @@ body.light-mode {
     --text-secondary: #64748b;
     --glass-bg: rgba(255, 255, 255, 0.7);
     --glass-border: 1px solid rgba(0, 0, 0, 0.05);
+
+    /* Navbar Colors (Inverted): Light Mode has DARK/BLACK Navbar */
+    --sidenav-bg: #0f172a;
+    --sidenav-text: #f8fafc;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    /* Account for fixed header on mobile */
 }
 
 body {
@@ -35,6 +55,8 @@ body {
     background-color: var(--bg-dark);
     color: var(--text-primary);
     overflow-x: hidden;
+    position: relative;
+    /* For scrollspy */
 }
 
 /* Typography */
@@ -58,6 +80,13 @@ h1 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: fadeInUp 1s ease-out;
+    -webkit-text-fill-color: transparent;
+    animation: fadeInUp 1s ease-out;
+}
+
+.text-highlight {
+    color: var(--text-highlight);
+    font-weight: 600;
 }
 
 @keyframes fadeInUp {
@@ -124,12 +153,27 @@ a:hover {
     }
 }
 
+/* Force Navbar Icon Colors based on inverted theme */
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(15, 23, 42, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+body.light-mode .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(248, 250, 252, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+#sideNav .navbar-brand {
+    color: var(--sidenav-text) !important;
+}
+
 /* Sidebar Styling */
 #sideNav {
     background-color: var(--bg-dark);
     border-right: var(--glass-border);
     backdrop-filter: blur(10px);
     transition: all 0.3s ease-in-out;
+    z-index: 1040;
+    /* Ensure it stays above content */
 }
 
 #sideNav .navbar-brand .img-profile {
@@ -156,6 +200,20 @@ a:hover {
     color: var(--primary-color);
 }
 
+/* Mobile: Center Items */
+#sideNav .navbar-nav {
+    text-align: center;
+    width: 100%;
+}
+
+/* Mobile: Side-by-Side Toggle and Hamburger */
+@media (max-width: 991px) {
+    #sideNav .navbar-brand {
+        margin-right: auto;
+        /* Push brand to left */
+    }
+}
+
 /* Responsive Sidebar Layout */
 @media (min-width: 992px) {
     #sideNav {
@@ -168,6 +226,7 @@ a:hover {
         height: 100vh;
         /* Override fixed-top width */
         right: auto;
+        z-index: 1040;
     }
 
     #sideNav .navbar-brand {
@@ -299,7 +358,8 @@ a:hover {
 .theme-toggle {
     position: fixed;
     top: 1rem;
-    right: 1rem;
+    right: 4.5rem;
+    /* Move left to avoid collision with toggler on mobile if close */
     z-index: 1050;
     background: var(--glass-bg);
     border: var(--glass-border);
@@ -308,4 +368,17 @@ a:hover {
     border-radius: 2rem;
     cursor: pointer;
     backdrop-filter: blur(10px);
+}
+
+/* Adjust toggle position on mobile to be side-by-side with hamburger */
+@media (max-width: 991px) {
+    .theme-toggle {
+        top: 0.8rem;
+        right: 5rem;
+        /* Space for the hamburger menu */
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        /* Ensure visibility on white nav */
+        color: var(--sidenav-text);
+        /* Match nav text color */
+    }
 }
