@@ -212,8 +212,19 @@ body.light-mode .navbar-toggler-icon {
 /* Mobile: Side-by-Side Toggle and Hamburger */
 @media (max-width: 991px) {
     #sideNav .navbar-brand {
-        margin-right: auto;
-        /* Push brand to left */
+        position: absolute;
+        left: 50%;
+        top: 15px;
+        transform: translateX(-50%);
+        margin-right: 0;
+        z-index: 1060;
+        /* Higher than toggler */
+        padding: 0;
+    }
+
+    .navbar-toggler {
+        margin-left: auto;
+        z-index: 1050;
     }
 }
 
@@ -275,11 +286,11 @@ body.light-mode .navbar-toggler-icon {
 .card-glass {
     background: var(--glass-bg);
     border: var(--glass-border);
-    box-shadow: var(--glass-shadow);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(8.5px);
+    -webkit-backdrop-filter: blur(8.5px);
     border-radius: 16px;
-    padding: 2rem;
+    padding: 2.5rem;
     margin-bottom: 2rem;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     /* Bouncy pop effect */
@@ -317,8 +328,11 @@ body.light-mode .navbar-toggler-icon {
     align-items: center;
     /* Center vertically */
     padding: 1.5rem;
-    background: var(--glass-bg);
-    border: var(--glass-border);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     transition: transform 0.3s ease;
     height: 100%;
@@ -450,12 +464,28 @@ body.light-mode .navbar-toggler-icon {
 /* Adjust toggle position on mobile to be side-by-side with hamburger */
 @media (max-width: 991px) {
     .theme-toggle {
-        top: 0.8rem;
-        right: 5rem;
-        /* Space for the hamburger menu */
+        top: 15px;
+        left: 15px;
+        /* Move to Top-Left Corner */
+        right: auto;
         border: 1px solid rgba(0, 0, 0, 0.1);
-        /* Ensure visibility on white nav */
         color: var(--sidenav-text);
-        /* Match nav text color */
+    }
+
+    .resume-section {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+
+    h1 {
+        font-size: 3rem;
+    }
+
+    h2 {
+        font-size: 2.2rem;
+    }
+
+    .subheading {
+        font-size: 1rem;
     }
 }
