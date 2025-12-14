@@ -1,0 +1,491 @@
+/* Modern Global Variables */
+:root {
+    /* Primary Color Palette - Deep Orange Theme */
+    --primary-color: #ff5722;
+    /* Deep Orange */
+    --secondary-color: #6c757d;
+    --accent-color: #ff9800;
+    /* Orange for accent */
+
+    /* Dark Theme Colors */
+    --bg-dark: #0b1120;
+    /* Darker background for contrast */
+    --bg-card: rgba(15, 23, 42, 0.8);
+    /* Darker, less transparent cards */
+    --text-primary: #ffffff;
+    /* Pure white for primary text */
+    --text-secondary: #cbd5e1;
+    /* Lighter gray for secondary text */
+    --text-highlight: #ff7043;
+    /* Lighter deep orange for highlights */
+
+    /* Spacing & Layout */
+    --sidebar-width: 17rem;
+
+    /* Glassmorphism */
+    --glass-bg: rgba(15, 23, 42, 0.6);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+
+    /* Navbar Colors (Inverted): Default Dark Mode has WHITE/LIGHT Navbar */
+    --sidenav-bg: rgba(255, 255, 255, 0.95);
+    --sidenav-text: #0f172a;
+}
+
+/* Light Mode Overrides */
+body.light-mode {
+    --bg-dark: #f8fafc;
+    --bg-card: rgba(255, 255, 255, 0.8);
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: 1px solid rgba(0, 0, 0, 0.05);
+
+    /* Navbar Colors (Inverted): Light Mode has DARK/BLACK Navbar */
+    --sidenav-bg: #0f172a;
+    --sidenav-text: #f8fafc;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    /* Account for fixed header on mobile */
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    position: relative;
+    /* For scrollspy */
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
+
+h1 {
+    font-size: 4rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeInUp 1s ease-out;
+    -webkit-text-fill-color: transparent;
+    animation: fadeInUp 1s ease-out;
+}
+
+.text-highlight {
+    color: var(--text-highlight);
+    font-weight: 600;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h2 {
+    font-size: 3rem;
+    margin-bottom: 3rem;
+    position: relative;
+    display: inline-block;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 6px;
+    background: var(--primary-color);
+    border-radius: 3px;
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-color);
+    border-radius: 20px;
+    border: 3px solid var(--bg-dark);
+}
+
+/* Layout Hacks for Sidebar */
+@media (min-width: 992px) {
+    body {
+        padding-top: 0;
+        padding-left: var(--sidebar-width);
+    }
+}
+
+/* Force Navbar Icon Colors based on inverted theme */
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(15, 23, 42, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+body.light-mode .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(248, 250, 252, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+#sideNav .navbar-brand {
+    color: var(--sidenav-text) !important;
+}
+
+/* Sidebar Styling */
+/* Sidebar Styling */
+#sideNav {
+    background-color: var(--sidenav-bg);
+    border-right: var(--glass-border);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease-in-out;
+    z-index: 1040;
+    /* Ensure it stays above content */
+}
+
+#sideNav .navbar-brand .img-profile {
+    max-width: 10rem;
+    max-height: 10rem;
+    border: 0.5rem solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+}
+
+#sideNav .navbar-brand .img-profile:hover {
+    transform: scale(1.05);
+    border-color: var(--primary-color);
+}
+
+#sideNav .navbar-nav .nav-item .nav-link {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    color: var(--sidenav-text);
+}
+
+#sideNav .navbar-nav .nav-item .nav-link:hover,
+#sideNav .navbar-nav .nav-item .nav-link.active {
+    color: var(--primary-color);
+}
+
+/* Mobile: Center Items */
+#sideNav .navbar-nav {
+    text-align: center;
+    width: 100%;
+}
+
+/* Mobile: Side-by-Side Toggle and Hamburger */
+@media (max-width: 991px) {
+    #sideNav .navbar-brand {
+        position: absolute;
+        left: 50%;
+        top: 15px;
+        transform: translateX(-50%);
+        margin-right: 0;
+        z-index: 1060;
+        /* Higher than toggler */
+        padding: 0;
+    }
+
+    .navbar-toggler {
+        margin-left: auto;
+        z-index: 1050;
+    }
+}
+
+/* Responsive Sidebar Layout */
+@media (min-width: 992px) {
+    #sideNav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        width: var(--sidebar-width);
+        height: 100vh;
+        /* Override fixed-top width */
+        right: auto;
+        z-index: 1040;
+    }
+
+    #sideNav .navbar-brand {
+        display: flex;
+        margin: auto auto 0;
+        padding: 0.5rem;
+    }
+
+    #sideNav .navbar-collapse {
+        display: flex;
+        align-items: flex-start;
+        flex-grow: 0;
+        width: 100%;
+        margin-bottom: auto;
+    }
+
+    #sideNav .navbar-collapse .navbar-nav {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    #sideNav .navbar-collapse .navbar-nav .nav-item {
+        display: block;
+    }
+
+    #sideNav .navbar-collapse .navbar-nav .nav-item .nav-link {
+        display: block;
+    }
+}
+
+/* Section Styling */
+.resume-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 5rem !important;
+    padding-bottom: 5rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Modern Project Cards (Eye-Catching) */
+.card-glass {
+    background: var(--glass-bg);
+    border: var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(8.5px);
+    -webkit-backdrop-filter: blur(8.5px);
+    border-radius: 16px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Bouncy pop effect */
+    position: relative;
+    overflow: hidden;
+}
+
+.card-glass::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.card-glass:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.card-glass:hover::before {
+    transform: scaleX(1);
+}
+
+/* Interest Cards: Side-by-Side Layout */
+.interest-card {
+    display: flex;
+    /* Side-by-side layout */
+    align-items: center;
+    /* Center vertically */
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+
+.interest-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.interest-icon {
+    flex-shrink: 0;
+    margin-right: 1.5rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    /* Subtle background for icon */
+    border-radius: 50%;
+}
+
+.interest-content {
+    flex-grow: 1;
+}
+
+.interest-content h5 {
+    margin-bottom: 0.25rem;
+    color: var(--text-primary);
+    /* Dynamic text color */
+    font-size: 1.25rem;
+}
+
+.interest-content p {
+    margin-bottom: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Resume Item (Experience/Education) */
+.resume-item {
+    background: var(--glass-bg);
+    border: var(--glass-border);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 16px;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    .resume-item {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .resume-date {
+        min-width: 18rem;
+        text-align: right;
+    }
+}
+
+.subheading {
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+/* Social Icons */
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 3.5rem;
+    width: 3.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    border-radius: 50%;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-icons a:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Skills */
+.dev-icons {
+    font-size: 3rem;
+    list-style: none;
+    padding: 0;
+}
+
+.dev-icons .list-inline-item i {
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+.dev-icons .list-inline-item i:hover {
+    color: var(--accent-color);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 4.5rem;
+    /* Move left to avoid collision with toggler on mobile if close */
+    z-index: 1050;
+    background: var(--glass-bg);
+    border: var(--glass-border);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+}
+
+/* Adjust toggle position on mobile to be side-by-side with hamburger */
+@media (max-width: 991px) {
+    .theme-toggle {
+        top: 15px;
+        left: 15px;
+        /* Move to Top-Left Corner */
+        right: auto;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        color: var(--sidenav-text);
+    }
+
+    .resume-section {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+
+    h1 {
+        font-size: 3rem;
+    }
+
+    h2 {
+        font-size: 2.2rem;
+    }
+
+    .subheading {
+        font-size: 1rem;
+    }
+}
