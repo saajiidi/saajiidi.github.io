@@ -445,20 +445,39 @@ body.light-mode .navbar-toggler-icon {
     color: var(--accent-color);
 }
 
-/* Theme Toggle */
+/* Modern Theme Toggle */
 .theme-toggle {
     position: fixed;
-    top: 1rem;
-    right: 4.5rem;
-    /* Move left to avoid collision with toggler on mobile if close */
+    top: 1.5rem;
+    right: 3rem;
     z-index: 1050;
-    background: var(--glass-bg);
-    border: var(--glass-border);
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: var(--text-primary);
-    padding: 0.5rem 1rem;
-    border-radius: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    font-size: 1.25rem;
+}
+
+.theme-toggle:hover {
+    transform: rotate(15deg) scale(1.1);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 25px rgba(var(--primary-color), 0.4);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
 }
 
 /* Adjust toggle position on mobile to be side-by-side with hamburger */
@@ -468,8 +487,12 @@ body.light-mode .navbar-toggler-icon {
         left: 15px;
         /* Move to Top-Left Corner */
         right: auto;
-        border: 1px solid rgba(0, 0, 0, 0.1);
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.1rem;
         color: var(--sidenav-text);
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .resume-section {
@@ -536,13 +559,32 @@ body.light-mode .navbar-toggler-icon {
 }
 
 @keyframes gradientShift {
-    0% { background-position: 0% 50% }
-    50% { background-position: 100% 50% }
-    100% { background-position: 0% 50% }
+    0% {
+        background-position: 0% 50%
+    }
+
+    50% {
+        background-position: 100% 50%
+    }
+
+    100% {
+        background-position: 0% 50%
+    }
 }
 
 @keyframes pulseGlow {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(221, 36, 118, 0.7); }
-    70% { transform: scale(1.05); box-shadow: 0 0 10px 10px rgba(221, 36, 118, 0); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(221, 36, 118, 0); }
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(221, 36, 118, 0.7);
+    }
+
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 10px 10px rgba(221, 36, 118, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(221, 36, 118, 0);
+    }
 }
