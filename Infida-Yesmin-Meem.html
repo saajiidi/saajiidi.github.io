@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - Infida Yesmin Meem</title>
+    <!-- Modern Fonts: Inter (structure) & Playfair Display (elegance) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2d3436;
+            /* Charcoal Black */
+            --accent: #d6a458;
+            /* Elegant Gold */
+            --sidebar-bg: #f8f9fa;
+            /* Very Light Gray */
+            --text-main: #333333;
+            --text-light: #666666;
+            --white: #ffffff;
+            --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.03);
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #eef2f5;
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .resume-container {
+            width: 100%;
+            max-width: 1000px;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            /* Modern soft shadow */
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            /* Sidebar Layout */
+            overflow: hidden;
+        }
+
+        /* --- Sidebar Styles --- */
+        .sidebar {
+            background-color: var(--sidebar-bg);
+            padding: 40px 30px;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .profile-section {
+            text-align: center;
+            position: relative;
+        }
+
+        .profile-wrapper {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 4px solid var(--white);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        #profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: grab;
+            /* Transition removed for immediate drag response */
+        }
+
+        #profile-image:active {
+            cursor: grabbing;
+        }
+
+        .profile-controls {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .control-input {
+            width: 80%;
+        }
+
+        .profile-initials {
+            width: 120px;
+            height: 120px;
+            background: var(--primary);
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            font-size: 0.9rem;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .contact-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            font-weight: 600;
+        }
+
+        .contact-value {
+            color: var(--text-main);
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+        .contact-value a {
+            color: var(--primary);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--primary);
+            transition: color 0.2s;
+        }
+
+        .contact-value a:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .sidebar-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .sidebar-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+            font-weight: 500;
+        }
+
+        /* --- Main Content Styles --- */
+        .main-content {
+            padding: 50px;
+            background: var(--white);
+            /* Ensure distinct area */
+        }
+
+        .header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 30px;
+        }
+
+        .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--primary);
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+
+        .role {
+            font-size: 1.1rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .section {
+            margin-bottom: 45px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: var(--primary);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: #eee;
+        }
+
+        .bg-icon {
+            /* Abstract shape for flair */
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 30px;
+            border-left: 2px solid #f0f0f0;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 2px solid var(--accent);
+        }
+
+        .item-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 5px;
+        }
+
+        .item-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .item-time {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .item-sub {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .item-desc {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .item-desc ul li {
+            margin-bottom: 5px;
+            margin-left: 18px;
+        }
+
+        .badge-score {
+            display: inline-block;
+            margin-top: 5px;
+            background: #fff8e1;
+            color: #b58900;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .personal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px 30px;
+            font-size: 0.95rem;
+        }
+
+        .p-label {
+            color: #999;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        /* Mobile Layout */
+        @media (max-width: 768px) {
+            .resume-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                padding: 30px;
+                background: #fcfcfc;
+                border-bottom: 1px solid #eee;
+                border-right: none;
+            }
+
+            .main-content {
+                padding: 30px;
+            }
+
+            .name {
+                font-size: 2.2rem;
+            }
+
+            .item-head {
+                flex-direction: column;
+            }
+        }
+
+        /* Print Settings */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                display: block;
+            }
+
+            .resume-container {
+                box-shadow: none;
+                max-width: 100%;
+                border-radius: 0;
+                grid-template-columns: 280px 1fr;
+                /* Maintain sidebar in print */
+            }
+
+            .sidebar {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                background-color: #fcefe3 !important;
+                /* Force a very light tint if possible or fallback to white */
+            }
+
+            /* Force background printing for visuals */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="resume-container">
+        <!-- Sidebar Area -->
+        <aside class="sidebar">
+            <!-- Initials Avatar -->
+            <!-- Profile Picture -->
+            <div class="profile-section">
+                <div class="profile-wrapper" title="Click to upload new image">
+                    <img id="profile-image" src="https://placehold.co/150?text=Upload+Photo" alt="Profile">
+                </div>
+
+                <div class="profile-controls">
+                    <input type="file" id="imgUpload" accept="image/*" style="display: none;">
+                    <label for="imgUpload"
+                        style="font-size: 0.75rem; color: #666; cursor: pointer; text-decoration: underline;">Change
+                        Photo</label>
+
+                    <div style="display: flex; gap: 5px; width: 80%; justify-content: center;">
+                        <input type="range" id="scaleSlider" class="control-input" min="1" max="3" step="0.1" value="1"
+                            title="Zoom">
+                        <input type="range" id="rotateSlider" class="control-input" min="-180" max="180" step="1"
+                            value="0" title="Rotate">
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 5px;">
+                        <button id="mirrorBtn" title="Mirror"
+                            style="font-size: 0.9rem; padding: 2px 8px; cursor: pointer; border: 1px solid #ccc; background: #fff; border-radius: 4px;">⇄</button>
+                        <button id="cropBtn" title="Toggle Crop"
+                            style="font-size: 0.9rem; padding: 2px 8px; cursor: pointer; border: 1px solid #ccc; background: #fff; border-radius: 4px;">✂</button>
+                        <button id="resetBtn" title="Reset"
+                            style="font-size: 0.8rem; padding: 2px 8px; cursor: pointer; border: 1px solid #ccc; background: #fff; border-radius: 4px;">↺</button>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                const imgUpload = document.getElementById('imgUpload');
+                const profileImage = document.getElementById('profile-image');
+                const profileWrapper = document.querySelector('.profile-wrapper');
+                const scaleSlider = document.getElementById('scaleSlider');
+                const rotateSlider = document.getElementById('rotateSlider');
+                const mirrorBtn = document.getElementById('mirrorBtn');
+                const cropBtn = document.getElementById('cropBtn');
+                const resetBtn = document.getElementById('resetBtn');
+
+                let currentScale = 1;
+                let currentRotation = 0;
+                let currentMirrored = false;
+                let isCircular = true;
+                let currentX = 0;
+                let currentY = 0;
+                let isDragging = false;
+                let startX = 0;
+                let startY = 0;
+
+                const updateTransform = () => {
+                    const mirrorScale = currentMirrored ? -1 : 1;
+                    profileImage.style.transform = `translate(${currentX}px, ${currentY}px) scale(${currentScale * mirrorScale}, ${currentScale}) rotate(${currentRotation}deg)`;
+                };
+
+                // Handle Image Upload
+                imgUpload.addEventListener('change', function (event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            profileImage.src = e.target.result;
+                            resetTransform();
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                });
+
+                // Handle Zoom
+                scaleSlider.addEventListener('input', function () {
+                    currentScale = parseFloat(this.value);
+                    updateTransform();
+                });
+
+                // Handle Rotation
+                rotateSlider.addEventListener('input', function () {
+                    currentRotation = parseInt(this.value);
+                    updateTransform();
+                });
+
+                // Handle Mirror
+                mirrorBtn.addEventListener('click', function () {
+                    currentMirrored = !currentMirrored;
+                    updateTransform();
+                });
+
+                // Handle Crop (Toggle Shape)
+                cropBtn.addEventListener('click', function () {
+                    isCircular = !isCircular;
+                    profileWrapper.style.borderRadius = isCircular ? '50%' : '4px';
+                });
+
+                // Reset Function
+                function resetTransform() {
+                    currentScale = 1;
+                    currentRotation = 0;
+                    currentMirrored = false;
+                    currentX = 0;
+                    currentY = 0;
+                    isCircular = true;
+
+                    scaleSlider.value = 1;
+                    rotateSlider.value = 0;
+                    profileWrapper.style.borderRadius = '50%';
+
+                    updateTransform();
+                }
+
+                resetBtn.addEventListener('click', resetTransform);
+
+                // Handle Image Dragging
+                profileImage.addEventListener('mousedown', (e) => {
+                    e.preventDefault();
+                    isDragging = true;
+                    // Calculate start position relative to current translation
+                    startX = e.clientX - currentX;
+                    startY = e.clientY - currentY;
+                    profileImage.style.cursor = 'grabbing';
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    e.preventDefault();
+                    currentX = e.clientX - startX;
+                    currentY = e.clientY - startY;
+                    updateTransform();
+                });
+
+                // Stop dragging
+                const stopDrag = () => {
+                    if (isDragging) {
+                        isDragging = false;
+                        profileImage.style.cursor = 'grab';
+                    }
+                };
+
+                document.addEventListener('mouseup', stopDrag);
+                document.addEventListener('mouseleave', stopDrag);
+            </script>
+
+            <!-- Contact -->
+            <div class="sidebar-block">
+                <h3 class="sidebar-title">Contact</h3>
+                <ul class="contact-list">
+                    <li class="contact-item">
+                        <span class="contact-label">Phone</span>
+                        <span class="contact-value">+880 1617-119427</span>
+                    </li>
+                    <li class="contact-item">
+                        <span class="contact-label">Email</span>
+                        <span class="contact-value">infidayemeem@gmail.com</span>
+                    </li>
+                    <li class="contact-item">
+                        <span class="contact-label">LinkedIn</span>
+                        <span class="contact-value"><a
+                                href="https://www.linkedin.com/in/infidayesmin">in/infidayesmin</a></span>
+                    </li>
+                    <li class="contact-item">
+                        <span class="contact-label">Address</span>
+                        <span class="contact-value">Moddha Para, Mazar, Uttar Khan Collegiate School Road, Dhaka</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Skills -->
+            <div class="sidebar-block">
+                <h3 class="sidebar-title">Skills</h3>
+                <div class="tag-cloud">
+                    <!-- Professional -->
+
+                    <span class="tag">Teaching</span>
+                    <span class="tag">Lesson Planning</span>
+                    <span class="tag">Classroom Management</span>
+                    <span class="tag">Public Speaking</span>
+                    <!-- Tech -->
+                    <span class="tag">MS Office</span>
+                    <span class="tag">Google Workspace</span>
+                    <span class="tag">Canva</span>
+                    <span class="tag">Basic Prompt Engineering</span>
+                </div>
+            </div>
+
+            <!-- Languages -->
+            <div class="sidebar-block">
+                <h3 class="sidebar-title">Languages</h3>
+                <ul class="contact-list">
+                    <li class="contact-item">
+                        <span class="contact-value">Bengali (Native)</span>
+                    </li>
+                    <li class="contact-item">
+                        <span class="contact-value">English (Working Proficiency)</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Personal Info (Short) -->
+            <div class="sidebar-block">
+                <h3 class="sidebar-title">Personal Details</h3>
+                <ul class="contact-list">
+                    <li class="contact-item">
+                        <div>
+                            <span class="p-label">Nationality:</span> Bangladeshi
+                        </div>
+                        <div>
+                            <span class="p-label">Religion:</span> Islam
+                        </div>
+                        <div>
+                            <span class="p-label">Marital Status:</span> Married
+                        </div>
+                        <div>
+                            <span class="p-label">Date of Birth:</span> 10 Dec 2000
+                        </div>
+                        <div>
+                            <span class="p-label">Blood Group:</span> B+
+                        </div>
+                        <div>
+                            <span class="p-label">Height:</span> 5' 1"
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <header class="header">
+                <h1 class="name">Infida Yesmin</h1>
+                <p class="role">Instructor || Bangla & Economics</p>
+                <div style="margin-top: 15px; color: #666; font-size: 0.95rem; text-align: justify;">
+                    Experienced in teaching Bengali and Economics to secondary and higher secondary students.
+                    Committed to continuous learning and maintaining a disciplined, principle-centered lifestyle.
+                    Skilled in classroom management, lesson planning, and leveraging modern educational tools.
+                </div>
+            </header>
+
+            <!-- Experience Section -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="bg-icon"></span>
+                    <h2 class="section-title">Experience</h2>
+                    <div class="section-line"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="item-head">
+                        <div class="item-title">Instructor of Elementary Economics</div>
+                        <div class="item-time">2024 – Present</div>
+                    </div>
+                    <div class="item-sub">Protisruti Sikkha Poribar, Dhaka</div>
+                    <div class="item-desc">
+                        <ul>
+                            <li>Delivering comprehensive lectures on micro and macroeconomics concepts for Class 9-12.
+                            </li>
+                            <li>Preparing students for board examinations with tailored lesson plans and mock tests.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="item-head">
+                        <div class="item-title">Instructor of Bangla Literature & Grammar</div>
+                        <div class="item-time">2023 – Present</div>
+                    </div>
+                    <div class="item-sub">Protisruti Sikkha Poribar, Dhaka</div>
+                    <div class="item-desc">
+                        <ul>
+                            <li>Teaching Bengali literature and grammar to students of Class 6-12.</li>
+                            <li>Focusing on academic excellence and fostering an engaging learning environment.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Education Section -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="bg-icon"></span>
+                    <h2 class="section-title">Education</h2>
+                    <div class="section-line"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="item-head">
+                        <div class="item-title">B.S.S (Honours) in Economics</div>
+                        <div class="item-time">Graduated 2023</div>
+                    </div>
+                    <div class="item-sub">Tejgaon Mohila College (National University)</div>
+                    <div class="badge-score">CGPA: 3.15 / 4.00</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="item-head">
+                        <div class="item-title">Higher Secondary Certificate (HSC)</div>
+                        <div class="item-time">2019</div>
+                    </div>
+                    <div class="item-sub">Govt. Kalachandpur High School and College</div>
+                    <div class="badge-score">GPA: 3.58 / 5.00</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="item-head">
+                        <div class="item-title">Secondary School Certificate (SSC)</div>
+                        <div class="item-time">2017</div>
+                    </div>
+                    <div class="item-sub">Uttar Khan Collegiate School</div>
+                    <div class="badge-score">GPA: 4.68 / 5.00</div>
+                </div>
+            </section>
+
+            <!-- Interests Section -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="bg-icon"></span>
+                    <h2 class="section-title">Interests</h2>
+                    <div class="section-line"></div>
+                </div>
+                <div class="tag-cloud">
+                    <span class="tag">Islamic Economics</span>
+                    <span class="tag">Literature</span>
+                    <span class="tag">Traveling</span>
+                    <span class="tag">Cooking & Recipe Experimentation</span>
+                </div>
+            </section>
+
+
+
+        </main>
+    </div>
+
+</body>
+
+</html>
