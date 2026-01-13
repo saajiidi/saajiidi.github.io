@@ -196,11 +196,22 @@ body.light-mode .navbar-toggler-icon {
     text-transform: uppercase;
     letter-spacing: 0.05rem;
     color: var(--sidenav-text);
+    padding: 0.75rem 1.5rem;
+    /* More spacing */
+    border-radius: 8px;
+    /* Rounded corners for hover effect */
+    transition: all 0.3s ease;
+    margin: 0.2rem 1rem;
+    /* Spacing between links */
 }
 
 #sideNav .navbar-nav .nav-item .nav-link:hover,
 #sideNav .navbar-nav .nav-item .nav-link.active {
     color: var(--primary-color);
+    background: rgba(255, 87, 34, 0.1);
+    /* Subtle background on hover */
+    transform: translateX(5px);
+    /* Slight movement */
 }
 
 /* Mobile: Center Items */
@@ -484,13 +495,15 @@ body.light-mode .navbar-toggler-icon {
 @media (max-width: 991px) {
     .theme-toggle {
         top: 15px;
-        right: 70px; /* Slight adjustment */
+        right: 70px;
+        /* Slight adjustment */
         left: auto;
         width: 2.5rem;
         height: 2.5rem;
         font-size: 1rem;
         color: var(--text-primary);
-        background: rgba(255, 255, 255, 0.1); /* Glass effect on mobile too */
+        background: rgba(255, 255, 255, 0.1);
+        /* Glass effect on mobile too */
         backdrop-filter: blur(10px);
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -500,11 +513,12 @@ body.light-mode .navbar-toggler-icon {
         padding-top: 3rem !important;
         padding-bottom: 3rem !important;
         /* Minimize vertical scrolling on mobile */
-        min-height: auto; 
+        min-height: auto;
     }
 
     h1 {
-        font-size: 2.5rem; /* Better fit for mobile */
+        font-size: 2.5rem;
+        /* Better fit for mobile */
         line-height: 1.2;
     }
 
@@ -516,9 +530,10 @@ body.light-mode .navbar-toggler-icon {
     .subheading {
         font-size: 1rem;
     }
-    
+
     .card-glass {
-        padding: 1.5rem; /* More compact cards on mobile */
+        padding: 1.5rem;
+        /* More compact cards on mobile */
         margin-bottom: 1.5rem;
     }
 
@@ -527,13 +542,14 @@ body.light-mode .navbar-toggler-icon {
         outline: none;
         padding: 0.5rem;
     }
-    
+
     .navbar-toggler:focus {
         box-shadow: none;
     }
-    
+
     #sideNav .navbar-brand .img-profile {
-        max-width: 8rem; /* Smaller profile pic on mobile */
+        max-width: 8rem;
+        /* Smaller profile pic on mobile */
         max-height: 8rem;
     }
 }
