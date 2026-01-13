@@ -484,32 +484,57 @@ body.light-mode .navbar-toggler-icon {
 @media (max-width: 991px) {
     .theme-toggle {
         top: 15px;
-        right: 60px;
-        /* Move to Top-Right Corner (Left of Hamburger) */
+        right: 70px; /* Slight adjustment */
         left: auto;
-        width: 2.2rem;
-        height: 2.2rem;
-        font-size: 0.9rem;
-        color: var(--sidenav-text);
-        background: rgba(255, 255, 255, 0.8);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1rem;
+        color: var(--text-primary);
+        background: rgba(255, 255, 255, 0.1); /* Glass effect on mobile too */
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .resume-section {
         padding-top: 3rem !important;
         padding-bottom: 3rem !important;
+        /* Minimize vertical scrolling on mobile */
+        min-height: auto; 
     }
 
     h1 {
-        font-size: 3rem;
+        font-size: 2.5rem; /* Better fit for mobile */
+        line-height: 1.2;
     }
 
     h2 {
-        font-size: 2.2rem;
+        font-size: 2rem;
+        margin-bottom: 2rem;
     }
 
     .subheading {
         font-size: 1rem;
+    }
+    
+    .card-glass {
+        padding: 1.5rem; /* More compact cards on mobile */
+        margin-bottom: 1.5rem;
+    }
+
+    .navbar-toggler {
+        border: none;
+        outline: none;
+        padding: 0.5rem;
+    }
+    
+    .navbar-toggler:focus {
+        box-shadow: none;
+    }
+    
+    #sideNav .navbar-brand .img-profile {
+        max-width: 8rem; /* Smaller profile pic on mobile */
+        max-height: 8rem;
     }
 }
 
