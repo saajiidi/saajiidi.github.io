@@ -1,49 +1,59 @@
 /* Modern Global Variables */
 :root {
-    /* Primary Color Palette - Deep Orange Theme */
-    --primary-color: #ff5722;
-    /* Deep Orange */
-    --secondary-color: #6c757d;
-    --accent-color: #ff9800;
-    /* Orange for accent */
+    /* Premium Indigo/Emerald Theme */
+    --primary-color: #6366f1;
+    /* Indigo 500 */
+    --primary-light: #818cf8;
+    --primary-dark: #4f46e5;
+    --accent-color: #10b981;
+    /* Emerald 500 */
+    --secondary-color: #64748b;
 
-    /* Dark Theme Colors */
-    --bg-dark: #0b1120;
-    /* Darker background for contrast */
-    --bg-card: rgba(15, 23, 42, 0.8);
-    /* Darker, less transparent cards */
-    --text-primary: #ffffff;
-    /* Pure white for primary text */
-    --text-secondary: #cbd5e1;
-    /* Lighter gray for secondary text */
-    --text-highlight: #ff7043;
-    /* Lighter deep orange for highlights */
+    /* dark Theme Colors */
+    --bg-dark: #030712;
+    /* Very dark blue-black */
+    --bg-card: rgba(17, 24, 39, 0.7);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-highlight: #818cf8;
 
     /* Spacing & Layout */
-    --sidebar-width: 17rem;
+    --sidebar-width: 18rem;
 
     /* Glassmorphism */
-    --glass-bg: rgba(15, 23, 42, 0.6);
-    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
-    --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    --glass-bg: rgba(17, 24, 39, 0.6);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 
-    /* Navbar Colors (Inverted): Default Dark Mode has WHITE/LIGHT Navbar */
-    --sidenav-bg: rgba(255, 255, 255, 0.95);
-    --sidenav-text: #0f172a;
+    /* Navbar Colors */
+    --sidenav-bg: rgba(15, 23, 42, 0.9);
+    --sidenav-text: #f8fafc;
+}
+
+/* Scroll Progress Bar */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    z-index: 9999;
+    transition: width 0.1s ease;
 }
 
 /* Light Mode Overrides */
 body.light-mode {
     --bg-dark: #f8fafc;
-    --bg-card: rgba(255, 255, 255, 0.8);
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
-    --glass-bg: rgba(255, 255, 255, 0.7);
+    --bg-card: rgba(255, 255, 255, 0.7);
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --glass-bg: rgba(255, 255, 255, 0.8);
     --glass-border: 1px solid rgba(0, 0, 0, 0.05);
 
     /* Navbar Colors (Inverted): Light Mode has DARK/BLACK Navbar */
     --sidenav-bg: #0f172a;
-    --sidenav-text: #f8fafc;
+    --sidenav-text: #f1f5f9;
 }
 
 html {
@@ -94,13 +104,25 @@ h1 {
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(30px);
     }
 
     to {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Scroll Reveal Animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-active {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 h2 {
@@ -627,5 +649,127 @@ body.light-mode .navbar-toggler-icon {
     100% {
         transform: scale(1);
         box-shadow: 0 0 0 0 rgba(221, 36, 118, 0);
+    }
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border: none;
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background: var(--primary-dark);
+    transform: translateY(-5px);
+    color: white;
+}
+
+/* Productivity: Search Bar in Sidebar */
+.sidebar-search {
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.sidebar-search input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.sidebar-search input:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+body.light-mode .sidebar-search input {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: #0f172a;
+}
+
+/* Mobile Bottom Navigation */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--sidenav-bg);
+    backdrop-filter: blur(15px);
+    border-top: var(--glass-border);
+    z-index: 1060;
+    padding: 0.5rem 0;
+    justify-content: space-around;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav-item i {
+    font-size: 1.2rem;
+    margin-bottom: 2px;
+}
+
+.mobile-nav-item:hover,
+.mobile-nav-item.active {
+    color: var(--primary-color);
+}
+
+@media (max-width: 991px) {
+    .mobile-nav {
+        display: flex;
+    }
+
+    body {
+        padding-bottom: 4rem;
+        /* Space for bottom nav */
+    }
+
+    .resume-section {
+        padding-top: 5rem !important;
+        padding-bottom: 5rem !important;
+    }
+
+    #sideNav {
+        padding: 0.5rem 1rem;
+    }
+
+    #sideNav .navbar-brand {
+        font-size: 1.2rem;
     }
 }

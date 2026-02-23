@@ -57,6 +57,26 @@ window.addEventListener('DOMContentLoaded', event => {
 
   // Smooth scroll JS removed in favor of CSS html { scroll-behavior: smooth; }
 
+  // Scroll Progress Bar Logic
+  const scrollProgress = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', () => {
+    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (window.scrollY / windowHeight) * 100;
+    if (scrollProgress) {
+      scrollProgress.style.width = scrolled + '%';
+    }
+
+    // Show/Hide Back to Top Button
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop) {
+      if (window.scrollY > 300) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+    }
+  });
+
   // Intersection Observer for Animations
   const observerOptions = {
     threshold: 0.1,
@@ -66,18 +86,72 @@ window.addEventListener('DOMContentLoaded', event => {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
+        entry.target.classList.add('reveal-active');
       }
     });
   }, observerOptions);
 
-  // Observe all sections for animation
-  document.querySelectorAll('.resume-section').forEach(section => {
-    section.style.opacity = '0';
-    section.style.transform = 'translateY(20px)';
-    section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(section);
+  // Observe all sections and cards for animation
+  document.querySelectorAll('.resume-section, .card-glass, .resume-item').forEach(el => {
+    el.classList.add('reveal');
+    observer.observe(el);
   });
+
+  // Project Filtering Logic
+  window.filterProjects = function (category) {
+    const cards = document.querySelectorAll('.project-card');
+    const buttons = document.querySelectorAll('.project-filters button');
+
+    // Update active button
+    buttons.forEach(btn => {
+      btn.classList.remove('btn-primary', 'active');
+      btn.classList.add('btn-outline-primary');
+    });
+    event.currentTarget.classList.remove('btn-outline-primary');
+    event.currentTarget.classList.add('btn-primary', 'active');
+
+    // Filter cards
+    cards.forEach(card => {
+      if (category === 'all' || card.getAttribute('data-category') === category) {
+        card.style.display = 'block';
+        setTimeout(() => card.classList.add('reveal-active'), 10);
+      } else {
+        card.style.display = 'none';
+        card.classList.remove('reveal-active');
+      }
+    });
+  };
+
+  // Sidebar Search Logic
+  window.filterContent = function () {
+    const searchTerm = document.getElementById('sidebarSearch').value.toLowerCase();
+    const searchableElements = document.querySelectorAll('.project-card, .resume-item');
+
+    searchableElements.forEach(el => {
+      const text = el.innerText.toLowerCase();
+      if (text.includes(searchTerm)) {
+        el.style.display = 'block';
+        setTimeout(() => el.classList.add('reveal-active'), 10);
+      } else {
+        el.style.display = 'none';
+        el.classList.remove('reveal-active');
+      }
+    });
+  };
+
+  // Copy Email to Clipboard
+  window.copyEmail = function (email) {
+    navigator.clipboard.writeText(email).then(() => {
+      const btn = event.currentTarget;
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-check me-2"></i> Copied!';
+      btn.classList.replace('btn-primary', 'btn-success');
+
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.classList.replace('btn-success', 'btn-primary');
+      }, 2000);
+    });
+  };
 
 });

@@ -27,6 +27,7 @@
 </head>
 
 <body id="page-top">
+  <div class="scroll-progress" id="scrollProgress"></div>
 
   <nav class="navbar navbar-expand-lg fixed-top" id="sideNav">
     <a class="navbar-brand js-scroll-trigger" href="#page-top">
@@ -40,6 +41,9 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="sidebar-search d-none d-lg-block">
+        <input type="text" id="sidebarSearch" placeholder="Search portfolio..." onkeyup="filterContent()">
+      </div>
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="#about">About</a>
@@ -111,7 +115,11 @@
           <a href="mailto:sajid.islam.chowdhury@gmail.com" class="btn btn-primary me-md-3 mb-3 mb-md-0">
             <i class="far fa-envelope me-2"></i> Email Me
           </a>
-          <a href="https://wa.me/+8801824526054?text=" class="btn btn-primary me-md-3 mb-3 mb-md-0">
+          <button onclick="copyEmail('sajid.islam.chowdhury@gmail.com')"
+            class="btn btn-outline-primary me-md-3 mb-3 mb-md-0">
+            <i class="far fa-copy me-2"></i> Copy Email
+          </button>
+          <a href="https://wa.me/+8801824526054?text=" class="btn btn-success me-md-3 mb-3 mb-md-0">
             <i class="fab fa-whatsapp me-2"></i> WhatsApp
           </a>
         </div>
@@ -645,8 +653,17 @@
       <div class="w-100">
         <h2 class="mb-5">Featured Projects</h2>
 
-        <div class="row">
-          <div class="col-lg-6 mb-4">
+        <div class="project-filters mb-4">
+          <button class="btn btn-sm btn-primary active" onclick="filterProjects('all')">All</button>
+          <button class="btn btn-sm btn-outline-primary" onclick="filterProjects('analytics')">Analytics</button>
+          <button class="btn btn-sm btn-outline-primary" onclick="filterProjects('apps')">Apps</button>
+          <button class="btn btn-sm btn-outline-primary" onclick="filterProjects('data-viz')">Data Viz</button>
+          <button class="btn btn-sm btn-outline-primary" onclick="filterProjects('ml')">Machine Learning</button>
+        </div>
+
+        <div class="row" id="projectGrid">
+          <!-- Apps -->
+          <div class="col-lg-6 mb-4 project-card" data-category="apps">
             <div class="card-glass h-100 card-highlight-gradient">
               <img src="img/project-showcase.png" class="card-img-top" alt="ProjectsShowCase Feature Photo"
                 style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1);">
@@ -698,7 +715,9 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-6 mb-4">
+
+          <!-- Analytics -->
+          <div class="col-lg-6 mb-4 project-card" data-category="analytics">
             <div class="card-glass h-100">
               <img src="img/project-ecommerce.png" class="card-img-top" alt="E-commerce Dashboard Feature Photo"
                 style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1);">
@@ -708,8 +727,7 @@
                   E-commerce Dashboard
                 </h5>
                 <p class="card-text">A comprehensive e-commerce dashboard tracking performance from 2021-2025.
-                  Visualizes over <strong>BDT 127M+</strong> in revenue and <strong>90k+</strong> orders. Features
-                  customer segmentation, retention analysis (23.8%), and varying monthly trends.</p>
+                  Visualizes over <strong>BDT 127M+</strong> in revenue and <strong>90k+</strong> orders.</p>
                 <div class="mb-2">
                   <span class="badge bg-primary me-1">React</span>
                   <span class="badge bg-success me-1">Data Visualization</span>
@@ -722,7 +740,9 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-6 mb-4">
+
+          <!-- Apps -->
+          <div class="col-lg-6 mb-4 project-card" data-category="apps">
             <div class="card-glass h-100">
               <img src="img/project-whatsapp.png" class="card-img-top" alt="WAConnect Pro Feature Photo"
                 style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1);">
@@ -736,7 +756,6 @@
                 <div class="mb-2">
                   <span class="badge bg-success me-1">Flask</span>
                   <span class="badge bg-warning me-1">Python</span>
-                  <span class="badge bg-primary me-1">Pandas</span>
                   <span class="badge bg-dark me-1">Vercel</span>
                 </div>
                 <a href="https://github.com/saajiidi/WAConnect-Pro" target="_blank"
@@ -747,7 +766,8 @@
             </div>
           </div>
 
-          <div class="col-lg-6 mb-4">
+          <!-- Analytics -->
+          <div class="col-lg-6 mb-4 project-card" data-category="analytics">
             <div class="card-glass h-100">
               <img src="img/project-analytics.png" class="card-img-top"
                 alt="ECommerce Analytics Dashboard Feature Photo"
@@ -755,15 +775,13 @@
               <div class="card-body">
                 <h5 class="card-title">
                   <i class="fas fa-chart-pie text-warning me-2"></i>
-                  ECommerce Analytics Dashboard
+                  ECommerce Analytics
                 </h5>
                 <p class="card-text">Comprehensive analytics platform tracking 12K+ orders and BDT 4.2M+ revenue.
-                  Features customer segmentation, sales forecasting, and interactive reports for data-driven decision
-                  making.</p>
+                  Features customer segmentation and sales forecasting.</p>
                 <div class="mb-2">
                   <span class="badge bg-warning me-1">Data Analytics</span>
                   <span class="badge bg-primary me-1">Sales Reports</span>
-                  <span class="badge bg-info me-1">Business Intelligence</span>
                 </div>
                 <a href="https://saajiidi.github.io/-ECommerce-Analytics-Dashboard/" target="_blank"
                   class="btn btn-outline-primary btn-sm mt-3">
@@ -773,7 +791,7 @@
             </div>
           </div>
 
-          <div class="col-lg-6 mb-4">
+          <div class="col-lg-6 mb-4 project-card" data-category="apps">
             <div class="card-glass h-100">
               <img src="img/project-whatsapp.png" class="card-img-top" alt="WAConnect Pro Feature Photo"
                 style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1);">
@@ -783,11 +801,10 @@
                   WAConnect Pro
                 </h5>
                 <p class="card-text">Data processing automation tool converting customer lists into WhatsApp-ready
-                  links. Features include file processing, number normalization, and report generation.</p>
+                  links. Features include file processing and report generation.</p>
                 <div class="mb-2">
                   <span class="badge bg-success me-1">Flask</span>
                   <span class="badge bg-primary me-1">Python</span>
-                  <span class="badge bg-info me-1">Automation</span>
                 </div>
                 <a href="https://github.com/saajiidi/WAConnect-Pro/tree/main" target="_blank"
                   class="btn btn-outline-primary btn-sm">
@@ -797,21 +814,20 @@
             </div>
           </div>
 
-          <div class="col-lg-6 mb-4">
+          <div class="col-lg-6 mb-4 project-card" data-category="analytics">
             <div class="card h-100 shadow-sm">
               <img src="img/project-showcase.png" class="card-img-top" alt="Growth Analysis Dashboard Feature Photo"
                 style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1);">
               <div class="card-body">
                 <h5 class="card-title">
                   <i class="fas fa-chart-line text-primary me-2"></i>
-                  Growth Analysis Dashboard
+                  Growth Analysis
                 </h5>
                 <p class="card-text">A comprehensive web development project showcasing modern web technologies and best
-                  practices. Features responsive design, clean architecture, and efficient code organization.</p>
+                  practices.</p>
                 <div class="mb-2">
                   <span class="badge bg-primary me-1">HTML/CSS</span>
                   <span class="badge bg-secondary me-1">JavaScript</span>
-                  <span class="badge bg-info me-1">Web Development</span>
                 </div>
                 <a href="https://saajiidi.github.io/Growth-Analysis-Dashboard/" target="_blank"
                   class="btn btn-outline-primary btn-sm mt-3">
@@ -820,8 +836,7 @@
               </div>
             </div>
           </div>
-
-          <div class="col-lg-6 mb-4">
+          <div class="col-lg-6 mb-4 project-card" data-category="data-viz">
             <div class="card-glass h-100">
               <img src="img/project-border-security.png" class="card-img-top"
                 alt="Border Security Analysis Feature Photo"
@@ -832,12 +847,10 @@
                   Border Security Analysis
                 </h5>
                 <p class="card-text">Data visualization project analyzing border incident trends in Bangladesh using
-                  statistical methods and interactive charts. Provides insights for policy makers and security analysts.
-                </p>
+                  statistical methods and interactive charts.</p>
                 <div class="mb-2">
                   <span class="badge bg-warning me-1">Data Analysis</span>
                   <span class="badge bg-success me-1">Visualization</span>
-                  <span class="badge bg-dark me-1">Statistics</span>
                 </div>
                 <a href="https://saajiidi.github.io/Border-Killing-Trend-in-Bangladesh/" target="_blank"
                   class="btn btn-outline-primary btn-sm mt-3">
@@ -846,165 +859,165 @@
               </div>
             </div>
           </div>
-
-          <div class="col-lg-6 mb-4">
-            <div class="card-glass h-100">
-              <img src="img/project-air-passenger.png" class="card-img-top"
-                alt="Air Passenger Forecasting Feature Photo"
-                style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1);">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <i class="fas fa-plane text-info me-2"></i>
-                  Air Passenger Forecasting
-                </h5>
-                <p class="card-text">Time series analysis comparing multiple forecasting models (ARIMA, Exponential
-                  Smoothing, Linear Regression) for airline passenger prediction with performance metrics.</p>
-                <div class="mb-2">
-                  <span class="badge bg-primary me-1">Time Series</span>
-                  <span class="badge bg-secondary me-1">ARIMA</span>
-                  <span class="badge bg-info me-1">Forecasting</span>
-                </div>
-                <a href="https://saajiidi.github.io/Air_Passengers_Forecasting_Models/" target="_blank"
-                  class="btn btn-outline-primary btn-sm mt-3">
-                  <i class="fas fa-external-link-alt"></i> View Project
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6 mb-4">
-            <div class="card-glass h-100">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <i class="fab fa-react text-success me-2"></i>
-                  E-Commerce Platform
-                </h5>
-                <p class="card-text">Modern e-commerce interface built with React.js featuring responsive design,
-                  product catalog, shopping cart functionality, and user authentication system.</p>
-                <div class="mb-2">
-                  <span class="badge bg-success me-1">React</span>
-                  <span class="badge bg-warning me-1">JavaScript</span>
-                  <span class="badge bg-primary me-1">CSS</span>
-                </div>
-                <a href="https://gear-master.vercel.app/" target="_blank" class="btn btn-outline-primary btn-sm mt-3">
-                  <i class="fas fa-external-link-alt"></i> View Project
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6 mb-4">
-            <div class="card-glass h-100">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <i class="fas fa-project-diagram text-primary me-2"></i>
-                  ML Portfolio Project
-                </h5>
-                <p class="card-text">A comprehensive portfolio showcasing various machine learning projects, including
-                  data analysis, model building, and deployment. Features interactive visualizations and detailed
-                  project walkthroughs.</p>
-                <div class="mb-2">
-                  <span class="badge bg-primary me-1">Machine Learning</span>
-                  <span class="badge bg-secondary me-1">Python</span>
-                  <span class="badge bg-info me-1">Jupyter</span>
-                </div>
-                <a href="https://github.com/saajiidi/ml-portfolio-project" target="_blank"
-                  class="btn btn-outline-primary btn-sm mt-3">
-                  <i class="fab fa-github"></i> View on GitHub
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6 mb-4">
-            <div class="card-glass h-100">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <i class="fas fa-images text-primary me-2"></i>
-                  Pinterest Image Scraper
-                </h5>
-                <p class="card-text">A versatile Python tool for downloading images from Pinterest with multiple
-                  interfaces including web UI and command line. Features include customizable search queries, batch
-                  downloads, and organized storage.</p>
-                <div class="mb-2">
-                  <span class="badge bg-primary me-1">Python</span>
-                  <span class="badge bg-secondary me-1">Web Scraping</span>
-                  <span class="badge bg-info me-1">Selenium</span>
-                  <span class="badge bg-success me-1">Flask</span>
-                </div>
-                <a href="https://saajiidi.github.io/Reusable-Pinterest-Image-Scraper/" target="_blank"
-                  class="btn btn-outline-primary btn-sm mt-3">
-                  <i class="fab fa-github"></i> View on GitHub
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6 mb-4">
-            <div class="card-glass h-100">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <i class="fas fa-code text-primary me-2"></i>
-                  Web Development Project
-                </h5>
-                <p class="card-text">A comprehensive web development project showcasing modern web technologies and best
-                  practices. Features responsive design, clean architecture, and efficient code organization.</p>
-                <div class="mb-2">
-                  <span class="badge bg-primary me-1">HTML/CSS</span>
-                  <span class="badge bg-secondary me-1">JavaScript</span>
-                  <span class="badge bg-info me-1">Web Development</span>
-                </div>
-                <a href="https://github.com/saajiidi/B2B-StockLot-E-Commerce-BD" target="_blank"
-                  class="btn btn-outline-primary btn-sm mt-3">
-                  <i class="fab fa-github"></i> View on GitHub
-                </a>
-              </div>
-            </div>
-          </div>
-
         </div>
 
-        <div class="mt-4">
-          <h4 class="mb-3">Data Visualization Portfolio</h4>
-          <div class="row">
-            <div class="col-md-4 mb-3">
-              <div class="card">
-                <div class="card-body text-center">
-                  <i class="fas fa-chart-pie fa-2x text-primary mb-2"></i>
-                  <h6 class="card-title">Tableau Dashboard</h6>
-                  <p class="card-text small">Muslim Population Demographics</p>
-                  <a href="https://public.tableau.com/views/MuslimPopulationbyEthinicity/Sheet2?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link"
-                    target="_blank" class="btn btn-sm btn-outline-primary">View</a>
-                </div>
+        <!-- Data Viz -->
+        <div class="col-lg-6 mb-4 project-card" data-category="data-viz">
+          <div class="card-glass h-100">
+            <img src="img/project-air-passenger.png" class="card-img-top" alt="Air Passenger Forecasting Feature Photo"
+              style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <div class="card-body">
+              <h5 class="card-title">
+                <i class="fas fa-plane text-info me-2"></i>
+                Air Passenger Forecasting
+              </h5>
+              <p class="card-text">Time series analysis comparing multiple forecasting models (ARIMA, Exponential
+                Smoothing) for airline passenger prediction.</p>
+              <div class="mb-2">
+                <span class="badge bg-primary me-1">Time Series</span>
+                <span class="badge bg-info me-1">Forecasting</span>
+              </div>
+              <a href="https://saajiidi.github.io/Air_Passengers_Forecasting_Models/" target="_blank"
+                class="btn btn-outline-primary btn-sm mt-3">
+                <i class="fas fa-external-link-alt"></i> View Project
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Apps -->
+        <div class="col-lg-6 mb-4 project-card" data-category="apps">
+          <div class="card-glass h-100">
+            <div class="card-body">
+              <h5 class="card-title">
+                <i class="fab fa-react text-success me-2"></i>
+                E-Commerce Platform
+              </h5>
+              <p class="card-text">Modern e-commerce interface built with React.js featuring responsive design and
+                shopping cart functionality.</p>
+              <div class="mb-2">
+                <span class="badge bg-success me-1">React</span>
+                <span class="badge bg-warning me-1">JavaScript</span>
+              </div>
+              <a href="https://gear-master.vercel.app/" target="_blank" class="btn btn-outline-primary btn-sm mt-3">
+                <i class="fas fa-external-link-alt"></i> View Project
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Machine Learning -->
+        <div class="col-lg-6 mb-4 project-card" data-category="ml">
+          <div class="card-glass h-100">
+            <div class="card-body">
+              <h5 class="card-title">
+                <i class="fas fa-project-diagram text-primary me-2"></i>
+                ML Portfolio Project
+              </h5>
+              <p class="card-text">A comprehensive portfolio showcasing various machine learning projects, including
+                data analysis and model building.</p>
+              <div class="mb-2">
+                <span class="badge bg-primary me-1">Machine Learning</span>
+                <span class="badge bg-secondary me-1">Python</span>
+              </div>
+              <a href="https://github.com/saajiidi/ml-portfolio-project" target="_blank"
+                class="btn btn-outline-primary btn-sm mt-3">
+                <i class="fab fa-github"></i> View on GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Apps -->
+        <div class="col-lg-6 mb-4 project-card" data-category="apps">
+          <div class="card-glass h-100">
+            <div class="card-body">
+              <h5 class="card-title">
+                <i class="fas fa-images text-primary me-2"></i>
+                Pinterest Multi-Scraper
+              </h5>
+              <p class="card-text">A versatile Python tool for downloading images from Pinterest with multiple
+                interfaces including web UI and command line.</p>
+              <div class="mb-2">
+                <span class="badge bg-primary me-1">Python</span>
+                <span class="badge bg-info me-1">Selenium</span>
+              </div>
+              <a href="https://saajiidi.github.io/Reusable-Pinterest-Image-Scraper/" target="_blank"
+                class="btn btn-outline-primary btn-sm mt-3">
+                <i class="fab fa-github"></i> View on GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mt-4">
+        <h4 class="mb-3">Data Visualization Portfolio</h4>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <div class="card">
+              <div class="card-body text-center">
+                <i class="fas fa-chart-pie fa-2x text-primary mb-2"></i>
+                <h6 class="card-title">Tableau Dashboard</h6>
+                <p class="card-text small">Muslim Population Demographics</p>
+                <a href="https://public.tableau.com/views/MuslimPopulationbyEthinicity/Sheet2?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link"
+                  target="_blank" class="btn btn-sm btn-outline-primary">View</a>
               </div>
             </div>
-            <div class="col-md-4 mb-3">
-              <div class="card">
-                <div class="card-body text-center">
-                  <i class="fas fa-chart-bar fa-2x text-success mb-2"></i>
-                  <h6 class="card-title">Economic Analysis</h6>
-                  <p class="card-text small">GDP vs Debt Correlation</p>
-                  <a href="https://saajiidi.github.io/Economic-Analysis-GDP-vs-Debt-Correlation/" target="_blank"
-                    class="btn btn-sm btn-outline-primary">View</a>
-                </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card">
+              <div class="card-body text-center">
+                <i class="fas fa-chart-bar fa-2x text-success mb-2"></i>
+                <h6 class="card-title">Economic Analysis</h6>
+                <p class="card-text small">GDP vs Debt Correlation</p>
+                <a href="https://saajiidi.github.io/Economic-Analysis-GDP-vs-Debt-Correlation/" target="_blank"
+                  class="btn btn-sm btn-outline-primary">View</a>
               </div>
             </div>
-            <div class="col-md-4 mb-3">
-              <div class="card">
-                <div class="card-body text-center">
-                  <i class="fas fa-map fa-2x text-danger mb-2"></i>
-                  <h6 class="card-title">Interactive Map</h6>
-                  <p class="card-text small">Security Incidents Visualization</p>
-                  <a href="https://trr-bd.vercel.app" target="_blank" class="btn btn-sm btn-outline-primary">View</a>
-                </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card">
+              <div class="card-body text-center">
+                <i class="fas fa-map fa-2x text-danger mb-2"></i>
+                <h6 class="card-title">Interactive Map</h6>
+                <p class="card-text small">Security Incidents Visualization</p>
+                <a href="https://trr-bd.vercel.app" target="_blank" class="btn btn-sm btn-outline-primary">View</a>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+  </div>
+  </section>
 
   </div>
+
+  <!-- Mobile Bottom Navigation -->
+  <div class="mobile-nav">
+    <a href="#about" class="mobile-nav-item">
+      <i class="fas fa-user"></i>
+      <span>About</span>
+    </a>
+    <a href="#experience" class="mobile-nav-item">
+      <i class="fas fa-briefcase"></i>
+      <span>Jobs</span>
+    </a>
+    <a href="#projects" class="mobile-nav-item">
+      <i class="fas fa-project-diagram"></i>
+      <span>Projects</span>
+    </a>
+    <a href="#skills" class="mobile-nav-item">
+      <i class="fas fa-tools"></i>
+      <span>Skills</span>
+    </a>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" id="backToTop" onclick="window.scrollTo(0, 0)" title="Back to Top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 
   <!-- Bootstrap 5 JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
