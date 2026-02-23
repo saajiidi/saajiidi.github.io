@@ -97,6 +97,18 @@ window.addEventListener('DOMContentLoaded', event => {
     observer.observe(el);
   });
 
+  // Mouse tracking for card spotlight effect
+  document.getElementById('projectGrid').addEventListener('mousemove', (e) => {
+    const cards = document.querySelectorAll('.card-glass');
+    cards.forEach(card => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    });
+  });
+
   // Project Filtering Logic
   window.filterProjects = function (category) {
     const cards = document.querySelectorAll('.project-card');
