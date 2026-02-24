@@ -5,15 +5,31 @@
     /* Indigo 500 */
     --primary-light: #818cf8;
     --primary-dark: #4f46e5;
-    --accent-color: #38bdf8;
-    /* Sky 400 - Better for Data Viz theme */
+    --accent-color: #0ea5e9;
+    /* Sky 500 - Stronger for visibility */
     --secondary-color: #64748b;
 
-    /* Layout - Shift to Top Nav */
+    /* Default Theme (Dark Mode) Variables */
+    --bg-page: #0f172a;
+    /* Slate 900 */
+    --bg-dark: #020617;
+    /* Slate 950 */
+    --bg-card: rgba(30, 41, 59, 0.7);
+    /* Slate 800 glass */
+    --text-primary: #f8fafc;
+    /* Slate 50 */
+    --text-secondary: #94a3b8;
+    /* Slate 400 */
+    --text-highlight: #38bdf8;
+    /* Sky 400 */
+
+    /* Layout */
     --header-height: 5rem;
     --max-content-width: 1000px;
+    --sidenav-bg: rgba(15, 23, 42, 0.9);
+    --sidenav-text: #f1f5f9;
 
-    /* Glassmorphism - Refined for सागर (Sagar) Style */
+    /* Glassmorphism */
     --glass-bg: rgba(15, 23, 42, 0.8);
     --glass-border: 1px solid rgba(255, 255, 255, 0.1);
     --glass-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
@@ -42,15 +58,16 @@ body.light-mode {
     /* Slate 900 */
     --text-secondary: #334155;
     /* Slate 700 - Better contrast */
-    --text-highlight: #0284c7;
-    /* Sky 600 - Darker for light mode */
+    --text-highlight: #0369a1;
+    /* Sky 700 - Darker for light mode visibility */
     --glass-bg: rgba(255, 255, 255, 0.95);
     --glass-border: 1px solid rgba(15, 23, 42, 0.1);
     --glass-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.15);
 
-    /* Navbar Colors (Inverted): Light Mode has DARK/BLACK Navbar */
-    --sidenav-bg: #0f172a;
-    --sidenav-text: #f1f5f9;
+    /* Navbar Colors (Dark/High Contrast) */
+    --sidenav-bg: #1e293b;
+    /* Slate 800 */
+    --sidenav-text: #f8fafc;
 }
 
 body.light-mode {
@@ -423,13 +440,18 @@ body.light-mode .navbar-toggler-icon {
 
     /* Focused Section Labels */
     .section-label {
-        font-weight: 600;
+        font-weight: 700;
         color: var(--primary-color);
         text-transform: uppercase;
-        letter-spacing: 0.1em;
-        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        font-size: 0.8rem;
         display: block;
-        margin-bottom: 1rem;
+        margin-bottom: 1.2rem;
+    }
+
+    body.light-mode .section-label {
+        color: var(--primary-dark);
+        /* Darker indigo for better contrast on white */
     }
 
     /* Navigation Overhaul - Top Bar */
