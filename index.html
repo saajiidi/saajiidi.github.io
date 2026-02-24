@@ -30,48 +30,40 @@
   <div class="scroll-progress" id="scrollProgress"></div>
 
   <nav class="navbar navbar-expand-lg fixed-top" id="sideNav">
-    <a class="navbar-brand js-scroll-trigger" href="#page-top">
-      <span class="d-block d-lg-none">Sajid Islam</span>
-      <span class="d-none d-lg-block">
-        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/profile.jpg" alt="Profile Picture">
-      </span>
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#about">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#experience">Experience</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#education">Education</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#skills">Skills</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#interests">Interests</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#awards">Awards</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#projects">Projects</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link btn btn-outline-light mt-3 mx-3"
-            href="https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link"
-            target="_blank">
-            <i class="fas fa-file-pdf me-2"></i> Resume
-          </a>
-        </li>
-      </ul>
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">
+        Sajid <span class="text-primary">Islam</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#experience">Experience</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#education">Education</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#skills">Skills</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#projects">Projects</a>
+          </li>
+          <li class="nav-item d-none d-lg-block ms-lg-3">
+            <a class="btn btn-primary btn-sm px-4 rounded-pill"
+              href="https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link"
+              target="_blank">
+              CV
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
 
@@ -84,57 +76,49 @@
 
 
 
-    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="about">
-      <div class="w-100 hero-content">
-        <div class="mb-2">
-          <span class="badge bg-primary px-3 py-2 rounded-pill mb-3">
-            <i class="fas fa-chart-line me-2"></i> Data & Business Analyst
-          </span>
+    <section class="resume-section p-3 p-lg-5" id="about">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-8 hero-content order-2 order-lg-1 text-center text-lg-start">
+          <div class="mb-4">
+            <h1 class="display-2 fw-bold mb-3">Hi, I'm Sajid 👋</h1>
+            <p class="lead text-secondary max-w-700">
+              A <span class="text-highlight">Data & Business Analyst</span> specialized in turning complex datasets into
+              strategic growth. Based in Bangladesh, I lead data-ops at <span class="text-highlight">DEEN
+                Commerce</span> and previously optimized performance at <span class="text-highlight">Daraz (Alibaba
+                Group)</span>.
+            </p>
+          </div>
+
+          <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3 mb-4 text-secondary small">
+            <span><i class="fas fa-map-marker-alt me-2 text-primary"></i>Dhaka, Bangladesh</span>
+            <span class="text-success"><i class="fas fa-circle me-2 animate-pulse small"></i>Available for new
+              challenges</span>
+          </div>
+
+          <div class="social-icons-modern d-flex justify-content-center justify-content-lg-start gap-4 mb-5">
+            <a href="https://github.com/saajiidi" target="_blank" class="social-link" title="GitHub"><i
+                class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/sajidislamchowdhury/" target="_blank" class="social-link"
+              title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.kaggle.com/saajiidi" target="_blank" class="social-link" title="Kaggle"><i
+                class="fab fa-kaggle"></i></a>
+          </div>
+
+          <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
+            <a href="#experience" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm">
+              View Experience
+            </a>
+            <button onclick="copyEmail('sajid.islam.chowdhury@gmail.com')"
+              class="btn btn-outline-light px-4 py-2 rounded-pill">
+              Contact Me
+            </button>
+          </div>
         </div>
-        <h1 class="mb-0 display-3 fw-bold">Sajid <span class="text-primary">Islam</span></h1>
-
-        <div class="subheading mb-4 d-flex flex-wrap align-items-center text-secondary">
-          <span class="me-3"><i class="fas fa-microchip me-2"></i> Data Enthusiast</span>
-          <span class="me-3"><i class="fas fa-briefcase me-2"></i> Business Analyst</span>
-          <span><i class="fas fa-envelope me-2"></i> <a href="mailto:sajid.islam.chowdhury@gmail.com"
-              class="text-secondary hover-primary">sajid.islam.chowdhury@gmail.com</a></span>
-        </div>
-
-        <p class="lead mb-4 text-secondary max-w-700">
-          Transforming complex data into <span class="text-highlight">Strategic Business Intelligence</span>.
-          With 2+ years of experience navigating the high-growth ecosystems of <span class="text-highlight">Daraz
-            (Alibaba Group)</span>,
-          I specialize in architecting data-driven solutions that fuel operational excellence and market leadership.
-        </p>
-
-        <p class="mb-5 text-secondary">
-          Expertise in <span class="text-highlight fw-bold">Python, SQL, & Machine Learning</span>. Currently mastering
-          Advanced Statistical Modeling through specialized postgraduate research in Data Science & Business Analytics.
-        </p>
-
-        <div class="d-flex flex-wrap gap-3 mb-5">
-          <a href="mailto:sajid.islam.chowdhury@gmail.com" class="btn btn-primary btn-lg shadow-sm">
-            <i class="far fa-envelope me-2"></i> Hire Me
-          </a>
-          <button onclick="copyEmail('sajid.islam.chowdhury@gmail.com')" class="btn btn-outline-light btn-lg">
-            <i class="far fa-copy me-2"></i> Copy Email
-          </button>
-          <a href="https://wa.me/+8801824526054" class="btn btn-success btn-lg shadow-sm">
-            <i class="fab fa-whatsapp me-2"></i> WhatsApp
-          </a>
-        </div>
-
-        <div class="social-icons-modern d-flex gap-4">
-          <a href="https://www.linkedin.com/in/sajidislamchowdhury/" target="_blank" class="social-link"
-            title="LinkedIn">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
-          <a href="https://github.com/saajiidi" target="_blank" class="social-link" title="GitHub">
-            <i class="fab fa-github"></i>
-          </a>
-          <a href="https://www.kaggle.com/saajiidi" target="_blank" class="social-link" title="Kaggle">
-            <i class="fab fa-kaggle"></i>
-          </a>
+        <div class="col-lg-4 order-1 order-lg-2">
+          <div class="hero-image-wrapper mx-auto">
+            <img class="img-fluid profile-image shadow-2xl" src="img/profile.jpg" alt="Sajid Islam">
+            <div class="profile-accent"></div>
+          </div>
         </div>
       </div>
     </section>
@@ -142,9 +126,10 @@
 
     <hr class="m-0">
 
-    <section class="resume-section p-3 p-lg-5 d-flex justify-content-center" id="experience">
+    <section class="resume-section p-3 p-lg-5" id="experience">
       <div class="w-100">
-        <h2 class="mb-5">Experience</h2>
+        <span class="section-label">Experience</span>
+        <h2 class="mb-5">Work History</h2>
 
         <!-- High-Impact Marketplace Experience Only -->
         <div class="resume-item mb-5">
@@ -213,9 +198,10 @@
 
     <hr class="m-0">
 
-    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="education">
+    <section class="resume-section p-3 p-lg-5" id="education">
       <div class="w-100">
-        <h2 class="mb-5">Education</h2>
+        <span class="section-label">Education</span>
+        <h2 class="mb-5">Academic Background</h2>
 
         <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
           <div class="resume-content">
@@ -258,9 +244,10 @@
 
     <hr class="m-0">
 
-    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="skills">
+    <section class="resume-section p-3 p-lg-5" id="skills">
       <div class="w-100">
-        <h2 class="mb-5">Skills & Expertise</h2>
+        <span class="section-label">Expertise</span>
+        <h2 class="mb-5">Skills & Tools</h2>
 
         <div class="mb-5">
           <h4 class="mb-4 text-secondary">Core Competencies</h4>
@@ -341,75 +328,77 @@
 
 
 
-        <div class="subheading mb-3">
-
-          <a href="">Tools &amp; Frameworks I have been learning &amp; working on...</a>
+        <div class="subheading mb-4">
+          <span class="text-secondary">Technologies & Tools I work with daily...</span>
         </div>
 
-
-        <ul class="list-inline dev-icons mb-5">
-          <li class="list-inline-item" title="Python">
-            <i class="fab fa-python"></i>
-          </li>
-          <li class="list-inline-item" title="SQL">
-            <i class="fas fa-database"></i>
-          </li>
-          <li class="list-inline-item" title="React">
-            <i class="fab fa-react"></i>
-          </li>
-          <li class="list-inline-item" title="Power BI">
-            <i class="fas fa-chart-line"></i>
-          </li>
-          <li class="list-inline-item" title="Tableau">
-            <i class="fas fa-chart-area"></i>
-          </li>
-          <li class="list-inline-item" title="Excel">
-            <i class="fas fa-file-excel"></i>
-          </li>
-          <li class="list-inline-item" title="Pandas">
-            <i class="fas fa-table"></i>
-          </li>
-          <li class="list-inline-item" title="NumPy">
-            <i class="fas fa-square-root-alt"></i>
-          </li>
-          <li class="list-inline-item" title="Matplotlib">
-            <i class="fas fa-chart-bar"></i>
-          </li>
-          <li class="list-inline-item" title="Scikit-learn">
-            <i class="fas fa-brain"></i>
-          </li>
-          <li class="list-inline-item" title="Git">
-            <i class="fab fa-git-alt"></i>
-          </li>
-          <li class="list-inline-item" title="Ubuntu">
-            <i class="fab fa-ubuntu"></i>
-          </li>
-        </ul>
-
-
-
-
-
-
-        <div class="subheading mb-3"><a href="">Workflow</a></div>
-        <ul class="fa-ul mb-0">
-          <li>
-            <i class="fa-li fa fa-check"></i>
-            Cross Functional Teams
-          </li>
-          <li>
-            <i class="fa-li fa fa-check"></i>
-            Agile Development &amp; Scrum
-          </li>
-        </ul>
+        <div class="row g-3">
+          <!-- Python -->
+          <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <div class="tech-chip p-3 text-center">
+              <i class="fab fa-python fa-2x mb-2 text-primary"></i>
+              <div class="small fw-semibold">Python</div>
+            </div>
+          </div>
+          <!-- SQL -->
+          <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <div class="tech-chip p-3 text-center">
+              <i class="fas fa-database fa-2x mb-2 text-accent-color"></i>
+              <div class="small fw-semibold">SQL</div>
+            </div>
+          </div>
+          <!-- Power BI -->
+          <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <div class="tech-chip p-3 text-center">
+              <i class="fas fa-chart-bar fa-2x mb-2 text-info"></i>
+              <div class="small fw-semibold">Power BI</div>
+            </div>
+          </div>
+          <!-- Tableau -->
+          <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <div class="tech-chip p-3 text-center">
+              <i class="fas fa-chart-pie fa-2x mb-2 text-warning"></i>
+              <div class="small fw-semibold">Tableau</div>
+            </div>
+          </div>
+          <!-- Git -->
+          <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <div class="tech-chip p-3 text-center">
+              <i class="fab fa-git-alt fa-2x mb-2 text-danger"></i>
+              <div class="small fw-semibold">Git</div>
+            </div>
+          </div>
+          <!-- Linux -->
+          <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <div class="tech-chip p-3 text-center">
+              <i class="fab fa-ubuntu fa-2x mb-2 text-orange"></i>
+              <div class="small fw-semibold">Ubuntu</div>
+            </div>
+          </div>
+          <!-- Excel -->
+          <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <div class="tech-chip p-3 text-center">
+              <i class="fas fa-file-excel fa-2x mb-2 text-success"></i>
+              <div class="small fw-semibold">Excel</div>
+            </div>
+          </div>
+          <!-- Scikit-learn -->
+          <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <div class="tech-chip p-3 text-center">
+              <i class="fas fa-brain fa-2x mb-2 text-primary"></i>
+              <div class="small fw-semibold">ML (Scikit)</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <hr class="m-0">
 
-    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="interests">
+    <section class="resume-section p-3 p-lg-5" id="interests">
       <div class="w-100">
-        <h2 class="mb-5">Interests & Passions</h2>
+        <span class="section-label">Passions</span>
+        <h2 class="mb-5">Interests</h2>
 
         <div class="row">
           <div class="col-lg-12">
@@ -460,9 +449,10 @@
 
     <hr class="m-0">
 
-    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="awards">
+    <section class="resume-section p-3 p-lg-5" id="awards">
       <div class="w-100">
-        <h2 class="mb-5">Awards & Certifications</h2>
+        <span class="section-label">Timeline</span>
+        <h2 class="mb-5">Certifications</h2>
         <ul class="fa-ul mb-3">
           <li class="mb-4">
             <i class="fa-li fa fa-trophy text-warning"></i>
@@ -497,9 +487,10 @@
 
     <hr class="m-0">
 
-    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="projects">
+    <section class="resume-section p-3 p-lg-5" id="projects">
       <div class="w-100">
-        <h2 class="mb-5">Featured Projects</h2>
+        <span class="section-label">Portfolio</span>
+        <h2 class="mb-5">Featured Work</h2>
 
         <div class="project-filters mb-4">
           <button class="btn btn-sm btn-primary active" onclick="filterProjects('all')">All</button>
@@ -510,87 +501,35 @@
         </div>
 
         <div class="row" id="projectGrid">
-          <!-- Apps -->
-          <div class="col-lg-6 mb-4 project-card" data-category="apps">
-            <div class="card-glass h-100 card-highlight-gradient">
-              <span class="badge badge-new position-absolute top-0 end-0 m-3">
-                <i class="fas fa-star me-1"></i> NEW
-              </span>
-              <img src="img/project-placeholder.jpg" class="card-img-top" alt="ProjectsShowCase Feature Photo"
-                style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1);">
-              <div class="card-body position-relative">
-                <h5 class="card-title text-gradient-primary fw-bold">
-                  <i class="fas fa-layer-group me-2"></i>
-                  ProjectsShowCase
-                </h5>
-                <p class="card-text">A showcase of all my software projects, featuring a modern, responsive design and
-                  detailed project cards.</p>
-                <div class="mb-3">
-                  <span class="badge bg-primary me-1">HTML</span>
-                  <span class="badge bg-warning me-1">CSS</span>
-                  <span class="badge bg-info me-1">Bootstrap 5</span>
-                </div>
-                <a href="https://saajiidi.github.io/ProjectsShowCase/" target="_blank"
-                  class="btn btn-gradient-primary btn-sm w-100">
-                  <i class="fas fa-rocket me-2"></i> View Project
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6 mb-4 project-card" data-category="apps">
-            <div class="card-glass h-100 card-highlight-gradient">
-              <span class="badge badge-new position-absolute top-0 end-0 m-3">
-                <i class="fas fa-star me-1"></i> NEW
-              </span>
-              <img src="img/project-placeholder.jpg" class="card-img-top" alt="Day Progress Plus Feature Photo"
-                style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1);">
-              <div class="card-body position-relative">
-                <h5 class="card-title text-gradient-primary fw-bold">
-                  <i class="fas fa-clock me-2"></i>
-                  Day Progress Plus
-                </h5>
-                <p class="card-text">A time tracking application to manage daily tasks and focus sessions. Features
-                  include task management, progress tracking, and settings customizations.</p>
-                <div class="mb-3">
-                  <span class="badge bg-primary me-1">HTML</span>
-                  <span class="badge bg-warning me-1">JS</span>
-                  <span class="badge bg-info me-1">CSS</span>
-                </div>
-                <a href="https://saajiidi.github.io/TimeTracker/" target="_blank"
-                  class="btn btn-gradient-primary btn-sm w-100">
-                  <i class="fas fa-rocket me-2"></i> Launch Application
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Analytics -->
+          <!-- Analytics (Main Highlight) -->
           <div class="col-lg-6 mb-4 project-card" data-category="analytics">
-            <div class="card-glass h-100">
+            <div class="card-glass h-100 card-highlight-gradient">
+              <span class="badge badge-new position-absolute top-0 end-0 m-3">
+                <i class="fas fa-chart-line me-1"></i> FEATURED
+              </span>
               <img src="img/project-placeholder.jpg" class="card-img-top" alt="E-commerce Dashboard Feature Photo"
                 style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1);">
               <div class="card-body">
-                <h5 class="card-title">
-                  <i class="fas fa-chart-line text-primary me-2"></i>
-                  E-commerce Dashboard
+                <h5 class="card-title text-gradient-primary fw-bold">
+                  <i class="fas fa-chart-line me-2"></i>
+                  E-commerce BI Dashboard
                 </h5>
-                <p class="card-text">A comprehensive e-commerce dashboard tracking performance from 2021-2025.
-                  Visualizes over <strong>BDT 127M+</strong> in revenue and <strong>90k+</strong> orders.</p>
+                <p class="card-text">High-impact dashboard tracking <strong>BDT 127M+</strong> revenue and
+                  <strong>90k+</strong> orders. Architected data pipelines for real-time performance tracking.</p>
                 <div class="mb-2">
                   <span class="badge bg-primary me-1">React</span>
-                  <span class="badge bg-success me-1">Data Visualization</span>
-                  <span class="badge bg-info me-1">Analytics</span>
+                  <span class="badge bg-success me-1">BI Analytics</span>
+                  <span class="badge bg-info me-1">Data Pipeline</span>
                 </div>
                 <a href="https://e-com-dashborad.vercel.app/" target="_blank"
-                  class="btn btn-outline-primary btn-sm mt-3">
-                  <i class="fas fa-external-link-alt"></i> View Dashboard
+                  class="btn btn-gradient-primary btn-sm w-100 mt-2">
+                  <i class="fas fa-rocket me-2"></i> View Dashboard
                 </a>
               </div>
             </div>
           </div>
 
-          <!-- Apps -->
+          <!-- Apps (Automation) -->
           <div class="col-lg-6 mb-4 project-card" data-category="apps">
             <div class="card-glass h-100">
               <img src="img/project-placeholder.jpg" class="card-img-top" alt="WAConnect Pro Feature Photo"
@@ -600,134 +539,40 @@
                   <i class="fab fa-whatsapp text-success me-2"></i>
                   WAConnect Pro
                 </h5>
-                <p class="card-text">Flask-based web application to automate WhatsApp link generation from Excel/CSV
-                  files. Features phone number normalization and custom message templates.</p>
+                <p class="card-text">Business automation tool built with Flask and Python. Normalizes bulk customer data
+                  and streamlines CRM communication workflows.</p>
                 <div class="mb-2">
                   <span class="badge bg-success me-1">Flask</span>
                   <span class="badge bg-warning me-1">Python</span>
-                  <span class="badge bg-dark me-1">Vercel</span>
+                  <span class="badge bg-dark me-1">Data Processing</span>
                 </div>
                 <a href="https://github.com/saajiidi/WAConnect-Pro" target="_blank"
                   class="btn btn-outline-primary btn-sm mt-3">
-                  <i class="fab fa-github"></i> View on GitHub
+                  <i class="fab fa-github me-2"></i> Source Code
                 </a>
               </div>
             </div>
           </div>
 
-          <!-- Analytics -->
+          <!-- Analytics (Forecasting) -->
           <div class="col-lg-6 mb-4 project-card" data-category="analytics">
-            <div class="card-glass h-100">
-              <img src="img/project-placeholder.jpg" class="card-img-top"
-                alt="ECommerce Analytics Dashboard Feature Photo"
-                style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1);">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <i class="fas fa-chart-pie text-warning me-2"></i>
-                  ECommerce Analytics
-                </h5>
-                <p class="card-text">Comprehensive analytics platform tracking 12K+ orders and BDT 4.2M+ revenue.
-                  Features customer segmentation and sales forecasting.</p>
-                <div class="mb-2">
-                  <span class="badge bg-warning me-1">Data Analytics</span>
-                  <span class="badge bg-primary me-1">Sales Reports</span>
-                </div>
-                <a href="https://saajiidi.github.io/-ECommerce-Analytics-Dashboard/" target="_blank"
-                  class="btn btn-outline-primary btn-sm mt-3">
-                  <i class="fas fa-external-link-alt"></i> View Dashboard
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Analytics (Growth) -->
-          <div class="col-lg-6 mb-4 project-card" data-category="analytics">
-            <div class="card-glass h-100">
-              <img src="img/project-placeholder.jpg" class="card-img-top" alt="Growth Analysis Dashboard Feature Photo"
-                style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1);">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <i class="fas fa-chart-line text-primary me-2"></i>
-                  Growth Analysis
-                </h5>
-                <p class="card-text">A comprehensive web development project showcasing modern web technologies and best
-                  practices for business growth tracking.</p>
-                <div class="mb-2">
-                  <span class="badge bg-primary me-1">HTML/CSS</span>
-                  <span class="badge bg-secondary me-1">JavaScript</span>
-                </div>
-                <a href="https://saajiidi.github.io/Growth-Analysis-Dashboard/" target="_blank"
-                  class="btn btn-outline-primary btn-sm mt-3">
-                  <i class="fab fa-github"></i> View on GitHub
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Data Viz -->
-          <div class="col-lg-6 mb-4 project-card" data-category="data-viz">
-            <div class="card-glass h-100">
-              <img src="img/project-placeholder.jpg" class="card-img-top" alt="Border Security Analysis Feature Photo"
-                style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1);">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <i class="fas fa-map-marked-alt text-danger me-2"></i>
-                  Border Security Analysis
-                </h5>
-                <p class="card-text">Data visualization project analyzing border incident trends in Bangladesh using
-                  statistical methods and interactive charts.</p>
-                <div class="mb-2">
-                  <span class="badge bg-warning me-1">Data Analysis</span>
-                  <span class="badge bg-success me-1">Visualization</span>
-                </div>
-                <a href="https://saajiidi.github.io/Border-Killing-Trend-in-Bangladesh/" target="_blank"
-                  class="btn btn-outline-primary btn-sm mt-3">
-                  <i class="fas fa-external-link-alt"></i> View Project
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Data Viz (Forecasting) -->
-          <div class="col-lg-6 mb-4 project-card" data-category="data-viz">
             <div class="card-glass h-100">
               <img src="img/project-placeholder.jpg" class="card-img-top" alt="Air Passenger Forecasting Feature Photo"
                 style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1);">
               <div class="card-body">
                 <h5 class="card-title">
                   <i class="fas fa-plane text-info me-2"></i>
-                  Air Passenger Forecasting
+                  Demand Forecasting
                 </h5>
-                <p class="card-text">Time series analysis comparing multiple forecasting models (ARIMA, Exponential
-                  Smoothing) for airline passenger prediction.</p>
+                <p class="card-text">Time series analysis comparing ARIMA and Exponential Smoothing models. Achieved
+                  high accuracy in predicting seasonal demand shifts.</p>
                 <div class="mb-2">
                   <span class="badge bg-primary me-1">Time Series</span>
-                  <span class="badge bg-info me-1">Forecasting</span>
+                  <span class="badge bg-info me-1">Statistical Modeling</span>
                 </div>
                 <a href="https://saajiidi.github.io/Air_Passengers_Forecasting_Models/" target="_blank"
                   class="btn btn-outline-primary btn-sm mt-3">
-                  <i class="fas fa-external-link-alt"></i> View Project
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Apps (E-commerce Platform) -->
-          <div class="col-lg-6 mb-4 project-card" data-category="apps">
-            <div class="card-glass h-100">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <i class="fab fa-react text-success me-2"></i>
-                  E-Commerce Platform
-                </h5>
-                <p class="card-text">Modern e-commerce interface built with React.js featuring responsive design and
-                  shopping cart functionality.</p>
-                <div class="mb-2">
-                  <span class="badge bg-success me-1">React</span>
-                  <span class="badge bg-warning me-1">JavaScript</span>
-                </div>
-                <a href="https://gear-master.vercel.app/" target="_blank" class="btn btn-outline-primary btn-sm mt-3">
-                  <i class="fas fa-external-link-alt"></i> View Project
+                  <i class="fas fa-microchip me-2"></i> View Methodology
                 </a>
               </div>
             </div>
@@ -736,42 +581,22 @@
           <!-- Machine Learning -->
           <div class="col-lg-6 mb-4 project-card" data-category="ml">
             <div class="card-glass h-100">
+              <img src="img/project-placeholder.jpg" class="card-img-top" alt="ML Portfolio Project Feature Photo"
+                style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1);">
               <div class="card-body">
                 <h5 class="card-title">
-                  <i class="fas fa-project-diagram text-primary me-2"></i>
-                  ML Portfolio Project
+                  <i class="fas fa-network-wired text-primary me-2"></i>
+                  ML Solution Labs
                 </h5>
-                <p class="card-text">A comprehensive portfolio showcasing various machine learning projects, including
-                  data analysis and model building.</p>
+                <p class="card-text">End-to-end machine learning implementations including customer segmentation, lead
+                  scoring, and predictive maintenance models.</p>
                 <div class="mb-2">
-                  <span class="badge bg-primary me-1">Machine Learning</span>
-                  <span class="badge bg-secondary me-1">Python</span>
+                  <span class="badge bg-primary me-1">Scikit-learn</span>
+                  <span class="badge bg-secondary me-1">Pandas</span>
                 </div>
                 <a href="https://github.com/saajiidi/ml-portfolio-project" target="_blank"
                   class="btn btn-outline-primary btn-sm mt-3">
-                  <i class="fab fa-github"></i> View on GitHub
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Apps (Scraper) -->
-          <div class="col-lg-6 mb-4 project-card" data-category="apps">
-            <div class="card-glass h-100">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <i class="fas fa-images text-primary me-2"></i>
-                  Pinterest Multi-Scraper
-                </h5>
-                <p class="card-text">A versatile Python tool for downloading images from Pinterest with multiple
-                  interfaces including web UI and command line.</p>
-                <div class="mb-2">
-                  <span class="badge bg-primary me-1">Python</span>
-                  <span class="badge bg-info me-1">Selenium</span>
-                </div>
-                <a href="https://saajiidi.github.io/Reusable-Pinterest-Image-Scraper/" target="_blank"
-                  class="btn btn-outline-primary btn-sm mt-3">
-                  <i class="fab fa-github"></i> View on GitHub
+                  <i class="fab fa-github me-2"></i> ML Portfolio
                 </a>
               </div>
             </div>
@@ -812,26 +637,25 @@
       </div>
     </section>
 
-  </div>
+    <footer class="py-5 text-center border-top border-secondary border-opacity-10 mt-5">
+      <div class="container">
+        <span class="section-label">Contact</span>
+        <h2 class="mb-4">Get in Touch</h2>
+        <p class="text-secondary mb-5">What’s next? I’m currently looking for new opportunities, my inbox is always
+          open. Whether you have a question or just want to say hi, I’ll try my best to get back to you!</p>
 
-  <!-- Mobile Bottom Navigation -->
-  <div class="mobile-nav">
-    <a href="#about" class="mobile-nav-item">
-      <i class="fas fa-user"></i>
-      <span>About</span>
-    </a>
-    <a href="#experience" class="mobile-nav-item">
-      <i class="fas fa-briefcase"></i>
-      <span>Jobs</span>
-    </a>
-    <a href="#projects" class="mobile-nav-item">
-      <i class="fas fa-project-diagram"></i>
-      <span>Projects</span>
-    </a>
-    <a href="#skills" class="mobile-nav-item">
-      <i class="fas fa-tools"></i>
-      <span>Skills</span>
-    </a>
+        <div class="d-flex justify-content-center gap-4 mb-5">
+          <a href="mailto:sajid.islam.chowdhury@gmail.com" class="social-link"><i class="far fa-envelope"></i></a>
+          <a href="https://github.com/saajiidi" class="social-link"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/sajidislamchowdhury/" class="social-link"><i
+              class="fab fa-linkedin-in"></i></a>
+        </div>
+
+        <p class="small text-secondary mb-0">
+          &copy; 2026 | Designed & Built with ❤️ by Sajid Islam
+        </p>
+      </div>
+    </footer>
   </div>
 
   <!-- Back to Top Button -->

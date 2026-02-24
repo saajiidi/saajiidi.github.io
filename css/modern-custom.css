@@ -9,29 +9,16 @@
     /* Sky 400 - Better for Data Viz theme */
     --secondary-color: #64748b;
 
-    /* Dark Theme - Deep Data-Ops Look */
-    --bg-dark: #0f172a;
-    /* Slate 900 */
-    --bg-page: #020617;
-    /* Slate 950 */
-    --bg-card: rgba(30, 41, 59, 0.7);
-    /* Slate 800 with glass */
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
-    --text-highlight: #38bdf8;
+    /* Layout - Shift to Top Nav */
+    --header-height: 5rem;
+    --max-content-width: 1000px;
 
-    /* Spacing & Layout */
-    --sidebar-width: 18rem;
-
-    /* Glassmorphism - Sharper for modern look */
-    --glass-bg: rgba(15, 23, 42, 0.6);
-    --glass-border: 1px solid rgba(255, 255, 255, 0.05);
-    --glass-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
-
-    /* Navbar Colors */
-    --sidenav-bg: #0f172a;
-    --sidenav-text: #f8fafc;
+    /* Glassmorphism - Refined for सागर (Sagar) Style */
+    --glass-bg: rgba(15, 23, 42, 0.8);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
 }
+
 
 /* Scroll Progress Bar */
 .scroll-progress {
@@ -325,56 +312,214 @@ body.light-mode .navbar-toggler-icon {
 
 /* Responsive Sidebar Layout */
 @media (min-width: 992px) {
+
+    /* Hero Image & Accents - Sagar Style */
+    .hero-image-wrapper {
+        position: relative;
+        width: 280px;
+        height: 280px;
+        z-index: 1;
+    }
+
+    .profile-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 20px;
+        border: 8px solid var(--bg-page);
+        position: relative;
+        z-index: 2;
+        box-shadow: var(--glass-shadow);
+    }
+
+    .profile-accent {
+        position: absolute;
+        bottom: -20px;
+        right: -20px;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        border-radius: 20px;
+        z-index: 0;
+        opacity: 0.3;
+    }
+
+    /* Pulse Animation for Status */
+    .animate-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    @keyframes pulse {
+
+        0%,
+        100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.5;
+        }
+    }
+
+    /* Refined Headings */
+    h2 {
+        font-size: 2.25rem;
+        margin-bottom: 2rem;
+        text-transform: none;
+        letter-spacing: -0.025em;
+        display: block;
+    }
+
+    h2::before,
+    h2::after {
+        display: none !important;
+        /* Remove the Bootstrap Resume style lines */
+    }
+
+    /* Custom Scroll Handling for Top Nav */
+    :target::before {
+        content: "";
+        display: block;
+        height: var(--header-height);
+        margin-top: calc(-1 * var(--header-height));
+    }
+
+    /* Modern Tech Chips - সাগর (Sagar) Style */
+    .tech-chip {
+        background: var(--glass-bg);
+        border: var(--glass-border);
+        border-radius: 12px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        height: 100%;
+    }
+
+    .tech-chip:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: var(--primary-color);
+        transform: translateY(-5px);
+        box-shadow: var(--glass-shadow);
+    }
+
+    .tech-chip i {
+        transition: transform 0.3s ease;
+    }
+
+    .tech-chip:hover i {
+        transform: scale(1.1);
+    }
+
+    .text-orange {
+        color: #f97316;
+    }
+
+    /* Modern Spacing Utilities */
+    .gap-4 {
+        gap: 1.5rem !important;
+    }
+
+    .shadow-2xl {
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Focused Section Labels */
+    .section-label {
+        font-weight: 600;
+        color: var(--primary-color);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 0.75rem;
+        display: block;
+        margin-bottom: 1rem;
+    }
+
+    /* Navigation Overhaul - Top Bar */
     #sideNav {
-        position: fixed;
-        top: 0;
-        left: 0;
+        width: 100%;
+        height: var(--header-height);
+        background: var(--bg-page);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         display: flex;
-        flex-direction: column;
-        width: var(--sidebar-width);
-        height: 100vh;
-        /* Override fixed-top width */
-        right: auto;
-        z-index: 1040;
+        align-items: center;
+        padding: 0 2rem;
+        left: 0;
+        top: 0;
+    }
+
+    body.light-mode #sideNav {
+        background: rgba(255, 255, 255, 0.95);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     }
 
     #sideNav .navbar-brand {
-        display: flex;
-        margin: auto auto 0;
-        padding: 0.5rem;
+        font-weight: 800;
+        font-size: 1.5rem;
+        color: var(--text-primary) !important;
+        text-transform: none;
+        letter-spacing: -0.025em;
+    }
+
+    #sideNav .navbar-brand .img-profile {
+        display: none !important;
+        /* Hide circular profile in top nav */
     }
 
     #sideNav .navbar-collapse {
-        display: flex;
-        align-items: flex-start;
         flex-grow: 0;
-        width: 100%;
-        margin-bottom: auto;
     }
 
-    #sideNav .navbar-collapse .navbar-nav {
-        flex-direction: column;
-        width: 100%;
+    #sideNav .navbar-nav {
+        flex-direction: row;
+        gap: 1.5rem;
     }
 
-    #sideNav .navbar-collapse .navbar-nav .nav-item {
-        display: block;
+    #sideNav .nav-link {
+        font-weight: 500;
+        color: var(--text-secondary) !important;
+        padding: 0.5rem 0 !important;
+        font-size: 0.95rem;
+        transition: color 0.3s ease;
+        text-transform: none;
+        letter-spacing: 0;
     }
 
-    #sideNav .navbar-collapse .navbar-nav .nav-item .nav-link {
-        display: block;
+    #sideNav .nav-link:hover,
+    #sideNav .nav-link.active {
+        color: var(--text-primary) !important;
+        background: transparent !important;
+        transform: none !important;
     }
 }
 
-/* Section Styling */
+/* Redesign Section Containers */
+.container-fluid.p-0 {
+    padding-top: var(--header-height) !important;
+}
+
 .resume-section {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-top: 5rem !important;
-    padding-bottom: 5rem !important;
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+    padding: 6rem 2rem !important;
+    min-height: auto !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@media (max-width: 992px) {
+    #sideNav {
+        padding: 0 1rem;
+    }
+
+    #sideNav .navbar-nav {
+        flex-direction: column;
+        background: var(--bg-page);
+        position: absolute;
+        top: var(--header-height);
+        left: 0;
+        width: 100%;
+        padding: 1rem 2rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
 }
 
 /* Modern Project Cards - Refined for Analysts */
