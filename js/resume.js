@@ -77,6 +77,21 @@ window.addEventListener('DOMContentLoaded', event => {
     }
   });
 
+  // Sync Mobile Nav with ScrollSpy active state
+  document.body.addEventListener('activate.bs.scrollspy', () => {
+    const activeLink = document.querySelector('#sideNav .nav-link.active');
+    if (activeLink) {
+      const targetId = activeLink.getAttribute('href');
+      document.querySelectorAll('.mobile-nav-item').forEach(item => {
+        if (item.getAttribute('href') === targetId) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+    }
+  });
+
   // Intersection Observer for Animations
   const observerOptions = {
     threshold: 0.1,
