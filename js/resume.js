@@ -22,38 +22,10 @@ window.addEventListener('DOMContentLoaded', event => {
     });
   });
 
-  // Theme Toggle Logic
-  const themeToggle = document.getElementById('themeToggle');
-  const icon = themeToggle.querySelector('i');
-  const htmlElement = document.documentElement;
-
-  // Check for saved theme
-  const currentTheme = localStorage.getItem('theme');
-  if (currentTheme) {
-    htmlElement.setAttribute('data-theme', currentTheme);
-    if (currentTheme === 'light') {
-      icon.classList.remove('fa-moon');
-      icon.classList.add('fa-sun');
-      document.body.classList.add('light-mode');
-    }
-  }
-
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('light-mode');
-      if (document.body.classList.contains('light-mode')) {
-        htmlElement.setAttribute('data-theme', 'light');
-        localStorage.setItem('theme', 'light');
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-      } else {
-        htmlElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-        icon.classList.remove('fa-sun');
-        icon.classList.add('fa-moon');
-      }
-    });
-  }
+  // Force Dark Mode and Clean Up Legacy Theme Settings
+  document.body.classList.remove('light-mode');
+  document.documentElement.setAttribute('data-theme', 'dark');
+  localStorage.setItem('theme', 'dark');
 
   // Smooth scroll JS removed in favor of CSS html { scroll-behavior: smooth; }
 
@@ -166,17 +138,49 @@ window.addEventListener('DOMContentLoaded', event => {
     });
   };
 
+  // Filter Skills by Search
+  window.filterSkills = function () {
+    const searchTerm = document.getElementById('skillSearch').value.toLowerCase();
+    const skillCards = document.querySelectorAll('.tech-skill-card');
+    const techChips = document.querySelectorAll('.tech-chip');
+
+    skillCards.forEach(card => {
+      const text = card.innerText.toLowerCase();
+      if (text.includes(searchTerm)) {
+        card.parentElement.style.display = 'block';
+        setTimeout(() => card.classList.add('reveal-active'), 10);
+      } else {
+        card.parentElement.style.display = 'none';
+        card.classList.remove('reveal-active');
+      }
+    });
+
+    techChips.forEach(chip => {
+      const text = chip.innerText.toLowerCase();
+      if (text.includes(searchTerm)) {
+        chip.parentElement.style.display = 'block';
+        setTimeout(() => chip.classList.add('reveal-active'), 10);
+      } else {
+        chip.parentElement.style.display = 'none';
+        chip.classList.remove('reveal-active');
+      }
+    });
+  };
+
   // Copy Email to Clipboard
   window.copyEmail = function (email) {
     navigator.clipboard.writeText(email).then(() => {
       const btn = event.currentTarget;
       const originalText = btn.innerHTML;
+      const originalClasses = btn.className;
+
       btn.innerHTML = '<i class="fas fa-check me-2"></i> Copied!';
-      btn.classList.replace('btn-primary', 'btn-success');
+      btn.classList.add('btn-success');
+      btn.classList.remove('btn-primary', 'btn-outline-light', 'btn-outline-primary');
 
       setTimeout(() => {
         btn.innerHTML = originalText;
-        btn.classList.replace('btn-success', 'btn-primary');
+        btn.className = originalClasses;
       }, 2000);
     });
   };
