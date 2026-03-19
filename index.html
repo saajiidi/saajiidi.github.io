@@ -457,13 +457,10 @@
       const tH1 = document.getElementById('typewriter-h1');
       const tP = document.getElementById('typewriter-p');
       
-      if(tH1) new Typewriter(tH1, h1Text, 70).type();
-      if(tP) setTimeout(() => new Typewriter(tP, pText, 25).type(), 1500);
+      if(tH1) new Typewriter(tH1, h1Text, 120).type();
+      if(tP) setTimeout(() => new Typewriter(tP, pText, 60).type(), 2200);
 
-      // Glitch triggers
-      document.querySelectorAll('.nav-link, h2, .card-title, .section-label').forEach(el => {
-        el.addEventListener('mouseenter', () => glitchEffect(el));
-      });
+      // Glitch triggers disabled for soothing experience
     });
 
     function copyEmail(email) {
