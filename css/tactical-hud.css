@@ -1,0 +1,169 @@
+:root {
+    /* --- Tactical HUD Aesthetic (Night Ops) --- */
+    --primary-color: #166534;
+    --primary-light: #22c55e;
+    --accent-color: #14532d;
+    
+    --bg-page: #051410;
+    --bg-card: rgba(6, 20, 15, 0.95);
+    --text-primary: #f0f7f4;
+    --text-secondary: #94a3b8;
+    --text-highlight: #22c55e;
+    
+    --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
+}
+
+[data-theme="light"] {
+    /* --- Tactical HUD (Day Ops) --- */
+    --primary-color: #15803d;
+    --primary-light: #16a34a;
+    --accent-color: #166534;
+    
+    --bg-page: #f8fafc;
+    --bg-card: rgba(255, 255, 255, 0.95);
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-highlight: #15803d;
+}
+
+/* --- HUD Overlays --- */
+.scanlines {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(0, 0, 0, .05) 50%
+    );
+    background-size: 100% 4px;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.15;
+    animation: scanlineScroll 10s linear infinite;
+}
+
+@keyframes scanlineScroll {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 100%; }
+}
+
+/* --- Theme Toggle Button --- */
+.btn-theme-toggle {
+    background: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 5px 12px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 0;
+}
+
+.btn-theme-toggle:hover {
+    background: var(--primary-color);
+    color: var(--bg-page);
+}
+
+/* --- Project Filters --- */
+.project-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--text-secondary);
+    padding: 6px 15px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filter-btn:hover, .filter-btn.active {
+    background: var(--primary-color);
+    color: var(--text-primary);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+}
+
+.project-item {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-item.hide {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+    display: none;
+}
+
+/* --- Skeleton Loaders --- */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--bg-card) 25%,
+        rgba(34, 197, 94, 0.05) 50%,
+        var(--bg-card) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    border-radius: 4px;
+    display: block;
+    min-height: 1em;
+}
+
+.skeleton-text { width: 100%; height: 1.2rem; margin-bottom: 0.5rem; }
+.skeleton-title { width: 60%; height: 2rem; margin-bottom: 1rem; }
+.skeleton-chip { width: 80px; height: 25px; display: inline-block; margin-right: 5px; }
+.skeleton-card { height: 300px; width: 100%; }
+
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+[data-theme="light"] .skeleton {
+    background: linear-gradient(
+        90deg,
+        #e2e8f0 25%,
+        #f1f5f9 50%,
+        #e2e8f0 75%
+    );
+    background-size: 200% 100%;
+}
+.chart-container {
+    background: rgba(0,0,0,0.1);
+    border: 1px solid rgba(22, 101, 52, 0.2);
+    border-radius: 4px;
+    padding: 10px;
+}
+
+[data-theme="light"] body::before {
+    opacity: 0.03; /* Slightly more visible noise in light mode */
+}
+
+[data-theme="light"] .bg-blobs {
+    opacity: 0.15; /* Subtler blobs for light mode */
+}
+
+[data-theme="light"] body::after {
+    opacity: 0.1; /* Subtler HUD lines for light mode */
+}
+
+[data-theme="light"] .card-glass {
+    background: #fff !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1) !important;
+}
+
+[data-theme="light"] h1, 
+[data-theme="light"] h2 {
+    text-shadow: none !important;
+}

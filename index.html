@@ -9,6 +9,44 @@
   <meta name="author" content="Sajid Islam">
   <title>Sajid Islam || [TACTICAL_INTEL]</title>
 
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://saajiidi.github.io/">
+  <meta property="og:title" content="Sajid Islam || [TACTICAL_INTEL]">
+  <meta property="og:description"
+    content="Data Scientist & Business Analyst specializing in Python, SQL, Power BI, and machine learning.">
+  <meta property="og:image" content="https://saajiidi.github.io/img/profile.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://saajiidi.github.io/">
+  <meta property="twitter:title" content="Sajid Islam || [TACTICAL_INTEL]">
+  <meta property="twitter:description"
+    content="Data Scientist & Business Analyst specializing in Python, SQL, Power BI, and machine learning.">
+  <meta property="twitter:image" content="https://saajiidi.github.io/img/profile.jpg">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Person",
+      "name": "Sajid Islam",
+      "jobTitle": "Data Scientist & Business Analyst",
+      "url": "https://saajiidi.github.io/",
+      "image": "https://saajiidi.github.io/img/profile.jpg",
+      "sameAs": [
+        "https://github.com/saajiidi",
+        "https://www.linkedin.com/in/sajidislamchowdhury/",
+        "https://www.kaggle.com/saajiidi"
+      ],
+      "description": "A Data & Business Analyst specialized in turning complex datasets into strategic growth.",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "DEEN Commerce"
+      }
+    }
+  </script>
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,10 +62,14 @@
 
   <!-- Custom Modern CSS -->
   <link href="css/modern-custom.css" rel="stylesheet">
+  <link href="css/tactical-hud.css" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body id="page-top">
   <!-- HUD Background Elements -->
+  <div class="scanlines"></div>
   <div class="bg-blobs">
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
@@ -36,7 +78,7 @@
   <nav class="navbar navbar-expand-lg fixed-top" id="sideNav">
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="#page-top">
-        SAJID <span class="text-primary">ISLAM</span>
+        <span class="data-name">SAJID ISLAM</span>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,6 +107,11 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#awards">[AWARDS]</a>
           </li>
+          <li class="nav-item ms-lg-3 d-flex align-items-center mt-3 mt-lg-0">
+            <button id="theme-toggle" class="btn-theme-toggle" title="Switch Operation Mode">
+              <i class="fas fa-moon"></i> <span class="d-lg-none ms-2">TOGGLE_MODE</span>
+            </button>
+          </li>
         </ul>
       </div>
     </div>
@@ -75,9 +122,9 @@
       <div class="row align-items-center g-5">
         <div class="col-lg-8 hero-content order-2 order-lg-1 text-center text-lg-start">
           <div class="mb-4">
-            <h1 class="display-2 fw-bold mb-3"><span id="typewriter-h1"></span></h1>
+            <h1 class="display-2 fw-bold mb-3"><span id="typewriter-h1">Hi, I'm Sajid 👋</span></h1>
             <p class="lead text-secondary max-w-700">
-              <span id="typewriter-p"></span>
+              <span id="typewriter-p">A Data & Business Analyst specialized in turning complex datasets into strategic growth. Based in Bangladesh, I lead data-ops at DEEN Commerce and previously optimized performance at Daraz (Alibaba Group).</span>
             </p>
           </div>
 
@@ -90,7 +137,7 @@
             <a href="https://github.com/saajiidi" target="_blank" rel="noopener" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
             <a href="https://www.linkedin.com/in/sajidislamchowdhury/" target="_blank" rel="noopener" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
             <a href="https://www.kaggle.com/saajiidi" target="_blank" rel="noopener" class="social-link" title="Kaggle"><i class="fab fa-kaggle"></i></a>
-            <a href="tel:+8801609784088" class="social-link" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="social-link" title="Contact Info" data-bs-toggle="modal" data-bs-target="#contactModal"><i class="fas fa-terminal"></i></a>
           </div>
 
           <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
@@ -117,7 +164,7 @@
         <span class="section-label">COMMAND_HISTORY</span>
         <h2 class="mb-5">Work History</h2>
 
-        <div class="timeline-wrapper">
+        <div class="timeline-wrapper" id="experience-list">
           <div class="timeline-item">
             <div class="timeline-dot"></div>
             <div class="resume-item mb-5">
@@ -132,7 +179,6 @@
               <div class="resume-date"><span>Jan 2025 — Present</span></div>
             </div>
           </div>
-
           <div class="timeline-item">
             <div class="timeline-dot"></div>
             <div class="resume-item mb-5">
@@ -146,8 +192,6 @@
               </div>
               <div class="resume-date"><span>Jun 2024 — Present</span></div>
             </div>
-          </div>
-
           <div class="timeline-item">
             <div class="timeline-dot"></div>
             <div class="resume-item mb-5">
@@ -186,7 +230,7 @@
       <div class="w-100">
         <span class="section-label">ACADEMIC_INTEL</span>
         <h2 class="mb-5">Education</h2>
-        <div class="timeline-wrapper">
+        <div class="timeline-wrapper" id="education-list">
           <div class="timeline-item">
             <div class="timeline-dot"></div>
             <div class="resume-item mb-4">
@@ -221,24 +265,23 @@
                 <li class="mb-2"><i class="fas fa-microchip text-primary me-2"></i> Digital Sales & Marketing</li>
                 <li class="mb-2"><i class="fas fa-microchip text-primary me-2"></i> Data Analysis & Reporting</li>
                 <li class="mb-2"><i class="fas fa-microchip text-primary me-2"></i> Market Analysis & Research</li>
-                <li class="mb-2"><i class="fas fa-microchip text-primary me-2"></i> Product Development & Management</li>
+                <li class="mb-2"><i class="fas fa-microchip text-primary me-2"></i> Product Development & Management
+                </li>
               </ul>
             </div>
           </div>
           <div class="col-md-6">
             <div class="card-glass p-4 h-100">
               <h5 class="text-primary mb-3">[TOOLS_&_ENGINES]</h5>
-              <div class="d-flex flex-wrap gap-3">
+              <div class="d-flex flex-wrap gap-3 mb-4" id="skill-chips">
                 <span class="badge border border-primary text-primary">PYTHON</span>
                 <span class="badge border border-primary text-primary">SQL</span>
                 <span class="badge border border-primary text-primary">POWER_BI</span>
+                <span class="badge border border-primary text-primary">ML</span>
                 <span class="badge border border-primary text-primary">TABLEAU</span>
-                <span class="badge border border-primary text-primary">EXCEL_ADV</span>
-                <span class="badge border border-primary text-primary">REACT_JS</span>
-                <span class="badge border border-primary text-primary">NEXT_JS</span>
-                <span class="badge border border-primary text-primary">NUMPY</span>
-                <span class="badge border border-primary text-primary">PANDAS</span>
-                <span class="badge border border-primary text-primary">UBUNTU</span>
+              </div>
+              <div class="chart-container" style="position: relative; height:200px; width:100%">
+                <canvas id="skillsChart"></canvas>
               </div>
             </div>
           </div>
@@ -251,118 +294,91 @@
     <section class="resume-section p-3 p-lg-5" id="projects">
       <div class="w-100">
         <span class="section-label">OPERATIONS_LOG</span>
-        <h2 class="mb-5">Featured Work</h2>
-        <div class="row g-4">
-          <div class="col-lg-6">
+        <h2 class="mb-4">Featured Work</h2>
+
+        <!-- Project Filter -->
+        <div class="project-filters mb-5">
+          <button class="filter-btn active" data-filter="all">[ALL_OPS]</button>
+          <button class="filter-btn" data-filter="bi-viz">[BI_VIZ]</button>
+          <button class="filter-btn" data-filter="ml-ai">[ML_AI]</button>
+          <button class="filter-btn" data-filter="web-apps">[WEB_APPS]</button>
+        </div>
+
+        <div class="row g-4 project-grid" id="project-list">
+          <div class="col-lg-6 project-item" data-category="bi-viz">
             <div class="card-glass h-100">
               <div class="card-body">
                 <h5 class="card-title text-primary">[E-COMMERCE_BI_DASHBOARD]</h5>
-                <p class="card-text text-secondary">Tracking BDT 127M+ revenue for DEEN Commerce. Real-time performance intel.</p>
+                <p class="card-text text-secondary">Tracking BDT 127M+ revenue for DEEN Commerce.</p>
                 <ul class="case-list">
-                  <li><span class="case-label">Problem</span><span class="case-text">Sales visibility was scattered across channels and reports.</span></li>
-                  <li><span class="case-label">Approach</span><span class="case-text">Built real-time KPIs and weekly performance views in a single dashboard.</span></li>
-                  <li><span class="case-label">Impact</span><span class="case-text">Tracking BDT 127M+ revenue with faster decision loops.</span></li>
+                  <li><span class="case-label">Impact</span><span class="case-text">Tracking BDT 127M+ revenue.</span></li>
                   <li><span class="case-label">Tools</span><span class="case-text">Power BI, SQL, Excel</span></li>
                 </ul>
-                <div class="mb-3 d-flex flex-wrap gap-2">
-                  <span class="badge border border-primary text-primary">BI_ANALYSIS</span>
-                  <span class="badge border border-primary text-primary">DASHBOARDS</span>
-                </div>
                 <a href="https://e-com-dashborad.vercel.app/" target="_blank" rel="noopener" class="btn btn-sm btn-primary">VIEW_LIVE</a>
               </div>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-6 project-item" data-category="ml-ai">
             <div class="card-glass h-100">
               <div class="card-body">
                 <h5 class="card-title text-primary">[CUSTOMER_CHURN_ML]</h5>
-                <p class="card-text text-secondary">XGBoost & Random Forest implementation with 85%+ accuracy for retention strategy.</p>
+                <p class="card-text text-secondary">XGBoost & Random Forest implementation for retention.</p>
                 <ul class="case-list">
-                  <li><span class="case-label">Problem</span><span class="case-text">Churn signals were hidden in historical customer behavior.</span></li>
-                  <li><span class="case-label">Approach</span><span class="case-text">Trained XGBoost and Random Forest models with feature engineering.</span></li>
-                  <li><span class="case-label">Impact</span><span class="case-text">85%+ accuracy to prioritize retention efforts.</span></li>
-                  <li><span class="case-label">Tools</span><span class="case-text">Python, scikit-learn, pandas</span></li>
+                  <li><span class="case-label">Impact</span><span class="case-text">85%+ accuracy.</span></li>
+                  <li><span class="case-label">Tools</span><span class="case-text">Python, scikit-learn</span></li>
                 </ul>
-                <div class="mb-3 d-flex flex-wrap gap-2">
-                  <span class="badge border border-primary text-primary">ML_MODEL</span>
-                  <span class="badge border border-primary text-primary">CHURN</span>
-                </div>
                 <a href="https://github.com/saajiidi/Customer-Churn-Prediction/" target="_blank" rel="noopener" class="btn btn-sm btn-primary">VIEW_REPOS</a>
               </div>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-6 project-item" data-category="bi-viz">
             <div class="card-glass h-100">
               <div class="card-body">
                 <h5 class="card-title text-primary">[BORDER_KILLING_TREND]</h5>
-                <p class="card-text text-secondary">Analysis and visualization of border incidents trend over the years.</p>
+                <p class="card-text text-secondary">Analysis of border incidents trend over years.</p>
                 <ul class="case-list">
-                  <li><span class="case-label">Problem</span><span class="case-text">Year-over-year incident trends were hard to interpret.</span></li>
-                  <li><span class="case-label">Approach</span><span class="case-text">Cleaned records and built trend visualizations.</span></li>
-                  <li><span class="case-label">Impact</span><span class="case-text">Clear view of historical spikes and patterns.</span></li>
-                  <li><span class="case-label">Tools</span><span class="case-text">Python, Data Visualization</span></li>
+                  <li><span class="case-label">Impact</span><span class="case-text">Historical spikes visualization.</span></li>
+                  <li><span class="case-label">Tools</span><span class="case-text">Python, Data Viz</span></li>
                 </ul>
-                <div class="mb-3 d-flex flex-wrap gap-2">
-                  <span class="badge border border-primary text-primary">DATA_VIZ</span>
-                  <span class="badge border border-primary text-primary">TRENDING</span>
-                </div>
                 <a href="https://saajiidi.github.io/Border-Killing-Trend-in-Bangladesh/" target="_blank" rel="noopener" class="btn btn-sm btn-primary">INIT_DATA</a>
               </div>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-6 project-item" data-category="bi-viz">
             <div class="card-glass h-100">
               <div class="card-body">
                 <h5 class="card-title text-primary">[TERROR_MAP_VULN]</h5>
-                <p class="card-text text-secondary">Streamlit map visualization of terror incidents in Bangladesh.</p>
+                <p class="card-text text-secondary">Streamlit map visualization of incidents in BD.</p>
                 <ul class="case-list">
-                  <li><span class="case-label">Problem</span><span class="case-text">Incident data needed geographic context.</span></li>
-                  <li><span class="case-label">Approach</span><span class="case-text">Built an interactive Streamlit map with filters.</span></li>
-                  <li><span class="case-label">Impact</span><span class="case-text">Faster exploration of hotspots and timelines.</span></li>
-                  <li><span class="case-label">Tools</span><span class="case-text">Python, Streamlit, Geo Mapping</span></li>
+                  <li><span class="case-label">Impact</span><span class="case-text">Faster hotspot exploration.</span></li>
+                  <li><span class="case-label">Tools</span><span class="case-text">Python, Streamlit</span></li>
                 </ul>
-                <div class="mb-3 d-flex flex-wrap gap-2">
-                  <span class="badge border border-primary text-primary">GEO_VIZ</span>
-                  <span class="badge border border-primary text-primary">STREAMLIT</span>
-                </div>
                 <a href="https://sentinelbangladesh.streamlit.app/" target="_blank" rel="noopener" class="btn btn-sm btn-primary">SCAN_MAP</a>
               </div>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-6 project-item" data-category="web-apps">
             <div class="card-glass h-100">
               <div class="card-body">
                 <h5 class="card-title text-primary">[RAMADAN_COMPASS]</h5>
-                <p class="card-text text-secondary">Next.js application for spiritual tracking and scheduling.</p>
+                <p class="card-text text-secondary">Next.js application for spiritual tracking.</p>
                 <ul class="case-list">
-                  <li><span class="case-label">Problem</span><span class="case-text">Daily spiritual tracking needed a simple workflow.</span></li>
-                  <li><span class="case-label">Approach</span><span class="case-text">Designed a Next.js interface for schedules and habits.</span></li>
-                  <li><span class="case-label">Impact</span><span class="case-text">One place to plan and monitor daily routines.</span></li>
+                  <li><span class="case-label">Impact</span><span class="case-text">Personal routine monitoring.</span></li>
                   <li><span class="case-label">Tools</span><span class="case-text">Next.js, React</span></li>
                 </ul>
-                <div class="mb-3 d-flex flex-wrap gap-2">
-                  <span class="badge border border-primary text-primary">WEB_APP</span>
-                  <span class="badge border border-primary text-primary">NEXT_JS</span>
-                </div>
                 <a href="https://ramadancompass.vercel.app/" target="_blank" rel="noopener" class="btn btn-sm btn-primary">LAUNCH_APP</a>
               </div>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-6 project-item" data-category="bi-viz">
             <div class="card-glass h-100">
               <div class="card-body">
                 <h5 class="card-title text-primary">[GDP_VS_DEBT_ANALYSIS]</h5>
-                <p class="card-text text-secondary">Comparative visualization of economic growth vs national debt.</p>
+                <p class="card-text text-secondary">Economic growth vs national debt comparison.</p>
                 <ul class="case-list">
-                  <li><span class="case-label">Problem</span><span class="case-text">Comparing GDP and debt trends was manual.</span></li>
-                  <li><span class="case-label">Approach</span><span class="case-text">Built a side-by-side visualization in a published sheet.</span></li>
-                  <li><span class="case-label">Impact</span><span class="case-text">Quick macro trend comparison at a glance.</span></li>
+                  <li><span class="case-label">Impact</span><span class="case-text">Macro trend comparison.</span></li>
                   <li><span class="case-label">Tools</span><span class="case-text">Google Sheets</span></li>
                 </ul>
-                <div class="mb-3 d-flex flex-wrap gap-2">
-                  <span class="badge border border-primary text-primary">ECON_VIZ</span>
-                  <span class="badge border border-primary text-primary">DATA_ANALYSIS</span>
-                </div>
                 <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRqFZrORVk1bo_gRiaub0FPRxIAk2MV85i1z3aXeGiOJZKEXt0zwkkkVywkizoZ4O2mvmQoaGM4qJLa/pubhtml#" target="_blank" rel="noopener" class="btn btn-sm btn-primary">LOAD_INTEL</a>
               </div>
             </div>
@@ -377,14 +393,14 @@
       <div class="w-100">
         <span class="section-label">HONORARY_LOGS</span>
         <h2 class="mb-5">Awards & Certifications</h2>
-        <div class="timeline-wrapper">
+        <div class="timeline-wrapper" id="awards-list">
           <div class="timeline-item">
             <div class="timeline-dot"></div>
             <div class="resume-item mb-4">
               <h3 class="mb-0">ICT4SD Research Contribution</h3>
               <div class="subheading mb-3 text-primary">Data Mining Techniques Publication</div>
               <p class="text-secondary small">Categorizing single paragraphStories @ ICT Analysis and Applications Proceedings (Dec 2020).</p>
-              <a href="https://ict4sd.org/link/proceedings/ICT4SD-2020-VOL2.pdf" target="_blank" class="btn btn-sm btn-outline-primary">READ_PAPER</a>
+              <a href="https://ict4sd.org/link/proceedings/ICT4SD-2020-VOL2.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-primary">READ_PAPER</a>
             </div>
           </div>
           <div class="timeline-item">
@@ -393,8 +409,8 @@
               <h3 class="mb-0">Professional Certifications</h3>
               <div class="subheading mb-3 text-primary">Data Science & Analytics Credentials</div>
               <div class="d-flex gap-3">
-                <a href="https://drive.google.com/file/d/1cJxcJJur1n3MiXFETv5k30SDP0WP9wOm/view?usp=sharing" target="_blank" class="btn btn-sm btn-outline-light">INTEL_CERT_1</a>
-                <a href="https://drive.google.com/file/d/1O7O6jJRN58WGiyJu8hYrGhv-DtP89bEI/view?usp=sharing" target="_blank" class="btn btn-sm btn-outline-light">INTEL_CERT_2</a>
+                <a href="https://drive.google.com/file/d/1cJxcJJur1n3MiXFETv5k30SDP0WP9wOm/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-sm btn-outline-light">INTEL_CERT_1</a>
+                <a href="https://drive.google.com/file/d/1O7O6jJRN58WGiyJu8hYrGhv-DtP89bEI/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-sm btn-outline-light">INTEL_CERT_2</a>
               </div>
             </div>
           </div>
@@ -410,8 +426,37 @@
     </button>
   </div>
 
+  <!-- Contact Modal -->
+  <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content card-glass border-primary">
+        <div class="modal-header border-secondary border-opacity-25">
+          <h5 class="modal-title text-primary" id="contactModalLabel">[ESTABLISH_COMM_LINK]</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-secondary" id="contact-details">
+          <div class="mb-4">
+            <label class="section-label small mb-2">ENCRYPTED_EMAIL</label>
+            <div class="d-flex align-items-center justify-content-between p-3 bg-dark bg-opacity-50 border border-secondary border-opacity-25">
+              <span>sajid.islam.chowdhury@gmail.com</span>
+              <button class="btn btn-sm btn-outline-primary" onclick="copyEmail('sajid.islam.chowdhury@gmail.com', event)">COPY</button>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="section-label small mb-2">DIRECT_SIGNAL</label>
+            <div class="d-flex align-items-center justify-content-between p-3 bg-dark bg-opacity-50 border border-secondary border-opacity-25">
+              <span>+880 182 452 6054</span>
+              <a href="https://wa.me/+8801824526054" target="_blank" class="btn btn-sm btn-primary">WHATSAPP</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
+
+  <script src="js/tactical-data.js"></script>
   <script>
     // --- Tactical Scripting ---
     class Typewriter {
@@ -445,28 +490,98 @@
           return GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
         }).join('');
         if (iterations >= originalText.length) clearInterval(interval);
-        iterations += 1/3;
+        iterations += 1 / 3;
       }, 30);
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      // Typewriter sequence
-      const h1Text = "Hi, I'm Sajid 👋";
-      const pText = "A Data & Business Analyst specialized in turning complex datasets into strategic growth. Based in Bangladesh, I lead data-ops at DEEN Commerce and previously optimized performance at Daraz (Alibaba Group).";
-      
-      const tH1 = document.getElementById('typewriter-h1');
-      const tP = document.getElementById('typewriter-p');
-      
-      if(tH1) new Typewriter(tH1, h1Text, 120).type();
-      if(tP) setTimeout(() => new Typewriter(tP, pText, 60).type(), 2200);
+      // --- Theme Switching Ops ---
+      const themeToggle = document.getElementById('theme-toggle');
+      const body = document.body;
+      const themeIcon = themeToggle.querySelector('i');
 
-      // Glitch triggers disabled for soothing experience
+      const savedTheme = localStorage.getItem('tactical-theme') || 'dark';
+      body.setAttribute('data-theme', savedTheme);
+      updateThemeIcon(savedTheme);
+
+      themeToggle.addEventListener('click', () => {
+        const currentTheme = body.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('tactical-theme', newTheme);
+        updateThemeIcon(newTheme);
+      });
+
+      function updateThemeIcon(theme) {
+        themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+      }
+
+      // --- Initial Sync ---
+      if (typeof initializeProjectFilters !== 'undefined') {
+        initializeProjectFilters(); 
+      }
+
+      // --- Skills Radar Chart ---
+      const ctx = document.getElementById('skillsChart').getContext('2d');
+      window.skillsRadarChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: ['Python', 'SQL', 'BI Tools', 'ML', 'Web Dev', 'Marketing'],
+          datasets: [{
+            label: '[SKILL_POWER_LEVEL]',
+            data: [90, 85, 95, 70, 75, 80],
+            backgroundColor: 'rgba(34, 197, 94, 0.2)',
+            borderColor: '#22c55e',
+            borderWidth: 1,
+            pointBackgroundColor: '#22c55e'
+          }]
+        },
+        options: {
+          scales: {
+            r: {
+              angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+              grid: { color: 'rgba(255, 255, 255, 0.1)' },
+              pointLabels: { color: '#94a3b8', font: { family: 'JetBrains Mono' } },
+              ticks: { display: false },
+              suggestedMin: 0,
+              suggestedMax: 100
+            }
+          },
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      });
+
+      // --- Existing Typewriter logic ---
+      function startTypewriter() {
+        if (!window.TACTICAL_INFO) {
+            setTimeout(startTypewriter, 100);
+            return;
+        }
+        
+        const info = window.TACTICAL_INFO;
+        const h1Text = `Hi, I'm ${info.Name.split(' ')[0]} 👋`;
+        const pText = info.HeroText || "Analyzing data for strategic growth.";
+
+        const tH1 = document.getElementById('typewriter-h1');
+        const tP = document.getElementById('typewriter-p');
+
+        if (tH1) new Typewriter(tH1, h1Text, 120).type();
+        if (tP) setTimeout(() => new Typewriter(tP, pText, 60).type(), 2200);
+      }
+
+      startTypewriter();
     });
 
-    function copyEmail(email) {
+    function copyEmail(email, event) {
       navigator.clipboard.writeText(email);
-      alert('SIGNAL_COPIED: ' + email);
+      const btn = event.target;
+      const originalText = btn.innerText;
+      btn.innerText = 'COPIED';
+      setTimeout(() => { btn.innerText = originalText; }, 2000);
     }
   </script>
 </body>
+
 </html>
