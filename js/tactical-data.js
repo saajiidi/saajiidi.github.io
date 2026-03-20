@@ -15,9 +15,63 @@ const SHEETS = {
     AWARDS: 'Awards'
 };
 
+const DEFAULT_INFO = {
+    Name: 'Sajid Islam',
+    Role: 'Data Scientist & Business Analyst',
+    HeroText: 'A Data & Business Analyst specialized in turning complex datasets into strategic growth. Based in Bangladesh, I lead data-ops at DEEN Commerce and previously optimized performance at Daraz (Alibaba Group).'
+};
+
 /**
  * Fetch and parse CSV data
  */
+/**
+ * Typewriter Effect Class
+ */
+class Typewriter {
+    constructor(el, text, speed = 50) {
+        this.el = el;
+        this.text = text;
+        this.speed = speed;
+        this.index = 0;
+        this.el.innerHTML = '';
+        this.el.classList.add('typewriter-cursor');
+        
+        // Track the current session to prevent overlaps
+        const sessionID = Math.random().toString(36).substr(2, 9);
+        this.el.setAttribute('data-session', sessionID);
+        this.sessionID = sessionID;
+    }
+    type() {
+        // If the element has been claimed by a newer "Refetch" session, abort this one
+        if (this.el.getAttribute('data-session') !== this.sessionID) return;
+
+        if (this.index < this.text.length) {
+            this.el.innerHTML += this.text.charAt(this.index);
+            this.index++;
+            setTimeout(() => this.type(), this.speed);
+        } else {
+            this.el.classList.remove('typewriter-cursor');
+        }
+    }
+}
+
+/**
+ * Global trigger for the typewriter effect
+ */
+function runTypewriter(info) {
+    const tH1 = document.getElementById('typewriter-h1');
+    const tP = document.getElementById('typewriter-p');
+    
+    if (tH1) {
+        const h1Text = `Hi, I'm ${info.Name.split(' ')[0]} 👋`;
+        new Typewriter(tH1, h1Text, 100).type();
+    }
+    
+    if (tP) {
+        const pText = info.HeroText || "Analyzing data for strategic growth.";
+        setTimeout(() => new Typewriter(tP, pText, 50).type(), 2000);
+    }
+}
 async function fetchSheetData(sheetName) {
     try {
         const response = await fetch(`${BASE_URL}${sheetName}`);
@@ -57,6 +111,9 @@ function parseCSV(csvText) {
  */
 async function initializeTacticalData() {
     console.log('[SYNC] Connecting to Intel Grid...');
+
+    // Trigger typewriter immediately with defaults for "Instant Ops"
+    runTypewriter(DEFAULT_INFO);
     
     const [infoData, experience, education, skills, projects, awards] = await Promise.all([
         fetchSheetData(SHEETS.INFO),
@@ -91,6 +148,7 @@ async function initializeTacticalData() {
 
 function renderInfo(info) {
     if (!info.Name) return;
+    runTypewriter(info);
     document.title = `${info.Name} || [TACTICAL_INTEL]`;
     document.querySelectorAll('.data-name').forEach(el => el.innerText = info.Name);
     document.querySelectorAll('.data-role').forEach(el => el.innerText = info.Role);

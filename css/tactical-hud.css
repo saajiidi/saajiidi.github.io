@@ -167,3 +167,60 @@
 [data-theme="light"] h2 {
     text-shadow: none !important;
 }
+
+/* --- Tactical Profile Frame --- */
+.hero-image-wrapper {
+    position: relative;
+    max-width: 250px;
+    width: 100%;
+    aspect-ratio: 1/1 !important;
+    margin: 0 auto;
+    padding: 8px;
+    background: rgba(22, 101, 52, 0.05);
+    border: 1px solid rgba(22, 101, 52, 0.1);
+}
+
+.profile-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    filter: grayscale(0.2) contrast(1.1);
+    border: 1px solid var(--primary-color) !important;
+    clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%) !important;
+    transition: all 0.5s ease !important;
+    margin: 0 !important;
+}
+
+.hero-image-wrapper:hover .profile-image {
+    filter: grayscale(0) contrast(1.1) brightness(1.1);
+}
+
+.scanner-line {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 2px;
+    background: var(--primary-light);
+    box-shadow: 0 0 10px var(--primary-light);
+    opacity: 0.6;
+    z-index: 5;
+    animation: scan-pulse 4s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes scan-pulse {
+    0% { top: 0; opacity: 0; }
+    5% { opacity: 0.6; }
+    95% { opacity: 0.6; }
+    100% { top: 100%; opacity: 0; }
+}
+
+.frame-corner {
+    position: absolute;
+    width: 15px; height: 15px;
+    border: 2px solid var(--primary-light);
+    z-index: 10;
+    pointer-events: none;
+}
+.corner-tl { top: -2px; left: -2px; border-right: 0; border-bottom: 0; }
+.corner-tr { top: -2px; right: -2px; border-left: 0; border-bottom: 0; }
+.corner-bl { bottom: -2px; left: -2px; border-right: 0; border-top: 0; }
+.corner-br { bottom: -2px; right: -2px; border-left: 0; border-top: 0; }

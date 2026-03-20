@@ -151,6 +151,11 @@
         </div>
         <div class="col-lg-4 order-1 order-lg-2">
           <div class="hero-image-wrapper mx-auto">
+            <div class="scanner-line"></div>
+            <div class="frame-corner corner-tl"></div>
+            <div class="frame-corner corner-tr"></div>
+            <div class="frame-corner corner-bl"></div>
+            <div class="frame-corner corner-br"></div>
             <img class="img-fluid profile-image" src="img/profile.jpg" alt="Sajid Islam">
           </div>
         </div>
@@ -459,26 +464,6 @@
   <script src="js/tactical-data.js"></script>
   <script>
     // --- Tactical Scripting ---
-    class Typewriter {
-      constructor(el, text, speed = 50) {
-        this.el = el;
-        this.text = text;
-        this.speed = speed;
-        this.index = 0;
-        this.el.innerHTML = ''; // Clear existing hardcoded text to prevent doubling
-        this.el.classList.add('typewriter-cursor');
-      }
-      type() {
-        if (this.index < this.text.length) {
-          this.el.innerHTML += this.text.charAt(this.index);
-          this.index++;
-          setTimeout(() => this.type(), this.speed);
-        } else {
-          this.el.classList.remove('typewriter-cursor');
-        }
-      }
-    }
-
     const GLITCH_CHARS = 'ABCDEFGHIKLMNOPQRSTUVWXYZ0123456789§$#@*&';
     function glitchEffect(el) {
       if (!el) return;
@@ -517,6 +502,12 @@
         themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
       }
 
+      // --- Glitch Effect Initializer ---
+      document.querySelectorAll('.section-label, h2:not(.display-2)').forEach(el => {
+        el.addEventListener('mouseenter', () => glitchEffect(el));
+        setTimeout(() => glitchEffect(el), 500); // Initial boot-up glitch
+      });
+
       // --- Initial Sync ---
       if (typeof initializeProjectFilters !== 'undefined') {
         initializeProjectFilters(); 
@@ -554,25 +545,6 @@
         }
       });
 
-      // --- Existing Typewriter logic ---
-      function startTypewriter() {
-        if (!window.TACTICAL_INFO) {
-            setTimeout(startTypewriter, 100);
-            return;
-        }
-        
-        const info = window.TACTICAL_INFO;
-        const h1Text = `Hi, I'm ${info.Name.split(' ')[0]} 👋`;
-        const pText = info.HeroText || "Analyzing data for strategic growth.";
-
-        const tH1 = document.getElementById('typewriter-h1');
-        const tP = document.getElementById('typewriter-p');
-
-        if (tH1) new Typewriter(tH1, h1Text, 120).type();
-        if (tP) setTimeout(() => new Typewriter(tP, pText, 60).type(), 2200);
-      }
-
-      startTypewriter();
     });
 
     function copyEmail(email, event) {
