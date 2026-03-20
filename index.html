@@ -465,6 +465,7 @@
         this.text = text;
         this.speed = speed;
         this.index = 0;
+        this.el.innerHTML = ''; // Clear existing hardcoded text to prevent doubling
         this.el.classList.add('typewriter-cursor');
       }
       type() {
