@@ -172,12 +172,18 @@
 .hero-image-wrapper {
     position: relative;
     max-width: 250px;
-    width: 100%;
+    width: 100% !important;
     aspect-ratio: 1/1 !important;
     margin: 0 auto;
     padding: 8px;
     background: rgba(22, 101, 52, 0.05);
     border: 1px solid rgba(22, 101, 52, 0.1);
+}
+
+@media (max-width: 991px) {
+    .hero-image-wrapper {
+        margin-bottom: 3rem !important; /* Extra space for scanner line on mobile */
+    }
 }
 
 .profile-image {
@@ -186,6 +192,7 @@
     object-fit: cover !important;
     filter: grayscale(0.2) contrast(1.1);
     border: 1px solid var(--primary-color) !important;
+    -webkit-clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%) !important;
     clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%) !important;
     transition: all 0.5s ease !important;
     margin: 0 !important;
@@ -200,8 +207,8 @@
     top: 0; left: 0; width: 100%; height: 2px;
     background: var(--primary-light);
     box-shadow: 0 0 10px var(--primary-light);
-    opacity: 0.6;
-    z-index: 5;
+    opacity: 0.8;
+    z-index: 100;
     animation: scan-pulse 4s linear infinite;
     pointer-events: none;
 }
