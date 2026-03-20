@@ -168,6 +168,11 @@
     text-shadow: none !important;
 }
 
+.stealth-start {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
 /* --- Tactical Profile Frame --- */
 .hero-image-wrapper {
     position: relative;

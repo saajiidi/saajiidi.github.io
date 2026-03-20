@@ -63,13 +63,18 @@ function runTypewriter(info) {
     const tP = document.getElementById('typewriter-p');
     
     if (tH1) {
+        tH1.parentElement.style.opacity = '1'; // Show H1
         const h1Text = `Hi, I'm ${info.Name.split(' ')[0]} 👋`;
-        new Typewriter(tH1, h1Text, 100).type();
+        new Typewriter(tH1, h1Text, 120).type(); // Slower name
     }
     
     if (tP) {
         const pText = info.HeroText || "Analyzing data for strategic growth.";
-        setTimeout(() => new Typewriter(tP, pText, 50).type(), 2000);
+        // More cinematic delay
+        setTimeout(() => {
+            tP.parentElement.style.opacity = '1'; // Show P
+            new Typewriter(tP, pText, 60).type(); // Polished bio speed
+        }, 2200);
     }
 }
 async function fetchSheetData(sheetName) {
