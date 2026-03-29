@@ -647,7 +647,106 @@ document.addEventListener('DOMContentLoaded', () => {
     SkillProgressBars.init();
     TestimonialsCarousel.init();
     HoverAudio.init();
+    
+    // Initialize Draggable Widgets
+    if (document.getElementById('githubWidget')) {
+        new DraggableHUDElement(document.getElementById('githubWidget'));
+    }
+    if (document.getElementById('dataVizWidget')) {
+        new DraggableHUDElement(document.getElementById('dataVizWidget'));
+    }
 });
+
+// ===== 11. DRAGGABLE HUD COMPONENTS =====
+class DraggableHUDElement {
+    constructor(el) {
+        this.el = el;
+        this.handle = el.querySelector('.widget-header, .viz-header') || el;
+        this.isDragging = false;
+        this.offsetX = 0;
+        this.offsetY = 0;
+        
+        this.init();
+    }
+    
+    init() {
+        this.handle.style.cursor = 'grab';
+        
+        // Mouse Events
+        this.handle.addEventListener('mousedown', (e) => this.dragStart(e));
+        document.addEventListener('mousemove', (e) => this.drag(e));
+        document.addEventListener('mouseup', () => this.dragEnd());
+        
+        // Touch Events
+        this.handle.addEventListener('touchstart', (e) => this.dragStart(e), { passive: false });
+        document.addEventListener('touchmove', (e) => this.drag(e), { passive: false });
+        document.addEventListener('touchend', () => this.dragEnd());
+        
+        // Load saved position
+        const savedPos = localStorage.getItem(`pos-${this.el.id}`);
+        if (savedPos) {
+            const { x, y } = JSON.parse(savedPos);
+            this.el.style.left = x;
+            this.el.style.top = y;
+            this.el.style.right = 'auto'; // Break initial fixed positioning
+            this.el.style.bottom = 'auto';
+        }
+    }
+    
+    dragStart(e) {
+        if (e.target.closest('button, a')) return; // Don't drag on buttons
+        
+        this.isDragging = true;
+        this.handle.style.cursor = 'grabbing';
+        this.el.classList.add('is-dragging');
+        
+        const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+        
+        const rect = this.el.getBoundingClientRect();
+        this.offsetX = clientX - rect.left;
+        this.offsetY = clientY - rect.top;
+        
+        AudioEngine.play('click');
+        if (e.type === 'touchstart') e.preventDefault();
+    }
+    
+    drag(e) {
+        if (!this.isDragging) return;
+        
+        const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+        
+        let x = clientX - this.offsetX;
+        let y = clientY - this.offsetY;
+        
+        // Boundary Check
+        x = Math.max(10, Math.min(x, window.innerWidth - this.el.offsetWidth - 10));
+        y = Math.max(10, Math.min(y, window.innerHeight - this.el.offsetHeight - 10));
+        
+        this.el.style.left = `${x}px`;
+        this.el.style.top = `${y}px`;
+        this.el.style.right = 'auto';
+        this.el.style.bottom = 'auto';
+        
+        if (e.type === 'touchmove') e.preventDefault();
+    }
+    
+    dragEnd() {
+        if (!this.isDragging) return;
+        this.isDragging = false;
+        this.handle.style.cursor = 'grab';
+        this.el.classList.remove('is-dragging');
+        
+        // Save Position
+        localStorage.setItem(`pos-${this.el.id}`, JSON.stringify({
+            x: this.el.style.left,
+            y: this.el.style.top
+        }));
+        
+        AudioEngine.play('beep');
+    }
+}
 
 // Export for global access
 window.TestimonialsCarousel = TestimonialsCarousel;
