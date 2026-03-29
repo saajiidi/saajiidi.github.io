@@ -360,6 +360,7 @@ a:hover {
 #sideNav {
     background-color: var(--sidenav-bg);
     border-right: var(--glass-border);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     transition: all 0.3s ease-in-out;
     z-index: 1040;
@@ -695,6 +696,7 @@ a:hover {
 
 #sideNav {
     background: rgba(0, 0, 0, 0.9) !important;
+    -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
     border-bottom: 1px solid var(--primary-color);
     padding: 1rem 0;
