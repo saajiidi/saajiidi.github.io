@@ -1,14 +1,14 @@
 :root {
     /* --- Tactical HUD Aesthetic --- */
     --primary-color: #166534;
-    --primary-light: #22c55e;
-    --accent-color: #14532d;
+    --primary-light: #a3e635;
+    --accent-color: #bef264;
     
     --bg-page: #051410;
     --bg-card: rgba(6, 20, 15, 0.95);
     --text-primary: #f0f7f4;
     --text-secondary: #94a3b8;
-    --text-highlight: #22c55e;
+    --text-highlight: #a3e635;
     
     --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
     --max-content-width: 1300px; /* Wider view for zoomed out effect */
@@ -21,8 +21,8 @@
     /* Bootstrap color overrides */
     --bs-primary: #166534;
     --bs-primary-rgb: 22, 101, 52;
-    --bs-link-color: #22c55e;
-    --bs-link-hover-color: #4ade80;
+    --bs-link-color: #a3e635;
+    --bs-link-hover-color: #bef264;
 }
 
 /* Base Tactical Styles */
@@ -645,6 +645,7 @@ a:hover {
     background: var(--primary-color) !important;
     border: none !important;
     box-shadow: var(--elevation-1);
+    color: #000 !important;
 }
 
 .btn-primary:hover {

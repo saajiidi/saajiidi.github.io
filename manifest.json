@@ -1,0 +1,25 @@
+{
+  "name": "Sajid Islam - Tactical Intel",
+  "short_name": "Tactical Intel",
+  "description": "Data Scientist & Business Analyst Portfolio - Sajid Islam",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#051410",
+  "theme_color": "#166534",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "img/profile.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "img/profile.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ],
+  "categories": ["portfolio", "business", "data science"],
+  "lang": "en"
+}

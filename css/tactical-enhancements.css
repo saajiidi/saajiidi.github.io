@@ -1,0 +1,497 @@
+/**
+ * TACTICAL ENHANCEMENTS CSS
+ * Styles for cursor, command palette, animations, and HUD elements
+ */
+
+/* ===== 1. ENHANCED TERMINAL CURSOR ===== */
+.enhanced-typewriter {
+    position: relative;
+    display: inline;
+}
+
+.terminal-cursor {
+    display: inline-block;
+    width: 10px;
+    height: 1.2em;
+    background: var(--primary-light);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: cursor-blink 1s step-end infinite;
+    box-shadow: 0 0 10px var(--primary-light), 0 0 20px var(--primary-light);
+}
+
+@keyframes cursor-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.enhanced-typewriter.typing-complete .terminal-cursor {
+    animation: cursor-blink 1.2s step-end infinite;
+    background: var(--text-highlight);
+    box-shadow: 0 0 15px var(--text-highlight), 0 0 30px var(--text-highlight);
+}
+
+/* ===== 2. HUD CROSSHAIR CURSOR ===== */
+body {
+    cursor: crosshair;
+}
+
+a, button, .nav-link, .btn, .card-glass, .social-link, .filter-btn {
+    cursor: crosshair;
+}
+
+a:hover, button:hover, .nav-link:hover, .btn:hover, 
+.card-glass:hover, .social-link:hover, .filter-btn:hover {
+    cursor: crosshair;
+}
+
+/* Custom crosshair for interactive elements */
+.interactive-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--primary-light);
+    pointer-events: none;
+    z-index: 99999;
+    transition: transform 0.1s ease;
+    mix-blend-mode: difference;
+}
+
+.interactive-cursor::before,
+.interactive-cursor::after {
+    content: '';
+    position: absolute;
+    background: var(--primary-light);
+}
+
+.interactive-cursor::before {
+    width: 1px;
+    height: 8px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.interactive-cursor::after {
+    width: 8px;
+    height: 1px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* ===== 3. GLITCH TEXT ANIMATION ===== */
+.glitch-text {
+    position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.glitch-text::before {
+    color: #ff0000;
+    animation: glitch-1 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+    z-index: -1;
+}
+
+.glitch-text::after {
+    color: #00ff00;
+    animation: glitch-2 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+    z-index: -2;
+}
+
+@keyframes glitch-1 {
+    0% { transform: translate(0); opacity: 0; }
+    20% { transform: translate(-2px, 2px); opacity: 0.8; }
+    40% { transform: translate(-2px, -2px); opacity: 0.8; }
+    60% { transform: translate(2px, 2px); opacity: 0.8; }
+    80% { transform: translate(2px, -2px); opacity: 0; }
+    100% { transform: translate(0); opacity: 0; }
+}
+
+@keyframes glitch-2 {
+    0% { transform: translate(0); opacity: 0; }
+    20% { transform: translate(2px, -2px); opacity: 0.8; }
+    40% { transform: translate(2px, 2px); opacity: 0.8; }
+    60% { transform: translate(-2px, -2px); opacity: 0.8; }
+    80% { transform: translate(-2px, 2px); opacity: 0; }
+    100% { transform: translate(0); opacity: 0; }
+}
+
+/* Glitched class applied after scroll reveal */
+.glitched {
+    animation: glitch-flash 0.5s ease-out;
+}
+
+@keyframes glitch-flash {
+    0%, 100% { filter: none; }
+    25% { filter: hue-rotate(90deg) saturate(2); text-shadow: 2px 0 #a3e635, -2px 0 #bef264; }
+    50% { filter: hue-rotate(-90deg) saturate(2); text-shadow: -2px 0 #a3e635, 2px 0 #bef264; }
+    75% { filter: hue-rotate(45deg); }
+}
+
+/* ===== 4. SCANLINE PULSE ===== */
+@keyframes scanlinePulse {
+    0%, 100% { opacity: 0.15; }
+    50% { opacity: 0.25; }
+}
+
+.scanlines {
+    animation: scanlineScroll 10s linear infinite, scanlinePulse 4s ease-in-out infinite !important;
+}
+
+/* ===== 5. COMMAND PALETTE ===== */
+.command-palette {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 15vh;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.command-palette.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.command-palette-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+}
+
+.command-palette-modal {
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+    background: #000 !important;
+    border: 1px solid var(--primary-color) !important;
+    border-radius: 0 !important;
+    overflow: hidden;
+    transform: scale(0.95) translateY(-10px);
+    transition: transform 0.2s ease;
+    box-shadow: 0 0 40px rgba(163, 230, 53, 0.2) !important;
+}
+
+.command-palette.open .command-palette-modal {
+    transform: scale(1) translateY(0);
+}
+
+.command-palette-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(163, 230, 53, 0.2);
+    gap: 1rem;
+}
+
+.command-palette-header i {
+    color: var(--primary-light);
+}
+
+.command-palette-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    outline: none;
+}
+
+.command-palette-input::placeholder {
+    color: var(--text-secondary);
+}
+
+.command-palette-shortcut {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+}
+
+.command-palette-commands {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.command-palette-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border-left: 3px solid transparent;
+}
+
+.command-palette-item:hover,
+.command-palette-item.selected {
+    background: rgba(163, 230, 53, 0.1);
+    border-left-color: var(--primary-light);
+}
+
+.command-palette-item i {
+    color: var(--primary-light);
+    width: 20px;
+    text-align: center;
+}
+
+.command-palette-label {
+    flex: 1;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+}
+
+.command-palette-key {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    background: rgba(163, 230, 53, 0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+}
+
+.command-palette-separator {
+    height: 1px;
+    background: rgba(163, 230, 53, 0.1);
+    margin: 0.5rem 1.5rem;
+}
+
+/* ===== 6. TACTICAL NOTIFICATION ===== */
+.tactical-notification {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid var(--primary-light);
+    color: var(--primary-light);
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    z-index: 10001;
+    animation: notification-slide 0.3s ease;
+    box-shadow: 0 0 20px rgba(163, 230, 53, 0.3);
+}
+
+@keyframes notification-slide {
+    from { transform: translateX(-50%) translateY(100%); opacity: 0; }
+    to { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+
+/* ===== 7. ANIMATED COUNTERS ===== */
+.stats-ticker {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 1rem 1.5rem;
+    background: rgba(163, 230, 53, 0.05);
+    border: 1px solid rgba(163, 230, 53, 0.2);
+    min-width: 120px;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary-light);
+    font-family: var(--font-mono);
+    text-shadow: 0 0 20px rgba(163, 230, 53, 0.5);
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.5rem;
+}
+
+/* ===== 8. SKILL PROGRESS BARS ===== */
+.skill-progress-item {
+    margin-bottom: 1.25rem;
+}
+
+.skill-progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+}
+
+.skill-name {
+    color: var(--text-primary);
+}
+
+.skill-percent {
+    color: var(--primary-light);
+}
+
+.skill-progress-bar {
+    height: 6px;
+    background: rgba(163, 230, 53, 0.1);
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.skill-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+    width: 0;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 10px var(--primary-light);
+}
+
+/* ===== 9. TESTIMONIALS CAROUSEL ===== */
+.testimonial-card {
+    padding: 2rem;
+    text-align: center;
+}
+
+.testimonial-quote {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.testimonial-quote::before {
+    content: '"';
+    color: var(--primary-light);
+    font-size: 2rem;
+    margin-right: 0.5rem;
+}
+
+.testimonial-author {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.author-name {
+    color: var(--primary-light);
+    font-weight: 600;
+    font-family: var(--font-mono);
+}
+
+.author-role {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.testimonial-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.testimonial-btn {
+    background: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-light);
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: var(--font-mono);
+}
+
+.testimonial-btn:hover {
+    background: var(--primary-color);
+    color: #000;
+}
+
+.testimonial-dots {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.testimonial-dots .dot {
+    width: 8px;
+    height: 8px;
+    background: rgba(163, 230, 53, 0.3);
+    transition: all 0.3s ease;
+}
+
+.testimonial-dots .dot.active {
+    background: var(--primary-light);
+    box-shadow: 0 0 10px var(--primary-light);
+}
+
+/* ===== 10. SMOOTH THEME TRANSITION ===== */
+body,
+body * {
+    transition-property: background-color, border-color, color, box-shadow;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+}
+
+/* Disable transition on elements that shouldn't have it */
+.scanlines,
+.terminal-cursor,
+.skill-progress-fill,
+.command-palette-modal {
+    transition: none !important;
+}
+
+/* ===== 11. ENHANCED HOVER EFFECTS ===== */
+a, button, .btn, .nav-link, .social-link, .filter-btn {
+    transition: all 0.2s ease;
+}
+
+a:hover, button:hover, .btn:hover {
+    text-shadow: 0 0 10px var(--primary-light);
+}
+
+/* ===== 12. KEYBOARD SHORTCUT HINTS ===== */
+.keyboard-hint {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.keyboard-hint kbd {
+    background: rgba(163, 230, 53, 0.1);
+    border: 1px solid rgba(163, 230, 53, 0.3);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: inherit;
+}

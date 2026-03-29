@@ -1,14 +1,14 @@
 :root {
     /* --- Tactical HUD Aesthetic (Night Ops) --- */
     --primary-color: #166534;
-    --primary-light: #22c55e;
-    --accent-color: #14532d;
+    --primary-light: #a3e635;
+    --accent-color: #bef264;
     
     --bg-page: #051410;
     --bg-card: rgba(6, 20, 15, 0.95);
     --text-primary: #f0f7f4;
     --text-secondary: #94a3b8;
-    --text-highlight: #22c55e;
+    --text-highlight: #a3e635;
     
     --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
 }

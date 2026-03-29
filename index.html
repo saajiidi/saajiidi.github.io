@@ -63,8 +63,13 @@
   <!-- Custom Modern CSS -->
   <link href="css/modern-custom.css" rel="stylesheet">
   <link href="css/tactical-hud.css" rel="stylesheet">
+  <link href="css/tactical-enhancements.css" rel="stylesheet">
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#166534">
 </head>
 
 <body id="page-top">
@@ -288,6 +293,7 @@
               <div class="chart-container" style="position: relative; height:200px; width:100%">
                 <canvas id="skillsChart"></canvas>
               </div>
+              <div id="skill-progress-bars" class="mt-4"></div>
             </div>
           </div>
         </div>
@@ -422,6 +428,22 @@
         </div>
       </div>
     </section>
+
+    <hr class="m-0 border-secondary opacity-10">
+
+    <!-- Testimonials Section -->
+    <section class="resume-section p-3 p-lg-5" id="testimonials">
+      <div class="w-100">
+        <span class="section-label">FIELD_REPORTS</span>
+        <h2 class="mb-5">Testimonials</h2>
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div id="testimonials-carousel"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 
   <!-- HUD Floating Action Button -->
@@ -459,10 +481,28 @@
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="keyboard-hint d-none d-lg-block">
+    <kbd>Ctrl</kbd>+<kbd>K</kbd> for command palette • <kbd>j</kbd>/<kbd>k</kbd> to navigate • <kbd>a</kbd> toggle audio
+  </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/tactical-data.js"></script>
+  <script src="js/tactical-enhancements.js"></script>
   <script>
+    // Register Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((registration) => {
+            console.log('[TACTICAL] Service Worker registered:', registration.scope);
+          })
+          .catch((error) => {
+            console.log('[TACTICAL] Service Worker registration failed:', error);
+          });
+      });
+    }
+
     // --- Tactical Scripting ---
     const GLITCH_CHARS = 'ABCDEFGHIKLMNOPQRSTUVWXYZ0123456789§$#@*&';
     function glitchEffect(el) {
@@ -522,10 +562,10 @@
           datasets: [{
             label: '[SKILL_POWER_LEVEL]',
             data: [90, 85, 95, 70, 75, 80],
-            backgroundColor: 'rgba(34, 197, 94, 0.2)',
-            borderColor: '#22c55e',
+            backgroundColor: 'rgba(163, 230, 53, 0.2)',
+            borderColor: '#a3e635',
             borderWidth: 1,
-            pointBackgroundColor: '#22c55e'
+            pointBackgroundColor: '#a3e635'
           }]
         },
         options: {
