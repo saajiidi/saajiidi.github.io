@@ -445,40 +445,32 @@ const DATA = {
   ],
   skillGroups: [
     {
-      name: "Data Analytics & BI",
+      name: "Business & Strategy",
       skills: [
-        { name: "Python", category: "Data", icon: "https://img.icons8.com/color/48/null/python--v1.png", level: 90 },
-        { name: "SQL", category: "Data", icon: "https://img.icons8.com/ios-filled/100/000000/sql.png", level: 85 },
-        { name: "Power BI", category: "BI", icon: "https://img.icons8.com/color/48/000000/power-bi.png", level: 95 },
-        { name: "Tableau", category: "BI", icon: "https://img.icons8.com/color/48/000000/tableau-software.png", level: 80 },
-        { name: "Excel", category: "Data", icon: "https://img.icons8.com/color/48/000000/microsoft-excel-2019--v1.png", level: 95 },
-        { name: "Google Analytics", category: "Data", icon: "https://img.icons8.com/color/48/000000/google-analytics.png", level: 75 },
-        { name: "Pandas", category: "Data", icon: "https://img.icons8.com/color/48/000000/pandas.png", level: 90 },
-        { name: "NumPy", category: "Data", icon: "https://img.icons8.com/color/48/000000/numpy.png", level: 85 },
-        { name: "Scikit-learn", category: "Data", icon: "https://img.icons8.com/color/48/000000/python.png", level: 75 }
+        { name: "Market Research", category: "Strategy", icon: "https://img.icons8.com/color/48/000000/search--v1.png", level: 90 },
+        { name: "Product Development", category: "Strategy", icon: "https://img.icons8.com/color/48/000000/product--v1.png", level: 85 },
+        { name: "Business Development", category: "Strategy", icon: "https://img.icons8.com/color/48/000000/conference-call.png", level: 88 },
+        { name: "Business Intelligence", category: "Strategy", icon: "https://img.icons8.com/color/48/000000/business-report.png", level: 92 }
+      ]
+    },
+    {
+      name: "Analytical & Technical",
+      skills: [
+        { name: "Data Analytics & ML", category: "Data", icon: "https://img.icons8.com/color/48/null/python--v1.png", level: 85 },
+        { name: "Python & R", category: "Data", icon: "https://img.icons8.com/color/48/000000/python.png", level: 85 },
+        { name: "Power BI & Tableau", category: "BI", icon: "https://img.icons8.com/color/48/000000/power-bi.png", level: 90 },
+        { name: "Excel & Spreadsheets", category: "Data", icon: "https://img.icons8.com/color/48/000000/microsoft-excel-2019--v1.png", level: 95 },
+        { name: "Data Visualization", category: "BI", icon: "https://img.icons8.com/color/48/000000/combo-chart.png", level: 92 },
+        { name: "Prompt Engineering", category: "AI", icon: "https://img.icons8.com/color/48/000000/robot-intellectual.png", level: 88 }
       ]
     },
     {
       name: "Web Development",
       skills: [
         { name: "React", category: "Frontend", icon: "https://img.icons8.com/color/144/000000/react-native.png", level: 75 },
-        { name: "Node.js", category: "Backend", icon: "https://img.icons8.com/fluency/144/000000/node-js.png", level: 60 },
         { name: "JavaScript", category: "Frontend", icon: "https://img.icons8.com/color/144/000000/javascript--v1.png", level: 80 },
-        { name: "HTML5", category: "Frontend", icon: "https://img.icons8.com/color/144/000000/html-5--v1.png", level: 90 },
-        { name: "CSS3", category: "Frontend", icon: "https://img.icons8.com/color/144/000000/css3.png", level: 85 }
-      ]
-    },
-    {
-      name: "Core Competencies",
-      skills: [
-        { name: "Business Intelligence", category: "Core" },
-        { name: "Data Analysis", category: "Core" },
-        { name: "Marketplace Analysis", category: "Core" },
-        { name: "Strategic Planning", category: "Core" },
-        { name: "Cross Functional Teams", category: "Core" },
-        { name: "Agile & Scrum", category: "Core" },
-        { name: "Data-Driven Decisions", category: "Core" },
-        { name: "Analytics Pipelines", category: "Core" }
+        { name: "HTML5 & CSS3", category: "Frontend", icon: "https://img.icons8.com/color/144/000000/html-5--v1.png", level: 90 },
+        { name: "Basic Web Dev", category: "Frontend", icon: "https://img.icons8.com/color/48/000000/source-code.png", level: 70 }
       ]
     }
   ],

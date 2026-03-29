@@ -1154,8 +1154,8 @@ UPTIME: ${Math.floor(performance.now() / 1000)}s`,
   <!-- Portfolio Bridge Overlay (Smart HUD Window) -->
   <div class="portfolio-bridge-overlay" id="portfolioBridge">
     <div class="bridge-backdrop" onclick="closePortfolioBridge()"></div>
-    <div class="bridge-window card-glass">
-      <div class="bridge-header">
+    <div class="bridge-window card-glass" id="bridgeWindow">
+      <div class="bridge-header" id="bridgeHeader">
         <div class="d-flex align-items-center gap-3">
           <div class="pulse-indicator"></div>
           <span class="bridge-title">[REMOTE_UPLINK_SECURE]</span>
@@ -1163,7 +1163,8 @@ UPTIME: ${Math.floor(performance.now() / 1000)}s`,
         </div>
         <div class="bridge-controls">
           <span class="telemetry-data d-none d-lg-inline">LATENCY: 24ms // SIG_STRENGTH: 98%</span>
-          <button class="btn-close-bridge" onclick="closePortfolioBridge()"><i class="fas fa-times me-2"></i>COLLAPSE_LINK</button>
+          <button class="btn-bridge-ctrl" onclick="toggleMaximizeBridge()" title="Toggle Maximize"><i class="fas fa-expand-alt"></i></button>
+          <button class="btn-bridge-ctrl btn-exit" onclick="closePortfolioBridge()"><i class="fas fa-times me-2"></i>COLLAPSE</button>
         </div>
       </div>
       <div class="bridge-content">
@@ -1173,6 +1174,8 @@ UPTIME: ${Math.floor(performance.now() / 1000)}s`,
         </div>
         <iframe id="portfolioIframe" src="" loading="lazy"></iframe>
       </div>
+      <div class="bridge-resize-handle"></div>
+    </div>
     </div>
   </div>
 
@@ -1192,6 +1195,42 @@ UPTIME: ${Math.floor(performance.now() / 1000)}s`,
       };
       
       AudioEngine.play('beep');
+      
+      // Initialize Draggable/Resizable for Bridge
+      if (!window.bridgeDraggable) {
+          window.bridgeDraggable = new DraggableHUDElement(document.getElementById('bridgeWindow'), document.getElementById('bridgeHeader'));
+          initResizableBridge();
+      }
+    }
+
+    function toggleMaximizeBridge() {
+        const window = document.getElementById('bridgeWindow');
+        window.classList.toggle('maximized');
+        AudioEngine.play('click');
+    }
+
+    function initResizableBridge() {
+        const win = document.getElementById('bridgeWindow');
+        const handle = win.querySelector('.bridge-resize-handle');
+        let isResizing = false;
+
+        handle.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            document.addEventListener('mousemove', handleResize);
+            document.addEventListener('mouseup', () => {
+                isResizing = false;
+                document.removeEventListener('mousemove', handleResize);
+            });
+            e.preventDefault();
+        });
+
+        function handleResize(e) {
+            if (!isResizing) return;
+            const rect = win.getBoundingClientRect();
+            win.style.width = `${e.clientX - rect.left}px`;
+            win.style.height = `${e.clientY - rect.top}px`;
+            win.style.maxWidth = 'none';
+        }
     }
 
     function closePortfolioBridge() {

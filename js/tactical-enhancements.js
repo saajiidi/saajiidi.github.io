@@ -659,9 +659,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ===== 11. DRAGGABLE HUD COMPONENTS =====
 class DraggableHUDElement {
-    constructor(el) {
+    constructor(el, handle = null) {
         this.el = el;
-        this.handle = el.querySelector('.widget-header, .viz-header') || el;
+        this.handle = handle || el.querySelector('.widget-header, .viz-header, .bridge-header') || el;
         this.isDragging = false;
         this.offsetX = 0;
         this.offsetY = 0;
