@@ -1,14 +1,14 @@
 :root {
     /* --- Tactical HUD Aesthetic --- */
     --primary-color: #166534;
-    --primary-light: #22c55e;
-    --accent-color: #14532d;
+    --primary-light: #a3e635;
+    --accent-color: #bef264;
     
     --bg-page: #051410;
     --bg-card: rgba(6, 20, 15, 0.95);
     --text-primary: #f0f7f4;
     --text-secondary: #94a3b8;
-    --text-highlight: #22c55e;
+    --text-highlight: #a3e635;
     
     --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
     --max-content-width: 1300px; /* Wider view for zoomed out effect */
@@ -21,8 +21,13 @@
     /* Bootstrap color overrides */
     --bs-primary: #166534;
     --bs-primary-rgb: 22, 101, 52;
-    --bs-link-color: #22c55e;
-    --bs-link-hover-color: #4ade80;
+    --bs-link-color: #a3e635;
+    --bs-link-hover-color: #bef264;
+}
+
+/* Fix text-primary visibility on dark backgrounds */
+.text-primary {
+    color: var(--primary-light) !important;
 }
 
 /* Base Tactical Styles */
@@ -621,30 +626,34 @@ a:hover {
     cursor: pointer;
 }
 
-.md-fab:hover {
-    background: var(--primary-color);
-    color: #000;
-    box-shadow: 0 0 20px var(--primary-color);
+[data-theme="light"] .md-fab {
+    background: #fff !important;
+    color: var(--primary-color) !important;
 }
 
-/* Base Material Button Styles */
-.btn {
-    border-radius: 0 !important; /* Sharp Corners */
-    font-weight: 600 !important;
-    letter-spacing: 1px;
-    text-transform: uppercase !important;
-    padding: 8px 20px !important;
-    font-size: 0.75rem !important;
-    transition: all 0.3s ease !important;
-    position: relative;
-    overflow: hidden;
-    border: 1px solid var(--primary-color) !important;
+[data-theme="light"] .card-glass {
+    background: #fff !important;
+    border-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .resume-item {
+    background: #fff !important;
+    border-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .timeline-dot {
+    background: #fff !important;
+}
+
+[data-theme="light"] #sideNav {
+    background: rgba(255, 255, 255, 0.95) !important;
 }
 
 .btn-primary {
     background: var(--primary-color) !important;
     border: none !important;
     box-shadow: var(--elevation-1);
+    color: #000 !important;
 }
 
 .btn-primary:hover {
