@@ -145,8 +145,45 @@
     padding: 10px;
 }
 
-[data-theme="light"] body::before {
-    opacity: 0.03; /* Slightly more visible noise in light mode */
+[data-theme="light"] .text-primary {
+    color: #15803d !important;
+}
+
+[data-theme="light"] .text-secondary {
+    color: #475569 !important;
+}
+
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4,
+[data-theme="light"] h5,
+[data-theme="light"] h6 {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] .resume-item h3,
+[data-theme="light"] .resume-item h4 {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] p,
+[data-theme="light"] .card-text,
+[data-theme="light"] .lead {
+    color: #334155 !important;
+}
+
+[data-theme="light"] a:not(.btn):not(.nav-link) {
+    color: #15803d !important;
+}
+
+[data-theme="light"] .section-label {
+    color: #15803d !important;
+    border-color: #15803d !important;
+}
+
+[data-theme="light"] .subheading {
+    color: #475569 !important;
 }
 
 [data-theme="light"] .bg-blobs {

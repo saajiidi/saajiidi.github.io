@@ -263,6 +263,22 @@ a:hover, button:hover, .nav-link:hover, .btn:hover,
     font-size: 0.9rem;
 }
 
+[data-theme="light"] .command-palette-modal > div {
+    background: #fff !important;
+    border-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .command-palette-input {
+    background: #f8fafc !important;
+    border-color: #e2e8f0 !important;
+    color: #0f172a !important;
+}
+
+[data-theme="light"] .command-palette-item:hover,
+[data-theme="light"] .command-palette-item.selected {
+    background: #f1f5f9 !important;
+}
+
 .command-palette-key {
     font-size: 0.7rem;
     color: var(--text-secondary);

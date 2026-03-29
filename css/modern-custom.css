@@ -25,6 +25,11 @@
     --bs-link-hover-color: #bef264;
 }
 
+/* Fix text-primary visibility on dark backgrounds */
+.text-primary {
+    color: var(--primary-light) !important;
+}
+
 /* Base Tactical Styles */
 html {
     font-size: 70%;
@@ -621,24 +626,27 @@ a:hover {
     cursor: pointer;
 }
 
-.md-fab:hover {
-    background: var(--primary-color);
-    color: #000;
-    box-shadow: 0 0 20px var(--primary-color);
+[data-theme="light"] .md-fab {
+    background: #fff !important;
+    color: var(--primary-color) !important;
 }
 
-/* Base Material Button Styles */
-.btn {
-    border-radius: 0 !important; /* Sharp Corners */
-    font-weight: 600 !important;
-    letter-spacing: 1px;
-    text-transform: uppercase !important;
-    padding: 8px 20px !important;
-    font-size: 0.75rem !important;
-    transition: all 0.3s ease !important;
-    position: relative;
-    overflow: hidden;
-    border: 1px solid var(--primary-color) !important;
+[data-theme="light"] .card-glass {
+    background: #fff !important;
+    border-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .resume-item {
+    background: #fff !important;
+    border-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .timeline-dot {
+    background: #fff !important;
+}
+
+[data-theme="light"] #sideNav {
+    background: rgba(255, 255, 255, 0.95) !important;
 }
 
 .btn-primary {
