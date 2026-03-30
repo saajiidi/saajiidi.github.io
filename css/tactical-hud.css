@@ -641,6 +641,68 @@
     animation: pulse 1.5s infinite;
 }
 
+/* --- AI SUGGESTIONS HUD --- */
+.ai-suggestions {
+    display: flex;
+    gap: 8px;
+    padding: 10px 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    margin-bottom: 5px;
+}
+.ai-suggestions::-webkit-scrollbar { display: none; }
+
+.suggestion-chip {
+    background: rgba(34, 197, 94, 0.05);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    color: var(--primary-light);
+    padding: 4px 10px;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.suggestion-chip:hover {
+    background: var(--primary-color);
+    color: #fff;
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+.ai-message.bot::before {
+    content: "INTEL_FETCHED // RESPONSE_SECURE";
+    display: block;
+    font-size: 0.55rem;
+    color: var(--primary-color);
+    margin-bottom: 4px;
+    opacity: 0.8;
+}
+
+.btn-ai-send {
+    background: transparent;
+    border: none;
+    color: var(--primary-color);
+    padding: 0 15px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+}
+.btn-ai-send:hover {
+    color: var(--primary-light);
+    transform: scale(1.1);
+}
+
+.ai-message.system.loading {
+    animation: pulseGlow 1.5s infinite;
+    color: var(--primary-light);
+}
+@keyframes pulseGlow {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; text-shadow: 0 0 8px var(--primary-light); }
+}
+
 .bridge-title {
     color: var(--primary-light);
     font-weight: 800;
@@ -876,30 +938,120 @@ body { padding-top: 30px; }
     to { transform: translateX(0); opacity: 1; }
 }
 
-/* --- Bottom Terminal Drawer --- */
-.bottom-terminal {
-    position: fixed;
-    bottom: 0; left: 0; width: 100%; height: 300px;
-    background: rgba(2, 6, 23, 0.98);
-    backdrop-filter: blur(20px);
-    border-top: 1px solid var(--primary-color);
-    z-index: 10000;
-    transform: translateY(100%);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    display: flex; flex-direction: column;
-    box-shadow: 0 -10px 50px rgba(0,0,0,0.8);
+/* --- Multi-Threaded Terminal Tabs --- */
+.terminal-tabs {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    background: rgba(15, 23, 42, 0.4);
+    border-radius: 4px;
 }
-.bottom-terminal.active { transform: translateY(0); }
-.bottom-terminal .terminal-header {
-    background: rgba(15, 23, 42, 0.9); padding: 8px 15px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+.terminal-tabs::-webkit-scrollbar { display: none; }
+
+.terminal-tab {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #64748b;
+    padding: 6px 12px;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
 }
-.bottom-terminal .terminal-body {
-    flex: 1; padding: 15px; overflow-y: auto; font-size: 0.8rem;
+.terminal-tab:hover { color: #fff; }
+.terminal-tab.active {
+    color: var(--primary-light);
+    border-bottom-color: var(--primary-color);
+    background: rgba(34, 197, 94, 0.05);
 }
-.bottom-terminal .terminal-input-line {
-    padding: 10px 15px; border-top: 1px solid rgba(255,255,255,0.05);
+
+.terminal-tab-content {
+    display: none;
+    flex: 1;
+    flex-direction: column;
 }
+.terminal-tab-content.active { display: flex; }
+
+/* PowerShell Inspired Styles */
+.terminal-tab-content#tab-terminal {
+    background: #012456; /* Classic PowerShell Blue-Black */
+}
+.terminal-tab-content#tab-terminal .terminal-prompt {
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Block Cursor */
+.block-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 18px;
+    background: #fff;
+    vertical-align: middle;
+    margin-left: 2px;
+    animation: blockBlink 1s step-end infinite;
+}
+@keyframes blockBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+/* --- HUD HEALTH MONITOR --- */
+.hud-widget-glass {
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+/* --- MISSION AUDIO HUD --- */
+.music-player-node {
+    padding: 4px 10px;
+    background: rgba(15, 23, 42, 0.6);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+.btn-music-play {
+    background: var(--primary-color);
+    border: none;
+    color: #fff;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 10px var(--primary-color);
+}
+.btn-music-play:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px var(--primary-light);
+}
+
+/* --- 3D SKILL CLUSTER CONTAINER --- */
+.skills-globe-container {
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+}
+#skillCanvas {
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+}
+
 .btn-terminal-min, .btn-terminal-close {
     background: transparent; border: none; color: #64748b; font-family: var(--font-mono);
     font-size: 1.2rem; cursor: pointer; padding: 0 5px;

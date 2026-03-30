@@ -83,8 +83,23 @@
         <span class="status-label">CLEARANCE:</span> <span class="status-value">LVL_5_ADMIN</span>
         <span class="status-sep">|</span>
         <span class="status-label">TERMINAL:</span> <span class="status-value cursor-pointer text-primary" id="statusTerminalTrigger">[ACCESS_GRANTED]</span>
+        
+        <!-- Left HUD: System Health Sensors -->
+        <div class="hud-left d-none d-lg-block">
+          <div class="hud-widget-glass p-2 mb-3" style="width: 150px;">
+            <div class="widget-header small text-primary mb-1">[SYS_HEALTH_MONITOR]</div>
+            <div class="small opacity-75">BATTERY: <span id="batteryNode" class="text-success">...</span></div>
+            <div class="small opacity-75">MEMORY: <span id="memoryNode" class="text-success">...</span></div>
+            <div class="small opacity-75">OS: <span id="osNode" class="text-success">...</span></div>
+            <div class="small opacity-75">LATENCY: <span class="text-success">14ms</span></div>
+          </div>
+        </div>
       </div>
       <div class="status-right d-none d-md-flex align-items-center gap-3">
+        <div class="music-player-node d-flex align-items-center gap-2" id="musicPlayerNode">
+          <span class="small opacity-50 font-mono" id="trackName">[MISSION_AUDIO: OFFLINE]</span>
+          <button class="btn-music-play" id="musicToggle"><i class="fas fa-play"></i></button>
+        </div>
         <span class="status-label">SYSTEM_INTEGRITY:</span> <span class="status-value status-online">OPTIMAL</span>
         <span class="status-sep">|</span>
         <div class="digital-clock" id="digitalClock">10:09:13</div>
@@ -370,6 +385,7 @@
                   <li><span class="case-label">Tools</span><span class="case-text">Python, Streamlit, Viz</span></li>
                 </ul>
                 <a href="https://sentinelbangladesh.streamlit.app/" target="_blank" rel="noopener" class="btn btn-sm btn-primary">VIEW_MAP</a>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="replayProject('SENTINEL_BANGLADESH')">[REPLAY]</button>
               </div>
             </div>
           </div>
@@ -383,6 +399,7 @@
                   <li><span class="case-label">Tools</span><span class="case-text">Python, Streamlit</span></li>
                 </ul>
                 <a href="https://order-process-automation.streamlit.app/" target="_blank" rel="noopener" class="btn btn-sm btn-primary">VIEW_LIVE</a>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="replayProject('ORDER_AUTOMATION')">[REPLAY]</button>
               </div>
             </div>
           </div>
@@ -396,6 +413,7 @@
                   <li><span class="case-label">Tools</span><span class="case-text">Python, ARIMA, Time Series</span></li>
                 </ul>
                 <a href="https://saajiidi.github.io/Air_Passengers_Forecasting_Models/" target="_blank" rel="noopener" class="btn btn-sm btn-primary">VIEW_DATA</a>
+                <button class="btn btn-sm btn-outline-primary ms-2" onclick="replayProject('PASSENGER_FORECAST')">[REPLAY]</button>
               </div>
             </div>
           </div>
@@ -613,20 +631,55 @@
     <div class="terminal-header d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center gap-2">
         <i class="fas fa-terminal small text-primary"></i>
-        <span class="terminal-title">sajid@portfolio:~$ system_console</span>
+        <div class="terminal-tabs" id="terminalTabs">
+          <button class="terminal-tab active" onclick="switchTerminalTab('terminal')">[TERMINAL]</button>
+          <button class="terminal-tab" onclick="switchTerminalTab('problems')">[PROBLEMS]</button>
+          <button class="terminal-tab" onclick="switchTerminalTab('debug')">[DEBUG_CONSOLE]</button>
+          <button class="terminal-tab" onclick="switchTerminalTab('output')">[OUTPUT]</button>
+        </div>
       </div>
       <div class="terminal-controls">
         <button class="btn-terminal-min" onclick="toggleBottomTerminal()">_</button>
         <button class="btn-terminal-close" onclick="toggleBottomTerminal()">×</button>
       </div>
     </div>
-    <div class="terminal-body" id="bottom-terminal-output">
-      <div class="terminal-line"><span class="terminal-prompt">$</span> <span class="terminal-cmd">init_system_console</span></div>
-      <div class="terminal-line terminal-response">[SYSTEM] Bottom Uplink established. Mission protocols active.</div>
+    
+    <!-- Tab Content: TERMINAL -->
+    <div class="terminal-tab-content active" id="tab-terminal">
+      <div class="terminal-body" id="bottom-terminal-output">
+        <div class="terminal-line"><span class="terminal-prompt">PS C:\Users\Sajid></span> <span class="terminal-cmd">init_tactical_shell</span></div>
+        <div class="terminal-line terminal-response">[UPLINK_SUCCESSFUL]: Mission environment 5.1 initialized.</div>
+      </div>
+      <div class="terminal-input-line">
+        <span class="terminal-prompt">PS C:\Users\Sajid></span>
+        <input type="text" class="terminal-input" id="bottom-terminal-input" placeholder="Enter command..." autocomplete="off">
+        <span class="block-cursor"></span>
+      </div>
     </div>
-    <div class="terminal-input-line">
-      <span class="terminal-prompt">$</span>
-      <input type="text" class="terminal-input" id="bottom-terminal-input" placeholder="Type command..." autocomplete="off">
+
+    <!-- Tab Content: PROBLEMS -->
+    <div class="terminal-tab-content" id="tab-problems">
+      <div class="terminal-body p-3">
+        <div class="terminal-line text-danger"><i class="fas fa-times-circle me-2"></i> [ERROR] Neural Bridge latency exceeds stable threshold (145ms). [Line 42: ai-bot.js]</div>
+        <div class="terminal-line text-warning"><i class="fas fa-exclamation-triangle me-2"></i> [WARN] Deprecated API call to 'GEMINI_V1_LEGACY' detected. [Line 112: terminal.js]</div>
+        <div class="terminal-line text-info"><i class="fas fa-info-circle me-2"></i> [HINT] Optimization: Memory footprint for DataViz node can be reduced by 14%.</div>
+      </div>
+    </div>
+
+    <!-- Tab Content: DEBUG -->
+    <div class="terminal-tab-content" id="tab-debug">
+      <div class="terminal-body p-3" id="debug-stream">
+        <div class="terminal-line small opacity-50">[09:22:14] REQUESTing neural uplink to Gemini:1.5_flash...</div>
+        <div class="terminal-line small opacity-50">[09:22:15] HANDSHAKE_SUCCESS: Protocol 4.5 active.</div>
+      </div>
+    </div>
+
+    <!-- Tab Content: OUTPUT -->
+    <div class="terminal-tab-content" id="tab-output">
+      <div class="terminal-body p-3" id="output-stream">
+        <div class="terminal-line small opacity-50">Checking for tactical updates... (git fetch origin master)</div>
+        <div class="terminal-line small text-success">UP_TO_DATE: Mission dashboard v5.0 deployed successfully.</div>
+      </div>
     </div>
   </div>
 
@@ -701,8 +754,16 @@
       <div class="ai-message bot">Greetings, Operative. I am the portfolio oracle. How can I assist with your intel gathering?</div>
     </div>
     <div class="ai-chat-input-wrapper">
-      <input type="text" id="aiChatInput" placeholder="Enter query..." autocomplete="off">
-      <button id="sendAiMessage"><i class="fas fa-paper-plane"></i></button>
+      <div class="ai-suggestions" id="aiSuggestions">
+        <button class="suggestion-chip" onclick="handleSuggestion('Who is Sajid?')">[SHOW_DOSSIER]</button>
+        <button class="suggestion-chip" onclick="handleSuggestion('Tell me about his experience at Daraz')">[EXPERIENCE_LOG]</button>
+        <button class="suggestion-chip" onclick="handleSuggestion('What are his top technical skills?')">[TECH_STACK]</button>
+        <button class="suggestion-chip" onclick="handleSuggestion('Show me his latest projects')">[LATEST_PROJECTS]</button>
+      </div>
+      <div class="d-flex align-items-center">
+        <input type="text" id="aiChatInput" placeholder="Enter query..." autocomplete="off">
+        <button id="sendAiMessage" class="btn-ai-send"><i class="fas fa-paper-plane"></i></button>
+      </div>
     </div>
   </div>
 

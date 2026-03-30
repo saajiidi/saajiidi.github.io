@@ -79,6 +79,17 @@ function fuzzyMatch(input, keys) {
     return false;
 }
 
+let exchangeCount = 0;
+
+window.handleSuggestion = (text) => {
+    const input = document.getElementById('aiChatInput');
+    if (input) {
+        input.value = text;
+        const sendBtn = document.getElementById('sendAiMessage');
+        if (sendBtn) sendBtn.click();
+    }
+};
+
 function initAiChat() {
     const toggle = document.getElementById('aiChatToggle');
     const container = document.getElementById('aiChatContainer');
@@ -89,19 +100,35 @@ function initAiChat() {
 
     if (!toggle || !container) return;
 
-    fetchUserTelemetry().then(() => {
-        addMessage(`[SYSTEM_SCAN_COMPLETE] IP: ${userTelemetry.ip} // OS: ${userTelemetry.os}`, 'system');
-    });
+    toggle.addEventListener('click', () => { container.classList.toggle('active'); });
+    closeBtn.addEventListener('click', () => { container.classList.remove('active'); });
 
-    toggle.addEventListener('click', () => {
-        container.classList.toggle('active');
-        const ping = toggle.querySelector('.ping-dot');
-        if (ping) ping.style.display = 'none';
-    });
+    const addMessage = (text, sender, isSystem = false) => {
+        const msg = document.createElement('div');
+        msg.className = `ai-message ${sender} ${isSystem ? 'system' : ''}`;
+        msg.textContent = text;
+        body.appendChild(msg);
+        body.scrollTop = body.scrollHeight;
 
-    closeBtn.addEventListener('click', () => {
-        container.classList.remove('active');
-    });
+        if (sender === 'bot') {
+            if (typeof AudioEngine !== 'undefined' && AudioEngine.speak) {
+                AudioEngine.speak(text);
+            }
+        }
+        return msg;
+    };
+
+    function showManualFallback() {
+        const btnContainer = document.createElement('div');
+        btnContainer.className = 'ai-message bot-action d-flex flex-column gap-2';
+        btnContainer.innerHTML = `
+            <button class="btn-theme-toggle w-100" onclick="window.open('https://wa.me/+8801824526054', '_blank')">
+                <i class="fab fa-whatsapp me-2"></i> [HUMAN_COMMAND_UPLINK]
+            </button>
+        `;
+        body.appendChild(btnContainer);
+        body.scrollTop = body.scrollHeight;
+    }
 
     const sendMessage = async () => {
         const text = input.value.trim();
@@ -109,14 +136,18 @@ function initAiChat() {
 
         addMessage(text, 'user');
         input.value = '';
+        exchangeCount++;
 
-        // 1. LOCAL_INTEL_CHECK (Instant)
+        if (exchangeCount > 5) {
+            const sug = document.getElementById('aiSuggestions');
+            if (sug) sug.style.display = 'none';
+        }
+
+        // 1. LOCAL_INTEL_CHECK
         let localResponse = null;
         for (let group in KNOWLEDGE_GROUPS) {
             if (fuzzyMatch(text, KNOWLEDGE_GROUPS[group].keys)) {
-                localResponse = typeof KNOWLEDGE_GROUPS[group].response === 'function' 
-                    ? KNOWLEDGE_GROUPS[group].response() 
-                    : KNOWLEDGE_GROUPS[group].response;
+                localResponse = typeof KNOWLEDGE_GROUPS[group].response === 'function' ? KNOWLEDGE_GROUPS[group].response() : KNOWLEDGE_GROUPS[group].response;
                 break;
             }
         }
@@ -129,8 +160,14 @@ function initAiChat() {
             return;
         }
 
-        // 2. MULTI_MODEL_FALLBACK (Neural Bridge)
-        addMessage("[INITIATING_NEURAL_UPLINK]...", 'system');
+        // 2. MULTI_MODEL_FALLBACK
+        const statusMsg = addMessage("[INITIATING_NEURAL_UPLINK]...", 'system');
+        statusMsg.classList.add('loading');
+        
+        let statusInterval = setInterval(() => {
+            const lines = ["SIGNAL_PROCESSING...", "ANALYZING_INTEL_STREAMS...", "DECRYPTING_NEURAL_PACKETS..."];
+            statusMsg.textContent = lines[Math.floor(Math.random() * lines.length)];
+        }, 1500);
 
         // --- Try Gemini Primary ---
         try {
@@ -143,13 +180,13 @@ function initAiChat() {
                 })
             });
             
-            if (response.status === 403 || response.status === 429) {
-                throw new Error("NEURAL_SYNC_LEVEL_EXCEEDED");
-            }
+            clearInterval(statusInterval);
+            if (response.status === 403 || response.status === 429) throw new Error("NEURAL_SYNC_LEVEL_EXCEEDED");
             
             const data = await response.json();
             const aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text;
             if (aiResponse) {
+                statusMsg.remove();
                 addMessage(aiResponse, 'bot');
                 if (typeof AudioEngine !== 'undefined') AudioEngine.play('beep');
                 return;
@@ -159,7 +196,7 @@ function initAiChat() {
         // --- Try OpenAI Secondary ---
         try {
             const oaiKey = localStorage.getItem('OPENAI_UPLINK_KEY') || DEFAULT_OPENAI_KEY;
-            if (!oaiKey.includes('-v-v-v')) { // Only try if key looks real
+            if (oaiKey && !oaiKey.includes('-v-v-v')) {
                 const response = await fetch('https://api.openai.com/v1/chat/completions', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${oaiKey}` },
@@ -174,6 +211,8 @@ function initAiChat() {
                 const data = await response.json();
                 const aiResponse = data.choices?.[0]?.message?.content;
                 if (aiResponse) {
+                    clearInterval(statusInterval);
+                    statusMsg.remove();
                     addMessage(aiResponse, 'bot');
                     if (typeof AudioEngine !== 'undefined') AudioEngine.play('beep');
                     return;
@@ -181,47 +220,14 @@ function initAiChat() {
             }
         } catch (err) { console.error("[OPENAI_OFFLINE] Neural bridge severed."); }
 
+        clearInterval(statusInterval);
+        statusMsg.remove();
         addMessage("[ERROR]: Neural Uplink unstable. Selecting primary contact protocol...", 'system');
         showManualFallback();
     };
 
-    function showManualFallback() {
-        const btnContainer = document.createElement('div');
-        btnContainer.className = 'ai-message bot-action d-flex flex-column gap-2';
-        btnContainer.innerHTML = `
-            <button class="btn-theme-toggle w-100" onclick="openPortfolioBridge(null, 'https://wa.me/+8801824526054')">
-                <i class="fas fa-user-secret me-2"></i> [HUMAN_COMMAND_UPLINK]
-            </button>
-        `;
-        body.appendChild(btnContainer);
-        body.scrollTop = body.scrollHeight;
-    }
-
-    function showManualFallback() {
-        const btnContainer = document.createElement('div');
-        btnContainer.className = 'ai-message bot-action d-flex flex-column gap-2';
-        btnContainer.innerHTML = `
-            <button class="btn-theme-toggle w-100" onclick="openPortfolioBridge(null, 'https://wa.me/+8801824526054')">
-                <i class="fas fa-user-secret me-2"></i> [HUMAN_COMMAND_UPLINK]
-            </button>
-        `;
-        body.appendChild(btnContainer);
-        body.scrollTop = body.scrollHeight;
-    }
-
-    const addMessage = (text, sender, isSystem = false) => {
-        const msg = document.createElement('div');
-        msg.className = `ai-message ${sender} ${isSystem ? 'system' : ''}`;
-        msg.textContent = text;
-        body.appendChild(msg);
-        body.scrollTop = body.scrollHeight;
-    };
-
-    sendBtn.addEventListener('click', sendMessage);
-    input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage();
-    });
+    if (sendBtn) sendBtn.addEventListener('click', sendMessage);
+    if (input) input.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
 }
 
-// Auto-run when DOM is ready (or manual call from index.html)
 window.addEventListener('DOMContentLoaded', initAiChat);

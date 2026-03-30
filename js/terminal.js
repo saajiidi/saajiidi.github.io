@@ -1,168 +1,136 @@
 /**
- * TERMINAL CONTACT SYSTEM
- * Interactive HUD elements for direct communication protocols
+ * TACTICAL SHELL v5.2
+ * Multi-threaded interactive terminal for situational awareness
  */
 
 let commandHistory = [];
 let historyIndex = -1;
 
+function toggleBottomTerminal() {
+    const term = document.getElementById('bottomTerminal');
+    if (term) term.classList.toggle('active');
+    if (typeof AudioEngine !== 'undefined') AudioEngine.play('beep');
+}
+
+window.switchTerminalTab = (tabId) => {
+    document.querySelectorAll('.terminal-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.terminal-tab-content').forEach(c => c.classList.remove('active'));
+    
+    // Find tab by content text or ID
+    const tabs = document.querySelectorAll('.terminal-tab');
+    const activeTab = Array.from(tabs).find(t => t.textContent.toLowerCase().includes(tabId));
+    const activeContent = document.getElementById(`tab-${tabId}`);
+    
+    if (activeTab) activeTab.classList.add('active');
+    if (activeContent) activeContent.classList.add('active');
+    if (typeof AudioEngine !== 'undefined') AudioEngine.play('click');
+};
+
+function startTelemetryStreams() {
+    const debug = document.getElementById('debug-stream');
+    const output = document.getElementById('output-stream');
+    if (!debug || !output) return;
+
+    setInterval(() => {
+        if (Math.random() > 0.7) {
+            const logs = [
+                `[${new Date().toLocaleTimeString()}] SYST_PING: ${Math.floor(Math.random()*20)}ms`,
+                `[${new Date().toLocaleTimeString()}] NEURAL_LINK: STABLE`,
+                `[${new Date().toLocaleTimeString()}] BUFFER_CLEAR: 0x${Math.random().toString(16).slice(2,6)}`,
+                `[${new Date().toLocaleTimeString()}] CRYPTO_SESS: ACTIVE`
+            ];
+            const line = document.createElement('div');
+            line.className = 'terminal-line small opacity-50';
+            line.textContent = logs[Math.floor(Math.random() * logs.length)];
+            debug.appendChild(line);
+            if (debug.children.length > 30) debug.removeChild(debug.firstChild);
+            debug.scrollTop = debug.scrollHeight;
+        }
+    }, 2000);
+
+    setInterval(() => {
+        if (Math.random() > 0.9) {
+            const updates = [
+                "> git fetch origin master --silent",
+                "> local_assets optimized (1.4s)",
+                "> neural_uplink v5.0 deployed",
+                "> situational_awareness @ 98%"
+            ];
+            const line = document.createElement('div');
+            line.className = 'terminal-line small text-success';
+            line.textContent = updates[Math.floor(Math.random() * updates.length)];
+            output.appendChild(line);
+            if (output.children.length > 30) output.removeChild(output.firstChild);
+            output.scrollTop = output.scrollHeight;
+        }
+    }, 5000);
+}
+
 const terminalCommands = {
-    link_gemini: (args) => {
-        if (!args || args.length === 0) return "[ERROR]: Missing credentials. Usage: link_gemini [KEY]";
-        localStorage.setItem('GEMINI_UPLINK_KEY', args[0]);
-        if (typeof AudioEngine !== 'undefined') AudioEngine.play('beep');
-        return "[SUCCESS]: Gemini Neural Uplink established. Oracle v4.0 engaged.";
-    },
+    help: () => `CMD_DIRECTORY:
+  neofetch       System summary & specs
+  ls             List project archive nodes
+  cat [id]       Display project dossier
+  whoami         Operative identification
+  status         System diagnostics
+  clearance      Elevate security clearance
+  link_gemini    Secure AI uplink
+  clear          Reset shell
+  exit           Terminate session`,
 
-    unlink_gemini: () => {
-        localStorage.removeItem('GEMINI_UPLINK_KEY');
-        return "[SYSTEM]: Gemini Uplink severed. Reverting to local rule-based intelligence.";
-    },
+    neofetch: () => `
+    .---.      USER: Sajid Islam
+   /     \\     OS: Tactical HUD v5.2
+   | (O) |     UPTIME: ${Math.floor(performance.now() / 1000)}s
+   \\     /     MEMORY: 4.2GB / 16.0GB
+    '---'      RESOLUTION: ${window.innerWidth}x${window.innerHeight}
+               STATUS: MISSION_READY
+    `,
 
-    help: () => `Available commands:
-  help              Show this help message
-  whoami            Display session & operative intel
-  ls                List active project nodes
-  cat [id]          Display project dossier details
-  neofetch          Show stylized profile & system stats
-  date              View Dhaka station time
-  echo [msg]        Print message to terminal
-  sudo              Execute as superuser
-  pwd               Print working directory
-  clearance         Elevate security clearance
-  locate            Ping tactical GPS node
-  oracle            Uplink to AI Chat Bot
-  status            System diagnostic check
-  link_gemini [key] Securely establish AI API uplink
-  clear             Reset terminal
-  exit              Close tactical terminal
-  email | phone     Contact metadata
-  whatsapp          Open direct chat`,
-
-    ls: () => {
-        if (!window.DATA || !window.DATA.projects) return 'Project database offline.';
-        return window.DATA.projects.map(p => `[NODE] ${p.id}`).join('  ');
+    ls: (args) => {
+        let files = window.DATA.projects.map(p => `[NODE] ${p.id}`);
+        if (args && args.includes('-a')) {
+            const secrets = Object.keys(window.MISSION_SECRETS || {}).map(s => `[HIDDEN] .${s}`);
+            files = [...files, ...secrets];
+        }
+        return files.join('  ');
     },
 
     cat: (args) => {
-        if (!args || args.length === 0) return "Usage: cat [project_id]";
-        const project = window.DATA.projects.find(p => p.id.toLowerCase() === args[0].toLowerCase());
+        if (!args || args.length === 0) return "USAGE: cat [id]";
+        const fileId = args[0].replace(/^\./, '');
+        
+        // Check Mission Secrets first
+        if (window.MISSION_SECRETS && window.MISSION_SECRETS[fileId]) {
+            return `[LOCAL_DOSSIER]: ${fileId}\nINTEL: ${window.MISSION_SECRETS[fileId]}`;
+        }
+
+        const project = window.DATA.projects.find(p => p.id.toLowerCase() === fileId.toLowerCase());
         if (!project) return `[FILE_NOT_FOUND]: ${args[0]}`;
-        return `DOSSIER: ${project.title}
-STATUS: DEPLOYED
-TECH: ${project.tools}
-INTEL: ${project.description}`;
+        return `[PROJECT_NODE]: ${project.title}\nSTATUS: DEPLOYED\nTECH: ${project.tools}\nINTEL: ${project.description}`;
     },
 
-    neofetch: () => `      :::::::::     USER: Sajid Islam
-  ::::::::::::::::  OS: Tactical HUD v5.0 [Linux 6.2.0-ext]
- :::: /     \\ ::::  HOST: Dhaka_Grid_02_Node
- :::: |     | ::::  UPTIME: ${Math.floor(performance.now() / 1000)}s
- :::: \\     / ::::  SKILLS: Python, SQL, BI, ML
-  ::::::::::::::::  SHELL: bash 5.1
-      :::::::::     STATUS: ACTIVE_FOR_OPS`,
-
-    date: () => {
-        const dhakaTime = new Date().toLocaleString("en-US", {timeZone: "Asia/Dhaka"});
-        return `STATION_TIME: ${dhakaTime}`;
-    },
-
-    echo: (args) => args.join(' '),
-
-    sudo: () => "[PERMISSION_DENIED]: Operative is already at maximum privilege. Sudo unnecessary.",
-
-    pwd: () => "/home/sajid/mission_dashboard",
-
-    matrix: () => {
-        document.body.classList.add('glitch-active');
-        setTimeout(() => document.body.classList.remove('glitch-active'), 1500);
-        return "CRITICAL_ERROR: Matrix leak detected. protocol 404 engaged.";
-    },
+    whoami: () => "IDENTITY_CONFIRMED: Sajid Islam // ROLE: Operative_Data_Analyst // ID: SI-2025-DHAKA",
+    
+    status: () => `SYS_DIAG_v5: OK // NEURAL_LINK: STABLE // LATENCY: 14ms // UPTIME: ${Math.floor(performance.now()/1000)}s`,
 
     clearance: () => {
         const val = document.querySelector('.status-value');
-        if (val) {
-            val.textContent = "LVL_10_ELITE_OPERATIVE";
-            val.classList.add('text-primary', 'pulse');
-        }
-        return "[SYSTEM_OVERRIDE]: Clearance level elevated to Level 10. Dossiers unlocked.";
+        if (val) val.textContent = "LVL_10_ELITE_OPERATIVE";
+        return "[SUCCESS]: Clearance elevated to LVL_10.";
     },
 
-    locate: () => {
-        if (typeof AudioEngine !== 'undefined') AudioEngine.play('beep');
-        return "[GPS_UPLINK]: Latency 14ms... Target: Bangladesh [23.6850° N, 90.3563° E]. Uplink stable.";
+    link_gemini: (args) => {
+        if (!args || args.length === 0) return "USAGE: link_gemini [key]";
+        localStorage.setItem('GEMINI_UPLINK_KEY', args[0]);
+        return "[SUCCESS]: Neural link established.";
     },
 
-    oracle: () => {
-        const chat = document.getElementById('aiChatContainer');
-        if (chat) chat.classList.add('active');
-        return "AI Oracle uplink requested. Terminal and Chat synchronized.";
-    },
-
-    whoami: () => `IDENTITY_CONFIRMED: SAJID ISLAM
-ROLE: DATA SCIENTIST // BUSINESS ANALYST
-LOCATION: DHAKA_GRID_02
-CLEARANCE: LEVEL_5_ADMIN
-STATUS: ACTIVE_FOR_OPS`,
-
-    projects: () => {
-        if (!window.DATA || !window.DATA.projects) return 'Project database offline.';
-        return 'ACTIVE_PROJECTS:\n' + window.DATA.projects.map(p => `> [${p.id}] ${p.title}`).join('\n');
-    },
-
-    status: () => `SYSTEM_DIAGN_V3: OK
-DATA_GRID: SYNCED
-ENCRYPTION: AES_256_ACTIVE
-CACHE_V: TACTICAL_V2
-BATTERY: 100% (EXTERNAL_CORE)
-UPTIME: ${Math.floor(performance.now() / 1000)}s`,
-
-    flush: () => {
-        if ('caches' in window) {
-            caches.keys().then(names => {
-                for (let name of names) caches.delete(name);
-            });
-        }
-        localStorage.clear();
-        sessionStorage.clear();
-        setTimeout(() => window.location.reload(true), 1000);
-        return 'PURGING_CACHE... SYSTEM_REBOOT_INITIATED.';
-    },
-
-    update: () => {
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistration().then(reg => {
-                if (reg) reg.update();
-            });
-        }
-        return 'FETCHING_LATEST_INTEL_PACKETS...';
-    },
-
-    email: () => {
-        navigator.clipboard.writeText('sajid.islam.chowdhury@gmail.com');
-        if (typeof AudioEngine !== 'undefined') AudioEngine.play('beep');
-        return 'SECURE_EMAIL copied to clipboard.';
-    },
-
-    phone: () => 'SIGNAL_INTEL: +880 182 452 6054',
-
-    whatsapp: () => {
-        window.open('https://wa.me/+8801824526054', '_blank');
-        return 'Initializing direct link...';
-    },
-
-    schedule: () => {
-        window.open('https://calendly.com/sajidislamchowdhury', '_blank');
-        return 'Redirecting to booking node...';
-    },
-
-    clear: () => 'CLEAR',
-
+    pwd: () => "C:\\Users\\Sajid\\Portfolio_Mission_Dashboard",
+    clear: () => "CLEAR",
     exit: () => {
-        const modalEl = document.getElementById('terminalContactModal');
-        const modal = bootstrap.Modal.getInstance(modalEl);
-        if (modal) modal.hide();
-        return 'Closing terminal...';
+        toggleBottomTerminal();
+        return "TERMINATING...";
     }
 };
 
@@ -174,8 +142,11 @@ function initTerminal() {
     const trigger = document.getElementById('statusTerminalTrigger');
 
     if (trigger) trigger.addEventListener('click', toggleBottomTerminal);
+    startTelemetryStreams();
 
-    const handleTerminalInput = (targetInput, targetOutput) => {
+    const handleTerminalInput = (targetInput, targetOutput, prompt = "$") => {
+        if (!targetInput || !targetOutput) return;
+
         targetInput.addEventListener('keydown', (e) => {
             if (e.key === 'Tab') {
                 e.preventDefault();
@@ -209,13 +180,11 @@ function initTerminal() {
                     historyIndex = -1;
                 }
 
-                // Add command to output
                 const cmdLine = document.createElement('div');
                 cmdLine.className = 'terminal-line';
-                cmdLine.innerHTML = `<span class="terminal-prompt">$</span> <span class="terminal-cmd">${escapeHtml(rawInput)}</span>`;
+                cmdLine.innerHTML = `<span class="terminal-prompt">${prompt}</span> <span class="terminal-cmd">${escapeHtml(rawInput)}</span>`;
                 targetOutput.appendChild(cmdLine);
 
-                // Execute command
                 if (terminalCommands[cmd]) {
                     const response = terminalCommands[cmd](args);
                     if (response === 'CLEAR') {
@@ -227,11 +196,11 @@ function initTerminal() {
                         targetOutput.appendChild(respLine);
                     }
                 } else if (cmd) {
-                    const errorLine = document.createElement('div');
-                    errorLine.className = 'terminal-line terminal-error';
-                    errorLine.style.color = '#ef4444';
-                    errorLine.textContent = `[COMMAND_NOT_FOUND]: ${cmd}. Type 'help' for available commands.`;
-                    targetOutput.appendChild(errorLine);
+                    const errLine = document.createElement('div');
+                    errLine.className = 'terminal-line terminal-error';
+                    errLine.style.color = '#ef4444';
+                    errLine.textContent = `[CMD_NOT_FOUND]: ${cmd}`;
+                    targetOutput.appendChild(errLine);
                 }
 
                 targetInput.value = '';
@@ -241,8 +210,8 @@ function initTerminal() {
         });
     };
 
-    if (input && output) handleTerminalInput(input, output);
-    if (bottomInput && bottomOutput) handleTerminalInput(bottomInput, bottomOutput);
+    if (input && output) handleTerminalInput(input, output, "sajid@portfolio:~$");
+    if (bottomInput && bottomOutput) handleTerminalInput(bottomInput, bottomOutput, "PS C:\\Users\\Sajid>");
 }
 
 function escapeHtml(text) {

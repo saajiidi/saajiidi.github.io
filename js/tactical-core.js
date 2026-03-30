@@ -30,6 +30,78 @@ function updateThemeIcon(theme) {
     }
 }
 
+/**
+ * MISSION_CRITICAL CORE v6.0
+ * Hardware Diagnostics, Neural Voice, and Ambient Situational Audio
+ */
+
+const AudioEngine = {
+    beep: () => { /* existing beep */ },
+    play: (id) => { /* existing logic */ },
+    
+    // MISSION_AUDIO: Dark-Ambient Synthwave
+    track: new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'),
+    isPlaying: false,
+    toggleMusic: function() {
+        const btn = document.getElementById('musicToggle');
+        const label = document.getElementById('trackName');
+        if (this.isPlaying) {
+            this.track.pause();
+            this.isPlaying = false;
+            btn.innerHTML = '<i class="fas fa-play"></i>';
+            label.textContent = '[MISSION_AUDIO: OFFLINE]';
+        } else {
+            this.track.play();
+            this.track.loop = true;
+            this.track.volume = 0.3;
+            this.isPlaying = true;
+            btn.innerHTML = '<i class="fas fa-pause"></i>';
+            label.textContent = '[MISSION_AUDIO: PLAYING_SYNTH_01]';
+        }
+    },
+
+    // NEURAL_VOICE: AI Oracle TTS
+    speak: function(text) {
+        if (!window.speechSynthesis) return;
+        const msg = new SpeechSynthesisUtterance(text);
+        const voices = window.speechSynthesis.getVoices();
+        // Try to find a robotic sounding voice
+        msg.voice = voices.find(v => v.name.includes('Google UK English Male')) || voices[0];
+        msg.pitch = 0.8;
+        msg.rate = 1.1;
+        window.speechSynthesis.speak(msg);
+    }
+};
+
+function updateSystemHealth() {
+    const batteryNode = document.getElementById('batteryNode');
+    const memoryNode = document.getElementById('memoryNode');
+    const osNode = document.getElementById('osNode');
+
+    if (navigator.getBattery) {
+        navigator.getBattery().then(bat => {
+            const updateBat = () => { batteryNode.textContent = `${Math.round(bat.level * 100)}%`; };
+            updateBat();
+            bat.onlevelchange = updateBat;
+        });
+    }
+
+    if (navigator.deviceMemory) {
+        memoryNode.textContent = `${navigator.deviceMemory}GB_RAM`;
+    } else {
+        memoryNode.textContent = "DETECT_FAILED";
+    }
+
+    const platform = navigator.userAgentData ? navigator.userAgentData.platform : "LEGACY_OS";
+    osNode.textContent = platform.toUpperCase();
+}
+
+// SECRET_DOSSIERS
+window.MISSION_SECRETS = {
+    "secrets.txt": "TOP_SECRET: Project Antigravity is a success. Codename: Sajid_Islam. Origin: Dhaka_Grid_02.",
+    "access_codes.md": "ACCESS_GRANTED: Use 'sudo clearance' to elevate your situational awareness."
+};
+
 function copyEmail(email, event) {
     navigator.clipboard.writeText(email);
     const btn = event.target;
@@ -39,7 +111,106 @@ function copyEmail(email, event) {
 }
 
 // Initializer
+// 3D_SKILL_GLOBE_CORE
+const SkillsGlobe = {
+    canvas: null, ctx: null, tags: [],
+    radius: 140, angleX: 0, angleY: 0,
+    init: function() {
+        this.canvas = document.getElementById('skillCanvas');
+        if (!this.canvas) return;
+        this.ctx = this.canvas.getContext('2d');
+        const skillList = ["PYTHON", "SQL", "POWER_BI", "TABLEAU", "MACHINE_LEARNING", "NLP", "DEEP_LEARNING", "BUSINESS_OPS", "CHURN_ANALYSIS", "STREAMLIT", "EXCEL", "PANDAS", "DASHBOARDING", "DATA_OPS", "SCRUTINY", "VIZ"];
+        
+        this.tags = skillList.map((text, i) => {
+            const phi = Math.acos(-1 + (2 * i) / skillList.length);
+            const theta = Math.sqrt(skillList.length * Math.PI) * phi;
+            return {
+                text,
+                x: this.radius * Math.cos(theta) * Math.sin(phi),
+                y: this.radius * Math.sin(theta) * Math.sin(phi),
+                z: this.radius * Math.cos(phi)
+            };
+        });
+
+        const parent = document.getElementById('canvasParent');
+        this.canvas.width = parent.offsetWidth;
+        this.canvas.height = parent.offsetHeight;
+
+        window.addEventListener('resize', () => {
+            this.canvas.width = parent.offsetWidth;
+            this.canvas.height = parent.offsetHeight;
+        });
+
+        this.animate();
+    },
+    animate: function() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.angleX += 0.003;
+        this.angleY += 0.003;
+
+        this.tags.forEach(tag => {
+            // Rotate around X
+            let y1 = tag.y * Math.cos(this.angleX) - tag.z * Math.sin(this.angleX);
+            let z1 = tag.y * Math.sin(this.angleX) + tag.z * Math.cos(this.angleX);
+            // Rotate around Y
+            let x1 = tag.x * Math.cos(this.angleY) + z1 * Math.sin(this.angleY);
+            let z2 = -tag.x * Math.sin(this.angleY) + z1 * Math.cos(this.angleY);
+
+            const scale = 300 / (300 - z2);
+            const x2 = x1 * scale + this.canvas.width / 2;
+            const y2 = y1 * scale + this.canvas.height / 2;
+
+            if (scale > 0) {
+                const alpha = (scale - 0.5) / 1.5;
+                this.ctx.fillStyle = `rgba(34, 197, 94, ${alpha})`;
+                this.ctx.font = `${10 * scale}px "JetBrains Mono"`;
+                this.ctx.textAlign = "center";
+                this.ctx.fillText(tag.text, x2, y2);
+            }
+        });
+        requestAnimationFrame(() => this.animate());
+    }
+};
+
+window.replayProject = (projectId) => {
+    const term = document.getElementById('bottomTerminal');
+    const output = document.getElementById('bottom-terminal-output');
+    if (!term || !output) return;
+    
+    term.classList.add('active');
+    switchTerminalTab('terminal');
+    output.innerHTML = '';
+    
+    const logs = [
+        `[REPLAY_INIT]: ${projectId}`,
+        `> fetching remote_origin... SUCCESS`,
+        `> initializing situational environment...`,
+        `> optimizing tactical assets...`,
+        `> code_origin v1.0 compiled.`,
+        `[MISSION_COMPLETE]: ${projectId} replayed successfully.`
+    ];
+
+    logs.forEach((log, i) => {
+        setTimeout(() => {
+            const line = document.createElement('div');
+            line.className = 'terminal-line terminal-response';
+            line.textContent = log;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+            if (typeof AudioEngine !== 'undefined') AudioEngine.play('beep');
+        }, i * 800);
+    });
+};
+
 window.addEventListener('DOMContentLoaded', () => {
+    updateSystemHealth();
+    SkillsGlobe.init();
+    
+    const musicBtn = document.getElementById('musicToggle');
+    if (musicBtn) musicBtn.addEventListener('click', () => AudioEngine.toggleMusic());
+
+    window.speechSynthesis.getVoices();
+
     // --- Theme Switching Ops ---
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
