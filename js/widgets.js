@@ -6,6 +6,7 @@
 // Global Initialization
 window.addEventListener('DOMContentLoaded', () => {
     initSystemStatus();
+    initDigitalClock();
     initLiveSearch();
     fetchGitHubActivity();
     initPdfFab();

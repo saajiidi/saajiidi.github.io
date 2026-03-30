@@ -449,14 +449,6 @@ const DATA = {
       ]
     },
     {
-      id: "explorer",
-      label: "EXPLORER",
-      isOpen: true,
-      items: [
-        { id: "saajiidi-site", label: "saajiidi.github.io", href: "https://saajiidi.github.io/", icon: "globe", extension: "link" }
-      ]
-    },
-    {
       id: "portfolio",
       label: "PORTFOLIO",
       isOpen: true,

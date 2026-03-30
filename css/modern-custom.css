@@ -11,7 +11,13 @@
     --text-highlight: #a3e635;
     
     --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
-    --max-content-width: 1300px; /* Wider view for zoomed out effect */
+    --max-content-width: 1400px;
+    
+    /* --- HUD ENHANCEMENTS --- */
+    --hud-glow-color: rgba(22, 101, 52, 0.4);
+    --hud-border-glow: 0 0 15px rgba(22, 101, 52, 0.15);
+    --glass-bg: rgba(5, 20, 16, 0.7);
+    --glass-border: 1px solid rgba(163, 230, 53, 0.15);
     
     /* HUD Overlay */
     --hud-glow: radial-gradient(circle, transparent 80%, rgba(22, 101, 52, 0.02) 100%);
@@ -23,7 +29,62 @@
     --bs-primary-rgb: 22, 101, 52;
     --bs-link-color: #a3e635;
     --bs-link-hover-color: #bef264;
+    
+    --header-height: 80px;
+    --sidenav-width: 260px;
+    --transition-standard: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* Light Theme Variables */
+[data-theme="light"] {
+    --bg-page: #fdfdfd;
+    --bg-card: rgba(255, 255, 255, 0.9);
+    --text-primary: #020617;
+    --text-secondary: #475569;
+    --text-highlight: #166534;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: 1px solid rgba(22, 101, 52, 0.2);
+}
+
+[data-theme="light"] body {
+    background-color: #fdfdfd !important;
+    background-image: radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.05) 1px, transparent 0) !important;
+    color: #020617 !important;
+}
+
+[data-theme="light"] h1, [data-theme="light"] h2, [data-theme="light"] h3, [data-theme="light"] h4, [data-theme="light"] .text-light {
+    color: #1a1a1a !important;
+}
+
+[data-theme="light"] .navbar {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-bottom: 1px solid rgba(22, 101, 52, 0.1) !important;
+}
+
+[data-theme="light"] .nav-link {
+    color: #475569 !important;
+}
+
+[data-theme="light"] .nav-link:hover, [data-theme="light"] .nav-link.active {
+    color: var(--primary-color) !important;
+}
+
+.h-px { height: 1px; }
+.corner-accents {
+    position: absolute;
+    top: 10px; right: 10px; bottom: 10px; left: 10px;
+    pointer-events: none;
+    z-index: 5;
+}
+.corner-accents::before, .corner-accents::after {
+    content: '';
+    position: absolute;
+    width: 8px; height: 8px;
+    border: 1px solid var(--primary-color);
+    opacity: 0.3;
+}
+.corner-accents::before { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+.corner-accents::after { bottom: 0; right: 0; border-left: 0; border-top: 0; }
 
 /* Fix text-primary visibility on dark backgrounds */
 .text-primary {
@@ -139,7 +200,8 @@ h6 {
     font-weight: 700;
     color: var(--text-primary);
     text-transform: uppercase;
-    letter-spacing: 0.05rem;
+    letter-spacing: 0.15rem;
+    text-shadow: 0 0 8px rgba(22, 101, 52, 0.2);
 }
 
 h1 {
@@ -709,9 +771,51 @@ a:hover {
     transition: all 0.2s ease;
 }
 
-.nav-link:hover {
+.nav-link:hover, .nav-link.active {
     color: var(--accent-color) !important;
     text-shadow: 0 0 10px var(--accent-color);
+}
+
+/* Tactical Skill Pills */
+.skill-pill-tactical {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    background: rgba(15, 15, 15, 0.6);
+    border: 1px solid rgba(163, 230, 53, 0.1);
+    transition: var(--transition-standard);
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+}
+
+.skill-pill-tactical:hover {
+    background: rgba(22, 101, 52, 0.1);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.skill-pill-tactical i {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.skill-pill-tactical:hover i {
+    transform: scale(1.2);
+}
+
+.skill-pill-tactical::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; width: 0; height: 1px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.skill-pill-tactical:hover::after {
+    width: 100%;
 }
 
 @media (max-width: 992px) {
@@ -738,9 +842,31 @@ a:hover {
     border-radius: 0 !important;
     padding: 0;
     margin-bottom: 2.5rem;
-    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
     position: relative;
-    overflow: visible; /* To show corner markers */
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    background: var(--glass-bg) !important;
+    border: var(--glass-border) !important;
+}
+
+.card-glass:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--primary-light) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), var(--hud-border-glow);
+}
+
+.card-glass::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, transparent, rgba(163, 230, 53, 0.03) 50%, transparent);
+    z-index: -1;
+    transition: transform 0.6s ease;
+}
+
+.card-glass:hover::before {
+    transform: translateX(100%) translateY(100%);
 }
 
 /* Tactical Corner Markers */

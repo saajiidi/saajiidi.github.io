@@ -242,7 +242,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // --- Skills Radar Chart ---
     const canvas = document.getElementById('skillsChart');
-    const skillMap = { 'PYTHON': 0, 'SQL': 1, 'POWER_BI': 2, 'ML': 3, 'WEB_DEV': 4, 'TABLEAU': 2 }; // Map badges to indices
+    const skillMap = { 'PYTHON': 0, 'SQL': 1, 'POWER_BI': 2, 'TABLEAU': 2, 'EXCEL': 1, 'PYTHON_ML': 3, 'ML': 3, 'REACT': 4, 'NODE.JS': 4, 'GOOGLE_ANALYTICS': 5 }; // Map pills to indices
     const baseData = [90, 85, 95, 70, 75, 80];
 
     if (canvas && typeof Chart !== 'undefined') {
@@ -250,7 +250,7 @@ window.addEventListener('DOMContentLoaded', () => {
         window.skillsRadarChart = new Chart(ctx, {
             type: 'radar',
             data: {
-                labels: ['Python', 'SQL', 'BI Tools', 'ML', 'Web Dev', 'Marketing'],
+                labels: ['Python', 'SQL', 'BI Tools', 'ML', 'Web Dev', 'Analytics'],
                 datasets: [{
                     label: '[SKILL_POWER_LEVEL]',
                     data: [...baseData],
@@ -279,7 +279,8 @@ window.addEventListener('DOMContentLoaded', () => {
         });
 
         // Gamify connections
-        document.querySelectorAll('#skill-chips .badge').forEach(badge => {
+        // Gamify connections
+        document.querySelectorAll('.skill-pill-tactical').forEach(badge => {
             badge.style.cursor = 'pointer';
             badge.addEventListener('mouseenter', () => {
                 const skill = badge.textContent.trim().toUpperCase();

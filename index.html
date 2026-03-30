@@ -84,16 +84,6 @@
         <span class="status-sep">|</span>
         <span class="status-label">TERMINAL:</span> <span class="status-value cursor-pointer text-primary" id="statusTerminalTrigger">[ACCESS_GRANTED]</span>
         
-        <!-- Left HUD: System Health Sensors -->
-        <div class="hud-left d-none d-lg-block">
-          <div class="hud-widget-glass p-2 mb-3" style="width: 150px;">
-            <div class="widget-header small text-primary mb-1">[SYS_HEALTH_MONITOR]</div>
-            <div class="small opacity-75">BATTERY: <span id="batteryNode" class="text-success">...</span></div>
-            <div class="small opacity-75">MEMORY: <span id="memoryNode" class="text-success">...</span></div>
-            <div class="small opacity-75">OS: <span id="osNode" class="text-success">...</span></div>
-            <div class="small opacity-75">LATENCY: <span class="text-success">14ms</span></div>
-          </div>
-        </div>
       </div>
       <div class="status-right d-none d-md-flex align-items-center gap-3">
         <div class="music-player-node d-flex align-items-center gap-2" id="musicPlayerNode">
@@ -297,36 +287,99 @@
 
     <section class="resume-section p-3 p-lg-5" id="skills">
       <div class="w-100">
-        <span class="section-label">TECH_STACK_CORE</span>
-        <h2 class="mb-5">Technical Skills</h2>
-        <div class="row g-4">
-          <div class="col-md-6">
-            <div class="card-glass p-4 h-100">
-              <h5 class="text-primary mb-3">[CORE_COMPETENCIES]</h5>
-              <ul class="list-unstyled text-secondary">
-                <li class="mb-2"><i class="fas fa-microchip text-primary me-2"></i> Digital Sales & Marketing</li>
-                <li class="mb-2"><i class="fas fa-microchip text-primary me-2"></i> Data Analysis & BI Development</li>
-                <li class="mb-2"><i class="fas fa-microchip text-primary me-2"></i> Machine Learning Implementation</li>
-                <li class="mb-2"><i class="fas fa-microchip text-primary me-2"></i> Time Series & Forecasting</li>
-                <li class="mb-2"><i class="fas fa-microchip text-primary me-2"></i> Spatial & Interactive Visualization</li>
-                <li class="mb-2"><i class="fas fa-microchip text-primary me-2"></i> Product Development & Management</li>
-              </ul>
+        <div class="d-flex align-items-center gap-3 mb-4">
+          <span class="section-label mb-0">TECH_STACK_CORE</span>
+          <div class="h-px flex-grow-1 bg-primary opacity-10"></div>
+        </div>
+        <h2 class="mb-5 stealth-reveal">Technical Proficiency</h2>
+        
+        <div class="row g-5">
+          <!-- Data Science & Analytics -->
+          <div class="col-lg-6">
+            <h3 class="h4 text-primary mb-4 d-flex align-items-center gap-3">
+              <span class="h-100 w-1 bg-primary opacity-50" style="width: 4px; height: 1.5rem; display: inline-block; border-radius: 2px;"></span>
+              Data Science & Analytics
+            </h3>
+            <div class="d-flex flex-wrap gap-3">
+              <div class="skill-pill-tactical">
+                <i class="fab fa-python text-primary"></i>
+                <span class="font-mono small">PYTHON</span>
+              </div>
+              <div class="skill-pill-tactical">
+                <i class="fas fa-database text-primary"></i>
+                <span class="font-mono small">SQL</span>
+              </div>
+              <div class="skill-pill-tactical">
+                <i class="fas fa-chart-pie text-primary"></i>
+                <span class="font-mono small">POWER_BI</span>
+              </div>
+              <div class="skill-pill-tactical">
+                <i class="fas fa-table text-primary"></i>
+                <span class="font-mono small">TABLEAU</span>
+              </div>
+              <div class="skill-pill-tactical">
+                <i class="fas fa-file-excel text-primary"></i>
+                <span class="font-mono small">EXCEL</span>
+              </div>
+              <div class="skill-pill-tactical">
+                <i class="fas fa-chart-line text-primary"></i>
+                <span class="font-mono small">GOOGLE_ANALYTICS</span>
+              </div>
+              <div class="skill-pill-tactical">
+                <i class="fas fa-code text-primary"></i>
+                <span class="font-mono small">PANDAS</span>
+              </div>
+              <div class="skill-pill-tactical">
+                <i class="fas fa-microchip text-primary"></i>
+                <span class="font-mono small">NUMPY</span>
+              </div>
+            </div>
+            
+            <!-- Radar Chart Hook (Keeping from original for polish) -->
+            <div class="chart-container mt-4" style="position: relative; height:200px; width:100%">
+              <canvas id="skillsChart"></canvas>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="card-glass p-4 h-100">
-              <h5 class="text-primary mb-3">[TOOLS_&_ENGINES]</h5>
-              <div class="d-flex flex-wrap gap-3 mb-4" id="skill-chips">
-                <span class="badge border border-primary text-primary">PYTHON</span>
-                <span class="badge border border-primary text-primary">SQL</span>
-                <span class="badge border border-primary text-primary">POWER_BI</span>
-                <span class="badge border border-primary text-primary">ML</span>
-                <span class="badge border border-primary text-primary">TABLEAU</span>
+
+          <!-- Web Development -->
+          <div class="col-lg-6">
+            <h3 class="h4 text-primary mb-4 d-flex align-items-center gap-3">
+              <span class="h-100 w-1 bg-success opacity-50" style="width: 4px; height: 1.5rem; display: inline-block; border-radius: 2px;"></span>
+              Web Development
+            </h3>
+            <div class="d-flex flex-wrap gap-3 mb-5">
+              <div class="skill-pill-tactical">
+                <i class="fab fa-react text-primary"></i>
+                <span class="font-mono small">REACT</span>
               </div>
-              <div class="chart-container" style="position: relative; height:200px; width:100%">
-                <canvas id="skillsChart"></canvas>
+              <div class="skill-pill-tactical">
+                <i class="fab fa-node-js text-primary"></i>
+                <span class="font-mono small">NODE.JS</span>
               </div>
-              <div id="skill-progress-bars" class="mt-4"></div>
+              <div class="skill-pill-tactical">
+                <i class="fab fa-html5 text-primary"></i>
+                <span class="font-mono small">HTML5</span>
+              </div>
+              <div class="skill-pill-tactical">
+                <i class="fab fa-css3-alt text-primary"></i>
+                <span class="font-mono small">CSS3</span>
+              </div>
+              <div class="skill-pill-tactical">
+                <i class="fab fa-js text-primary"></i>
+                <span class="font-mono small">JAVASCRIPT</span>
+              </div>
+            </div>
+
+            <!-- Core Competencies -->
+            <div class="mt-5 pt-4 border-top border-secondary border-opacity-10">
+              <h5 class="text-primary small font-mono mb-4 text-center">[CORE_COMPETENCIES]</h5>
+              <div class="d-flex flex-wrap justify-content-center gap-2">
+                <span class="badge border border-secondary border-opacity-25 text-secondary px-3 py-2 fw-normal font-mono small">BI_INTELLIGENCE</span>
+                <span class="badge border border-secondary border-opacity-25 text-secondary px-3 py-2 fw-normal font-mono small">DATA_ANALYSIS</span>
+                <span class="badge border border-secondary border-opacity-25 text-secondary px-3 py-2 fw-normal font-mono small">MARKETPLACE_ANALYTICS</span>
+                <span class="badge border border-secondary border-opacity-25 text-secondary px-3 py-2 fw-normal font-mono small">STRATEGIC_PLANNING</span>
+                <span class="badge border border-secondary border-opacity-25 text-secondary px-3 py-2 fw-normal font-mono small">AGILE_SCRUM</span>
+              </div>
             </div>
           </div>
         </div>
@@ -528,24 +581,49 @@
 
     <section class="resume-section p-3 p-lg-5" id="family">
       <div class="w-100">
-        <span class="section-label">KINSHIP_DATA</span>
-        <h2 class="mb-5">Family Details</h2>
+        <div class="d-flex align-items-center gap-3 mb-4">
+          <span class="section-label mb-0">KINSHIP_TELEMETRY</span>
+          <div class="h-px flex-grow-1 bg-primary opacity-10"></div>
+        </div>
+        <h2 class="mb-5 stealth-reveal">FAMILY_DOSSIER</h2>
         <div class="row g-4">
           <div class="col-lg-6">
-            <div class="card-glass p-3 h-100">
-              <h5 class="text-primary mb-3" style="font-size: 0.9rem;">[CORE_FAMILY]</h5>
-              <ul class="list-unstyled text-secondary small">
-                <li class="mb-2"><i class="fas fa-heart text-primary me-2"></i> Wife: Infida Yesmin (Teacher)</li>
-                <li class="mb-2"><i class="fas fa-user-friends text-primary me-2"></i> Father: Sayed Alam (Businessman)</li>
-                <li class="mb-2"><i class="fas fa-user-friends text-primary me-2"></i> Mother: Suriya Haque (Housewife)</li>
-                <li class="mb-2"><i class="fas fa-user-circle text-primary me-2"></i> Sibling: Sakib Islam (Entrepreneur)</li>
-              </ul>
+            <div class="card-glass p-4 h-100 position-relative">
+              <div class="corner-accents"></div>
+              <h5 class="text-primary mb-4" style="font-size: 0.9rem;">[PRIMARY_UNIT]</h5>
+              <div class="family-entry mb-4">
+                <div class="small opacity-50 mb-1">PARTNER_ID</div>
+                <div class="font-mono text-light">Infida Yesmin (Teacher)</div>
+              </div>
+              <div class="h-px bg-secondary opacity-10 mb-4"></div>
+              <div class="family-entry">
+                <div class="small opacity-50 mb-1">CORE_LINEAGE</div>
+                <ul class="list-unstyled mb-0 small text-secondary">
+                  <li class="mb-2"><i class="fas fa-chevron-right text-primary me-2"></i> Father: Sayed Alam (Businessman)</li>
+                  <li class="mb-2"><i class="fas fa-chevron-right text-primary me-2"></i> Mother: Suriya Haque (Housewife)</li>
+                  <li class="mb-2"><i class="fas fa-chevron-right text-primary me-2"></i> Brother: Sakib Islam (Social Worker)</li>
+                </ul>
+              </div>
             </div>
           </div>
           <div class="col-lg-6">
-            <div class="card-glass p-3 h-100 d-flex flex-column justify-content-center text-center">
-              <div class="mb-2"><i class="fas fa-home fa-2x text-primary opacity-25"></i></div>
-              <p class="text-secondary" style="font-size: 0.85rem;">Roots in Chatkhil, Noakhali. Currently based in Uttara, Dhaka.</p>
+            <div class="card-glass p-4 h-100 d-flex flex-column position-relative">
+              <div class="corner-accents"></div>
+              <h5 class="text-primary mb-4" style="font-size: 0.9rem;">[STATION_GEOLOCATION]</h5>
+              <div class="mt-auto">
+                <div class="d-flex align-items-center gap-4 mb-4">
+                  <div class="icon-orb text-primary">
+                    <i class="fas fa-home fa-lg"></i>
+                  </div>
+                  <div>
+                    <div class="font-mono small text-light">UTTARA_SECTOR_7</div>
+                    <div class="small opacity-50">DHAKA, BANGLADESH</div>
+                  </div>
+                </div>
+                <div class="impact-card py-2 px-3 mb-0" style="background: rgba(22, 101, 52, 0.05); border-left: 2px solid var(--primary-color);">
+                  <div class="small text-secondary">ROOTS: Chatkhil, Noakhali. Unit Sakib Islam (Social Worker) active.</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -556,26 +634,39 @@
 
     <section class="resume-section p-3 p-lg-5" id="contact">
       <div class="w-100">
-        <span class="section-label">COMM_CHANNEL</span>
+        <div class="d-flex align-items-center gap-3 mb-4">
+          <span class="section-label mb-0">COMM_UPLINK</span>
+          <div class="h-px flex-grow-1 bg-primary opacity-10"></div>
+        </div>
         <h2 class="mb-5">Contact Intel</h2>
-        <div class="card-glass p-4">
-           <div class="row g-4">
-              <div class="col-md-6">
-                 <div class="mb-3">
-                    <label class="text-primary small d-block mb-1">ENCRYPTED_EMAIL</label>
-                    <div class="p-2 border border-secondary border-opacity-25 font-mono small">sajid.islam.chowdhury@gmail.com</div>
-                 </div>
-              </div>
-              <div class="col-md-6">
-                 <div class="mb-3">
-                    <label class="text-primary small d-block mb-1">DIRECT_SIGNAL</label>
-                    <div class="p-2 border border-secondary border-opacity-25 font-mono small">+880 182 452 6054</div>
-                 </div>
-              </div>
-           </div>
-           <div class="mt-3 text-center">
-              <a href="https://wa.me/+8801824526054" class="btn btn-outline-primary btn-sm px-4">ESTABLISH_UPLINK</a>
-           </div>
+        <div class="card-glass p-5 position-relative overflow-hidden">
+          <div class="corner-accents"></div>
+          <div class="strobe-light" style="position: absolute; top:0; right:0; width: 4px; height: 100%; background: var(--primary-color); opacity: 0.2; animation: scan 3s infinite;"></div>
+          <div class="row g-5 align-items-center">
+             <div class="col-md-7">
+                <div class="mb-4">
+                   <div class="small text-primary font-mono mb-2">SIGNAL_ORIGIN</div>
+                   <div class="p-3 bg-dark bg-opacity-50 border border-secondary border-opacity-25 d-flex justify-content-between align-items-center">
+                      <span class="font-mono small">sajid.islam.chowdhury@gmail.com</span>
+                      <button class="btn btn-sm btn-link text-primary p-0" onclick="copyEmail('sajid.islam.chowdhury@gmail.com', event)"><i class="far fa-copy"></i></button>
+                   </div>
+                </div>
+                <div class="mb-0">
+                   <div class="small text-primary font-mono mb-2">ENCRYPTED_VOICE</div>
+                   <div class="p-3 bg-dark bg-opacity-50 border border-secondary border-opacity-25 d-flex justify-content-between align-items-center">
+                      <span class="font-mono small">+880 182-452-6054</span>
+                      <i class="fas fa-lock text-success small opacity-50"></i>
+                   </div>
+                </div>
+             </div>
+             <div class="col-md-5 text-center text-md-start">
+                <p class="text-secondary small mb-4">Direct uplink available for high-priority missions and collaboration requests.</p>
+                <div class="d-flex gap-3 justify-content-center justify-content-md-start">
+                  <a href="https://wa.me/+8801824526054" class="btn btn-primary px-4">WHATSAPP</a>
+                  <a href="https://linkedin.com/in/sajidislamchowdhury" class="btn btn-outline-primary px-4">LINKEDIN</a>
+                </div>
+             </div>
+          </div>
         </div>
       </div>
     </section>
@@ -701,6 +792,13 @@
     
     <!-- Tab Content: TERMINAL -->
     <div class="terminal-tab-content active" id="tab-terminal">
+      <!-- Live Systems Diagnostics -->
+      <div class="terminal-diag-strip p-2 border-bottom border-secondary border-opacity-10 d-flex gap-4 small font-mono">
+        <span class="text-primary">[SYS_TELEMETRY]:</span>
+        <span class="text-secondary">BAT: <span id="batteryNode" class="text-success">--%</span></span>
+        <span class="text-secondary">MEM: <span id="memoryNode" class="text-success">----</span></span>
+        <span class="text-secondary">OS: <span id="osNode" class="text-success">----</span></span>
+      </div>
       <div class="terminal-body" id="bottom-terminal-output">
         <div class="terminal-line"><span class="terminal-prompt">PS C:\Users\Sajid></span> <span class="terminal-cmd">init_tactical_shell</span></div>
         <div class="terminal-line terminal-response">[UPLINK_SUCCESSFUL]: Mission environment 5.1 initialized.</div>
