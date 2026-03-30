@@ -114,10 +114,10 @@ function initAiChat() {
                     Please provide detailed analysis on his Data Science and BI expertise.`);
 
                     btnContainer.innerHTML = `
-                        <button class="btn-theme-toggle w-100 mb-1" onclick="window.open('https://chatgpt.com/?q=${chatGptPrompt}', '_blank')">
+                        <button class="btn-theme-toggle w-100 mb-1" onclick="openPortfolioBridge(null, 'https://chatgpt.com/?q=${chatGptPrompt}')">
                             <i class="fas fa-brain me-2"></i> [AI_DOSSIER_UPLINK]
                         </button>
-                        <button class="btn-theme-toggle w-100" onclick="window.open('https://wa.me/+8801824526054', '_blank')">
+                        <button class="btn-theme-toggle w-100" onclick="openPortfolioBridge(null, 'https://wa.me/+8801824526054')">
                             <i class="fas fa-user-secret me-2"></i> [HUMAN_COMMAND_UPLINK]
                         </button>
                     `;
