@@ -84,7 +84,7 @@ function initAiChat() {
         input.value = '';
 
         setTimeout(() => {
-            let response = "Intel inconclusive. Knowledge base for that query restricted. Try 'Experience' or 'Education'.";
+            let response = null;
 
             for (let group in KNOWLEDGE_GROUPS) {
                 if (KNOWLEDGE_GROUPS[group].keys.some(key => text.includes(key))) {
@@ -95,14 +95,29 @@ function initAiChat() {
                 }
             }
 
-            addMessage(response, 'bot');
+            if (response) {
+                addMessage(response, 'bot');
+            } else {
+                // [NEURAL_LINK_OVERRIDE]
+                const fallbackText = "[QUERY_OVERFLOW]: Intel base exceeded. Protocol 99 activated. Initiating Direct Neural Link with Operative Sajid...";
+                addMessage(fallbackText, 'bot', true);
+                
+                // Add an interactive button for the fallback
+                setTimeout(() => {
+                    const btn = document.createElement('div');
+                    btn.className = 'ai-message bot-action';
+                    btn.innerHTML = `<button class="btn-theme-toggle w-100" onclick="window.open('https://wa.me/+8801824526054', '_blank')">[ESTABLISH_DIRECT_UPLINK]</button>`;
+                    body.appendChild(btn);
+                    body.scrollTop = body.scrollHeight;
+                }, 400);
+            }
             if (typeof AudioEngine !== 'undefined') AudioEngine.play('beep');
         }, 600);
     };
 
-    const addMessage = (text, sender) => {
+    const addMessage = (text, sender, isSystem = false) => {
         const msg = document.createElement('div');
-        msg.className = `ai-message ${sender}`;
+        msg.className = `ai-message ${sender} ${isSystem ? 'system' : ''}`;
         msg.textContent = text;
         body.appendChild(msg);
         body.scrollTop = body.scrollHeight;
