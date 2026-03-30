@@ -1,9 +1,9 @@
 /**
- * TACTICAL SERVICE WORKER
- * PWA Support for offline functionality
+ * TACTICAL SERVICE WORKER V2
+ * PWA Support for offline functionality with Network-First strategy for updates
  */
 
-const CACHE_NAME = 'tactical-intel-v1';
+const CACHE_NAME = 'tactical-intel-v2';
 const STATIC_ASSETS = [
     '/',
     '/index.html',
@@ -17,7 +17,7 @@ const STATIC_ASSETS = [
 
 // Install: Cache static assets
 self.addEventListener('install', (event) => {
-    console.log('[SW] Installing Tactical Service Worker...');
+    console.log('[SW] Installing Tactical Service Worker V2...');
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then((cache) => {
@@ -28,9 +28,9 @@ self.addEventListener('install', (event) => {
     );
 });
 
-// Activate: Clean up old caches
+// Activate: Clean up old caches immediately
 self.addEventListener('activate', (event) => {
-    console.log('[SW] Activating Tactical Service Worker...');
+    console.log('[SW] Activating Tactical Service Worker V2...');
     event.waitUntil(
         caches.keys().then((cacheNames) => {
             return Promise.all(
@@ -45,35 +45,45 @@ self.addEventListener('activate', (event) => {
     );
 });
 
-// Fetch: Serve from cache, fallback to network
+// Fetch: Network-First for navigation (HTML), Stale-While-Revalidate for others
 self.addEventListener('fetch', (event) => {
-    event.respondWith(
-        caches.match(event.request)
-            .then((response) => {
-                // Return cached version or fetch from network
-                if (response) {
-                    return response;
-                }
-                return fetch(event.request)
-                    .then((networkResponse) => {
-                        // Cache successful GET requests
-                        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-                            return networkResponse;
-                        }
-                        const responseToCache = networkResponse.clone();
-                        caches.open(CACHE_NAME).then((cache) => {
-                            cache.put(event.request, responseToCache);
-                        });
-                        return networkResponse;
+    const isNavigation = event.request.mode === 'navigate';
+    const isRoot = new URL(event.request.url).pathname === '/';
+
+    if (isNavigation || isRoot) {
+        // Network-First strategy for index.html/root
+        event.respondWith(
+            fetch(event.request)
+                .then((networkResponse) => {
+                    const responseClone = networkResponse.clone();
+                    caches.open(CACHE_NAME).then((cache) => {
+                        cache.put(event.request, responseClone);
                     });
-            })
-            .catch(() => {
-                // Fallback for offline
-                if (event.request.destination === 'document') {
-                    return caches.match('/index.html');
-                }
-            })
-    );
+                    return networkResponse;
+                })
+                .catch(() => {
+                    return caches.match(event.request) || caches.match('/index.html');
+                })
+        );
+    } else {
+        // Stale-While-Revalidate strategy for static assets
+        event.respondWith(
+            caches.match(event.request)
+                .then((cachedResponse) => {
+                    const fetchPromise = fetch(event.request)
+                        .then((networkResponse) => {
+                            if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+                                const responseClone = networkResponse.clone();
+                                caches.open(CACHE_NAME).then((cache) => {
+                                    cache.put(event.request, responseClone);
+                                });
+                            }
+                            return networkResponse;
+                        });
+                    return cachedResponse || fetchPromise;
+                })
+        );
+    }
 });
 
 // Message handling for skip waiting
@@ -82,3 +92,4 @@ self.addEventListener('message', (event) => {
         self.skipWaiting();
     }
 });
+

@@ -6,6 +6,54 @@
 const DATA = {
   projects: [
     {
+      id: "vscode-portfolio",
+      title: "VS Code Themed Portfolio",
+      description: "A high-performance portfolio built with Next.js 14, TypeScript, and Tailwind CSS, featuring a fully functional VS Code interface clone.",
+      image: "img/projects/vscode-portfolio.png",
+      liveUrl: "https://sajid-ul-islam.vercel.app/",
+      featured: true,
+      technologies: ["Next.js 14", "TypeScript", "Tailwind CSS", "React"],
+      category: "web-apps",
+      caseStudy: {
+        role: "Full Stack Developer",
+        timeline: "2024",
+        problem: "Needed a unique, developer-centric way to showcase projects and skills beyond standard templates.",
+        solution: "Architected a VS Code 'Shell' using Next.js App Router, combining file-tree navigation with code-themed content blocks.",
+        impact: [
+          "Achieved 95+ Lighthouse performance scores.",
+          "Highly interactive UI that resonates with the developer community.",
+        ],
+        metrics: [
+          { label: "Performance", value: "98/100" },
+          { label: "Tech Stack", value: "Next.js 14" },
+        ],
+      },
+    },
+    {
+      id: "automation-pivot",
+      title: "Automation Pivot",
+      description: "Operations dashboard for DEEN Commerce, centralizing live order queues, historical sales analysis, and customer pulse tracking.",
+      image: "img/projects/automation-pivot.png",
+      liveUrl: "#",
+      featured: true,
+      technologies: ["Streamlit", "Python", "Pandas", "Google Sheets API"],
+      category: "bi-viz",
+      caseStudy: {
+        role: "Lead Business Analyst",
+        timeline: "2024 - 2025",
+        problem: "Operational data for DEEN Commerce was fragmented across multiple Google Sheets and local workbooks.",
+        solution: "Built a centralized Python/Streamlit dashboard that merges live Google Sheets data with historical local archives.",
+        impact: [
+          "Streamlined packing and shipping workflows via Live Queue.",
+          "Enabled real-time Customer Pulse monitoring (CLV, Retention).",
+        ],
+        metrics: [
+          { label: "Data Source", value: "Hybrid GSheets/Local" },
+          { label: "Efficiency", value: "Real-time Sync" },
+        ],
+      },
+    },
+    {
       id: "1",
       title: "ECommerce Dashboard",
       description: "A dashboard providing real-time data from 2021-2025, featuring analytics for total revenue, total orders, total customers, and average order value.",

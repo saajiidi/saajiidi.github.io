@@ -1,68 +1,55 @@
-# [Start Bootstrap - Resume](https://startbootstrap.com/template-overviews/resume/)
+# Sajid Islam || [TACTICAL_INTEL] Portfolio
 
-[Resume](https://startbootstrap.com/template-overviews/resume/) is a resume and CV theme for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/). This theme features a fixed sidebar with content sections to build a simple, yet elegant resume.
+![Portfolio Preview](img/profile.jpg)
 
-## Preview
+A high-performance, modular portfolio for a **Data Scientist & Business Analyst** built with a "Tactical HUD" aesthetic. This project combines modern web technologies with a terminal-driven user experience.
 
-[![Resume Preview](https://startbootstrap.com/assets/img/screenshots/themes/resume.png)](https://blackrockdigital.github.io/startbootstrap-resume/)
+## 🚀 Key Features
 
-**[View Live Preview](https://blackrockdigital.github.io/startbootstrap-resume/)**
+- **PWA Ready**: Offline support and home screen installation via `sw.js`.
+- **Tactical Terminal**: An interactive CLI for direct contact, system diagnostics, and cache management.
+- **Data-Driven Visualization**: Real-time session analytics and interactive skills radar charts.
+- **Secure Portfolio Bridge**: A HUD-style window to browse external projects without leaving the site.
+- **Modular Architecture**: Clean separation of concerns between structure (HTML), styling (CSS), and logic (JS).
+- **Responsive Resume**: Integrated `resume.html` with PDF-export support.
 
-## Status
+## 📁 Directory Structure
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/BlackrockDigital/startbootstrap-resume/master/LICENSE)
-[![npm version](https://img.shields.io/npm/v/startbootstrap-resume.svg)](https://www.npmjs.com/package/startbootstrap-resume)
-[![Build Status](https://travis-ci.org/BlackrockDigital/startbootstrap-resume.svg?branch=master)](https://travis-ci.org/BlackrockDigital/startbootstrap-resume)
-[![dependencies Status](https://david-dm.org/BlackrockDigital/startbootstrap-resume/status.svg)](https://david-dm.org/BlackrockDigital/startbootstrap-resume)
-[![devDependencies Status](https://david-dm.org/BlackrockDigital/startbootstrap-resume/dev-status.svg)](https://david-dm.org/BlackrockDigital/startbootstrap-resume?type=dev)
+```text
+├── archive/           # Old/Backup HTML files
+├── css/               # Modular CSS (HUD, Tactical, Enhancements)
+├── img/               # Optimized profile and project images
+├── js/                # Modular JavaScript (Modularized for easier dev)
+│   ├── terminal.js    # Terminal logic
+│   ├── widgets.js     # HUD widgets and analytics
+│   ├── pwa-loader.js  # Service Worker management
+│   └── ...            # Other helpers
+├── scripts/           # Python & Data utility scripts
+├── vendor/            # Third-party libraries (Bootstrap, FontAwesome)
+└── index.html         # Main operative interface
+```
 
-## Download and Installation
+## 🛠️ Development & Deployment
 
-To begin using this template, choose one of the following options to get started:
-* [Download the latest release on Start Bootstrap](https://startbootstrap.com/template-overviews/resume/)
-* Install via npm: `npm i startbootstrap-resume`
-* Clone the repo: `git clone https://github.com/BlackrockDigital/startbootstrap-resume.git`
-* [Fork, Clone, or Download on GitHub](https://github.com/BlackrockDigital/startbootstrap-resume)
+### Quick Start
+1.  **Clone**: `git clone https://github.com/saajiidi/saajiidi.github.io.git`
+2.  **Install**: `npm install` (requires Node.js)
+3.  **Run**: `npm start` (opens BrowserSync on port 3000)
 
-## Usage
+### Building Assets
+The project uses Gulp to manage SASS and JS minification:
+- `npm run build`: Compiles all assets for production.
+- `gulp watch`: Live-reload development mode.
 
-### Basic Usage
+### Static Data
+The `PortfolioData.xlsx` file in the `scripts/` folder contains the master copy of the portfolio data. Use `generate_spreadsheet.py` to regenerate values if needed.
 
-After downloading, simply edit the HTML and CSS files included with the template in your favorite text editor to make changes. These are the only files you need to worry about, you can ignore everything else! To preview the changes you make to the code, you can open the `index.html` file in your web browser.
+## 📡 Live Updates
+If updates are not applying immediately on GitHub Pages, use the built-in terminal:
+1.  Click the **Terminal** icon.
+2.  Type `flush` and press Enter.
+3.  The system will reboot and fetch the latest intel from the network.
 
-### Advanced Usage
-
-After installation, run `npm install` and then run `npm start` which will open up a preview of the template in your default browser, watch for changes to core template files, and live reload the browser when changes are saved. You can view the `gulpfile.js` to see which tasks are included with the dev environment.
-
-#### Gulp Tasks
-
-- `gulp` the default task that builds everything
-- `gulp watch` browserSync opens the project in your default browser and live reloads when changes are made
-- `gulp css` compiles SCSS files into CSS and minifies the compiled CSS
-- `gulp js` minifies the themes JS file
-- `gulp vendor` copies dependencies from node_modules to the vendor directory
-
-You must have npm installed globally in order to use this build environment.
-
-## Bugs and Issues
-
-Have a bug or an issue with this template? [Open a new issue](https://github.com/BlackrockDigital/startbootstrap-resume/issues) here on GitHub or leave a comment on the [template overview page at Start Bootstrap](http://startbootstrap.com/template-overviews/resume/).
-
-## About
-
-Start Bootstrap is an open source library of free Bootstrap templates and themes. All of the free templates and themes on Start Bootstrap are released under the MIT license, which means you can use them for any purpose, even for commercial projects.
-
-* https://startbootstrap.com
-* https://twitter.com/SBootstrap
-
-Start Bootstrap was created by and is maintained by **[David Miller](http://davidmiller.io/)**, Owner of [Blackrock Digital](http://blackrockdigital.io/).
-
-* http://davidmiller.io
-* https://twitter.com/davidmillerskt
-* https://github.com/davidtmiller
-
-Start Bootstrap is based on the [Bootstrap](http://getbootstrap.com/) framework created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thorton](https://twitter.com/fat).
-
-## Copyright and License
-
-Copyright 2013-2019 Blackrock Digital LLC. Code released under the [MIT](https://github.com/BlackrockDigital/startbootstrap-resume/blob/gh-pages/LICENSE) license.
+## 📝 License
+Copyright © 2025 Sajid Islam. Released under the MIT License.
+Based on the [Start Bootstrap Resume](https://startbootstrap.com/template-overviews/resume/) template.

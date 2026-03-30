@@ -1,50 +1,49 @@
 :root {
-    /* --- Tactical HUD Aesthetic (Night Ops) --- */
-    --primary-color: #166534;
-    --primary-light: #a3e635;
-    --accent-color: #bef264;
+    /* --- BI Hacker HUD (Midnight Ops) --- */
+    --primary-color: #22c55e;      /* Neutral Matrix Green */
+    --primary-light: #4ade80;
+    --accent-color: #86efac;
     
-    --bg-page: #051410;
-    --bg-card: rgba(6, 20, 15, 0.95);
-    --text-primary: #f0f7f4;
-    --text-secondary: #94a3b8;
-    --text-highlight: #a3e635;
+    --bg-page: #020617;            /* Deep Midnight Slate */
+    --bg-card: rgba(15, 23, 42, 0.85); /* Translucent Slate */
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;     /* Soothing Slate Gray */
+    --text-highlight: #22c55e;
     
     --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
+    --hud-blur: 20px;
 }
 
 /* --- TACTICAL SCROLLBAR --- */
 ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 4px;
+    height: 4px;
 }
 
 ::-webkit-scrollbar-track {
     background: var(--bg-page);
-    border-left: 1px solid rgba(22, 101, 52, 0.1);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 0;
-    box-shadow: inset 0 0 5px rgba(163, 230, 53, 0.2);
+    background: rgba(34, 197, 94, 0.3);
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-light);
+    background: var(--primary-color);
 }
 
 [data-theme="light"] {
-    /* --- Tactical HUD (Day Ops) --- */
-    --primary-color: #15803d;
-    --primary-light: #16a34a;
-    --accent-color: #166534;
+    /* --- BI Analyst HUD (Paper Ops) --- */
+    --primary-color: #059669;
+    --primary-light: #10b981;
+    --accent-color: #34d399;
     
     --bg-page: #f8fafc;
-    --bg-card: rgba(255, 255, 255, 0.95);
+    --bg-card: rgba(255, 255, 255, 0.9);
     --text-primary: #0f172a;
     --text-secondary: #475569;
-    --text-highlight: #15803d;
+    --text-highlight: #059669;
 }
 
 /* --- HUD Overlays --- */
@@ -54,13 +53,13 @@
     background: linear-gradient(
         to bottom,
         rgba(255, 255, 255, 0) 50%,
-        rgba(0, 0, 0, .05) 50%
+        rgba(0, 0, 0, .02) 50%
     );
-    background-size: 100% 4px;
-    z-index: 9999;
+    background-size: 100% 2px;
+    z-index: 10005;
     pointer-events: none;
-    opacity: 0.15;
-    animation: scanlineScroll 10s linear infinite;
+    opacity: 0.1;
+    animation: scanlineScroll 20s linear infinite;
 }
 
 @keyframes scanlineScroll {
@@ -68,76 +67,94 @@
     100% { background-position: 0 100%; }
 }
 
-/* --- Theme Toggle Button --- */
+/* --- Glassmorphism & Brackets --- */
+.card-glass {
+    background: var(--bg-card);
+    -webkit-backdrop-filter: blur(var(--hud-blur));
+    backdrop-filter: blur(var(--hud-blur));
+    border: 1px solid rgba(34, 197, 94, 0.1);
+    position: relative;
+    border-radius: 4px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+}
+
+/* Bracket styling for "Hacker" feel */
+.card-glass::before, .card-glass::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-color: var(--primary-color);
+    border-style: solid;
+    opacity: 0.5;
+    pointer-events: none;
+}
+.card-glass::before {
+    top: 10px; left: 10px; border-width: 1px 0 0 1px;
+}
+.card-glass::after {
+    bottom: 10px; right: 10px; border-width: 0 1px 1px 0;
+}
+
+/* --- Theme Toggle --- */
 .btn-theme-toggle {
-    background: transparent;
-    border: 1px solid var(--primary-color);
+    background: rgba(34, 197, 94, 0.05);
+    border: 1px solid rgba(34, 197, 94, 0.2);
     color: var(--primary-color);
-    padding: 5px 12px;
+    padding: 6px 14px;
     font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     cursor: pointer;
     transition: all 0.3s ease;
-    border-radius: 0;
 }
 
 .btn-theme-toggle:hover {
     background: var(--primary-color);
     color: var(--bg-page);
+    box-shadow: 0 0 15px var(--primary-color);
 }
 
 /* --- Project Filters --- */
 .project-filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 12px;
     justify-content: center;
+    border-bottom: 1px solid rgba(34, 197, 94, 0.1);
+    padding-bottom: 2rem;
 }
 
 .filter-btn {
     background: transparent;
-    border: 1px solid var(--primary-color);
+    border: 1px solid rgba(34, 197, 94, 0.2);
     color: var(--text-secondary);
-    padding: 6px 15px;
+    padding: 5px 12px;
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .filter-btn:hover, .filter-btn.active {
-    background: var(--primary-color);
-    color: var(--text-primary);
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--primary-light);
     border-color: var(--primary-color);
-    box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
 }
 
-.project-item {
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.project-item.hide {
-    opacity: 0;
-    transform: scale(0.95);
-    pointer-events: none;
-    display: none;
-}
-
-/* --- Skeleton Loaders --- */
+/* --- Skeleton --- */
 .skeleton {
     background: linear-gradient(
         90deg,
-        var(--bg-card) 25%,
-        rgba(34, 197, 94, 0.05) 50%,
-        var(--bg-card) 75%
+        rgba(15, 23, 42, 0.5) 25%,
+        rgba(34, 197, 94, 0.1) 50%,
+        rgba(15, 23, 42, 0.5) 75%
     );
     background-size: 200% 100%;
-    animation: skeleton-loading 1.5s infinite;
-    border-radius: 4px;
-    display: block;
-    min-height: 1em;
+    animation: skeleton-loading 2s infinite;
 }
 
 .skeleton-text { width: 100%; height: 1.2rem; margin-bottom: 0.5rem; }
@@ -630,10 +647,83 @@
     border: none;
 }
 
-.hud-spinner {
-    width: 40px; height: 40px;
-    border: 2px solid transparent;
-    border-top-color: var(--primary-light);
+/* --- SCROLL PROGRESS HUD --- */
+.scroll-progress-hud {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary-color), var(--primary-light));
+    box-shadow: 0 0 10px var(--primary-light);
+    z-index: 10001; /* Above navbar */
+    transition: width 0.1s ease;
+}
+
+.scroll-progress-hud::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -5px;
+    width: 10px;
+    height: 10px;
+    background: var(--primary-light);
     border-radius: 50%;
-    animation: spin 1s linear infinite;
+    box-shadow: 0 0 15px var(--primary-light);
+}
+
+/* --- SYSTEM STATUS BAR (Hacker Header) --- */
+.system-status-bar {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    height: 30px;
+    background: rgba(2, 6, 23, 0.95);
+    border-bottom: 1px solid rgba(34, 197, 94, 0.15);
+    z-index: 10006;
+    display: flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+}
+
+.status-label { font-weight: 800; color: var(--primary-color); }
+.status-value { color: var(--text-primary); margin-left: 5px; margin-right: 15px; }
+.status-sep { color: rgba(255, 255, 255, 0.1); margin: 0 5px; }
+.status-online { color: var(--primary-light) !important; font-weight: 800; position: relative; }
+.status-online::before {
+    content: ''; display: inline-block; width: 6px; height: 6px;
+    background: var(--primary-light); border-radius: 50%;
+    margin-right: 8px; box-shadow: 0 0 10px var(--primary-light);
+    animation: pulse 1s infinite;
+}
+
+.digital-clock {
+    color: var(--primary-light);
+    font-weight: 900;
+}
+
+/* Adjustments for Status Bar */
+body { padding-top: 30px; }
+#sideNav { top: 30px; }
+.scroll-progress-hud { top: 30px; }
+
+/* Refined Glassmorphism for "Eye Soothing" feel */
+.card-glass {
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    backdrop-filter: blur(25px) saturate(180%);
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
 }
