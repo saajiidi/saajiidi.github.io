@@ -5,6 +5,7 @@
 
 let commandHistory = [];
 let historyIndex = -1;
+let telemetryIntervals = [];
 
 function toggleBottomTerminal() {
     const term = document.getElementById('bottomTerminal');
@@ -31,7 +32,11 @@ function startTelemetryStreams() {
     const output = document.getElementById('output-stream');
     if (!debug || !output) return;
 
-    setInterval(() => {
+    // Clear existing intervals to prevent memory leaks
+    telemetryIntervals.forEach(interval => clearInterval(interval));
+    telemetryIntervals = [];
+
+    const debugInterval = setInterval(() => {
         if (Math.random() > 0.7) {
             const logs = [
                 `[${new Date().toLocaleTimeString()}] SYST_PING: ${Math.floor(Math.random()*20)}ms`,
@@ -47,8 +52,9 @@ function startTelemetryStreams() {
             debug.scrollTop = debug.scrollHeight;
         }
     }, 2000);
+    telemetryIntervals.push(debugInterval);
 
-    setInterval(() => {
+    const outputInterval = setInterval(() => {
         if (Math.random() > 0.9) {
             const updates = [
                 "> git fetch origin master --silent",
@@ -64,7 +70,17 @@ function startTelemetryStreams() {
             output.scrollTop = output.scrollHeight;
         }
     }, 5000);
+    telemetryIntervals.push(outputInterval);
 }
+
+// Cleanup function to prevent memory leaks
+function cleanupTerminal() {
+    telemetryIntervals.forEach(interval => clearInterval(interval));
+    telemetryIntervals = [];
+}
+
+// Add cleanup on page unload
+window.addEventListener('beforeunload', cleanupTerminal);
 
 const terminalCommands = {
     help: () => `CMD_DIRECTORY:

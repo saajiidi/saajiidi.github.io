@@ -365,11 +365,16 @@ function initDataViz() {
         if (activeTimeEl) activeTimeEl.textContent = elapsed + 'm';
     }
 
-    setInterval(() => {
+    const chartInterval = setInterval(() => {
         dataPoints.shift();
         dataPoints.push(Math.random() * 80 + 20);
         drawChart();
     }, 2000);
+
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+        clearInterval(chartInterval);
+    });
 
     drawChart();
 }

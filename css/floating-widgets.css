@@ -1,0 +1,236 @@
+/* FLOATING WIDGETS STYLES */
+.floating-widget {
+    position: fixed;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: var(--glass-border);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    z-index: 1000;
+}
+
+.floating-widget:hover {
+    box-shadow: 0 12px 48px rgba(22, 101, 52, 0.2);
+}
+
+.widget-header {
+    background: linear-gradient(135deg, rgba(22, 101, 52, 0.1), rgba(163, 230, 53, 0.05));
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(163, 230, 53, 0.2);
+    cursor: grab;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.widget-header:active {
+    cursor: grabbing;
+}
+
+.widget-title {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-highlight);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.widget-controls {
+    display: flex;
+    gap: 4px;
+}
+
+.widget-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: rgba(163, 230, 53, 0.1);
+    color: var(--text-secondary);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.widget-btn:hover {
+    background: rgba(163, 230, 53, 0.2);
+    color: var(--text-highlight);
+}
+
+.widget-close:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+.widget-content {
+    padding: 16px;
+    height: calc(100% - 48px);
+    overflow-y: auto;
+}
+
+/* Resize Handles */
+.resize-handle {
+    position: absolute;
+    background: transparent;
+    z-index: 10;
+}
+
+.resize-n, .resize-s {
+    height: 8px;
+    left: 0;
+    right: 0;
+}
+
+.resize-n {
+    top: 0;
+    cursor: ns-resize;
+}
+
+.resize-s {
+    bottom: 0;
+    cursor: ns-resize;
+}
+
+.resize-e, .resize-w {
+    width: 8px;
+    top: 0;
+    bottom: 0;
+}
+
+.resize-e {
+    right: 0;
+    cursor: ew-resize;
+}
+
+.resize-w {
+    left: 0;
+    cursor: ew-resize;
+}
+
+.resize-ne, .resize-nw, .resize-se, .resize-sw {
+    width: 16px;
+    height: 16px;
+}
+
+.resize-ne {
+    top: 0;
+    right: 0;
+    cursor: nesw-resize;
+}
+
+.resize-nw {
+    top: 0;
+    left: 0;
+    cursor: nwse-resize;
+}
+
+.resize-se {
+    bottom: 0;
+    right: 0;
+    cursor: nwse-resize;
+}
+
+.resize-sw {
+    bottom: 0;
+    left: 0;
+    cursor: nesw-resize;
+}
+
+/* Minimized State */
+.floating-widget.minimized {
+    height: auto !important;
+    min-height: auto !important;
+}
+
+.floating-widget.minimized .widget-content {
+    display: none;
+}
+
+.floating-widget.minimized .widget-header {
+    border-bottom: none;
+}
+
+/* Maximized State */
+.floating-widget.maximized {
+    border-radius: 8px;
+}
+
+.floating-widget.maximized .widget-content {
+    padding: 20px;
+}
+
+/* Specific Widget Styles */
+#aiChatContainer.floating-widget {
+    border: 1px solid rgba(163, 230, 53, 0.3);
+}
+
+#portfolioBridge.floating-widget {
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.kpi-dashboard.floating-widget {
+    border: 1px solid rgba(236, 72, 153, 0.3);
+}
+
+.real-time-metrics.floating-widget {
+    border: 1px solid rgba(251, 146, 60, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .floating-widget {
+        border-radius: 8px;
+    }
+    
+    .widget-header {
+        padding: 10px 12px;
+    }
+    
+    .widget-title {
+        font-size: 0.8rem;
+    }
+    
+    .widget-btn {
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+    }
+    
+    .resize-handle {
+        display: none; /* Disable resizing on mobile */
+    }
+    
+    .floating-widget {
+        min-width: 280px !important;
+        min-height: 200px !important;
+    }
+}
+
+/* Animation for widget entrance */
+@keyframes widgetEntrance {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.floating-widget {
+    animation: widgetEntrance 0.3s ease-out;
+}
+
+/* Focus effect */
+.floating-widget:focus-within {
+    box-shadow: 0 0 0 2px rgba(163, 230, 53, 0.3), 0 12px 48px rgba(22, 101, 52, 0.2);
+}

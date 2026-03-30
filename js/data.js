@@ -167,6 +167,32 @@ const DATA = {
       },
     },
     {
+      id: "agentic-ai-assistant",
+      title: "Agentic AI Research Assistant",
+      description: "An intelligent AI agent system with RAG capabilities for automated research, document analysis, and knowledge synthesis.",
+      image: "/img#projects/agentic-ai.png",
+      liveUrl: "#",
+      featured: true,
+      technologies: ["Agentic AI", "RAG", "LangChain", "Vector DB", "Python"],
+      category: "ml-ai",
+      caseStudy: {
+        role: "AI Engineer & Architect",
+        timeline: "2025",
+        problem: "Manual research and knowledge synthesis was time-consuming and inefficient for large document sets.",
+        solution: "Built an autonomous AI agent system that can retrieve, analyze, and synthesize information from multiple sources using RAG architecture.",
+        impact: [
+          "Reduced research time by 70% through automated document processing.",
+          "Improved knowledge accuracy with contextual retrieval.",
+          "Enabled real-time question answering on complex topics.",
+        ],
+        metrics: [
+          { label: "Documents Processed", value: "1000+" },
+          { label: "Accuracy Rate", value: "94%" },
+          { label: "Response Time", value: "<2s" },
+        ],
+      },
+    },
+    {
       id: "5",
       title: "Air Passenger Forecasting",
       description: "Time series analysis comparing multiple forecasting models (ARIMA, Exponential Smoothing) for airline passenger prediction.",
@@ -586,6 +612,9 @@ const DATA = {
       name: "Analytical & Technical",
       skills: [
         { name: "Data Analytics & ML", category: "Data", icon: "https://img.icons8.com/color/48/null/python--v1.png", level: 85 },
+        { name: "Agentic AI Systems", category: "AI", icon: "https://img.icons8.com/color/48/000000/robot-intellectual.png", level: 82 },
+        { name: "RAG (Retrieval-Augmented Generation)", category: "AI", icon: "https://img.icons8.com/color/48/000000/artificial-intelligence.png", level: 78 },
+        { name: "Machine Learning Engineering", category: "AI", icon: "https://img.icons8.com/color/48/000000/neural-network.png", level: 85 },
         { name: "Python & R", category: "Data", icon: "https://img.icons8.com/color/48/000000/python.png", level: 85 },
         { name: "Power BI & Tableau", category: "BI", icon: "https://img.icons8.com/color/48/000000/power-bi.png", level: 90 },
         { name: "Excel & Spreadsheets", category: "Data", icon: "https://img.icons8.com/color/48/000000/microsoft-excel-2019--v1.png", level: 95 },
