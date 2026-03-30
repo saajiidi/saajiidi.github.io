@@ -288,14 +288,30 @@ function renderEducation(data) {
 
 function renderSkillGroups(groups) {
     const chipContainer = document.getElementById('skill-chips');
+    const pbContainer = document.getElementById('skill-progress-bars');
     const chartLabels = [];
     const chartValues = [];
     
+    const iconMap = {
+        'PYTHON': 'fab fa-python',
+        'SQL': 'fas fa-database',
+        'POWER BI': 'fas fa-chart-bar',
+        'TABLEAU': 'fas fa-chart-pie',
+        'REACT': 'fab fa-react',
+        'ML': 'fas fa-brain',
+        'EXCEL': 'fas fa-file-excel',
+        'RETAIL': 'fas fa-shopping-cart'
+    };
+
     if (chipContainer) {
         chipContainer.innerHTML = '';
         groups.forEach(group => {
             group.skills.forEach(skill => {
-                chipContainer.insertAdjacentHTML('beforeend', `<span class="badge border border-primary text-primary" title="${group.name}">${skill.name.toUpperCase()}</span>`);
+                const icon = iconMap[skill.name.toUpperCase()] || 'fas fa-code';
+                chipContainer.insertAdjacentHTML('beforeend', `
+                    <span class="badge border border-primary text-primary d-flex align-items-center gap-2 py-2 px-3" title="${group.name}">
+                        <i class="${icon}"></i> ${skill.name.toUpperCase()}
+                    </span>`);
                 if (skill.level && chartLabels.length < 6) {
                     chartLabels.push(skill.name);
                     chartValues.push(skill.level);
@@ -304,27 +320,30 @@ function renderSkillGroups(groups) {
         });
     }
 
+    if (pbContainer) {
+        pbContainer.innerHTML = '<h6 class="text-secondary small mb-3 tracking-widest">[SYSTEM_TELEMETRY_LOG]</h6>';
+        const allSkills = groups.flatMap(g => g.skills).filter(s => s.level).sort((a,b) => b.level - a.level).slice(0, 4);
+        allSkills.forEach(skill => {
+            pbContainer.insertAdjacentHTML('beforeend', `
+                <div class="skill-progress-item mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="small text-secondary fw-bold">${skill.name.toUpperCase()}</span>
+                        <span class="small text-primary fw-bold" style="font-family: 'JetBrains Mono'">${skill.level}%</span>
+                    </div>
+                    <div class="progress bg-dark bg-opacity-50" style="height: 6px; border: 1px solid rgba(163, 230, 53, 0.1);">
+                        <div class="progress-bar bg-primary" role="progressbar" 
+                             style="width: ${skill.level}%; box-shadow: 0 0 10px var(--primary-color);" 
+                             aria-valuenow="${skill.level}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            `);
+        });
+    }
+
     if (window.skillsRadarChart && chartLabels.length > 0) {
         window.skillsRadarChart.data.labels = chartLabels;
         window.skillsRadarChart.data.datasets[0].data = chartValues;
         window.skillsRadarChart.update();
-    }
-
-    // Update progress bars if they exist
-    const pbContainer = document.getElementById('skill-progress-bars');
-    if (pbContainer) {
-        const topSkills = groups.flatMap(g => g.skills).filter(s => s.level).sort((a,b) => b.level - a.level).slice(0, 5);
-        pbContainer.innerHTML = topSkills.map(skill => `
-            <div class="skill-progress-item mb-3">
-                <div class="skill-progress-header d-flex justify-content-between mb-1">
-                    <span class="skill-name small text-secondary">${skill.name}</span>
-                    <span class="skill-percent small text-primary">${skill.level}%</span>
-                </div>
-                <div class="progress bg-dark" style="height: 4px;">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: ${skill.level}%" aria-valuenow="${skill.level}" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-            </div>
-        `).join('');
     }
 }
 

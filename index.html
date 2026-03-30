@@ -585,6 +585,27 @@
     <span class="status-text">AVAILABLE FOR OPS</span>
   </div>
 
+  <!-- Global Command Palette -->
+  <div class="command-palette" id="commandPalette">
+    <div class="palette-backdrop" onclick="togglePalette()"></div>
+    <div class="palette-window card-glass">
+      <div class="palette-header">
+        <i class="fas fa-search me-2"></i>
+        <input type="text" id="paletteInput" placeholder="Enter command or search keyword... [ESC to EXIT]" autocomplete="off">
+      </div>
+      <div class="palette-results" id="paletteResults">
+        <div class="palette-hint p-4 text-center text-secondary small">
+          SEARCH_INDEX_ACTIVE: Type 'projects', 'skills', or any keyword...
+        </div>
+      </div>
+      <div class="palette-footer">
+        <span><kbd>↑↓</kbd> NAVIGATE</span>
+        <span><kbd>ENTER</kbd> EXECUTE</span>
+        <span class="telemetry-node d-none d-md-inline" id="stationTime">STATION_TIME: --:--:--</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Live Search Bar -->
   <div class="live-search-container" id="liveSearch">
     <div class="search-wrapper">
@@ -736,6 +757,7 @@
   </div>
 
   <script src="js/portfolio-bridge.js"></script>
+  <script src="js/command-palette.js"></script>
 </body>
 
 </html>
