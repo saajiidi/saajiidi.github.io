@@ -239,19 +239,34 @@ function renderEducation(data) {
 }
 
 function renderSkillGroups(groups) {
-    const chipContainer = document.getElementById('skill-chips');
     const pbContainer = document.getElementById('skill-progress-bars');
     const chartLabels = [];
     const chartValues = [];
-    if (chipContainer) {
-        chipContainer.innerHTML = '';
-        groups.forEach(group => {
-            group.skills.forEach(skill => {
-                chipContainer.insertAdjacentHTML('beforeend', `<span class="badge border border-primary text-primary py-2 px-3 m-1">${skill.name.toUpperCase()}</span>`);
-                if (skill.level && chartLabels.length < 6) { chartLabels.push(skill.name); chartValues.push(skill.level); }
-            });
-        });
-    }
+    
+    const iconMap = {
+        'PYTHON': 'fab fa-python', 'SQL': 'fas fa-database', 'POWER BI': 'fas fa-chart-bar',
+        'TABLEAU': 'fas fa-chart-pie', 'REACT': 'fab fa-react', 'JAVASCRIPT': 'fab fa-js',
+        'ML': 'fas fa-brain', 'EXCEL': 'fas fa-file-excel', 'WEB DEV': 'fas fa-code'
+    };
+
+    groups.forEach((group, index) => {
+        const groupContainer = document.querySelector(`#skill-group-${index} .skill-chips-container`);
+        if (groupContainer) {
+            groupContainer.innerHTML = group.skills.map(skill => {
+                const icon = iconMap[skill.name.toUpperCase()] || 'fas fa-microchip';
+                if (skill.level && chartLabels.length < 6) {
+                    chartLabels.push(skill.name);
+                    chartValues.push(skill.level);
+                }
+                return `
+                    <div class="skill-pill-tactical">
+                        <i class="${icon} text-primary"></i>
+                        <span class="font-mono small">${skill.name.toUpperCase()}</span>
+                    </div>`;
+            }).join('');
+        }
+    });
+
     if (window.skillsRadarChart && chartLabels.length > 0) {
         window.skillsRadarChart.data.labels = chartLabels;
         window.skillsRadarChart.data.datasets[0].data = chartValues;
