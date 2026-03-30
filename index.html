@@ -81,6 +81,8 @@
         <span class="status-label">IDENTITY:</span> <span class="status-value">SAJID_ISLAM</span>
         <span class="status-sep">|</span>
         <span class="status-label">CLEARANCE:</span> <span class="status-value">LVL_5_ADMIN</span>
+        <span class="status-sep">|</span>
+        <span class="status-label">TERMINAL:</span> <span class="status-value cursor-pointer text-primary" id="statusTerminalTrigger">[ACCESS_GRANTED]</span>
       </div>
       <div class="status-right d-none d-md-flex align-items-center gap-3">
         <span class="status-label">SYSTEM_INTEGRITY:</span> <span class="status-value status-online">OPTIMAL</span>
@@ -603,6 +605,28 @@
         <span><kbd>ENTER</kbd> EXECUTE</span>
         <span class="telemetry-node d-none d-md-inline" id="stationTime">STATION_TIME: --:--:--</span>
       </div>
+    </div>
+  </div>
+
+  <!-- Bottom Tactical Terminal Drawer -->
+  <div class="bottom-terminal" id="bottomTerminal">
+    <div class="terminal-header d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center gap-2">
+        <i class="fas fa-terminal small text-primary"></i>
+        <span class="terminal-title">sajid@portfolio:~$ system_console</span>
+      </div>
+      <div class="terminal-controls">
+        <button class="btn-terminal-min" onclick="toggleBottomTerminal()">_</button>
+        <button class="btn-terminal-close" onclick="toggleBottomTerminal()">×</button>
+      </div>
+    </div>
+    <div class="terminal-body" id="bottom-terminal-output">
+      <div class="terminal-line"><span class="terminal-prompt">$</span> <span class="terminal-cmd">init_system_console</span></div>
+      <div class="terminal-line terminal-response">[SYSTEM] Bottom Uplink established. Mission protocols active.</div>
+    </div>
+    <div class="terminal-input-line">
+      <span class="terminal-prompt">$</span>
+      <input type="text" class="terminal-input" id="bottom-terminal-input" placeholder="Type command..." autocomplete="off">
     </div>
   </div>
 

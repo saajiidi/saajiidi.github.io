@@ -36,12 +36,16 @@ const LOCAL_INTEL = {
 };
 
 const KNOWLEDGE_GROUPS = {
+    "hi": { 
+        keys: ["hi", "hello", "hey", "greetings", "yo", "u there"], 
+        response: () => `Signal Stable. Mission Oracle [LIVE]. I have full dossiers on Sajid's career at Daraz and DEEN Commerce. How can I assist with your intel gathering?` 
+    },
     "edu": { 
         keys: ["education", "study", "university", "school", "degree", "acad", "grad", "edu", "qualification"], 
         response: () => `[ACADEMIC_INTEL]: ${LOCAL_INTEL.education.join(' || ')}` 
     },
     "exp": { 
-        keys: ["experience", "work", "job", "career", "history", "position", "company", "exp", "past"], 
+        keys: ["experience", "work", "job", "career", "history", "position", "company", "exp", "past", "track record"], 
         response: () => `[FIELD_REPORTS]: ${LOCAL_INTEL.experience.join(' || ')}` 
     },
     "who": { 
@@ -49,7 +53,7 @@ const KNOWLEDGE_GROUPS = {
         response: `[TARGET_PROFILE]: ${LOCAL_INTEL.profile}` 
     },
     "skill": { 
-        keys: ["skill", "tech", "stack", "know", "tool", "language", "python", "sql", "powerbi"], 
+        keys: ["skill", "tech", "stack", "know", "tool", "language", "python", "sql", "powerbi", "tableau"], 
         response: `[TECH_STACK_CORE]: ${LOCAL_INTEL.skills}` 
     },
     "project": { 
@@ -135,9 +139,14 @@ function initAiChat() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    contents: [{ parts: [{ text: `System Context: You are the AI Oracle for Sajid Islam. Profile: ${LOCAL_INTEL.profile}. Exp: ${LOCAL_INTEL.experience.join('; ')}. Respond tactical/professional hacker tone. Query: ${text}` }] }]
+                    contents: [{ parts: [{ text: `System Context: You are the AI Oracle for Sajid Islam. Profile: ${LOCAL_INTEL.profile}. Respond tactical/professional hacker tone. Query: ${text}` }] }]
                 })
             });
+            
+            if (response.status === 403 || response.status === 429) {
+                throw new Error("NEURAL_SYNC_LEVEL_EXCEEDED");
+            }
+            
             const data = await response.json();
             const aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text;
             if (aiResponse) {
@@ -145,32 +154,34 @@ function initAiChat() {
                 if (typeof AudioEngine !== 'undefined') AudioEngine.play('beep');
                 return;
             }
-        } catch (err) { console.warn("[GEMINI_OFFLINE] Shifting to secondary node."); }
+        } catch (err) { console.warn("[GEMINI_OFFLINE] " + err.message); }
 
         // --- Try OpenAI Secondary ---
         try {
             const oaiKey = localStorage.getItem('OPENAI_UPLINK_KEY') || DEFAULT_OPENAI_KEY;
-            const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${oaiKey}` },
-                body: JSON.stringify({
-                    model: "gpt-3.5-turbo",
-                    messages: [
-                        { role: "system", content: `Identity: Sajid Islam's AI Oracle. Dossier: ${LOCAL_INTEL.profile}. Tone: Tactical, precise, hacker aesthetic.` },
-                        { role: "user", content: text }
-                    ]
-                })
-            });
-            const data = await response.json();
-            const aiResponse = data.choices?.[0]?.message?.content;
-            if (aiResponse) {
-                addMessage(aiResponse, 'bot');
-                if (typeof AudioEngine !== 'undefined') AudioEngine.play('beep');
-                return;
+            if (!oaiKey.includes('-v-v-v')) { // Only try if key looks real
+                const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${oaiKey}` },
+                    body: JSON.stringify({
+                        model: "gpt-3.5-turbo",
+                        messages: [
+                            { role: "system", content: `Identity: Sajid Islam's AI Oracle. Dossier: ${LOCAL_INTEL.profile}. Tone: Tactical.` },
+                            { role: "user", content: text }
+                        ]
+                    })
+                });
+                const data = await response.json();
+                const aiResponse = data.choices?.[0]?.message?.content;
+                if (aiResponse) {
+                    addMessage(aiResponse, 'bot');
+                    if (typeof AudioEngine !== 'undefined') AudioEngine.play('beep');
+                    return;
+                }
             }
         } catch (err) { console.error("[OPENAI_OFFLINE] Neural bridge severed."); }
 
-        addMessage("[ERROR]: Multiple neural uplinks failed. Reverting to manual overrides.", 'system');
+        addMessage("[ERROR]: Neural Uplink unstable. Selecting primary contact protocol...", 'system');
         showManualFallback();
     };
 
