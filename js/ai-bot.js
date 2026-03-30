@@ -17,15 +17,19 @@ async function fetchUserTelemetry() {
 }
 
 const KNOWLEDGE_BASE = {
-    "projects": "Scanning mission logs... I recommend checking out 'VS Code Portfolio' or 'Automation Pivot' for high-impact intel.",
-    "experience": "The operative has been active at DEEN Commerce, Daraz, and Thriving Skills as a BI Analyst.",
-    "skills": "Primary skill clusters: Python, SQL, Power BI, and Machine Learning.",
-    "contact": "Secure uplink can be established via the terminal (cmd: 'email') or the contact link.",
-    "who": "I am the AI Oracle [v3.1], your tactical debrief assistant for Sajid Islam's profesional dataset.",
-    "hi": "Greetings, Operative. Intelligence uplink stable.",
-    "hello": "Greetings, Operative. Ready for debrief?",
-    "ip": () => `Your current network node: ${userTelemetry.ip}`,
-    "os": () => `Detected operating environment: ${userTelemetry.os}`,
+    "who": "Sajid Islam is a Data Scientist and Business Analyst specializing in transforming complex datasets into strategic growth. Currently leading Business Strategy at DEEN Commerce.",
+    "what": "Sajid specializes in BI Development (Power BI/Tableau), Data Engineering (Python/SQL), and Machine Learning. He builds operational tools like the 'Automation Pivot' and 'Streamlit Hub'.",
+    "where": "The operative is currently stationed in Dhaka, Bangladesh (Dhaka Grid).",
+    "from": "Sajid is from Dhaka, Bangladesh. He holds a degree in Computer Science from North South University.",
+    "why": "Objective: To leverage analytical precision and technical expertise to uncover actionable business insights and drive data-driven decision making.",
+    "projects": "Accessing mission logs... I recommend '[STREAMLIT_HUB]' for operational tools or 'VS Code Portfolio' for React work.",
+    "experience": "Operative Sajid has driven significant growth at Daraz (Alibaba Group) and is currently architecting BI systems at DEEN Commerce.",
+    "skills": "Primary combat skills: Python, SQL, Power BI, and Next.js.",
+    "hi": "Intelligence uplink stable. How can I assist with your situational awareness?",
+    "hello": "Uplink verified. Ready for debrief on Sajid's latest mission logs?",
+    "ip": () => `Tactical Node ID: ${userTelemetry.ip}`,
+    "os": () => `Detected Environment: ${userTelemetry.os}`,
+    "system_scan": () => `[SCAN_LOG]: IP: ${userTelemetry.ip} // OS: ${userTelemetry.os} // STATUS: OPTIMAL`,
 };
 
 function initAiChat() {

@@ -6,7 +6,11 @@
 const terminalCommands = {
     help: () => `Available commands:
   help              Show this help message
-  whoami            Display operative identity
+  whoami            Display session & operative intel
+  matrix            Trigger Matrix glitch protocol
+  clearance         Elevate security clearance
+  locate            Ping tactical GPS node
+  oracle            Uplink to AI Chat Bot
   projects          List all active projects
   status            System diagnostic check
   email             Copy email to clipboard
@@ -17,6 +21,32 @@ const terminalCommands = {
   update            Check for tactical updates
   clear             Reset terminal
   exit              Close tactical terminal`,
+
+    matrix: () => {
+        document.body.classList.add('glitch-active');
+        setTimeout(() => document.body.classList.remove('glitch-active'), 1500);
+        return "CRITICAL_ERROR: Matrix leak detected. protocol 404 engaged.";
+    },
+
+    clearance: () => {
+        const val = document.querySelector('.status-value');
+        if (val) {
+            val.textContent = "LVL_10_ELITE_OPERATIVE";
+            val.classList.add('text-primary', 'pulse');
+        }
+        return "[SYSTEM_OVERRIDE]: Clearance level elevated to Level 10. Dossiers unlocked.";
+    },
+
+    locate: () => {
+        if (typeof AudioEngine !== 'undefined') AudioEngine.play('beep');
+        return "[GPS_UPLINK]: Latency 14ms... Target: Bangladesh [23.6850° N, 90.3563° E]. Uplink stable.";
+    },
+
+    oracle: () => {
+        const chat = document.getElementById('aiChatContainer');
+        if (chat) chat.classList.add('active');
+        return "AI Oracle uplink requested. Terminal and Chat synchronized.";
+    },
 
     whoami: () => `IDENTITY_CONFIRMED: SAJID ISLAM
 ROLE: DATA SCIENTIST // BUSINESS ANALYST

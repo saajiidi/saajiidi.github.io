@@ -12,9 +12,37 @@ window.addEventListener('DOMContentLoaded', () => {
     initZenMode();
     initDataViz();
     initSectionAnalytics();
-    initScrollProgress();
-    initDigitalClock();
+    initHudResizer();
 });
+
+// ===== HUD RESIZER ENGINE =====
+function initHudResizer() {
+    const widgets = document.querySelectorAll('.card-glass');
+    widgets.forEach(widget => {
+        const handle = document.createElement('div');
+        handle.className = 'hud-resize-handle';
+        widget.appendChild(handle);
+
+        handle.addEventListener('mousedown', initResize, false);
+
+        function initResize(e) {
+            e.preventDefault();
+            window.addEventListener('mousemove', Resize, false);
+            window.addEventListener('mouseup', stopResize, false);
+        }
+
+        function Resize(e) {
+            widget.style.width = (e.clientX - widget.offsetLeft) + 'px';
+            widget.style.height = (e.clientY - widget.offsetTop) + 'px';
+        }
+
+        function stopResize() {
+            window.removeEventListener('mousemove', Resize, false);
+            window.removeEventListener('mouseup', stopResize, false);
+            if (typeof AudioEngine !== 'undefined') AudioEngine.play('click');
+        }
+    });
+}
 
 // ===== DIGITAL CLOCK HUD =====
 function initDigitalClock() {

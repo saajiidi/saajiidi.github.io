@@ -617,12 +617,14 @@
   </button>
 
   <!-- Live Data Viz Widget -->
-  <div class="data-viz-widget" id="dataVizWidget">
+  <div class="data-viz-widget resizable-widget" id="dataVizWidget">
     <div class="viz-header">
       <span>REAL_TIME_METRICS</span>
       <span class="live-indicator"><span class="pulse"></span> LIVE</span>
     </div>
-    <canvas id="liveMetricsChart" width="300" height="150"></canvas>
+    <div class="flex-grow-1 overflow-hidden">
+        <canvas id="liveMetricsChart" width="300" height="150"></canvas>
+    </div>
     <div class="viz-stats">
       <div class="viz-stat">
         <span class="viz-value" id="pageViews">0</span>
@@ -699,7 +701,7 @@
   <script src="js/terminal.js"></script>
   <script src="js/widgets.js"></script>
   <script src="js/ai-bot.js"></script>
-  <!-- Portfolio Bridge Overlay (Smart HUD Window) -->
+  <!-- Portfolio Bridge Overlay -->
   <div class="portfolio-bridge-overlay" id="portfolioBridge">
     <div class="bridge-backdrop" onclick="closePortfolioBridge()"></div>
     <div class="bridge-window card-glass" id="bridgeWindow">
@@ -707,12 +709,13 @@
         <div class="d-flex align-items-center gap-3">
           <div class="pulse-indicator"></div>
           <span class="bridge-title">[REMOTE_UPLINK_SECURE]</span>
-          <span class="bridge-url d-none d-md-inline">sajid-ul-islam.vercel.app</span>
+          <span class="bridge-url d-none d-md-inline" id="bridgeDisplayUrl">sajid-ul-islam.vercel.app</span>
         </div>
         <div class="bridge-controls">
-          <span class="telemetry-data d-none d-lg-inline">LATENCY: 24ms // SIG_STRENGTH: 98%</span>
-          <button class="btn-bridge-ctrl" onclick="toggleMaximizeBridge()" title="Toggle Maximize"><i class="fas fa-expand-alt"></i></button>
-          <button class="btn-bridge-ctrl btn-exit" onclick="closePortfolioBridge()"><i class="fas fa-times me-2"></i>COLLAPSE</button>
+          <span class="telemetry-data d-none d-lg-inline">LATENCY: 12ms // SIG_STRENGTH: 99%</span>
+          <button class="btn-bridge-ctrl" onclick="minimizePortfolioBridge()" title="Minimize"><i class="fas fa-window-minimize"></i></button>
+          <button class="btn-bridge-ctrl" onclick="toggleMaximizeBridge()" title="Maximize/Restore"><i class="fas fa-expand-alt"></i></button>
+          <button class="btn-bridge-ctrl btn-exit" onclick="closePortfolioBridge()" title="Terminate Link"><i class="fas fa-times"></i></button>
         </div>
       </div>
       <div class="bridge-content">
@@ -724,6 +727,11 @@
       </div>
       <div class="bridge-resize-handle"></div>
     </div>
+  </div>
+
+  <!-- HUD Taskbar for Minimized Link -->
+  <div class="bridge-taskbar" id="bridgeTaskbar" onclick="restorePortfolioBridge()">
+    <i class="fas fa-link me-2"></i> [RESTORE_ACTIVE_UPLINK]
   </div>
 
   <script src="js/portfolio-bridge.js"></script>

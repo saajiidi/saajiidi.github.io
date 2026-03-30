@@ -6,6 +6,29 @@
 const DATA = {
   projects: [
     {
+      id: "streamlit-hub",
+      title: "[STREAMLIT_HUB]",
+      description: "A centralized command center for 10+ operational data apps, including inventory trackers, sales dashboards, and automation tools.",
+      image: "img/projects/streamlit-hub.png",
+      liveUrl: "https://share.streamlit.io/user/saajiidi",
+      featured: true,
+      technologies: ["Python", "Streamlit", "Automation", "Data Ops"],
+      caseStudy: {
+        role: "Solutions Architect",
+        timeline: "2024 - 2025",
+        problem: "Operational tools were scattered across different deployments, making it difficult for stakeholders to find the right dashboard.",
+        solution: "Consolidated all active Streamlit tools into a single shared workspace with unified data connectors.",
+        impact: [
+          "50% reduction in app discovery time for managers.",
+          "Standardized data ingestion for all retail automation apps.",
+        ],
+        metrics: [
+          { label: "Active Apps", value: "10+" },
+          { label: "Primary Stack", value: "Streamlit" },
+        ],
+      },
+    },
+    {
       id: "vscode-portfolio",
       title: "VS Code Themed Portfolio",
       description: "A high-performance portfolio built with Next.js 14, TypeScript, and Tailwind CSS, featuring a fully functional VS Code interface clone.",
