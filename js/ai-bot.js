@@ -16,20 +16,39 @@ async function fetchUserTelemetry() {
     if (osMatch) userTelemetry.os = osMatch[1];
 }
 
-const KNOWLEDGE_BASE = {
-    "who": "Sajid Islam is a Data Scientist and Business Analyst specializing in transforming complex datasets into strategic growth. Currently leading Business Strategy at DEEN Commerce.",
-    "what": "Sajid specializes in BI Development (Power BI/Tableau), Data Engineering (Python/SQL), and Machine Learning. He builds operational tools like the 'Automation Pivot' and 'Streamlit Hub'.",
-    "where": "The operative is currently stationed in Dhaka, Bangladesh (Dhaka Grid).",
-    "from": "Sajid is from Dhaka, Bangladesh. He holds a degree in Computer Science from North South University.",
-    "why": "Objective: To leverage analytical precision and technical expertise to uncover actionable business insights and drive data-driven decision making.",
-    "projects": "Accessing mission logs... I recommend '[STREAMLIT_HUB]' for operational tools or 'VS Code Portfolio' for React work.",
-    "experience": "Operative Sajid has driven significant growth at Daraz (Alibaba Group) and is currently architecting BI systems at DEEN Commerce.",
-    "skills": "Primary combat skills: Python, SQL, Power BI, and Next.js.",
-    "hi": "Intelligence uplink stable. How can I assist with your situational awareness?",
-    "hello": "Uplink verified. Ready for debrief on Sajid's latest mission logs?",
-    "ip": () => `Tactical Node ID: ${userTelemetry.ip}`,
-    "os": () => `Detected Environment: ${userTelemetry.os}`,
-    "system_scan": () => `[SCAN_LOG]: IP: ${userTelemetry.ip} // OS: ${userTelemetry.os} // STATUS: OPTIMAL`,
+const KNOWLEDGE_GROUPS = {
+    "edu": {
+        keys: ["education", "study", "university", "school", "degree", "acad", "grad", "edu"],
+        response: () => {
+            return "Dossier: Education. Sajid holds a BSc in CSE from North South University. He also pursued an EMBA at Dhaka University and is currently completing a PGD in Data Science at ABP.";
+        }
+    },
+    "exp": {
+        keys: ["experience", "work", "job", "career", "history", "position", "company", "exp"],
+        response: () => {
+            if (window.DATA && window.DATA.experiences) {
+                const latest = window.DATA.experiences[0];
+                return `Current Assignment: ${latest.title} at ${latest.company}. Past ops at Daraz (Alibaba Group) and Thriving Skills. Total experience: 5+ years in Data & BI.`;
+            }
+            return "Experience Intel: Leading BI Analyst with history at DEEN Commerce, Daraz, and NZ TEX Group.";
+        }
+    },
+    "who": {
+        keys: ["who", "identity", "sajid"],
+        response: "Target Profile: Sajid Islam. Status: Active. Profession: Data Scientist & BI Analyst. Mission: Transforming datasets into business growth."
+    },
+    "what": {
+        keys: ["what", "does", "role", "specialty"],
+        response: "Capability Report: BI Development (Power BI/Tableau), Data Engineering (Python/SQL), and MLOps. Architect of several automated retail dashboards."
+    },
+    "where": {
+        keys: ["where", "location", "from", "station"],
+        response: "Location Tracking: Stationed in Dhaka, Bangladesh. Operational across Dhaka Grid 02."
+    },
+    "hi": {
+        keys: ["hi", "hello", "hey", "greetings"],
+        response: "Uplink stable. Mission Oracle v3.6 at your service. Enter query (e.g., 'exp' or 'edu')."
+    }
 };
 
 function initAiChat() {
@@ -43,7 +62,7 @@ function initAiChat() {
     if (!toggle || !container) return;
 
     fetchUserTelemetry().then(() => {
-        addMessage(`[SYSTEM_SCAN_COMPLETED] Target IP: ${userTelemetry.ip} // OS: ${userTelemetry.os}`, 'system');
+        addMessage(`[SYSTEM_SCAN_COMPLETE] IP: ${userTelemetry.ip} // OS: ${userTelemetry.os}`, 'system');
     });
 
     toggle.addEventListener('click', () => {
@@ -55,23 +74,23 @@ function initAiChat() {
 
     closeBtn.addEventListener('click', () => {
         container.classList.remove('active');
-        if (typeof AudioEngine !== 'undefined') AudioEngine.play('click');
     });
 
     const sendMessage = () => {
-        const text = input.value.trim();
+        const text = input.value.trim().toLowerCase();
         if (!text) return;
 
         addMessage(text, 'user');
         input.value = '';
 
         setTimeout(() => {
-            const query = text.toLowerCase();
-            let response = "Intel inconclusive. Knowledge base for that query restricted. Try 'projects' or 'skills'.";
+            let response = "Intel inconclusive. Knowledge base for that query restricted. Try 'Experience' or 'Education'.";
 
-            for (let key in KNOWLEDGE_BASE) {
-                if (query.includes(key)) {
-                    response = typeof KNOWLEDGE_BASE[key] === 'function' ? KNOWLEDGE_BASE[key]() : KNOWLEDGE_BASE[key];
+            for (let group in KNOWLEDGE_GROUPS) {
+                if (KNOWLEDGE_GROUPS[group].keys.some(key => text.includes(key))) {
+                    response = typeof KNOWLEDGE_GROUPS[group].response === 'function' 
+                        ? KNOWLEDGE_GROUPS[group].response() 
+                        : KNOWLEDGE_GROUPS[group].response;
                     break;
                 }
             }
