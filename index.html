@@ -635,6 +635,28 @@
     </div>
   </div>
 
+  <!-- AI Chat Bot FAB -->
+  <button class="ai-chat-toggle" id="aiChatToggle" title="Query AI Oracle">
+    <i class="fas fa-robot"></i>
+    <span class="ping-dot"></span>
+  </button>
+
+  <!-- AI Chat Container -->
+  <div class="ai-chat-container card-glass" id="aiChatContainer">
+    <div class="ai-chat-header d-flex justify-content-between align-items-center">
+      <span>[AI_ORACLE_UPLINK]</span>
+      <button class="btn-close btn-close-white btn-sm" id="closeAiChat"></button>
+    </div>
+    <div class="ai-chat-body" id="aiChatBody">
+      <div class="ai-message system">Secure connection established...</div>
+      <div class="ai-message bot">Greetings, Operative. I am the portfolio oracle. How can I assist with your intel gathering?</div>
+    </div>
+    <div class="ai-chat-input-wrapper">
+      <input type="text" id="aiChatInput" placeholder="Enter query..." autocomplete="off">
+      <button id="sendAiMessage"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+
   <!-- Contact Modal -->
   <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -676,6 +698,7 @@
   <script src="js/tactical-core.js"></script>
   <script src="js/terminal.js"></script>
   <script src="js/widgets.js"></script>
+  <script src="js/ai-bot.js"></script>
   <!-- Portfolio Bridge Overlay (Smart HUD Window) -->
   <div class="portfolio-bridge-overlay" id="portfolioBridge">
     <div class="bridge-backdrop" onclick="closePortfolioBridge()"></div>
