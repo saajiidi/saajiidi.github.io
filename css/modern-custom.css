@@ -850,6 +850,23 @@ a:hover {
     width: 100%;
 }
 
+/* Tactical Progress Bars */
+.progress-tactical {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+.progress-bar-tactical {
+    height: 100%;
+    background: var(--primary-color);
+    box-shadow: 0 0 8px var(--primary-color);
+    transition: width 1.5s cubic-bezier(0.1, 0, 0, 1);
+}
+.skill-progress-item {
+    margin-bottom: 1.5rem;
+}
+
 @media (max-width: 992px) {
     #sideNav {
         padding: 0 1rem;

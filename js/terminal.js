@@ -74,7 +74,10 @@ const terminalCommands = {
   whoami         Operative identification
   status         System diagnostics
   clearance      Elevate security clearance
-  link_gemini    Secure AI uplink
+  write [title]  Start blog editor mode
+  save           Commit buffer to Intel Reports
+  abort          Clear buffer & exit editor
+  run [js]       Execute tactical code
   clear          Reset shell
   exit           Terminate session`,
 
@@ -128,6 +131,52 @@ const terminalCommands = {
 
     pwd: () => "C:\\Users\\Sajid\\Portfolio_Mission_Dashboard",
     clear: () => "CLEAR",
+
+    write: (args) => {
+        if (!args || args.length === 0) return "USAGE: write [post_title]";
+        window.currentPostTitle = args.join('_');
+        window.terminalBuffer = "";
+        window.isWritingMode = true;
+        return `[EDITOR_MODE]: Started writing "${window.currentPostTitle}". Type 'save' to commit to blog or 'abort' to discard.`;
+    },
+
+    save: () => {
+        if (!window.isWritingMode) return "[ERROR]: Not in editor mode. Use 'write' first.";
+        const blogList = document.getElementById('blog-list');
+        if (blogList) {
+            const newPost = document.createElement('div');
+            newPost.className = 'col-lg-6';
+            newPost.innerHTML = `
+                <div class="card-glass p-3 h-100">
+                    <h5 class="text-primary mb-2">[INTEL_REPORT: ${window.currentPostTitle}]</h5>
+                    <p class="text-secondary small mb-0">${window.terminalBuffer || "Operational logs updated via tactical terminal."}</p>
+                    <div class="mt-2 small opacity-50 font-mono">${new Date().toLocaleDateString()}</div>
+                </div>
+            `;
+            blogList.prepend(newPost);
+            window.isWritingMode = false;
+            return `[SUCCESS]: Post "${window.currentPostTitle}" saved to INTEL_REPORTS.`;
+        }
+        return "[ERROR]: Blog node not found.";
+    },
+
+    run: (args) => {
+        if (!args || args.length === 0) return "USAGE: run [javascript_code]";
+        try {
+            const code = args.join(' ');
+            const result = eval(code);
+            return `[EXECUTION_RESULT]: ${result}`;
+        } catch (e) {
+            return `[EXECUTION_ERROR]: ${e.message}`;
+        }
+    },
+
+    abort: () => {
+        window.isWritingMode = false;
+        window.terminalBuffer = "";
+        return "[ABORTED]: Buffer cleared. Tactical session resumed.";
+    },
+
     exit: () => {
         toggleBottomTerminal();
         return "TERMINATING...";
@@ -185,7 +234,13 @@ function initTerminal() {
                 cmdLine.innerHTML = `<span class="terminal-prompt">${prompt}</span> <span class="terminal-cmd">${escapeHtml(rawInput)}</span>`;
                 targetOutput.appendChild(cmdLine);
 
-                if (terminalCommands[cmd]) {
+                if (window.isWritingMode && cmd !== 'save' && cmd !== 'abort') {
+                    window.terminalBuffer += (window.terminalBuffer ? " " : "") + rawInput;
+                    const logLine = document.createElement('div');
+                    logLine.className = 'terminal-line opacity-75';
+                    logLine.textContent = `  >> ${rawInput}`;
+                    targetOutput.appendChild(logLine);
+                } else if (terminalCommands[cmd]) {
                     const response = terminalCommands[cmd](args);
                     if (response === 'CLEAR') {
                         targetOutput.innerHTML = '';
