@@ -9,7 +9,7 @@ const DATA = {
       id: "streamlit-hub",
       title: "[STREAMLIT_HUB]",
       description: "A centralized command center for 10+ operational data apps, including inventory trackers, sales dashboards, and automation tools.",
-      image: "img/projects/streamlit-hub.png",
+      image: "img#projects/streamlit-hub.png",
       liveUrl: "https://share.streamlit.io/user/saajiidi",
       featured: true,
       technologies: ["Python", "Streamlit", "Automation", "Data Ops"],
@@ -32,7 +32,7 @@ const DATA = {
       id: "vscode-portfolio",
       title: "VS Code Themed Portfolio",
       description: "A high-performance portfolio built with Next.js 14, TypeScript, and Tailwind CSS, featuring a fully functional VS Code interface clone.",
-      image: "img/projects/vscode-portfolio.png",
+      image: "img#projects/vscode-portfolio.png",
       liveUrl: "https://sajid-ul-islam.vercel.app/",
       featured: true,
       technologies: ["Next.js 14", "TypeScript", "Tailwind CSS", "React"],
@@ -56,7 +56,7 @@ const DATA = {
       id: "automation-pivot",
       title: "Automation Pivot",
       description: "Operations dashboard for DEEN Commerce, centralizing live order queues, historical sales analysis, and customer pulse tracking.",
-      image: "img/projects/automation-pivot.png",
+      image: "img#projects/automation-pivot.png",
       liveUrl: "#",
       featured: true,
       technologies: ["Streamlit", "Python", "Pandas", "Google Sheets API"],
@@ -80,7 +80,7 @@ const DATA = {
       id: "1",
       title: "ECommerce Dashboard",
       description: "A dashboard providing real-time data from 2021-2025, featuring analytics for total revenue, total orders, total customers, and average order value.",
-      image: "/img/projects/ecommerce.png",
+      image: "/img#projects/ecommerce.png",
       liveUrl: "https://e-com-dashborad.vercel.app/",
       featured: true,
       technologies: ["Dashboard", "React", "Analytics", "E-commerce"],
@@ -104,7 +104,7 @@ const DATA = {
       id: "2",
       title: "Sheet2WhatsApp",
       description: "Automates WhatsApp link generation from Excel/CSV files.",
-      image: "/img/projects/whatsapp.png",
+      image: "/img#projects/whatsapp.png",
       liveUrl: "https://sheet2whatsapp.streamlit.app/",
       featured: true,
       technologies: ["Streamlit", "Python", "Pandas", "Vercel"],
@@ -128,7 +128,7 @@ const DATA = {
       id: "3",
       title: "Sentinel Bangladesh",
       description: "An interactive security incident map for Bangladesh, featuring cluster analysis, heatmaps, and detailed incident tracking.",
-      image: "/img/projects/sentinel.png",
+      image: "/img#projects/sentinel.png",
       liveUrl: "https://sentinelbangladesh.streamlit.app/",
       featured: true,
       technologies: ["Streamlit", "Python", "Data Visualization", "Security Analysis"],
@@ -149,7 +149,7 @@ const DATA = {
       id: "4",
       title: "Order Process Automation",
       description: "Automates order processing and formatting from Excel files, featuring consolidation and categorization.",
-      image: "/img/projects/automation.png",
+      image: "/img#projects/automation.png",
       liveUrl: "https://order-process-automation.streamlit.app/",
       featured: true,
       technologies: ["Streamlit", "Python", "Automation", "Data Processing"],
@@ -439,7 +439,23 @@ const DATA = {
     { title: "The Martian", subtitle: "Strategic thinking and survival.", image: "https://m.media-amazon.com/images/I/9103C4pXvBL._AC_SY606_.jpg" },
     { title: "Moneyball", subtitle: "The ultimate Data-Driven story.", image: "https://m.media-amazon.com/images/I/91f6MvXyUfL._AC_SL1500_.jpg" }
   ],
-  fileTreeData: [
+      fileTreeData: [
+    {
+      id: "explorer",
+      label: "EXPLORER",
+      isOpen: true,
+      items: [
+        { id: "saajiidi-site", label: "saajiidi.github.io", href: "https://saajiidi.github.io/", icon: "globe", extension: "link" }
+      ]
+    },
+    {
+      id: "explorer",
+      label: "EXPLORER",
+      isOpen: true,
+      items: [
+        { id: "saajiidi-site", label: "saajiidi.github.io", href: "https://saajiidi.github.io/", icon: "globe", extension: "link" }
+      ]
+    },
     {
       id: "portfolio",
       label: "PORTFOLIO",
@@ -449,42 +465,42 @@ const DATA = {
         {
           id: "experience",
           label: "Experience",
-          href: "/Experience",
+          href: "#experience",
           icon: "briefcase",
           extension: "tsx",
         },
         {
           id: "skills",
           label: "Skills",
-          href: "/Skills",
+          href: "#skills",
           icon: "code",
           extension: "json",
         },
         {
           id: "projects",
           label: "Projects",
-          href: "/projects",
+          href: "#projects",
           icon: "folder",
           extension: "tsx",
         },
         {
             id: "education",
             label: "Education",
-            href: "/Education",
+            href: "#education",
             icon: "graduation-cap",
             extension: "tsx",
         },
         {
             id: "family",
             label: "Family",
-            href: "/Family",
+            href: "#family",
             icon: "users",
             extension: "tsx",
         },
         {
           id: "contact",
           label: "Contact",
-          href: "/contact",
+          href: "#contact",
           icon: "mail",
           extension: "tsx",
         },
@@ -754,3 +770,4 @@ const DATA = {
     }
   ]
 };
+

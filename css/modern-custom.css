@@ -281,7 +281,7 @@ p,
 }
 
 h2 {
-    font-size: 1.6rem; /* 33% reduction */
+    font-size: 1.4rem; /* Further reduction for scale fix */
     margin-bottom: 1.5rem;
     position: relative;
     display: inline-block;
@@ -686,7 +686,7 @@ a:hover {
 .resume-section {
     max-width: var(--max-content-width);
     margin: 0 auto;
-    padding: 6rem 2rem 3rem !important; /* Proportional at 10.7px scale */
+    padding: 3rem 1.5rem 2rem !important; /* Shrunk for scale fix */
     min-height: 80vh;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;

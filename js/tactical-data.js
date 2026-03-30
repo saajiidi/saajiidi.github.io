@@ -693,14 +693,34 @@ function toggleMobileSidebar() {
 }
 
 function handleTreeClick(e, id) {
+    const href = e.currentTarget.getAttribute('href');
+    if (href && href.startsWith('http')) {
+        e.preventDefault();
+        if (typeof openPortfolioBridge === 'function') {
+            openPortfolioBridge(e, href);
+        } else {
+            window.open(href, '_blank');
+        }
+        return;
+    }
+    
     // If it's hash link, we'll let it scroll
-    if (e.currentTarget.getAttribute('href').startsWith('#')) {
-        // Find if element exists
-        const targetId = e.currentTarget.getAttribute('href').substring(1);
+    if (href && href.startsWith('#')) {
+        const targetId = href.substring(1);
         const el = document.getElementById(targetId);
         if (el) {
             e.preventDefault();
             el.scrollIntoView({ behavior: 'smooth' });
+            
+            // Highlight active in tree
+            document.querySelectorAll('.file-tree-item').forEach(item => item.classList.remove('active'));
+            e.currentTarget.classList.add('active');
+            
+            if (window.innerWidth < 992) toggleMobileSidebar();
+        }
+    }
+    AudioEngine.play('click');
+});
             
             // Highlight active in tree
             document.querySelectorAll('.file-tree-item').forEach(item => item.classList.remove('active'));
