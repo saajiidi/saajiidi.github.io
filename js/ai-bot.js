@@ -91,17 +91,17 @@ window.handleSuggestion = (text) => {
 };
 
 function initAiChat() {
-    const toggle = document.getElementById('aiChatToggle');
+    const toggle    = document.getElementById('aiChatToggle');
     const container = document.getElementById('aiChatContainer');
-    const closeBtn = document.getElementById('closeAiChat');
-    const input = document.getElementById('aiChatInput');
-    const sendBtn = document.getElementById('sendAiMessage');
-    const body = document.getElementById('aiChatBody');
+    const closeBtn  = document.getElementById('closeAiChat');
+    const input     = document.getElementById('aiChatInput');
+    const sendBtn   = document.getElementById('sendAiMessage');
+    const body      = document.getElementById('aiChatBody');
 
     if (!toggle || !container) return;
 
-    toggle.addEventListener('click', () => { container.classList.toggle('active'); });
-    closeBtn.addEventListener('click', () => { container.classList.remove('active'); });
+    toggle.addEventListener('click', () => container.classList.toggle('active'));
+    if (closeBtn) closeBtn.addEventListener('click', () => container.classList.remove('active'));
 
     const addMessage = (text, sender, isSystem = false) => {
         const msg = document.createElement('div');

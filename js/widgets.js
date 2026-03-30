@@ -232,57 +232,8 @@ function initLiveSearch() {
 }
 
 // ===== GITHUB ACTIVITY WIDGET =====
-async function fetchGitHubActivity() {
-    const container = document.getElementById('githubActivity');
-    if (!container) return;
-
-    try {
-        const response = await fetch('https://api.github.com/users/saajiidi/events/public');
-        const events = await response.json();
-
-        container.innerHTML = '';
-        const relevantEvents = events.slice(0, 5);
-
-        relevantEvents.forEach(event => {
-            const item = document.createElement('div');
-            item.className = 'activity-item';
-
-            let icon = 'fa-code';
-            let text = '';
-
-            switch (event.type) {
-                case 'PushEvent':
-                    icon = 'fa-code-commit';
-                    text = `Pushed to ${event.repo.name}`;
-                    break;
-                case 'CreateEvent':
-                    icon = 'fa-plus';
-                    text = `Created ${event.payload.ref_type || 'repository'} ${event.repo.name}`;
-                    break;
-                case 'WatchEvent':
-                    icon = 'fa-star';
-                    text = `Starred ${event.repo.name}`;
-                    break;
-                default:
-                    text = `Activity on ${event.repo.name}`;
-            }
-
-            const time = new Date(event.created_at).toLocaleDateString();
-
-            item.innerHTML = `
-            <i class="fas ${icon} activity-icon"></i>
-            <div>
-              <div class="activity-text">${text}</div>
-              <div class="activity-time">${time}</div>
-            </div>
-          `;
-
-            container.appendChild(item);
-        });
-    } catch (error) {
-        container.innerHTML = '<div class="activity-item"><div class="activity-text">Unable to fetch activity</div></div>';
-    }
-}
+// Handled by js/github-feed.js (GitHub-style commit/push feed)
+async function fetchGitHubActivity() { /* no-op — see github-feed.js */ }
 
 // ===== PDF DOWNLOAD FAB =====
 function initPdfFab() {

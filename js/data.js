@@ -442,9 +442,11 @@ const DATA = {
       }
   ],
   learningItems: [
+    { name: "Agentic AI Systems", category: "AI", progress: 78 },
+    { name: "RAG Architecture", category: "AI", progress: 72 },
+    { name: "Machine Learning Engineering", category: "ML", progress: 80 },
     { name: "Advanced Generative AI", category: "ML", progress: 85 },
     { name: "Cloud Data Warehousing", category: "Data Ops", progress: 60 },
-    { name: "Spatial Data Analysis", category: "GIS", progress: 40 },
     { name: "Executive Strategic Leadership", category: "BI", progress: 75 }
   ],
   gaming: {
@@ -757,11 +759,13 @@ const DATA = {
     ]
   },
   learningItems: [
+    { name: "Agentic AI Systems", category: "AI", progress: 78 },
+    { name: "RAG (Retrieval-Augmented Generation)", category: "AI", progress: 72 },
+    { name: "Machine Learning Engineering", category: "ML", progress: 80 },
     { name: "Advanced System Design", category: "Architecture", progress: 70 },
     { name: "Applied GenAI", category: "Programming", progress: 85 },
     { name: "AI/ML Deep Dive", category: "AI", progress: 30 },
     { name: "Product Engineering", category: "Engineering", progress: 50 },
-    { name: "Sanskrit", category: "Language", progress: 20 },
     { name: "Storytelling/Writing", category: "Communication", progress: 40 },
   ],
   blogPosts: [

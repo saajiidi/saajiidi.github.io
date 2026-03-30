@@ -1,353 +1,223 @@
 /**
- * FLOATING WIDGET MANAGER
- * Makes chatbot, live feed, KPI, and metrics resizable and movable
+ * FLOATING WIDGET MANAGER v3.0
+ * Draggable + Resizable for: GitHub Feed, KPI, Real-Time Metrics
+ * Chatbot intentionally excluded — it uses its own CSS toggle system
  */
 
 class FloatingWidget {
     constructor(element, options = {}) {
+        if (!element) return;
         this.element = element;
-        this.options = {
-            resizable: options.resizable !== false,
-            draggable: options.draggable !== false,
-            minWidth: options.minWidth || 200,
-            minHeight: options.minHeight || 150,
-            maxWidth: options.maxWidth || window.innerWidth * 0.8,
-            maxHeight: options.maxHeight || window.innerHeight * 0.8,
-            defaultWidth: options.defaultWidth || 300,
-            defaultHeight: options.defaultHeight || 400,
-            ...options
-        };
-        
-        this.isDragging = false;
-        this.isResizing = false;
-        this.currentX = 0;
-        this.currentY = 0;
-        this.initialX = 0;
-        this.initialY = 0;
-        this.xOffset = 0;
-        this.yOffset = 0;
-        
-        this.init();
+        this.opts = Object.assign({
+            title: 'Widget',
+            minW: 220, minH: 150,
+            maxW: Math.min(window.innerWidth  * 0.9, 860),
+            maxH: Math.min(window.innerHeight * 0.9, 700),
+            defW: 320,  defH: 380,
+            defX: null, defY: null,
+            zBase: 1500
+        }, options);
+
+        this._dragging  = false;
+        this._resizing  = false;
+        this._resizeDir = null;
+        this._dsx = 0; this._dsy = 0; // drag start mouse
+        this._del = 0; this._det = 0; // drag start element pos
+        this._rsw = 0; this._rsh = 0; // resize start size
+        this._rsl = 0; this._rst = 0; // resize start pos
+
+        this._onMove = this._move.bind(this);
+        this._onUp   = this._up.bind(this);
+        this._setup();
     }
-    
-    init() {
-        // Add floating widget class
-        this.element.classList.add('floating-widget');
-        
-        // Create header if not exists
-        if (!this.element.querySelector('.widget-header')) {
-            const header = document.createElement('div');
-            header.className = 'widget-header';
-            header.innerHTML = `
-                <div class="widget-title">${this.options.title || 'Widget'}</div>
-                <div class="widget-controls">
-                    <button class="widget-btn widget-minimize" title="Minimize">−</button>
-                    <button class="widget-btn widget-maximize" title="Maximize">□</button>
-                    <button class="widget-btn widget-close" title="Close">×</button>
-                </div>
-            `;
-            this.element.insertBefore(header, this.element.firstChild);
+
+    _setup() {
+        const el = this.opts;
+        const e  = this.element;
+
+        e.classList.add('floating-widget');
+
+        // ── inject fw-header ──
+        if (!e.querySelector('.fw-header')) {
+            const h = document.createElement('div');
+            h.className = 'fw-header';
+            h.innerHTML = `
+                <span class="fw-title">${this.opts.title}</span>
+                <span class="fw-controls">
+                    <button class="fw-btn fw-min"   title="Minimize">−</button>
+                    <button class="fw-btn fw-max"   title="Maximize">□</button>
+                    <button class="fw-btn fw-close" title="Close">×</button>
+                </span>`;
+            e.insertBefore(h, e.firstChild);
         }
-        
-        // Create resize handles
-        if (this.options.resizable) {
-            const resizeHandles = ['nw', 'ne', 'sw', 'se', 'n', 's', 'e', 'w'];
-            resizeHandles.forEach(position => {
-                const handle = document.createElement('div');
-                handle.className = `resize-handle resize-${position}`;
-                this.element.appendChild(handle);
-            });
+
+        // ── resize handles ──
+        ['nw','n','ne','e','se','s','sw','w'].forEach(d => {
+            const r = document.createElement('div');
+            r.className = `fw-resize fw-resize-${d}`;
+            r.dataset.dir = d;
+            e.appendChild(r);
+            r.addEventListener('mousedown', ev => this._startResize(ev));
+        });
+
+        // ── size + position ──
+        e.style.cssText += `
+            position: fixed !important;
+            width:  ${this.opts.defW}px;
+            height: ${this.opts.defH}px;
+            left: ${this.opts.defX !== null ? this.opts.defX : Math.max(0, window.innerWidth  - this.opts.defW - 24)}px;
+            top:  ${this.opts.defY !== null ? this.opts.defY : Math.max(0, window.innerHeight - this.opts.defH - 110)}px;
+            z-index: ${this.opts.zBase};
+            overflow: hidden;
+        `;
+
+        // ── drag via header ──
+        const header = e.querySelector('.fw-header');
+        if (header) {
+            header.addEventListener('mousedown', ev => this._startDrag(ev));
         }
-        
-        // Set initial size and position
-        this.setDefaultPosition();
-        this.setupEventListeners();
+
+        // ── control buttons ──
+        e.querySelector('.fw-min')  ?.addEventListener('click', () => this._minimize());
+        e.querySelector('.fw-max')  ?.addEventListener('click', () => this._maximize());
+        e.querySelector('.fw-close')?.addEventListener('click', () => { e.style.display = 'none'; });
+
+        // ── bring to front on click ──
+        e.addEventListener('mousedown', () => this._toFront());
+
+        document.addEventListener('mousemove', this._onMove);
+        document.addEventListener('mouseup',   this._onUp);
     }
-    
-    setDefaultPosition() {
-        const rect = this.element.getBoundingClientRect();
-        
-        // Set default size
-        this.element.style.width = this.options.defaultWidth + 'px';
-        this.element.style.height = this.options.defaultHeight + 'px';
-        
-        // Position in bottom-right corner with some margin
-        const x = window.innerWidth - this.options.defaultWidth - 50;
-        const y = window.innerHeight - this.options.defaultHeight - 100;
-        
-        this.element.style.position = 'fixed';
-        this.element.style.left = x + 'px';
-        this.element.style.top = y + 'px';
-        this.element.style.zIndex = '1000';
-        
-        this.xOffset = x;
-        this.yOffset = y;
-    }
-    
-    setupEventListeners() {
-        const header = this.element.querySelector('.widget-header');
-        
-        // Dragging
-        if (this.options.draggable && header) {
-            header.addEventListener('mousedown', (e) => this.dragStart(e));
-            document.addEventListener('mousemove', (e) => this.drag);
-            document.addEventListener('mouseup', () => this.dragEnd());
-        }
-        
-        // Resizing
-        if (this.options.resizable) {
-            const handles = this.element.querySelectorAll('.resize-handle');
-            handles.forEach(handle => {
-                handle.addEventListener('mousedown', (e) => this.resizeStart(e));
-            });
-            document.addEventListener('mousemove', (e) => this.resize);
-            document.addEventListener('mouseup', () => this.resizeEnd());
-        }
-        
-        // Control buttons
-        const minimizeBtn = this.element.querySelector('.widget-minimize');
-        const maximizeBtn = this.element.querySelector('.widget-maximize');
-        const closeBtn = this.element.querySelector('.widget-close');
-        
-        if (minimizeBtn) minimizeBtn.addEventListener('click', () => this.minimize());
-        if (maximizeBtn) maximizeBtn.addEventListener('click', () => this.maximize());
-        if (closeBtn) closeBtn.addEventListener('click', () => this.close());
-        
-        // Bring to front on click
-        this.element.addEventListener('mousedown', () => this.bringToFront());
-    }
-    
-    dragStart(e) {
-        if (e.target.closest('.widget-controls')) return;
-        
-        this.initialX = e.clientX - this.xOffset;
-        this.initialY = e.clientY - this.yOffset;
-        
-        if (e.target === this.element.querySelector('.widget-header')) {
-            this.isDragging = true;
-            this.element.style.cursor = 'grabbing';
-        }
-    }
-    
-    drag(e) {
-        if (this.isDragging) {
-            e.preventDefault();
-            this.currentX = e.clientX - this.initialX;
-            this.currentY = e.clientY - this.initialY;
-            
-            this.xOffset = this.currentX;
-            this.yOffset = this.currentY;
-            
-            this.element.style.left = this.currentX + 'px';
-            this.element.style.top = this.currentY + 'px';
-        }
-    }
-    
-    dragEnd() {
-        this.initialX = this.currentX;
-        this.initialY = this.currentY;
-        this.isDragging = false;
-        this.element.style.cursor = 'auto';
-    }
-    
-    resizeStart(e) {
+
+    _startDrag(e) {
+        if (e.target.closest('.fw-controls')) return;
+        this._dragging = true;
+        this._dsx = e.clientX;
+        this._dsy = e.clientY;
+        this._del = parseInt(this.element.style.left) || 0;
+        this._det = parseInt(this.element.style.top)  || 0;
+        this.element.querySelector('.fw-header').style.cursor = 'grabbing';
         e.preventDefault();
-        e.stopPropagation();
-        
-        this.isResizing = true;
-        this.initialX = e.clientX;
-        this.initialY = e.clientY;
-        this.startWidth = parseInt(document.defaultView.getComputedStyle(this.element).width, 10);
-        this.startHeight = parseInt(document.defaultView.getComputedStyle(this.element).height, 10);
-        this.startLeft = parseInt(document.defaultView.getComputedStyle(this.element).left, 10);
-        this.startTop = parseInt(document.defaultView.getComputedStyle(this.element).top, 10);
-        
-        this.resizeHandle = e.target.className.replace('resize-handle resize-', '');
     }
-    
-    resize(e) {
-        if (this.isResizing) {
-            let newWidth = this.startWidth;
-            let newHeight = this.startHeight;
-            let newLeft = this.startLeft;
-            let newTop = this.startTop;
-            
-            const deltaX = e.clientX - this.initialX;
-            const deltaY = e.clientY - this.initialY;
-            
-            switch(this.resizeHandle) {
-                case 'e':
-                    newWidth = Math.min(Math.max(this.options.minWidth, this.startWidth + deltaX), this.options.maxWidth);
-                    break;
-                case 'w':
-                    newWidth = Math.min(Math.max(this.options.minWidth, this.startWidth - deltaX), this.options.maxWidth);
-                    newLeft = this.startLeft + this.startWidth - newWidth;
-                    break;
-                case 's':
-                    newHeight = Math.min(Math.max(this.options.minHeight, this.startHeight + deltaY), this.options.maxHeight);
-                    break;
-                case 'n':
-                    newHeight = Math.min(Math.max(this.options.minHeight, this.startHeight - deltaY), this.options.maxHeight);
-                    newTop = this.startTop + this.startHeight - newHeight;
-                    break;
-                case 'se':
-                    newWidth = Math.min(Math.max(this.options.minWidth, this.startWidth + deltaX), this.options.maxWidth);
-                    newHeight = Math.min(Math.max(this.options.minHeight, this.startHeight + deltaY), this.options.maxHeight);
-                    break;
-                case 'sw':
-                    newWidth = Math.min(Math.max(this.options.minWidth, this.startWidth - deltaX), this.options.maxWidth);
-                    newHeight = Math.min(Math.max(this.options.minHeight, this.startHeight + deltaY), this.options.maxHeight);
-                    newLeft = this.startLeft + this.startWidth - newWidth;
-                    break;
-                case 'ne':
-                    newWidth = Math.min(Math.max(this.options.minWidth, this.startWidth + deltaX), this.options.maxWidth);
-                    newHeight = Math.min(Math.max(this.options.minHeight, this.startHeight - deltaY), this.options.maxHeight);
-                    newTop = this.startTop + this.startHeight - newHeight;
-                    break;
-                case 'nw':
-                    newWidth = Math.min(Math.max(this.options.minWidth, this.startWidth - deltaX), this.options.maxWidth);
-                    newHeight = Math.min(Math.max(this.options.minHeight, this.startHeight - deltaY), this.options.maxHeight);
-                    newLeft = this.startLeft + this.startWidth - newWidth;
-                    newTop = this.startTop + this.startHeight - newHeight;
-                    break;
-            }
-            
-            this.element.style.width = newWidth + 'px';
-            this.element.style.height = newHeight + 'px';
-            this.element.style.left = newLeft + 'px';
-            this.element.style.top = newTop + 'px';
+
+    _startResize(e) {
+        e.preventDefault(); e.stopPropagation();
+        this._resizing  = true;
+        this._resizeDir = e.target.dataset.dir;
+        this._dsx  = e.clientX; this._dsy = e.clientY;
+        this._rsw  = parseInt(this.element.style.width)  || this.opts.defW;
+        this._rsh  = parseInt(this.element.style.height) || this.opts.defH;
+        this._rsl  = parseInt(this.element.style.left)   || 0;
+        this._rst  = parseInt(this.element.style.top)    || 0;
+    }
+
+    _move(e) {
+        if (this._dragging) {
+            const dx = e.clientX - this._dsx;
+            const dy = e.clientY - this._dsy;
+            this.element.style.left = Math.max(0, this._del + dx) + 'px';
+            this.element.style.top  = Math.max(0, this._det + dy) + 'px';
+        }
+        if (this._resizing) {
+            const { minW, minH, maxW, maxH } = this.opts;
+            const dx = e.clientX - this._dsx;
+            const dy = e.clientY - this._dsy;
+            const d  = this._resizeDir;
+            let w = this._rsw, h = this._rsh, l = this._rsl, t = this._rst;
+
+            if (d.includes('e')) w = Math.min(maxW, Math.max(minW, this._rsw + dx));
+            if (d.includes('s')) h = Math.min(maxH, Math.max(minH, this._rsh + dy));
+            if (d.includes('w')) { w = Math.min(maxW, Math.max(minW, this._rsw - dx)); l = this._rsl + (this._rsw - w); }
+            if (d.includes('n')) { h = Math.min(maxH, Math.max(minH, this._rsh - dy)); t = this._rst + (this._rsh - h); }
+
+            this.element.style.width  = w + 'px';
+            this.element.style.height = h + 'px';
+            this.element.style.left   = l + 'px';
+            this.element.style.top    = t + 'px';
         }
     }
-    
-    resizeEnd() {
-        this.isResizing = false;
+
+    _up() {
+        if (this._dragging) {
+            const h = this.element.querySelector('.fw-header');
+            if (h) h.style.cursor = 'grab';
+        }
+        this._dragging = this._resizing = false;
+        this._resizeDir = null;
     }
-    
-    minimize() {
-        this.element.classList.add('minimized');
-        const content = this.element.querySelector('.widget-content, .ai-chat-container, .bridge-content, .kpi-container');
-        if (content) content.style.display = 'none';
+
+    _minimize() {
+        this.element.classList.toggle('fw-minimized');
+        const isMin = this.element.classList.contains('fw-minimized');
+        this.element.querySelectorAll(':scope > *:not(.fw-header):not(.fw-resize)').forEach(el => {
+            el.style.display = isMin ? 'none' : '';
+        });
     }
-    
-    maximize() {
-        if (this.element.classList.contains('maximized')) {
-            // Restore to original size
-            this.element.classList.remove('maximized');
-            this.element.style.width = this.options.defaultWidth + 'px';
-            this.element.style.height = this.options.defaultHeight + 'px';
-            this.element.style.left = this.xOffset + 'px';
-            this.element.style.top = this.yOffset + 'px';
+
+    _maximize() {
+        if (this.element.classList.contains('fw-maximized')) {
+            this.element.classList.remove('fw-maximized');
+            this.element.style.width  = this.opts.defW + 'px';
+            this.element.style.height = this.opts.defH + 'px';
+            this.element.style.left   = (window.innerWidth  - this.opts.defW - 24) + 'px';
+            this.element.style.top    = (window.innerHeight - this.opts.defH - 110) + 'px';
         } else {
-            // Maximize
-            this.element.classList.add('maximized');
-            this.element.style.width = '90vw';
-            this.element.style.height = '90vh';
-            this.element.style.left = '5vw';
-            this.element.style.top = '5vh';
+            this.element.classList.add('fw-maximized');
+            Object.assign(this.element.style, { width:'88vw', height:'85vh', left:'6vw', top:'8vh' });
         }
     }
-    
-    close() {
-        this.element.style.display = 'none';
-    }
-    
-    bringToFront() {
-        const widgets = document.querySelectorAll('.floating-widget');
-        widgets.forEach(widget => {
-            widget.style.zIndex = '1000';
-        });
-        this.element.style.zIndex = '1001';
+
+    _toFront() {
+        document.querySelectorAll('.floating-widget').forEach(w => w.style.zIndex = this.opts.zBase);
+        this.element.style.zIndex = this.opts.zBase + 10;
     }
 }
 
-// Widget Manager
-class WidgetManager {
-    constructor() {
-        this.widgets = new Map();
-        this.init();
+// ── Init specific widgets ──────────────────────────────
+
+function initFloatingWidgets() {
+    if (window._fwDone) return;
+    window._fwDone = true;
+
+    // GitHub Live Feed widget
+    const ghWidget = document.getElementById('githubWidget');
+    if (ghWidget) {
+        new FloatingWidget(ghWidget, {
+            title: '[LIVE_FEED]',
+            defW: 380, defH: 360,
+            minW: 280, minH: 240,
+            defX: 24,
+            defY: window.innerHeight - 430,
+            zBase: 1500
+        });
     }
-    
-    init() {
-        // Initialize existing widgets
-        this.initializeChatbot();
-        this.initializeLiveFeed();
-        this.initializeKPI();
-        this.initializeMetrics();
+
+    // Operational KPI (rendered by tactical-widgets.js into body)
+    const kpi = document.getElementById('metricsWidget');
+    if (kpi) {
+        new FloatingWidget(kpi, {
+            title: '[OPERATIONAL_KPI]',
+            defW: 240, defH: 210,
+            minW: 200, minH: 180,
+            defX: window.innerWidth - 280,
+            defY: 90,
+            zBase: 1500
+        });
     }
-    
-    initializeChatbot() {
-        const chatbot = document.getElementById('aiChatContainer');
-        if (chatbot) {
-            const widget = new FloatingWidget(chatbot, {
-                title: 'AI Oracle',
-                defaultWidth: 350,
-                defaultHeight: 500,
-                minWidth: 280,
-                minHeight: 400
-            });
-            this.widgets.set('chatbot', widget);
-        }
-    }
-    
-    initializeLiveFeed() {
-        const liveFeed = document.getElementById('portfolioBridge');
-        if (liveFeed) {
-            const widget = new FloatingWidget(liveFeed, {
-                title: 'Live Activity Feed',
-                defaultWidth: 400,
-                defaultHeight: 300,
-                minWidth: 300,
-                minHeight: 200
-            });
-            this.widgets.set('livefeed', widget);
-        }
-    }
-    
-    initializeKPI() {
-        const kpiContainer = document.querySelector('.kpi-dashboard');
-        if (kpiContainer) {
-            const widget = new FloatingWidget(kpiContainer, {
-                title: 'Operational KPI',
-                defaultWidth: 320,
-                defaultHeight: 250,
-                minWidth: 280,
-                minHeight: 200
-            });
-            this.widgets.set('kpi', widget);
-        }
-    }
-    
-    initializeMetrics() {
-        const metricsContainer = document.querySelector('.real-time-metrics');
-        if (metricsContainer) {
-            const widget = new FloatingWidget(metricsContainer, {
-                title: 'Real-time Metrics',
-                defaultWidth: 380,
-                defaultHeight: 280,
-                minWidth: 320,
-                minHeight: 220
-            });
-            this.widgets.set('metrics', widget);
-        }
-    }
-    
-    getWidget(name) {
-        return this.widgets.get(name);
-    }
-    
-    restoreAll() {
-        this.widgets.forEach(widget => {
-            widget.element.style.display = 'block';
+
+    // Real-Time Metrics chart widget
+    const dataViz = document.getElementById('dataVizWidget');
+    if (dataViz) {
+        new FloatingWidget(dataViz, {
+            title: '[REAL_TIME_METRICS]',
+            defW: 330, defH: 260,
+            minW: 260, minH: 200,
+            defX: window.innerWidth - 370,
+            defY: 315,
+            zBase: 1500
         });
     }
 }
 
-// Initialize widget manager
-let widgetManager;
-document.addEventListener('DOMContentLoaded', () => {
-    widgetManager = new WidgetManager();
-    
-    // Global access
-    window.WidgetManager = WidgetManager;
-    window.widgetManager = widgetManager;
-});
+document.addEventListener('DOMContentLoaded', () => setTimeout(initFloatingWidgets, 500));
+window.addEventListener('load', () => setTimeout(initFloatingWidgets, 800));

@@ -270,7 +270,6 @@ p,
     width: 100%;
     aspect-ratio: 1/1;
     margin: 0 auto;
-    overflow: hidden;
     border: 1px solid rgba(163, 230, 53, 0.2);
     box-shadow: 0 0 30px rgba(22, 101, 52, 0.1);
 }
@@ -2006,15 +2005,14 @@ h2 {
     font-size: 0.75rem;
 }
 
-/* Restore real hero image (no clipping/cropping) */
+/* Hero image display tweak — keep scanner-line visible */
 .hero-image-wrapper {
-    aspect-ratio: auto;
-    height: auto;
+    aspect-ratio: 1 / 1;
 }
 
 .profile-image {
-    height: auto !important;
-    object-fit: contain !important;
+    height: 100% !important;
+    object-fit: cover !important;
     clip-path: none !important;
     border-radius: 6px;
 }
