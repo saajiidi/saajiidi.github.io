@@ -579,8 +579,12 @@
       <div class="w-100">
         <span class="section-label">SKILL_ACQUISITION</span>
         <h2 class="mb-5">Current Learning Track</h2>
-        <div class="row g-4" id="learning-list">
-          <!-- Dynamic Content -->
+        <div class="row g-5" id="experience-list">
+          <div class="skeleton skeleton-card"></div>
+        </div>
+        
+        <div id="geospatial-impact" class="mt-5 stealth-reveal">
+           <!-- Impact Map Loaded by tactical-widgets.js -->
         </div>
       </div>
     </section>
@@ -773,10 +777,34 @@
           <div class="terminal-line"><span class="terminal-prompt">$</span> <span class="terminal-cmd">init_contact_protocol</span></div>
           <div class="terminal-line terminal-response">[SYSTEM] Contact terminal initialized. Type 'help' for available commands.</div>
           <div class="terminal-line"><span class="terminal-prompt">$</span> <span class="terminal-cursor">_</span></div>
+                <div class="terminal-tab" data-tab="tab-workbench" onclick="switchTerminalTab('tab-workbench')">
+            <i class="fas fa-flask me-2"></i> WORKBENCH
+          </div>
         </div>
-        <div class="terminal-input-line">
-          <span class="terminal-prompt">$</span>
-          <input type="text" class="terminal-input" id="terminal-input" placeholder="Type command..." autocomplete="off">
+        <div class="terminal-body p-0" id="terminalBody">
+          <div class="tab-content active" id="tab-terminal">
+            <div id="terminal-content"></div>
+            <div class="terminal-input-line">
+              <span class="terminal-prompt">$</span>
+              <input type="text" id="terminal-input" spellcheck="false" autocomplete="off">
+            </div>
+          </div>
+          <div class="tab-content p-4" id="tab-workbench" style="display:none; height: 100%; overflow-y: auto;">
+             <div class="d-flex justify-content-between align-items-center mb-4">
+                <span class="font-mono text-primary small">[ANALYTICAL_SANDBOX_V1]</span>
+                <button class="btn btn-sm btn-outline-primary" onclick="runWorkbenchCode()">EXECUTE_PAYLOAD</button>
+             </div>
+             <textarea id="workbench-editor" class="w-100 bg-dark bg-opacity-25 border-primary border-opacity-10 text-primary p-3 font-mono" style="height: 250px; outline: none; border-radius: 4px;"># Python Snippet: Data Filtering
+data = [12, 45, 67, 23, 89, 5]
+threshold = 20
+filtered = [x for x in data if x > threshold]
+print(f"Filtered Results: {filtered}")
+             </textarea>
+             <div class="mt-4 p-3 bg-black bg-opacity-50 border border-primary border-opacity-10">
+                <label class="section-label small mb-2">OUTPUT_TELEMETRY</label>
+                <div id="workbench-output" class="font-mono small opacity-50">READY...</div>
+             </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1002,6 +1030,9 @@
   <script src="js/tactical-enhancements.js"></script>
   <script src="js/pwa-loader.js"></script>
   <script src="js/tactical-core.js"></script>
+  <script src="js/tactical-data.js"></script>
+  <script src="js/tactical-widgets.js"></script>
+  <script src="js/main.js"></script>
   <script src="js/terminal.js"></script>
   <script src="js/widgets.js"></script>
   <script src="js/ai-bot.js"></script>

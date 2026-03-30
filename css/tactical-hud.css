@@ -1066,3 +1066,109 @@ body { padding-top: 30px; }
     color: var(--primary-light) !important;
     text-shadow: 0 0 10px var(--primary-light);
 }
+/* --- PROJECT_DOSSIER_REDACTION --- */
+.redaction-container {
+    position: relative;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(34, 197, 94, 0.1);
+    padding: 15px;
+    cursor: pointer;
+    overflow: hidden;
+    min-height: 80px;
+    transition: all 0.3s ease;
+}
+
+.redacted-text {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 0;
+    color: var(--primary-color);
+    letter-spacing: 1px;
+}
+
+.redaction-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    transition: opacity 0.4s ease;
+}
+
+.decrypting .redaction-overlay,
+.decrypted .redaction-overlay,
+.decrypted + .redaction-overlay {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.decrypt-prompt {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--primary-light);
+    border: 1px solid var(--primary-color);
+    padding: 6px 15px;
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.project-dossier.scanning::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 3px;
+    background: var(--primary-light);
+    box-shadow: 0 0 15px var(--primary-light);
+    z-index: 10;
+    animation: dossier-scan 1.5s infinite;
+}
+
+@keyframes dossier-scan {
+    0% { top: 0; opacity: 0; }
+    50% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+
+.decrypted {
+    color: var(--text-primary) !important;
+    text-shadow: 0 0 5px rgba(255,255,255,0.1);
+}
+
+.tag-tactical {
+    font-size: 0.65rem;
+    font-family: var(--font-mono);
+    color: var(--primary-light);
+    background: rgba(34, 197, 94, 0.05);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    padding: 3px 10px;
+    border-radius: 2px;
+    text-transform: uppercase;
+}
+
+/* --- ZEN MODE (HUD OFF) --- */
+.hud-off .scanlines, 
+.hud-off .bg-blobs, 
+.hud-off .scanner-line,
+.hud-off .grid-overlay {
+    display: none !important;
+}
+
+/* --- TACTICAL NOTIFICATION --- */
+.tactical-notification {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-light);
+    padding: 10px 20px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    z-index: 10000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    text-transform: uppercase;
+}

@@ -251,6 +251,24 @@ class KeyboardNavigator {
         } else if (e.key === '/') {
             e.preventDefault();
             CommandPalette.open();
+        } else if (e.altKey && e.key === 't') {
+            e.preventDefault();
+            const term = document.getElementById('bottomTerminal');
+            if (term) term.classList.toggle('active');
+            AudioEngine.play('beep');
+        } else if (e.altKey && e.key === 'h') {
+            e.preventDefault();
+            document.body.classList.toggle('hud-off');
+            this.showNotification(`HUD Overlays ${document.body.classList.contains('hud-off') ? 'DISABLED' : 'ENABLED'}`);
+        } else if (e.altKey && e.key === 'm') {
+            e.preventDefault();
+            if (typeof AudioEngine !== 'undefined' && AudioEngine.toggleMusic) {
+                AudioEngine.toggleMusic();
+            } else if (window.AudioEngine && window.AudioEngine.toggleMusic) {
+                 window.AudioEngine.toggleMusic();
+            } else if (document.getElementById('musicToggle')) {
+                document.getElementById('musicToggle').click();
+            }
         } else if (e.key === 'a') {
             e.preventDefault();
             AudioEngine.toggle();
