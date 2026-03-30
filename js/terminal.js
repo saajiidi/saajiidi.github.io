@@ -4,9 +4,23 @@
  */
 
 const terminalCommands = {
+    link_gemini: (args) => {
+        if (!args || args.length === 0) return "[ERROR]: Missing credentials. Usage: link_gemini [KEY]";
+        localStorage.setItem('GEMINI_UPLINK_KEY', args[0]);
+        if (typeof AudioEngine !== 'undefined') AudioEngine.play('beep');
+        return "[SUCCESS]: Gemini Neural Uplink established. Oracle v4.0 engaged.";
+    },
+
+    unlink_gemini: () => {
+        localStorage.removeItem('GEMINI_UPLINK_KEY');
+        return "[SYSTEM]: Gemini Uplink severed. Reverting to local rule-based intelligence.";
+    },
+
     help: () => `Available commands:
   help              Show this help message
   whoami            Display session & operative intel
+  link_gemini       Securely establish AI API uplink (stored locally)
+  unlink_gemini     Purge AI credentials
   matrix            Trigger Matrix glitch protocol
   clearance         Elevate security clearance
   locate            Ping tactical GPS node
@@ -133,17 +147,20 @@ function initTerminal() {
 
     input.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
-            const cmd = input.value.trim().toLowerCase();
+            const rawInput = input.value.trim();
+            const parts = rawInput.split(' ');
+            const cmd = parts[0].toLowerCase();
+            const args = parts.slice(1);
 
             // Add command to output
             const cmdLine = document.createElement('div');
             cmdLine.className = 'terminal-line';
-            cmdLine.innerHTML = `<span class="terminal-prompt">$</span> <span class="terminal-cmd">${escapeHtml(input.value)}</span>`;
+            cmdLine.innerHTML = `<span class="terminal-prompt">$</span> <span class="terminal-cmd">${escapeHtml(rawInput)}</span>`;
             output.appendChild(cmdLine);
 
             // Execute command
             if (terminalCommands[cmd]) {
-                const response = terminalCommands[cmd]();
+                const response = terminalCommands[cmd](args);
                 if (response === 'CLEAR') {
                     output.innerHTML = '';
                 } else {

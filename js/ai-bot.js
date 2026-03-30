@@ -76,16 +76,38 @@ function initAiChat() {
         container.classList.remove('active');
     });
 
-    const sendMessage = () => {
+    const sendMessage = async () => {
         const text = input.value.trim().toLowerCase();
         if (!text) return;
 
         addMessage(text, 'user');
         input.value = '';
 
+        // Check for Local Gemini Key (Secure Bypass)
+        const geminiKey = localStorage.getItem('GEMINI_UPLINK_KEY');
+        if (geminiKey) {
+            addMessage("[INITIATING_GEMINI_UPLINK]...", 'system');
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: `System Context: You are the AI Oracle for Sajid Islam's portfolio. You have full dossiers on his work at Daraz, DEEN Commerce, and projects like 'VS Code Portfolio' and 'Streamlit Hub'. Answer professionally in a high-tech "Hacker" tone. User query: ${text}` }] }]
+                    })
+                });
+                const data = await response.json();
+                const aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "[ERROR]: Sync failed. Model non-responsive.";
+                addMessage(aiResponse, 'bot');
+                if (typeof AudioEngine !== 'undefined') AudioEngine.play('beep');
+                return;
+            } catch (err) {
+                addMessage("[UPLINK_ERROR]: API handshake failed. Reverting to local core.", 'system');
+            }
+        }
+
+        // Rule-Based Fallback
         setTimeout(() => {
             let response = null;
-
             for (let group in KNOWLEDGE_GROUPS) {
                 if (KNOWLEDGE_GROUPS[group].keys.some(key => text.includes(key))) {
                     response = typeof KNOWLEDGE_GROUPS[group].response === 'function' 
@@ -98,20 +120,13 @@ function initAiChat() {
             if (response) {
                 addMessage(response, 'bot');
             } else {
-                // [NEURAL_LINK_OVERRIDE] - V2 Dual-Uplink
                 const fallbackText = "[QUERY_OVERFLOW]: Local intel exhausted. Initiating external neural bridge. Select your uplink protocol:";
                 addMessage(fallbackText, 'bot', true);
                 
                 setTimeout(() => {
                     const btnContainer = document.createElement('div');
                     btnContainer.className = 'ai-message bot-action d-flex flex-column gap-2';
-                    
-                    const chatGptPrompt = encodeURIComponent(`I'm exploring Sajid Islam's Portfolio. 
-                    Main Portfolio: https://saajiidi.github.io 
-                    Dashboard: https://sajid-ul-islam.vercel.app 
-                    GitHub: https://github.com/saajiidi 
-                    LinkedIn: https://linkedin.com/in/sajidislamchowdhury
-                    Please provide detailed analysis on his Data Science and BI expertise.`);
+                    const chatGptPrompt = encodeURIComponent(`Analyzing Sajid Islam's dossier...`);
 
                     btnContainer.innerHTML = `
                         <button class="btn-theme-toggle w-100 mb-1" onclick="openPortfolioBridge(null, 'https://chatgpt.com/?q=${chatGptPrompt}')">
