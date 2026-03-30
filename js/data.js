@@ -389,6 +389,56 @@ const DATA = {
       },
     }
   ],
+  blogPosts: [
+    {
+      id: "blog-1",
+      title: "Optimizing Retail BI: A Daraz Case Study",
+      date: "Oct 12, 2024",
+      excerpt: "Deep dive into how we increased partner acquisitions by 50% using automated funnel tracking.",
+      tags: ["BI", "Case Study", "Growth"],
+      url: "#"
+    },
+    {
+      id: "blog-2",
+      title: "Python for Automation: Pinterest Scrapers",
+      date: "Sep 05, 2024",
+      excerpt: "Technical walkthrough of building mass-image downloaders for dataset creation.",
+      tags: ["Python", "Automation", "NLP"],
+      url: "#"
+    },
+    {
+        id: "blog-3",
+        title: "Modern Dashboards: Beyond Aesthetics",
+        date: "Aug 20, 2024",
+        excerpt: "Why readability wins over flashy animations when building mission-critical tools.",
+        tags: ["Data Viz", "UI/UX", "Analytics"],
+        url: "#"
+      }
+  ],
+  learningItems: [
+    { name: "Advanced Generative AI", category: "ML", progress: 85 },
+    { name: "Cloud Data Warehousing", category: "Data Ops", progress: 60 },
+    { name: "Spatial Data Analysis", category: "GIS", progress: 40 },
+    { name: "Executive Strategic Leadership", category: "BI", progress: 75 }
+  ],
+  gaming: {
+    stats: [
+      { label: "HOURS_LOGGED", value: "2400+" },
+      { label: "STRATEGY_MASTERY", value: "ELITE" },
+      { label: "SERVER_RANK", value: "#12" }
+    ],
+    favorites: [
+      { name: "Red Dead Redemption 2", category: "Masterpiece" },
+      { name: "God of War Ragnarok", category: "Storytelling" },
+      { name: "FC24 / FIFA", category: "Competitive" },
+      { name: "Ghost of Tsushima", category: "Visuals" }
+    ]
+  },
+  favoriteMedia: [
+    { title: "Inception", subtitle: "Mind-bending logic and layer-depth.", image: "https://m.media-amazon.com/images/I/912AEWRu6mL._AC_SL1500_.jpg" },
+    { title: "The Martian", subtitle: "Strategic thinking and survival.", image: "https://m.media-amazon.com/images/I/9103C4pXvBL._AC_SY606_.jpg" },
+    { title: "Moneyball", subtitle: "The ultimate Data-Driven story.", image: "https://m.media-amazon.com/images/I/91f6MvXyUfL._AC_SL1500_.jpg" }
+  ],
   fileTreeData: [
     {
       id: "portfolio",

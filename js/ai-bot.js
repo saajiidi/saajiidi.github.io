@@ -98,16 +98,30 @@ function initAiChat() {
             if (response) {
                 addMessage(response, 'bot');
             } else {
-                // [NEURAL_LINK_OVERRIDE]
-                const fallbackText = "[QUERY_OVERFLOW]: Intel base exceeded. Protocol 99 activated. Initiating Direct Neural Link with Operative Sajid...";
+                // [NEURAL_LINK_OVERRIDE] - V2 Dual-Uplink
+                const fallbackText = "[QUERY_OVERFLOW]: Local intel exhausted. Initiating external neural bridge. Select your uplink protocol:";
                 addMessage(fallbackText, 'bot', true);
                 
-                // Add an interactive button for the fallback
                 setTimeout(() => {
-                    const btn = document.createElement('div');
-                    btn.className = 'ai-message bot-action';
-                    btn.innerHTML = `<button class="btn-theme-toggle w-100" onclick="window.open('https://wa.me/+8801824526054', '_blank')">[ESTABLISH_DIRECT_UPLINK]</button>`;
-                    body.appendChild(btn);
+                    const btnContainer = document.createElement('div');
+                    btnContainer.className = 'ai-message bot-action d-flex flex-column gap-2';
+                    
+                    const chatGptPrompt = encodeURIComponent(`I'm exploring Sajid Islam's Portfolio. 
+                    Main Portfolio: https://saajiidi.github.io 
+                    Dashboard: https://sajid-ul-islam.vercel.app 
+                    GitHub: https://github.com/saajiidi 
+                    LinkedIn: https://linkedin.com/in/sajidislamchowdhury
+                    Please provide detailed analysis on his Data Science and BI expertise.`);
+
+                    btnContainer.innerHTML = `
+                        <button class="btn-theme-toggle w-100 mb-1" onclick="window.open('https://chatgpt.com/?q=${chatGptPrompt}', '_blank')">
+                            <i class="fas fa-brain me-2"></i> [AI_DOSSIER_UPLINK]
+                        </button>
+                        <button class="btn-theme-toggle w-100" onclick="window.open('https://wa.me/+8801824526054', '_blank')">
+                            <i class="fas fa-user-secret me-2"></i> [HUMAN_COMMAND_UPLINK]
+                        </button>
+                    `;
+                    body.appendChild(btnContainer);
                     body.scrollTop = body.scrollHeight;
                 }, 400);
             }

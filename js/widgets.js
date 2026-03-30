@@ -13,7 +13,42 @@ window.addEventListener('DOMContentLoaded', () => {
     initDataViz();
     initSectionAnalytics();
     initHudResizer();
+    initProjectFilters();
 });
+
+// ===== PROJECT FILTERS =====
+function initProjectFilters() {
+    const filters = document.querySelectorAll('#projectFilters .filter-btn');
+    if (!filters.length) return;
+
+    filters.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filterValue = btn.getAttribute('data-filter');
+            
+            filters.forEach(f => f.classList.remove('active'));
+            btn.classList.add('active');
+
+            const items = document.querySelectorAll('#project-list > div');
+            items.forEach(item => {
+                if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                    item.style.display = 'block';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    }, 10);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 300);
+                }
+            });
+
+            if (typeof AudioEngine !== 'undefined') AudioEngine.play('click');
+        });
+    });
+}
 
 // ===== HUD RESIZER ENGINE =====
 function initHudResizer() {
