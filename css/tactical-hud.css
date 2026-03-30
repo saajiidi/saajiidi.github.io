@@ -977,7 +977,7 @@ body { padding-top: 30px; }
 
 /* PowerShell Inspired Styles */
 .terminal-tab-content#tab-terminal {
-    background: #012456; /* Classic PowerShell Blue-Black */
+    background: #000000; /* Deep Black Terminal */
 }
 .terminal-tab-content#tab-terminal .terminal-prompt {
     color: #fff;
