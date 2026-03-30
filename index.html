@@ -86,10 +86,6 @@
         
       </div>
       <div class="status-right d-none d-md-flex align-items-center gap-3">
-        <div class="music-player-node d-flex align-items-center gap-2" id="musicPlayerNode">
-          <span class="small opacity-50 font-mono" id="trackName">[MISSION_AUDIO: OFFLINE]</span>
-          <button class="btn-music-play" id="musicToggle"><i class="fas fa-play"></i></button>
-        </div>
         <span class="status-label">SYSTEM_INTEGRITY:</span> <span class="status-value status-online">OPTIMAL</span>
         <span class="status-sep">|</span>
         <div class="digital-clock" id="digitalClock">10:09:13</div>
@@ -775,7 +771,7 @@
   <!-- Bottom Tactical Terminal Drawer -->
   <div class="bottom-terminal" id="bottomTerminal">
     <div class="terminal-header d-flex justify-content-between align-items-center">
-      <div class="d-flex align-items-center gap-2">
+      <div class="d-flex align-items-center gap-3">
         <i class="fas fa-terminal small text-primary"></i>
         <div class="terminal-tabs" id="terminalTabs">
           <button class="terminal-tab active" onclick="switchTerminalTab('terminal')">[TERMINAL]</button>
@@ -784,9 +780,15 @@
           <button class="terminal-tab" onclick="switchTerminalTab('output')">[OUTPUT]</button>
         </div>
       </div>
-      <div class="terminal-controls">
-        <button class="btn-terminal-min" onclick="toggleBottomTerminal()">_</button>
-        <button class="btn-terminal-close" onclick="toggleBottomTerminal()">×</button>
+      <div class="d-flex align-items-center gap-3">
+        <div class="music-player-node d-flex align-items-center gap-2" id="musicPlayerNode">
+          <span class="small opacity-50 font-mono" style="font-size: 0.6rem;" id="trackName">[MISSION_AUDIO: OFFLINE]</span>
+          <button class="btn-music-play" id="musicToggle" style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-play fa-xs"></i></button>
+        </div>
+        <div class="terminal-controls ms-2">
+          <button class="btn-terminal-min" onclick="toggleBottomTerminal()">_</button>
+          <button class="btn-terminal-close" onclick="toggleBottomTerminal()">×</button>
+        </div>
       </div>
     </div>
     
