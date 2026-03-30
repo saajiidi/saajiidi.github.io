@@ -289,6 +289,28 @@
         </div>
         <h2 class="mb-5 stealth-reveal">Technical Proficiency</h2>
         
+        <div class="row g-4 mb-5 stealth-reveal">
+          <div class="col-lg-7">
+            <div class="card-glass skills-globe-container" id="canvasParent" style="min-height: 450px;">
+              <canvas id="skillCanvas"></canvas>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="card-glass p-0 h-100 d-flex flex-column justify-content-center align-items-center" style="background: rgba(15, 23, 42, 0.4);">
+              <div class="p-3 w-100 border-bottom border-primary border-opacity-10 d-flex justify-content-between align-items-center">
+                <span class="font-mono small opacity-50 text-uppercase tracking-widest">Skill_Power_Matrix</span>
+                <div class="status-indicator available"></div>
+              </div>
+              <div class="chart-container w-100 p-4" style="position: relative; height:350px;">
+                <canvas id="skillsChart"></canvas>
+              </div>
+              <div class="p-2 w-100 border-top border-primary border-opacity-10 text-center">
+                <span class="font-mono small opacity-30">[HOVERPULSE_ENABLED]</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="row g-5">
           <!-- Data Science & Analytics -->
           <div class="col-lg-6">
@@ -329,18 +351,6 @@
                 <i class="fas fa-microchip text-primary"></i>
                 <span class="font-mono small">NUMPY</span>
               </div>
-            </div>
-            
-            <!-- 3D Skill Globe Restored -->
-            <div class="skills-globe-wrapper mb-4">
-              <div class="card-glass skills-globe-container" id="canvasParent">
-                <canvas id="skillCanvas"></canvas>
-              </div>
-            </div>
-
-            <!-- Radar Chart Hook (Keeping from original for polish) -->
-            <div class="chart-container mt-4" style="position: relative; height:200px; width:100%">
-              <canvas id="skillsChart"></canvas>
             </div>
           </div>
 
