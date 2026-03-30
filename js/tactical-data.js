@@ -381,7 +381,9 @@ function renderProjects(data) {
                 ${caseStudyHtml}
 
                 <div class="d-flex gap-2 mt-3">
-                    <a href="${item.liveUrl || item.githubUrl || item.Link || '#'}" target="_blank" rel="noopener" class="btn btn-sm btn-primary">VIEW_INTEL</a>
+                    <a href="${item.liveUrl || item.githubUrl || item.Link || '#'}" 
+                       onclick="openPortfolioBridge(event, '${item.liveUrl || item.githubUrl || item.Link || '#'}')" 
+                       class="btn btn-sm btn-primary">VIEW_INTEL</a>
                     ${item.caseStudy ? `<button class="btn btn-sm btn-outline-secondary" onclick="toggleCaseStudy('${item.id}', this)">CASE_STUDY</button>` : ''}
                 </div>
               </div>

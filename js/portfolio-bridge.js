@@ -3,6 +3,12 @@
  * Handles the secure uplink to remote portfolio sites
  */
 
+const EXTERNAL_BLOCK_LIST = [
+    'wa.me', 'whatsapp.com', 'api.whatsapp.com',
+    'chatgpt.com', 'openai.com', 'chat.openai.com',
+    'google.com', 'linkedin.com', 'facebook.com', 'instagram.com', 'twitter.com'
+];
+
 function openPortfolioBridge(e, url) {
     if (e) e.preventDefault();
     const bridge = document.getElementById('portfolioBridge');
@@ -10,15 +16,33 @@ function openPortfolioBridge(e, url) {
     const loader = bridge.querySelector('.bridge-loader');
     const displayUrl = document.getElementById('bridgeDisplayUrl');
 
+    const normalizedUrl = url.toLowerCase();
+    const isBlocked = EXTERNAL_BLOCK_LIST.some(domain => normalizedUrl.includes(domain.toLowerCase()));
+
+    if (isBlocked) {
+        // [BYPASS_ENGAGED] - Direct Tab/Window Popup for Restricted Nodes
+        console.log('[UPLINK_STATUS]: Restricted Node Detected. Shifting to Secure Direct Window.');
+        const win = window.open(url, '_blank');
+        if (!win || win.closed || typeof win.closed == 'undefined') {
+            // Popup blocker likely active - use direct location shift if it's the last resort
+            window.location.assign(url);
+        }
+        if (typeof AudioEngine !== 'undefined') AudioEngine.play('beep');
+        return;
+    }
+
     bridge.classList.add('active');
     if (url) {
         iframe.src = url;
-        if (displayUrl) displayUrl.textContent = new URL(url).hostname;
+        try {
+           if (displayUrl) displayUrl.textContent = new URL(url).hostname;
+        } catch(err) { if (displayUrl) displayUrl.textContent = "EXTERNAL_NODE"; }
     }
     loader.style.display = 'flex';
 
     iframe.onload = () => {
         loader.style.display = 'none';
+        if (typeof AudioEngine !== 'undefined') AudioEngine.play('click');
     };
 
     if (typeof AudioEngine !== 'undefined') AudioEngine.play('beep');
