@@ -2191,7 +2191,7 @@ h2 {
         height: 50px !important;
         bottom: 1.5rem !important;
         right: 1rem !important;
-        z-index: 1050 !important;
+        z-index: 2100 !important;
     }
 
     .ai-chat-toggle .chat-icon-svg {
@@ -2204,6 +2204,6 @@ h2 {
         height: 60vh !important;
         right: 1rem !important;
         bottom: 5rem !important;
-        z-index: 1050 !important;
+        z-index: 2000 !important;
     }
 }

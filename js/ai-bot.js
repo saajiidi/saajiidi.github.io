@@ -118,6 +118,7 @@ export function initAiChat() {
     const sendBtn = document.getElementById('sendAiMessage');
     const body = document.getElementById('aiChatBody');
     const clearBtn = document.getElementById('clearAiChat');
+    const minBtn = document.querySelector('#aiChatContainer .btn-terminal-min');
 
     if (!toggle || !container) return;
 
@@ -128,6 +129,7 @@ export function initAiChat() {
         }
     });
     if (closeBtn) closeBtn.addEventListener('click', () => container.classList.remove('active'));
+    if (minBtn) minBtn.addEventListener('click', () => container.classList.remove('active'));
 
     // Clear chat
     if (clearBtn) {
