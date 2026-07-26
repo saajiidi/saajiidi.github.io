@@ -428,6 +428,10 @@
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(var(--primary-color-rgb), 0.08);
     background: var(--bg-card, rgba(10, 16, 8, 0.85));
     backdrop-filter: blur(16px);
+}
+
+.ai-chat-container.active {
+    display: flex;
     animation: chatFadeIn 0.3s ease forwards;
 }
 
