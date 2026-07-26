@@ -42,7 +42,7 @@ import {
 
 // ===== TERMINAL =====
 import { 
-  toggleBottomTerminal, switchTerminalTab, startTelemetryStreams,
+  toggleBottomTerminal, minimizeBottomTerminal, switchTerminalTab, startTelemetryStreams,
   cleanupTerminal, initTerminal
 } from './terminal.js';
 
@@ -82,7 +82,7 @@ import { initThemeToggleWithRipple } from './theme-switcher-ripple.js';
 import { initPWA } from './pwa-loader.js';
 
 // ===== AI CHAT =====
-import { initAiChat } from './ai-bot.js';
+import { initAiChat, handleSuggestion } from './ai-bot.js';
 
 // ===== BOOT SEQUENCE LOGIC =====
 const bootMessages = [
@@ -178,9 +178,10 @@ window.toggleMobileSidebar = toggleMobileSidebar;
 window.handleTreeClick = handleTreeClick;
 window.switchTerminalTab = switchTerminalTab;
 window.toggleBottomTerminal = toggleBottomTerminal;
+window.minimizeBottomTerminal = minimizeBottomTerminal;
 window.togglePalette = togglePalette;
 window.copyEmail = copyEmail;
-window.handleSuggestion = null; // Will be set by ai-bot
+window.handleSuggestion = handleSuggestion;
 window.glitchEffect = glitchEffect;
 
 // ===== INITIALIZATION =====
@@ -423,7 +424,7 @@ export {
   renderMedia, renderFileTree, fetchGithubRepos,
   decryptDossier, toggleCaseStudy, initializeProjectFilters,
   openCaseStudy, closeCaseStudy,
-  toggleBottomTerminal, switchTerminalTab, startTelemetryStreams,
+  toggleBottomTerminal, minimizeBottomTerminal, switchTerminalTab, startTelemetryStreams,
   cleanupTerminal, initTerminal, initCommandPalette, togglePalette,
   FloatingWidget, initFloatingWidgets, initGitHubFeed,
   openBridge, closeBridge, minimizePortfolioBridge, restorePortfolioBridge,

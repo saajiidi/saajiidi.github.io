@@ -28,6 +28,7 @@ export default [
         handleTreeClick: 'writable',
         switchTerminalTab: 'writable',
         toggleBottomTerminal: 'writable',
+        minimizeBottomTerminal: 'writable',
         togglePalette: 'writable',
         copyEmail: 'writable',
         handleSuggestion: 'writable',

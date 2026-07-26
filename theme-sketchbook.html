@@ -11,7 +11,7 @@
 
   <!-- Google Fonts -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Instrument+Serif:ital,wght@0,400;1,400&family=Caveat:wght@400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Instrument+Serif:ital,wght@0,400;1,400&family=Caveat:wght@400;700&display=swap"
     rel="stylesheet">
 
   <!-- FontAwesome 6 Icons -->
@@ -48,9 +48,16 @@
       --muted: #7a7a7a;
       --accent: var(--pal-blue);
       --accent-hover: var(--pal-blue-dim);
+      --accent-rgb: var(--pal-blue-rgb);
       --ink: rgba(18, 18, 18, 0.45);
       --ink-faint: rgba(18, 18, 18, 0.15);
       --border-color: rgba(18, 18, 18, 0.1);
+      /* Bridge variables for shared chatbot CSS */
+      --primary-color: var(--accent);
+      --primary-color-rgb: var(--accent-rgb);
+      --primary-light: var(--accent-hover);
+      --bg-page: var(--bg);
+      --bg-card: var(--bg);
     }
 
     :root[data-theme="dark"] {
@@ -60,6 +67,7 @@
       --muted: #6A6A6A;
       --accent: var(--pal-blue-light);
       --accent-hover: var(--pal-blue);
+      --accent-rgb: var(--pal-blue-rgb);
       --ink: rgba(245, 245, 245, 0.4);
       --ink-faint: rgba(245, 245, 245, 0.18);
       --border-color: rgba(245, 245, 245, 0.1);
@@ -69,134 +77,158 @@
     :root[data-accent="green"] {
       --accent: var(--pal-green);
       --accent-hover: var(--pal-green-dim);
+      --accent-rgb: var(--pal-green-rgb);
     }
     :root[data-theme="dark"][data-accent="green"] {
       --accent: var(--pal-green-light);
       --accent-hover: var(--pal-green);
+      --accent-rgb: var(--pal-green-rgb);
     }
 
     :root[data-accent="orange"] {
       --accent: var(--pal-orange);
       --accent-hover: var(--pal-orange-dim);
+      --accent-rgb: var(--pal-orange-rgb);
     }
     :root[data-theme="dark"][data-accent="orange"] {
       --accent: var(--pal-orange-light);
       --accent-hover: var(--pal-orange);
+      --accent-rgb: var(--pal-orange-rgb);
     }
 
     :root[data-accent="yellow"] {
       --accent: var(--pal-yellow);
       --accent-hover: var(--pal-yellow-dim);
+      --accent-rgb: var(--pal-yellow-rgb);
     }
     :root[data-theme="dark"][data-accent="yellow"] {
       --accent: var(--pal-yellow-light);
       --accent-hover: var(--pal-yellow);
+      --accent-rgb: var(--pal-yellow-rgb);
     }
 
     :root[data-accent="blue"] {
       --accent: var(--pal-blue);
       --accent-hover: var(--pal-blue-dim);
+      --accent-rgb: var(--pal-blue-rgb);
     }
     :root[data-theme="dark"][data-accent="blue"] {
       --accent: var(--pal-blue-light);
       --accent-hover: var(--pal-blue);
+      --accent-rgb: var(--pal-blue-rgb);
     }
 
     :root[data-accent="red"] {
       --accent: var(--pal-red);
       --accent-hover: var(--pal-red-dim);
+      --accent-rgb: var(--pal-red-rgb);
     }
     :root[data-theme="dark"][data-accent="red"] {
       --accent: var(--pal-red-light);
       --accent-hover: var(--pal-red);
+      --accent-rgb: var(--pal-red-rgb);
     }
 
     :root[data-accent="purple"] {
       --accent: var(--pal-purple);
       --accent-hover: var(--pal-purple-dim);
+      --accent-rgb: var(--pal-purple-rgb);
     }
     :root[data-theme="dark"][data-accent="purple"] {
       --accent: var(--pal-purple-light);
       --accent-hover: var(--pal-purple);
+      --accent-rgb: var(--pal-purple-rgb);
     }
 
     :root[data-accent="cyan"] {
       --accent: var(--pal-cyan);
       --accent-hover: var(--pal-cyan-dim);
+      --accent-rgb: var(--pal-cyan-rgb);
     }
     :root[data-theme="dark"][data-accent="cyan"] {
       --accent: var(--pal-cyan-light);
       --accent-hover: var(--pal-cyan);
+      --accent-rgb: var(--pal-cyan-rgb);
     }
 
     :root[data-accent="teal"] {
       --accent: var(--pal-teal);
       --accent-hover: var(--pal-teal-dim);
+      --accent-rgb: var(--pal-teal-rgb);
     }
     :root[data-theme="dark"][data-accent="teal"] {
       --accent: var(--pal-teal-light);
       --accent-hover: var(--pal-teal);
+      --accent-rgb: var(--pal-teal-rgb);
     }
 
     :root[data-accent="pink"] {
       --accent: var(--pal-pink);
       --accent-hover: var(--pal-pink-dim);
+      --accent-rgb: var(--pal-pink-rgb);
     }
     :root[data-theme="dark"][data-accent="pink"] {
       --accent: var(--pal-pink-light);
       --accent-hover: var(--pal-pink);
+      --accent-rgb: var(--pal-pink-rgb);
     }
 
     :root[data-accent="slate"] {
       --accent: var(--pal-slate);
       --accent-hover: var(--pal-slate-dim);
+      --accent-rgb: var(--pal-slate-rgb);
     }
     :root[data-theme="dark"][data-accent="slate"] {
       --accent: var(--pal-slate-light);
       --accent-hover: var(--pal-slate);
+      --accent-rgb: var(--pal-slate-rgb);
     }
 
     :root[data-accent="black"] {
       --accent: var(--pal-black);
       --accent-hover: var(--pal-black-dim);
+      --accent-rgb: var(--pal-black-rgb);
     }
     :root[data-theme="dark"][data-accent="black"] {
       --accent: var(--pal-black-light);
       --accent-hover: var(--pal-black);
+      --accent-rgb: var(--pal-black-rgb);
     }
 
     :root[data-accent="white"] {
       --accent: var(--pal-white);
       --accent-hover: var(--pal-white-dim);
+      --accent-rgb: var(--pal-white-rgb);
     }
     :root[data-theme="dark"][data-accent="white"] {
       --accent: var(--pal-white-light);
       --accent-hover: var(--pal-white);
+      --accent-rgb: var(--pal-white-rgb);
     }
 
-    :root[data-accent="coral"] { --accent: var(--pal-coral); --accent-hover: var(--pal-coral-dim); }
-    :root[data-theme="dark"][data-accent="coral"] { --accent: var(--pal-coral-light); --accent-hover: var(--pal-coral); }
+    :root[data-accent="coral"] { --accent: var(--pal-coral); --accent-hover: var(--pal-coral-dim); --accent-rgb: var(--pal-coral-rgb); }
+    :root[data-theme="dark"][data-accent="coral"] { --accent: var(--pal-coral-light); --accent-hover: var(--pal-coral); --accent-rgb: var(--pal-coral-rgb); }
 
-    :root[data-accent="indigo"] { --accent: var(--pal-indigo); --accent-hover: var(--pal-indigo-dim); }
-    :root[data-theme="dark"][data-accent="indigo"] { --accent: var(--pal-indigo-light); --accent-hover: var(--pal-indigo); }
+    :root[data-accent="indigo"] { --accent: var(--pal-indigo); --accent-hover: var(--pal-indigo-dim); --accent-rgb: var(--pal-indigo-rgb); }
+    :root[data-theme="dark"][data-accent="indigo"] { --accent: var(--pal-indigo-light); --accent-hover: var(--pal-indigo); --accent-rgb: var(--pal-indigo-rgb); }
 
-    :root[data-accent="amber"] { --accent: var(--pal-amber); --accent-hover: var(--pal-amber-dim); }
-    :root[data-theme="dark"][data-accent="amber"] { --accent: var(--pal-amber-light); --accent-hover: var(--pal-amber); }
+    :root[data-accent="amber"] { --accent: var(--pal-amber); --accent-hover: var(--pal-amber-dim); --accent-rgb: var(--pal-amber-rgb); }
+    :root[data-theme="dark"][data-accent="amber"] { --accent: var(--pal-amber-light); --accent-hover: var(--pal-amber); --accent-rgb: var(--pal-amber-rgb); }
 
-    :root[data-accent="emerald"] { --accent: var(--pal-emerald); --accent-hover: var(--pal-emerald-dim); }
-    :root[data-theme="dark"][data-accent="emerald"] { --accent: var(--pal-emerald-light); --accent-hover: var(--pal-emerald); }
+    :root[data-accent="emerald"] { --accent: var(--pal-emerald); --accent-hover: var(--pal-emerald-dim); --accent-rgb: var(--pal-emerald-rgb); }
+    :root[data-theme="dark"][data-accent="emerald"] { --accent: var(--pal-emerald-light); --accent-hover: var(--pal-emerald); --accent-rgb: var(--pal-emerald-rgb); }
 
-    :root[data-accent="rose"] { --accent: var(--pal-rose); --accent-hover: var(--pal-rose-dim); }
-    :root[data-theme="dark"][data-accent="rose"] { --accent: var(--pal-rose-light); --accent-hover: var(--pal-rose); }
+    :root[data-accent="rose"] { --accent: var(--pal-rose); --accent-hover: var(--pal-rose-dim); --accent-rgb: var(--pal-rose-rgb); }
+    :root[data-theme="dark"][data-accent="rose"] { --accent: var(--pal-rose-light); --accent-hover: var(--pal-rose); --accent-rgb: var(--pal-rose-rgb); }
 
-    :root[data-accent="violet"] { --accent: var(--pal-violet); --accent-hover: var(--pal-violet-dim); }
-    :root[data-theme="dark"][data-accent="violet"] { --accent: var(--pal-violet-light); --accent-hover: var(--pal-violet); }
+    :root[data-accent="violet"] { --accent: var(--pal-violet); --accent-hover: var(--pal-violet-dim); --accent-rgb: var(--pal-violet-rgb); }
+    :root[data-theme="dark"][data-accent="violet"] { --accent: var(--pal-violet-light); --accent-hover: var(--pal-violet); --accent-rgb: var(--pal-violet-rgb); }
 
-    :root[data-accent="lime"] { --accent: var(--pal-lime); --accent-hover: var(--pal-lime-dim); }
-    :root[data-theme="dark"][data-accent="lime"] { --accent: var(--pal-lime-light); --accent-hover: var(--pal-lime); }
+    :root[data-accent="lime"] { --accent: var(--pal-lime); --accent-hover: var(--pal-lime-dim); --accent-rgb: var(--pal-lime-rgb); }
+    :root[data-theme="dark"][data-accent="lime"] { --accent: var(--pal-lime-light); --accent-hover: var(--pal-lime); --accent-rgb: var(--pal-lime-rgb); }
 
-    :root[data-accent="sky"] { --accent: var(--pal-sky); --accent-hover: var(--pal-sky-dim); }
-    :root[data-theme="dark"][data-accent="sky"] { --accent: var(--pal-sky-light); --accent-hover: var(--pal-sky); }
+    :root[data-accent="sky"] { --accent: var(--pal-sky); --accent-hover: var(--pal-sky-dim); --accent-rgb: var(--pal-sky-rgb); }
+    :root[data-theme="dark"][data-accent="sky"] { --accent: var(--pal-sky-light); --accent-hover: var(--pal-sky); --accent-rgb: var(--pal-sky-rgb); }
 
     /* BASE STYLES */
     * {
@@ -1429,7 +1461,8 @@
       }
     }
 
-    window.addEventListener('DOMContentLoaded', bootstrap);
+    if (document.readyState !== 'loading') bootstrap();
+    else window.addEventListener('DOMContentLoaded', bootstrap);
   </script>
 </body>
 

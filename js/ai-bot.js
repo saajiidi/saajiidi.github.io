@@ -345,7 +345,8 @@ export function initAiChat() {
 
     // Initialize IntersectionObserver for Context-Aware Chatbot
     if (typeof IntersectionObserver !== 'undefined') {
-        const sections = document.querySelectorAll('.resume-section');
+        const sectionIds = ['about', 'experience', 'education', 'skills', 'projects'];
+        const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {

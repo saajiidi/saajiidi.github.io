@@ -1815,6 +1815,36 @@ body {
     color: var(--primary-light);
 }
 
+/* --- Bottom Terminal Base Styles --- */
+.bottom-terminal {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40vh;
+    min-height: 200px;
+    z-index: 1900;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bottom-terminal.active {
+    transform: translateY(0);
+}
+
+.bottom-terminal.minimized {
+    height: auto;
+}
+
+.bottom-terminal.minimized .terminal-tab-content,
+.bottom-terminal.minimized .terminal-diag-strip,
+.bottom-terminal.minimized .terminal-body,
+.bottom-terminal.minimized .terminal-input-line {
+    display: none !important;
+}
+
 .cursor-pointer {
     cursor: pointer !important;
 }

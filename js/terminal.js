@@ -10,7 +10,16 @@ let telemetryIntervals = [];
 
 export function toggleBottomTerminal() {
     const term = document.getElementById('bottomTerminal');
-    if (term) term.classList.toggle('active');
+    if (term) {
+        term.classList.remove('minimized');
+        term.classList.toggle('active');
+    }
+    if (typeof window.AudioEngine !== 'undefined') window.AudioEngine.play('beep');
+}
+
+export function minimizeBottomTerminal() {
+    const term = document.getElementById('bottomTerminal');
+    if (term) term.classList.toggle('minimized');
     if (typeof window.AudioEngine !== 'undefined') window.AudioEngine.play('beep');
 }
 

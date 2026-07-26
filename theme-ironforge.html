@@ -8,7 +8,7 @@
 <script type="module" src="js/data/index.js"></script>
 <script type="module" src="js/theme-switcher-ripple.js"></script>
 <script type="module" src="js/theme-init.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;500;600;700&family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="css/color-palette.css" rel="stylesheet">
 <link href="css/shared-components.css" rel="stylesheet">
@@ -25,6 +25,7 @@
     --accent-bright: #FF7A33;
     --accent-dim: #B33A00;
     --accent-glow: rgba(255, 84, 0, 0.4);
+    --accent-rgb: 249, 115, 22;
     --silver: #d4d4d8;
     --silver-dim: #52525b;
     --border: #1c1c1f;
@@ -33,6 +34,11 @@
     --shadow-card: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
     --shadow-card-hover: 0 8px 25px rgba(0,0,0,0.4), 0 0 0 1px rgba(var(--accent-rgb, 255,84,0), 0.1);
     --transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Bridge variables for shared chatbot CSS */
+    --primary-color: var(--accent);
+    --primary-color-rgb: var(--accent-rgb, 255,84,0);
+    --primary-light: var(--accent-bright);
+    --bg-page: var(--bg);
   }
 
   /* LIGHT THEME OVERRIDES */
@@ -58,6 +64,7 @@
     --accent-bright: var(--pal-orange-light);
     --accent-dim: var(--pal-orange-dim);
     --accent-glow: var(--pal-orange-glow);
+    --accent-rgb: var(--pal-orange-rgb);
   }
 
   :root[data-accent="green"] {
@@ -65,6 +72,7 @@
     --accent-bright: var(--pal-green-light);
     --accent-dim: var(--pal-green-dim);
     --accent-glow: var(--pal-green-glow);
+    --accent-rgb: var(--pal-green-rgb);
   }
 
   :root[data-accent="yellow"] {
@@ -72,6 +80,7 @@
     --accent-bright: var(--pal-yellow-light);
     --accent-dim: var(--pal-yellow-dim);
     --accent-glow: var(--pal-yellow-glow);
+    --accent-rgb: var(--pal-yellow-rgb);
   }
 
   :root[data-accent="blue"] {
@@ -79,6 +88,7 @@
     --accent-bright: var(--pal-blue-light);
     --accent-dim: var(--pal-blue-dim);
     --accent-glow: var(--pal-blue-glow);
+    --accent-rgb: var(--pal-blue-rgb);
   }
 
   :root[data-accent="red"] {
@@ -86,6 +96,7 @@
     --accent-bright: var(--pal-red-light);
     --accent-dim: var(--pal-red-dim);
     --accent-glow: var(--pal-red-glow);
+    --accent-rgb: var(--pal-red-rgb);
   }
 
   :root[data-accent="purple"] {
@@ -93,6 +104,7 @@
     --accent-bright: var(--pal-purple-light);
     --accent-dim: var(--pal-purple-dim);
     --accent-glow: var(--pal-purple-glow);
+    --accent-rgb: var(--pal-purple-rgb);
   }
 
   :root[data-accent="cyan"] {
@@ -100,6 +112,7 @@
     --accent-bright: var(--pal-cyan-light);
     --accent-dim: var(--pal-cyan-dim);
     --accent-glow: var(--pal-cyan-glow);
+    --accent-rgb: var(--pal-cyan-rgb);
   }
 
   :root[data-accent="teal"] {
@@ -107,6 +120,7 @@
     --accent-bright: var(--pal-teal-light);
     --accent-dim: var(--pal-teal-dim);
     --accent-glow: var(--pal-teal-glow);
+    --accent-rgb: var(--pal-teal-rgb);
   }
 
   :root[data-accent="pink"] {
@@ -114,6 +128,7 @@
     --accent-bright: var(--pal-pink-light);
     --accent-dim: var(--pal-pink-dim);
     --accent-glow: var(--pal-pink-glow);
+    --accent-rgb: var(--pal-pink-rgb);
   }
 
   :root[data-accent="slate"] {
@@ -121,6 +136,7 @@
     --accent-bright: var(--pal-slate-light);
     --accent-dim: var(--pal-slate-dim);
     --accent-glow: var(--pal-slate-glow);
+    --accent-rgb: var(--pal-slate-rgb);
   }
 
   :root[data-accent="black"] {
@@ -128,6 +144,7 @@
     --accent-bright: var(--pal-black-light);
     --accent-dim: var(--pal-black-dim);
     --accent-glow: var(--pal-black-glow);
+    --accent-rgb: var(--pal-black-rgb);
   }
 
   :root[data-accent="white"] {
@@ -135,16 +152,17 @@
     --accent-bright: var(--pal-white-light);
     --accent-dim: var(--pal-white-dim);
     --accent-glow: var(--pal-white-glow);
+    --accent-rgb: var(--pal-white-rgb);
   }
 
-  :root[data-accent="coral"] { --accent: var(--pal-coral); --accent-bright: var(--pal-coral-light); --accent-dim: var(--pal-coral-dim); --accent-glow: var(--pal-coral-glow); }
-  :root[data-accent="indigo"] { --accent: var(--pal-indigo); --accent-bright: var(--pal-indigo-light); --accent-dim: var(--pal-indigo-dim); --accent-glow: var(--pal-indigo-glow); }
-  :root[data-accent="amber"] { --accent: var(--pal-amber); --accent-bright: var(--pal-amber-light); --accent-dim: var(--pal-amber-dim); --accent-glow: var(--pal-amber-glow); }
-  :root[data-accent="emerald"] { --accent: var(--pal-emerald); --accent-bright: var(--pal-emerald-light); --accent-dim: var(--pal-emerald-dim); --accent-glow: var(--pal-emerald-glow); }
-  :root[data-accent="rose"] { --accent: var(--pal-rose); --accent-bright: var(--pal-rose-light); --accent-dim: var(--pal-rose-dim); --accent-glow: var(--pal-rose-glow); }
-  :root[data-accent="violet"] { --accent: var(--pal-violet); --accent-bright: var(--pal-violet-light); --accent-dim: var(--pal-violet-dim); --accent-glow: var(--pal-violet-glow); }
-  :root[data-accent="lime"] { --accent: var(--pal-lime); --accent-bright: var(--pal-lime-light); --accent-dim: var(--pal-lime-dim); --accent-glow: var(--pal-lime-glow); }
-  :root[data-accent="sky"] { --accent: var(--pal-sky); --accent-bright: var(--pal-sky-light); --accent-dim: var(--pal-sky-dim); --accent-glow: var(--pal-sky-glow); }
+  :root[data-accent="coral"] { --accent: var(--pal-coral); --accent-bright: var(--pal-coral-light); --accent-dim: var(--pal-coral-dim); --accent-glow: var(--pal-coral-glow); --accent-rgb: var(--pal-coral-rgb); }
+  :root[data-accent="indigo"] { --accent: var(--pal-indigo); --accent-bright: var(--pal-indigo-light); --accent-dim: var(--pal-indigo-dim); --accent-glow: var(--pal-indigo-glow); --accent-rgb: var(--pal-indigo-rgb); }
+  :root[data-accent="amber"] { --accent: var(--pal-amber); --accent-bright: var(--pal-amber-light); --accent-dim: var(--pal-amber-dim); --accent-glow: var(--pal-amber-glow); --accent-rgb: var(--pal-amber-rgb); }
+  :root[data-accent="emerald"] { --accent: var(--pal-emerald); --accent-bright: var(--pal-emerald-light); --accent-dim: var(--pal-emerald-dim); --accent-glow: var(--pal-emerald-glow); --accent-rgb: var(--pal-emerald-rgb); }
+  :root[data-accent="rose"] { --accent: var(--pal-rose); --accent-bright: var(--pal-rose-light); --accent-dim: var(--pal-rose-dim); --accent-glow: var(--pal-rose-glow); --accent-rgb: var(--pal-rose-rgb); }
+  :root[data-accent="violet"] { --accent: var(--pal-violet); --accent-bright: var(--pal-violet-light); --accent-dim: var(--pal-violet-dim); --accent-glow: var(--pal-violet-glow); --accent-rgb: var(--pal-violet-rgb); }
+  :root[data-accent="lime"] { --accent: var(--pal-lime); --accent-bright: var(--pal-lime-light); --accent-dim: var(--pal-lime-dim); --accent-glow: var(--pal-lime-glow); --accent-rgb: var(--pal-lime-rgb); }
+  :root[data-accent="sky"] { --accent: var(--pal-sky); --accent-bright: var(--pal-sky-light); --accent-dim: var(--pal-sky-dim); --accent-glow: var(--pal-sky-glow); --accent-rgb: var(--pal-sky-rgb); }
   
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -1660,7 +1678,8 @@
       }
     }
 
-    window.addEventListener('DOMContentLoaded', bootstrap);
+    if (document.readyState !== 'loading') bootstrap();
+    else window.addEventListener('DOMContentLoaded', bootstrap);
   </script>
 
 
