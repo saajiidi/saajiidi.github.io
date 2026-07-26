@@ -422,22 +422,18 @@
     width: 380px;
     height: 480px;
     z-index: 2000;
-    display: flex;
+    display: none;
     flex-direction: column;
-    transform: translateY(20px);
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1.5px solid rgba(var(--primary-color-rgb), 0.3);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(var(--primary-color-rgb), 0.08);
     background: var(--bg-card, rgba(10, 16, 8, 0.85));
     backdrop-filter: blur(16px);
+    animation: chatFadeIn 0.3s ease forwards;
 }
 
-.ai-chat-container.active {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
+@keyframes chatFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Chat Header */

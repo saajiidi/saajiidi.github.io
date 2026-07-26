@@ -122,14 +122,32 @@ export function initAiChat() {
 
     if (!toggle || !container) return;
 
+    // Use display:none/flex — bulletproof show/hide
+    function showChat() {
+        container.style.display = 'flex';
+        container.classList.add('active');
+        setTimeout(() => input?.focus(), 300);
+    }
+    function hideChat() {
+        container.style.display = 'none';
+        container.classList.remove('active');
+    }
+
     toggle.addEventListener('click', () => {
-        container.classList.toggle('active');
-        if (container.classList.contains('active')) {
-            setTimeout(() => input?.focus(), 300);
+        if (container.style.display === 'flex') {
+            hideChat();
+        } else {
+            showChat();
         }
     });
-    if (closeBtn) closeBtn.addEventListener('click', () => container.classList.remove('active'));
-    if (minBtn) minBtn.addEventListener('click', () => container.classList.remove('active'));
+    if (closeBtn) closeBtn.addEventListener('click', hideChat);
+    if (minBtn) minBtn.addEventListener('click', hideChat);
+
+    // Also expose globally for any inline onclick fallbacks
+    window.__minimizeAiChat = hideChat;
+    window.__toggleAiChat = () => {
+        if (container.style.display === 'flex') hideChat(); else showChat();
+    };
 
     // Clear chat
     if (clearBtn) {
