@@ -130,17 +130,25 @@ export async function initializeTacticalData() {
 }
 
 export function renderInfo(info) {
-    if (!info.Name) return;
+    if (!info) return;
+    const name = info.Name || info.name;
+    if (!name) return;
     runTypewriter(info);
-    document.title = `${info.Name} || [TACTICAL_INTEL]`;
-    document.querySelectorAll('.data-name').forEach(el => el.innerText = info.Name);
-    document.querySelectorAll('.data-role').forEach(el => el.innerText = info.Role);
+    document.title = `${name} || [TACTICAL_INTEL]`;
+    document.querySelectorAll('.data-name').forEach(el => el.innerText = name);
+    const role = info.Role || info.role;
+    if (role) document.querySelectorAll('.data-role').forEach(el => el.innerText = role);
     window.TACTICAL_INFO = info;
 
-    if (info.Github) document.querySelectorAll('[title="GitHub"]').forEach(a => a.href = info.Github);
-    if (info.LinkedIn) document.querySelectorAll('[title="LinkedIn"]').forEach(a => a.href = info.LinkedIn);
-    if (info.Kaggle) document.querySelectorAll('[title="Kaggle"]').forEach(a => a.href = info.Kaggle);
-    if (info.HuggingFace || PROFILE_INFO.huggingface) document.querySelectorAll('[title="Hugging Face"]').forEach(a => a.href = info.HuggingFace || PROFILE_INFO.huggingface);
+    const github = info.Github || info.github;
+    const linkedin = info.LinkedIn || info.Linkedin || info.linkedin;
+    const kaggle = info.Kaggle || info.kaggle;
+    const huggingface = info.HuggingFace || info.huggingface || PROFILE_INFO.huggingface;
+
+    if (github) document.querySelectorAll('[title="GitHub"]').forEach(a => a.href = github);
+    if (linkedin) document.querySelectorAll('[title="LinkedIn"]').forEach(a => a.href = linkedin);
+    if (kaggle) document.querySelectorAll('[title="Kaggle"]').forEach(a => a.href = kaggle);
+    if (huggingface) document.querySelectorAll('[title="Hugging Face"]').forEach(a => a.href = huggingface);
 
     const waSpan = document.getElementById('contact-details');
     if (waSpan && info.Whatsapp && info.Email) {

@@ -226,8 +226,8 @@ export function initDataViz() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         const cs = getComputedStyle(document.documentElement);
-        const chartRGB = cs.getPropertyValue('--primary-color-rgb').trim();
-        const chartColor = cs.getPropertyValue('--primary-color').trim();
+        const chartRGB = cs.getPropertyValue('--primary-color-rgb').trim() || '0, 240, 255';
+        const chartColor = cs.getPropertyValue('--primary-color').trim() || '#00f0ff';
 
         ctx.strokeStyle = `rgba(${chartRGB}, 0.1)`;
         ctx.lineWidth = 1;

@@ -80,18 +80,22 @@ const KNOWLEDGE_GROUPS = {
     }
 };
 
-// Fuzzy Matching Helper
+// Intent Matching Helper (Token & Phrase based)
 function fuzzyMatch(input, keys) {
-    const threshold = 0.7;
-    input = input.toLowerCase();
+    const cleanInput = input.toLowerCase().replace(/[^\w\s]/g, ' ');
+    const inputWords = cleanInput.split(/\s+/).filter(Boolean);
+
     for (const key of keys) {
-        if (input.includes(key)) return true;
-        if (key.length > 3) {
-            let matches = 0;
-            for (let i = 0; i < input.length; i++) {
-                if (key.includes(input[i])) matches++;
+        const lowerKey = key.toLowerCase();
+        // Direct phrase or substring match
+        if (cleanInput.includes(lowerKey)) return true;
+
+        // Token match: check if key matches a word in the query
+        for (const word of inputWords) {
+            if (word === lowerKey) return true;
+            if (lowerKey.length >= 4 && (word.startsWith(lowerKey) || lowerKey.startsWith(word))) {
+                if (Math.abs(word.length - lowerKey.length) <= 3) return true;
             }
-            if (matches / key.length > threshold) return true;
         }
     }
     return false;
@@ -108,6 +112,10 @@ export const handleSuggestion = (text) => {
         if (sendBtn) sendBtn.click();
     }
 };
+
+if (typeof window !== 'undefined') {
+    window.handleSuggestion = handleSuggestion;
+}
 
 
 export function initAiChat() {

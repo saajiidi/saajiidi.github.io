@@ -60,11 +60,15 @@ export const MISSION_SECRETS = {
 };
 
 export function copyEmail(email, event) {
-    navigator.clipboard.writeText(email);
-    const btn = event.target;
-    const originalText = btn.innerText;
-    btn.innerText = 'COPIED';
-    setTimeout(() => { btn.innerText = originalText; }, 2000);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).catch(() => {});
+    }
+    const btn = (event && event.target) ? (event.target.closest('button') || event.target) : null;
+    if (btn) {
+        const originalText = btn.innerText;
+        btn.innerText = 'COPIED';
+        setTimeout(() => { btn.innerText = originalText; }, 2000);
+    }
 }
 
 export function initTelemetryOverlay() {
@@ -101,6 +105,7 @@ export const SkillsGlobe = {
     canvas: null, ctx: null, tags: [],
     radius: 140, angleX: 0, angleY: 0,
     _colorRGB: '74, 222, 128',
+    _animFrameId: null,
     _refreshColor() {
         const cs = getComputedStyle(document.documentElement);
         this._colorRGB = cs.getPropertyValue('--primary-color-rgb').trim() || '74, 222, 128';
@@ -139,16 +144,26 @@ export const SkillsGlobe = {
 
         this._paused = false;
         const observer = new IntersectionObserver((entries) => {
-            this._paused = !entries[0].isIntersecting;
-            if (!this._paused) this.animate();
+            const isVisible = entries[0].isIntersecting;
+            if (this._paused !== !isVisible) {
+                this._paused = !isVisible;
+                if (!this._paused) this.startLoop();
+            }
         }, { threshold: 0.1 });
         observer.observe(this.canvas);
 
         document.addEventListener('visibilitychange', () => {
-            this._paused = document.hidden;
-            if (!this._paused) this.animate();
+            const isHidden = document.hidden;
+            if (this._paused !== isHidden) {
+                this._paused = isHidden;
+                if (!this._paused) this.startLoop();
+            }
         });
 
+        this.startLoop();
+    },
+    startLoop: function () {
+        if (this._animFrameId) cancelAnimationFrame(this._animFrameId);
         this.animate();
     },
     animate: function () {
@@ -194,7 +209,7 @@ export const SkillsGlobe = {
         this.ctx.stroke();
 
         if (!this._paused) {
-            requestAnimationFrame(() => this.animate());
+            this._animFrameId = requestAnimationFrame(() => this.animate());
         }
     }
 };

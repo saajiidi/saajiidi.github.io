@@ -114,7 +114,8 @@ const terminalCommands = {
     `,
 
     ls: (args) => {
-        let files = window.DATA.projects.map(p => `[NODE] ${p.id}`);
+        const projects = (window.DATA && window.DATA.projects) ? window.DATA.projects : [];
+        let files = projects.map(p => `[NODE] ${p.id}`);
         if (args && args.includes('-a')) {
             const secrets = Object.keys(window.MISSION_SECRETS || {}).map(s => `[HIDDEN] .${s}`);
             files = [...files, ...secrets];
@@ -130,9 +131,11 @@ const terminalCommands = {
             return `[LOCAL_DOSSIER]: ${fileId}\nINTEL: ${window.MISSION_SECRETS[fileId]}`;
         }
 
-        const project = window.DATA.projects.find(p => p.id.toLowerCase() === fileId.toLowerCase());
+        const projects = (window.DATA && window.DATA.projects) ? window.DATA.projects : [];
+        const project = projects.find(p => p.id.toLowerCase() === fileId.toLowerCase());
         if (!project) return `[FILE_NOT_FOUND]: ${args[0]}`;
-        return `[PROJECT_NODE]: ${project.title}\nSTATUS: DEPLOYED\nTECH: ${project.tools}\nINTEL: ${project.description}`;
+        const techStr = Array.isArray(project.technologies) ? project.technologies.join(', ') : (project.tools || 'N/A');
+        return `[PROJECT_NODE]: ${project.title}\nSTATUS: DEPLOYED\nTECH: ${techStr}\nINTEL: ${project.description}`;
     },
 
     whoami: () => "IDENTITY_CONFIRMED: Sajid Islam // ROLE: Operative_Data_Analyst // ID: SI-2025-DHAKA",

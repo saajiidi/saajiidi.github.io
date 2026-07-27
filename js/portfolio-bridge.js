@@ -29,8 +29,13 @@ export function openPortfolioBridge(e, url) {
         return;
     }
 
-    bridge.classList.add('active');
-    if (url) {
+    if (bridge) {
+        bridge.style.display = 'flex';
+        bridge.classList.add('active');
+    }
+    const taskbar = document.getElementById('bridgeTaskbar');
+    if (taskbar) taskbar.classList.remove('active');
+    if (url && iframe) {
         iframe.src = url;
         try {
            if (displayUrl) displayUrl.textContent = new URL(url).hostname;
