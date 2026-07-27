@@ -80,6 +80,28 @@
 <table>
   <tr>
     <td width="50%">
+      <h3>⚡ DESCO Electricity Usage Assistant Bot</h3>
+      <p>Interactive Telegram chatbot for DESCO electricity subscribers to track electricity usage, account details, and billing intel.</p>
+      <p>
+        <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" />
+        <img src="https://img.shields.io/badge/Telegram-26A5E4?style=flat-square&logo=telegram&logoColor=white" />
+        <img src="https://img.shields.io/badge/Chatbot-059669?style=flat-square" />
+      </p>
+      <a href="https://t.me/descoTGbot">Bot (@descoTGbot)</a> &bull; <a href="https://github.com/Sajid-ul-Islam/descoiunfobot">GitHub Repo</a>
+    </td>
+    <td width="50%">
+      <h3>🛒 DEEN Commerce Telegram Bot</h3>
+      <p>Automated WooCommerce Telegram bot integration for real-time order alerts, store notifications, and workflow automation.</p>
+      <p>
+        <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" />
+        <img src="https://img.shields.io/badge/Telegram-26A5E4?style=flat-square&logo=telegram&logoColor=white" />
+        <img src="https://img.shields.io/badge/WooCommerce-96588A?style=flat-square&logo=woocommerce&logoColor=white" />
+      </p>
+      <a href="https://github.com/Sajid-ul-Islam/woocom_telegram_bot">GitHub Repo</a>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
       <h3>Streamlit Prototype Hub</h3>
       <p>Centralized command center for 10+ operational data apps — inventory trackers, sales dashboards, and automation tools.</p>
       <p>

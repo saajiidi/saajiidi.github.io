@@ -146,6 +146,56 @@ export const EXPERIENCES = [
 // ===== PROJECTS =====
 export const PROJECTS = [
   {
+    id: 'desco-bot',
+    title: 'DESCO Electricity Usage Assistant Bot',
+    description: 'An interactive Telegram chatbot assistant engineered for DESCO electricity subscribers to track, monitor, and query electricity usage, account details, and billing intel.',
+    image: '/img/projects/streamlit-hub.png',
+    liveUrl: 'https://t.me/descoTGbot',
+    githubUrl: 'https://github.com/Sajid-ul-Islam/descoiunfobot',
+    featured: true,
+    technologies: ['Python', 'Telegram API', 'Automation', 'Chatbot'],
+    category: 'automation',
+    caseStudy: {
+      role: 'Developer & Architect',
+      timeline: '2025',
+      problem: 'DESCO electricity subscribers required a fast, automated interface to check real-time electricity usage and account info.',
+      solution: 'Engineered an interactive Telegram chatbot (@descoTGbot) providing automated electricity usage queries and utility assistance.',
+      impact: [
+        'Automated query handling for DESCO electricity account metrics.',
+        'Simplified electricity usage check-ups via instant messaging.'
+      ],
+      metrics: [
+        { label: 'Bot Handle', value: '@descoTGbot' },
+        { label: 'Tech Stack', value: 'Python / Telegram API' }
+      ]
+    }
+  },
+  {
+    id: 'deen-commerce-bot',
+    title: 'DEEN Commerce Telegram Bot',
+    description: 'An automated WooCommerce Telegram bot integration engineered for real-time e-commerce order notifications, store management alerts, and operational workflows.',
+    image: '/img/projects/streamlit-hub.png',
+    liveUrl: 'https://github.com/Sajid-ul-Islam/woocom_telegram_bot',
+    githubUrl: 'https://github.com/Sajid-ul-Islam/woocom_telegram_bot',
+    featured: true,
+    technologies: ['Python', 'Telegram API', 'WooCommerce', 'E-Commerce', 'Automation'],
+    category: 'automation',
+    caseStudy: {
+      role: 'Developer & Integrator',
+      timeline: '2025',
+      problem: 'E-commerce store operators needed real-time notifications and store status alerts inside daily communication tools.',
+      solution: 'Created a specialized WooCommerce Telegram bot bridging e-commerce store events with instant Telegram notifications.',
+      impact: [
+        'Streamlined store order tracking and operational alerts.',
+        'Reduced response times for store management events.'
+      ],
+      metrics: [
+        { label: 'Platform', value: 'WooCommerce' },
+        { label: 'Tech Stack', value: 'Python / Telegram API' }
+      ]
+    }
+  },
+  {
     id: 'streamlit-hub',
     title: 'Streamlit Prototype Projects',
     description: 'A centralized prototype command center for 10+ operational data apps, including inventory trackers, sales dashboards, and automation tools.',
