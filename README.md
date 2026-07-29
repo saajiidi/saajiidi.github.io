@@ -80,6 +80,18 @@
 <table>
   <tr>
     <td width="50%">
+      <h3>📺 Deakho — Live TV & Entertainment Platform</h3>
+      <p>A modern Live TV & Entertainment streaming platform with a Telegram Mini App for channel browsing, scheduling, and notifications.</p>
+      <p>
+        <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black" />
+        <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" />
+        <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white" />
+        <img src="https://img.shields.io/badge/Telegram-26A5E4?style=flat-square&logo=telegram&logoColor=white" />
+        <img src="https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white" />
+      </p>
+      <a href="https://deakho.vercel.app/">Web App</a> &bull; <a href="https://t.me/deakhoBot">Telegram Bot (@deakhoBot)</a> &bull; <a href="https://github.com/Sajid-ul-Islam/Deakho">GitHub Repo</a>
+    </td>
+    <td width="50%">
       <h3>⚡ DESCO Electricity Usage Assistant Bot</h3>
       <p>Interactive Telegram chatbot for DESCO electricity subscribers to track electricity usage, account details, and billing intel.</p>
       <p>

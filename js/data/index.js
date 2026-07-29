@@ -146,6 +146,32 @@ export const EXPERIENCES = [
 // ===== PROJECTS =====
 export const PROJECTS = [
   {
+    id: 'deakho',
+    title: 'Deakho — Live TV & Entertainment Platform',
+    description: 'A modern Live TV & Entertainment streaming platform featuring a Telegram Mini App for channel browsing, scheduling, and notifications. Built with React, TypeScript, and Node.js.',
+    image: '/img/projects/streamlit-hub.png',
+    liveUrl: 'https://deakho.vercel.app/',
+    telegramUrl: 'https://t.me/deakhoBot',
+    githubUrl: 'https://github.com/Sajid-ul-Islam/Deakho',
+    featured: true,
+    technologies: ['React', 'TypeScript', 'Node.js', 'Telegram Mini App', 'Vercel'],
+    category: 'web-app',
+    caseStudy: {
+      role: 'Full-Stack Developer & Architect',
+      timeline: '2025',
+      problem: 'Users needed a seamless way to browse live TV channels, schedules, and receive notifications — all within their messaging platform.',
+      solution: 'Built a cross-platform live TV & entertainment platform with a Telegram Mini App frontend, enabling channel discovery, scheduling, and real-time notifications.',
+      impact: [
+        'Provided instant access to live TV channels via Telegram.',
+        'Delivered an intuitive Mini App interface for browsing and scheduling.'
+      ],
+      metrics: [
+        { label: 'Platform', value: 'Web + Telegram' },
+        { label: 'Tech Stack', value: 'React / TypeScript / Node.js' }
+      ]
+    }
+  },
+  {
     id: 'desco-bot',
     title: 'DESCO Electricity Usage Assistant Bot',
     description: 'An interactive Telegram chatbot assistant engineered for DESCO electricity subscribers to track, monitor, and query electricity usage, account details, and billing intel.',
