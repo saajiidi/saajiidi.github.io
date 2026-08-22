@@ -432,3 +432,19 @@ export function updateChatbotSuggestions(sectionId) {
     }
     sugContainer.innerHTML = html + wALink;
 }
+
+// Auto-init: any theme that includes this module gets a working chatbox
+// out-of-the-box, provided the #aiChatToggle / #aiChatContainer markup exists.
+if (typeof window !== 'undefined') {
+  const autoInitChat = () => {
+    if (document.getElementById('aiChatToggle') && !window.__aiChatBound) {
+      window.__aiChatBound = true;
+      try { initAiChat(); } catch (e) { /* chat markup absent */ }
+    }
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', autoInitChat);
+  } else {
+    autoInitChat();
+  }
+}

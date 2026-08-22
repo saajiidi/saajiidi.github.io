@@ -77,6 +77,20 @@
       --border-color: rgba(245, 245, 245, 0.1);
     }
 
+    /* Explicit LIGHT theme (so the toggle has a real, defined palette) */
+    :root[data-theme="light"] {
+      --bg: #FAF9F6;
+      --fg: #121212;
+      --fg-dim: #3a3a3a;
+      --muted: #7a7a7a;
+      --accent: var(--pal-blue);
+      --accent-hover: var(--pal-blue-dim);
+      --accent-rgb: var(--pal-blue-rgb);
+      --ink: rgba(18, 18, 18, 0.45);
+      --ink-faint: rgba(18, 18, 18, 0.15);
+      --border-color: rgba(18, 18, 18, 0.1);
+    }
+
     /* All accent overrides preserved exactly */
     :root[data-accent="green"] { --accent: var(--pal-green); --accent-hover: var(--pal-green-dim); --accent-rgb: var(--pal-green-rgb); }
     :root[data-theme="dark"][data-accent="green"] { --accent: var(--pal-green-light); --accent-hover: var(--pal-green); --accent-rgb: var(--pal-green-rgb); }
@@ -877,6 +891,7 @@
   </script>
   <script type="module" src="js/data/index.js"></script>
   <script type="module" src="js/theme-switcher-ripple.js"></script>
+  <script type="module" src="js/ai-bot.js"></script>
   <script type="module" src="js/theme-init.js"></script>
 </body>
 

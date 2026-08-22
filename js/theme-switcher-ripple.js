@@ -241,6 +241,11 @@ const renderWebGLRipple = (canvas, cX, cY, maxRadius) => {
 };
 
 const runTeardropTransition = async (activeObj, btnElement, targetTheme, applyThemeCallback) => {
+  // Apply the theme synchronously and INDEPENDENTLY of the animation so the
+  // dark/light swap ALWAYS happens even if the water-drop/WebGL animation fails,
+  // throws, or never resolves. The teardrop is purely cosmetic from here on.
+  try { applyThemeCallback(targetTheme); } catch (_) {}
+
   const width = visualViewport?.width ?? innerWidth;
   const height = visualViewport?.height ?? innerHeight;
   const btnRect = btnElement.getBoundingClientRect();
@@ -326,14 +331,19 @@ const runTeardropTransition = async (activeObj, btnElement, targetTheme, applyTh
     root.classList.add('theme-rippling');
   }
 
-  // Apply theme with View Transition if available, otherwise directly
+  // Theme already applied synchronously at function entry (independent of the
+  // animation). The view-transition below is a purely cosmetic clip-path reveal.
   let transition;
   if (document.startViewTransition) {
-    transition = document.startViewTransition(() => applyThemeCallback(targetTheme));
-    activeObj.transition = transition;
-    await transition.ready.catch(() => {});
+    try {
+      transition = document.startViewTransition(() => {});
+      activeObj.transition = transition;
+      await transition.ready.catch(() => {});
+    } catch {
+      transition = { ready: Promise.resolve(), finished: Promise.resolve() };
+      activeObj.transition = transition;
+    }
   } else {
-    applyThemeCallback(targetTheme);
     transition = { ready: Promise.resolve(), finished: Promise.resolve() };
     activeObj.transition = transition;
   }
@@ -402,6 +412,7 @@ const cleanupTransition = (activeObj, getThemeCallback, applyThemeCallback) => {
     document.documentElement.classList.remove('theme-rippling');
     activeObj.overlay?.remove();
     activeTransition = null;
+    // Guarantee the swap took effect even if the view transition dropped it.
     if (getThemeCallback() !== activeObj.next) {
       applyThemeCallback(activeObj.next);
     }
@@ -439,6 +450,13 @@ export function initThemeToggleWithRipple({
   if (!btn) {
     return;
   }
+
+  // Idempotent: never bind the same button twice (page may call this explicitly
+  // AND the module may auto-bind on import).
+  if (btn.dataset.rippleBound) {
+    return;
+  }
+  btn.dataset.rippleBound = '1';
 
   btn.addEventListener('mouseenter', () => {
     if (window.AudioEngine) {
@@ -482,5 +500,42 @@ export function initThemeToggleWithRipple({
 
 if (typeof window !== 'undefined') {
   window.initThemeToggleWithRipple = initThemeToggleWithRipple;
+
+  // Auto-init: any theme that includes this module gets the teardrop switcher
+  // out-of-the-box, as long as it has a #themeToggle / #theme-toggle button.
+  // Per-theme scripts may still call initThemeToggleWithRipple() explicitly;
+  // this guard avoids double-binding the same button.
+  const autoBind = () => {
+    const btn = document.getElementById('themeToggle') || document.getElementById('theme-toggle');
+    if (!btn) return;
+    const root = document.documentElement;
+    const getTheme = () => root.getAttribute('data-theme') || 'dark';
+    const applyTheme = (theme) => {
+      root.setAttribute('data-theme', theme);
+      document.body.setAttribute('data-theme', theme);
+      const icon = document.getElementById('themeToggleIcon');
+      if (icon) icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    };
+    // Persist key differs per theme; read whatever is set, default 'dark'.
+    const saved = localStorage.getItem('portfolio-theme') || localStorage.getItem('tactical-theme') || 'dark';
+    applyTheme(getTheme() === 'light' ? 'light' : saved);
+    // initThemeToggleWithRipple sets its own rippleBound guard, so we must NOT
+    // pre-set it here (doing so made init early-return and the toggle went dead).
+    initThemeToggleWithRipple({
+      buttonId: btn.id,
+      getTheme,
+      applyTheme,
+      saveTheme: (t) => {
+        localStorage.setItem('portfolio-theme', t);
+        localStorage.setItem('tactical-theme', t);
+      }
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', autoBind);
+  } else {
+    autoBind();
+  }
 }
 
