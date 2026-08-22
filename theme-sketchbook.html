@@ -5,9 +5,72 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="Sajid Islam - Data Scientist & Business Analyst specializing in Python, SQL, Power BI, and machine learning.">
+    content="Sajid Islam - Data Scientist & Business Analyst specializing in Python, SQL, Power BI, and machine learning. Building agentic workflows and BI systems.">
   <meta name="author" content="Sajid Islam">
+  <meta name="keywords"
+    content="Data Scientist, Business Analyst, Python, SQL, Power BI, Machine Learning, RAG, Agentic AI, Portfolio, Projects">
+
+  <!-- OpenGraph / Social Media -->
+  <meta property="og:title" content="Sajid Islam — Data Scientist & Portfolio">
+  <meta property="og:description"
+    content="Data Scientist & Business Analyst | Python, SQL, Power BI, ML, RAG, Agentic AI">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sajid-ul-islam.github.io/">
+  <meta property="og:image" content="https://sajid-ul-islam.github.io/assets/og-image.svg">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sajid Islam — Data Scientist Portfolio">
+  <meta name="twitter:description"
+    content="Data Scientist & Business Analyst | Python, SQL, Power BI, ML, RAG, Agentic AI">
+  <meta name="twitter:image" content="https://sajid-ul-islam.github.io/assets/og-image.png">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://sajid-ul-islam.github.io/">
+
+  <!-- Preload critical assets -->
+  <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+
   <title>Sajid Islam — Sketchbook Ink Theme</title>
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Sajid Islam",
+    "url": "https://sajid-ul-islam.github.io/",
+    "sameAs": [
+      "https://github.com/Sajid-ul-Islam",
+      "https://www.linkedin.com/in/sajidislamchowdhury/",
+      "https://www.kaggle.com/sajidislam",
+      "https://huggingface.co/sajidislam"
+    ],
+    "jobTitle": "Data Scientist & Business Analyst",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "DEEN Commerce Ltd."
+    },
+    "knowsAbout": ["Python", "SQL", "Power BI", "Machine Learning", "RAG", "Agentic AI"],
+    "description": "Data Scientist & Business Analyst specializing in turning complex datasets into strategic growth. Expert in Python, SQL, Power BI, and machine learning. Building agentic workflows and business intelligence systems."
+  }
+  </script>
+
+  <!-- Website Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Sajid Islam Portfolio",
+    "url": "https://sajid-ul-islam.github.io/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://sajid-ul-islam.github.io/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
 
   <!-- Google Fonts -->
   <link
@@ -40,7 +103,11 @@
   <link href="css/shared-components.css" rel="stylesheet">
   
   <!-- Modular Sketchbook Theme -->
+  <!-- Theme CSS (entry point uses @import chain) -->
   <link href="themes/sketchbook/sketchbook-entry.css" rel="stylesheet">
+  <!-- Fallback to minified bundle for better performance -->
+  <link href="themes/sketchbook/sketchbook.min.css" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="themes/sketchbook/sketchbook.css" rel="stylesheet"></noscript>
 
   <style>
     /* Theme Variables & Overrides - These now come from sketchbook.css */
@@ -335,9 +402,8 @@
           <!-- Profile Pic with Sketched Double-Border -->
           <div class="sk-box sk-draw-box rounded-2xl p-1 mb-6 sk-profile-tilt" style="--sk-draw-delay: 0.1s"
             id="profile-container">
-            <img src="img/profile.jpg" alt="Sajid Islam"
-              class="size-28 rounded-xl object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-500"
-              loading="lazy">
+            <img src="img/profile.jpg" alt="Sajid Islam - Portfolio Photo" loading="lazy" decoding="async"
+              class="size-28 rounded-xl object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-500">
           </div>
 
           <!-- Handwritten / Sketch name (using Cursive CAVEAT Font & Filter) -->
