@@ -670,3 +670,22 @@
     gap: 0.75rem !important;
   }
 }
+
+/* Ensure safe area insets for notch phones */
+@supports (padding: env(safe-area-inset-top)) {
+  .ai-chat-toggle {
+    bottom: calc(20px + env(safe-area-inset-bottom)) !important;
+    left: calc(20px + env(safe-area-inset-left)) !important;
+  }
+  
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .mobile-nav {
+    top: calc(60px + env(safe-area-inset-top)) !important;
+  }
+}
