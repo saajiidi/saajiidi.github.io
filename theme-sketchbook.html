@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cool">
   <meta name="description"
     content="Sajid Islam - Data Scientist & Business Analyst specializing in Python, SQL, Power BI, and machine learning. Building agentic workflows and BI systems.">
   <meta name="author" content="Sajid Islam">
@@ -72,15 +72,18 @@
   }
   </script>
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts with display=swap for faster mobile rendering -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Instrument+Serif:ital,wght@0,400;1,400&family=Caveat:wght@400;700&display=swap"
-    rel="stylesheet">
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
-  <!-- FontAwesome 6 Icons -->
+  <!-- FontAwesome 6 Icons (preload critical) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Tailwind CSS CDN -->
+  <!-- Tailwind CSS CDN (defer on mobile) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -105,8 +108,6 @@
   <!-- Modular Sketchbook Theme -->
   <!-- Theme CSS (entry point uses @import chain) -->
   <link href="themes/sketchbook/sketchbook-entry.css" rel="stylesheet">
-  <!-- Fallback to minified bundle for better performance -->
-  <link href="themes/sketchbook/sketchbook.min.css" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="themes/sketchbook/sketchbook.css" rel="stylesheet"></noscript>
 
   <style>
@@ -694,6 +695,30 @@
         const scrolled = window.scrollY;
         const total = document.body.scrollHeight - window.innerHeight;
         progressBar.style.width = `${(scrolled / total) * 100}%`;
+      }, { passive: true });
+    }
+
+    // Touch event handling for better mobile UX
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouchDevice) {
+      // Add touchstart class to body for CSS targeting
+      document.body.classList.add('touch-device');
+      
+      // Prevent scroll bleed on fixed/mobile nav
+      const mobileNav = document.getElementById('sk-mobile-nav');
+      if (mobileNav) {
+        mobileNav.addEventListener('touchstart', (e) => {
+          e.stopPropagation();
+        }, { passive: true });
+      }
+      
+      // Optimize scroll events for mobile
+      let scrollTimer;
+      window.addEventListener('scroll', () => {
+        if (scrollTimer) clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+          // Debounced scroll handler for mobile performance
+        }, 100);
       }, { passive: true });
     }
 

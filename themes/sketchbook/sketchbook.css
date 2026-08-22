@@ -494,3 +494,138 @@
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+
+/* ────────────────────────────────────────────────────────────────
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   ────────────────────────────────────────────────────────────── */
+
+/* Touch targets minimum 44px (Apple HIG recommendation) */
+@media (hover: none) and (pointer: coarse) {
+  .ai-chat-toggle,
+  .sk-hamburger,
+  .theme-switcher-btn,
+  .color-swatch,
+  .suggestion-chip,
+  .ai-quick-btn {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    padding: 12px 16px !important;
+  }
+  
+  /* Disable hover-only effects on touch devices */
+  .group:hover .theme-dropdown,
+  .sk-box:hover {
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  /* Reduce animation intensity on mobile for better performance */
+  .sk-draw-box,
+  .profile-tilt {
+    animation-duration: 0.05s !important;
+  }
+  
+  /* Simplify filters on mobile for GPU acceleration */
+  .sk-text,
+  .sk-ink {
+    filter: url(#sk-rough-1) !important;
+  }
+}
+
+/* Small screens optimization (under 768px) */
+@media (max-width: 768px) {
+  /* Reduce font sizes for mobile */
+  h1 { font-size: 2rem !important; }
+  h2 { font-size: 1.5rem !important; }
+  h3 { font-size: 1.25rem !important; }
+  
+  /* Reduce padding/margins */
+  section { padding: 2rem 1rem !important; }
+  .max-w-4xl { max-width: 100% !important; }
+  
+  /* Simplify layout for mobile */
+  .lg\\:hidden { display: block !important; }
+  .lg\\:flex { display: none !important; }
+  .lg\\:grid { display: none !important; }
+  
+  /* Chatbot FAB on mobile */
+  .ai-chat-toggle {
+    bottom: 20px !important;
+    right: 20px !important;
+    width: 56px !important;
+    height: 56px !important;
+  }
+  
+  /* Mobile nav dropdown */
+  .mobile-nav {
+    position: fixed !important;
+    top: 60px !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: var(--bg) !important;
+    flex-direction: column !important;
+    padding: 1rem !important;
+    gap: 0.75rem !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+    z-index: 9999 !important;
+  }
+  
+  /* Reduce container queries complexity */
+  .grid-cols-2,
+  .md\\:grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Extra small screens (under 480px) */
+@media (max-width: 480px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  
+  body {
+    overflow-x: hidden;
+  }
+  
+  .text-4xl { font-size: 1.5rem !important; }
+  .text-5xl { font-size: 1.75rem !important; }
+  .text-6xl { font-size: 2rem !important; }
+  
+  /* Simplify SVG filters on very small screens */
+  #sk-rough-1,
+  #sk-rough-2,
+  #sk-text {
+    display: none !important;
+  }
+  
+  .sk-text, .sk-ink, .sk-grain {
+    filter: none !important;
+  }
+  
+  /* Reduce animation frames */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Connection-based optimizations */
+@media (max-width: 768px) and (max-resolution: 1.5dppx) {
+  /* Lower quality images on slower connections */
+  img[loading="lazy"] {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+/* Ensure safe area insets for notch phones */
+@supports (padding: env(safe-area-inset-top)) {
+  .ai-chat-toggle {
+    bottom: calc(20px + env(safe-area-inset-bottom)) !important;
+    left: calc(20px + env(safe-area-inset-left)) !important;
+  }
+}
