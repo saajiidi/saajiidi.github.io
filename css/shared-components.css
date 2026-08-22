@@ -250,7 +250,67 @@
     }
 }
 
-/* ── Mobile: ≤576px ───────────────────────────────────────── */
+/* ── Responsive Tables ──────────────────────────────────────── */
+/* Make all markdown tables scroll horizontally on mobile */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+/* Wrap tables in a scrollable container on small screens */
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        max-width: 100%;
+    }
+
+    /* Ensure table headers remain visible */
+    th, td {
+        min-width: 120px;
+    }
+}
+
+/* Improve table readability */
+th {
+    background: rgba(var(--primary-color-rgb), 0.05);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid rgba(var(--primary-color-rgb), 0.1);
+}
+
+td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid rgba(var(--primary-color-rgb), 0.05);
+}
+
+tr:hover {
+    background: rgba(var(--primary-color-rgb), 0.02);
+}
+
+/* Light mode overrides */
+[data-theme="light"] th {
+    background: rgba(var(--primary-color-rgb), 0.03);
+}
+
+[data-theme="light"] td {
+    border-bottom-color: rgba(var(--primary-color-rgb), 0.08);
+}
+
+[data-theme="light"] tr:hover {
+    background: rgba(var(--primary-color-rgb), 0.01);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    tr:hover {
+        background: transparent !important;
+    }
+}
+
 @media (max-width: 576px) {
     .section-label {
         font-size: 0.7rem;
