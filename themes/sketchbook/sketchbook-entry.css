@@ -1,0 +1,13 @@
+/* ───────────────────────────────────────────────────────────────
+   SKETCHBOOK THEME — Entry Point
+   ────────────────────────────────────────────────────────────── */
+
+@import url("sketchbook.css");
+
+/* 
+   This file serves as the main entry point for the Sketchbook theme.
+   It imports the complete theme stylesheet which in turn imports:
+   - ../base/tokens.css (design tokens)
+   - ../base/mixins.css (utility classes)
+   - sketchbook.css (theme-specific styles and animations)
+*/
