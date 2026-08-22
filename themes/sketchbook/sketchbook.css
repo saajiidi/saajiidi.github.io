@@ -1,12 +1,21 @@
 /* ───────────────────────────────────────────────────────────────
    SKETCHBOOK THEME — Full Theme Styles
-   Imports: themes/base/tokens.css, themes/base/mixins.css
+   Imports base tokens, mixins, and shared components
    ────────────────────────────────────────────────────────────── */
 
+/* Design Tokens */
 @import url("../base/tokens.css");
+
+/* Shared Utilities & Mixins */
 @import url("../base/mixins.css");
 
-/* ── Theme Variables & Overrides ─────────────────────────── */
+/* Shared Base Styles */
+@import url("../base/shared.css");
+
+/* Shared UI Components */
+@import url("../base/components.css");
+
+/* ── Theme Variables & Overrides ──────────────────────────── */
 :root {
   --bg: #FAF9F6;
   --fg: #121212;
@@ -81,24 +90,8 @@
 :root[data-accent="sky"] { --accent: var(--pal-sky); --accent-hover: var(--pal-sky-dim); --accent-rgb: var(--pal-sky-rgb); }
 :root[data-theme="dark"][data-accent="sky"] { --accent: var(--pal-sky-light); --accent-hover: var(--pal-sky); --accent-rgb: var(--pal-sky-rgb); }
 
-/* ── Base Styles ──────────────────────────────────────────── */
-* { box-sizing: border-box; }
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 6rem;
-}
-
-body {
-  background-color: var(--bg);
-  color: var(--fg);
-  font-family: 'Inter', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* ── Custom Sketch Styles ─────────────────────────────────── */
-.sk-text { filter: url(#sk-rough-1); }
+/* ── Sketch-Specific Styles ─────────────────────────────────── */
+.sk-text { filter: url(#sk-text); }
 
 .sk-box { position: relative; }
 .sk-box::before,
@@ -215,7 +208,7 @@ body {
   mask-image: conic-gradient(#000 var(--sk-sweep), #0000 0);
 }
 
-/* ── Custom Sketch Button ─────────────────────────────────── */
+/* ── Custom Sketch Button ──────────────────────────────────── */
 .btn-sketch {
   position: relative;
   background: transparent;
@@ -236,13 +229,7 @@ body {
 .btn-sketch:active { transform: scale(0.97); }
 .btn-sketch:hover::before { border-color: var(--accent); }
 
-/* Selection Highlight */
-::selection {
-  background-color: var(--accent);
-  color: var(--bg);
-}
-
-/* Hand signature draw line animation */
+/* ── Signature Path Animation ───────────────────────────────── */
 .signature-path {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
@@ -333,7 +320,7 @@ body {
   }
 }
 
-/* ── Page Progress Bar ────────────────────────────────────── */
+/* ── Page Progress Bar ──────────────────────────────────────── */
 #sk-progress {
   position: fixed;
   top: 0;
@@ -374,37 +361,8 @@ body {
   transform: translateY(0);
 }
 
-/* ── Stat Counter ─────────────────────────────────────────── */
-.sk-stat-num {
-  display: inline-block;
-  transition: color 0.3s;
-}
-
-/* ── Skill Progress Bar ───────────────────────────────────── */
-.sk-skill-wrapper {
-  width: 100%;
-  height: 2px;
-  background: var(--ink-faint);
-  border-radius: 1px;
-  overflow: hidden;
-  margin-top: 6px;
-  filter: url(#sk-rough-1);
-}
-
-.sk-skill-bar {
-  height: 100%;
-  background: var(--accent);
-  width: 0%;
-  transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
-  border-radius: 1px;
-}
-
-.sk-skill-wrapper.animated .sk-skill-bar {
-  width: var(--skill-level);
-}
-
-/* ── Profile Tilt Effect ──────────────────────────────────── */
-.sk-profile-img {
+/* ── Profile Image Tilt Effect ────────────────────────────── */
+.sk-profile-tilt {
   transition: transform 0.12s ease-out;
   will-change: transform;
 }
@@ -464,7 +422,7 @@ body {
 @media (max-width: 1023px) {
   .sk-hamburger { display: flex; }
 
-  .sk-mobile-menu {
+  .sk-mobile-nav {
     display: none;
     flex-direction: column;
     gap: 0;
@@ -478,11 +436,11 @@ body {
     padding: 1rem 1.5rem;
   }
 
-  .sk-mobile-menu.open {
+  .sk-mobile-nav.open {
     display: flex;
   }
 
-  .sk-mobile-menu a {
+  .sk-mobile-nav a {
     padding: 0.75rem 0;
     border-bottom: 1px solid var(--border-color);
     color: var(--muted);
@@ -493,7 +451,7 @@ body {
     transition: color 0.2s;
   }
 
-  .sk-mobile-menu a:hover {
+  .sk-mobile-nav a:hover {
     color: var(--accent);
   }
 }
