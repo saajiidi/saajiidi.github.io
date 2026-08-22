@@ -1,8 +1,22 @@
-/* ── TACTICAL THEME ENTRY ────────────────────────────────── */
-/*
- Theme-specific styles for the tactical theme.
- Inherits base tokens and mixins from themes/base/
+/* ───────────────────────────────────────────────────────────────
+   TACTICAL THEME — Entry Point
+   Modular structure for the tactical/HUD-style theme
+   ────────────────────────────────────────────────────────────── */
 
- TODO: Future work - extract relevant styles from theme-tactical.html
- Currently references the legacy file directly.
+/* Design Tokens */
+@import url("../base/tokens.css");
+
+/* Shared Utilities & Mixins */
+@import url("../base/mixins.css");
+
+/* Shared Base Styles */
+@import url("../base/shared.css");
+
+/* 
+   NOTE: This replaces the old approach of referencing theme-tactical.html directly.
+   All styles are now self-contained in this modular structure, making them:
+   - Easier to maintain
+   - Faster to load (no HTML parsing overhead)
+   - Compatible with modern build tools
+   - Ready for dynamic theme switching
 */

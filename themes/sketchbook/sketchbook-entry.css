@@ -1,13 +1,24 @@
 /* ───────────────────────────────────────────────────────────────
    SKETCHBOOK THEME — Entry Point
+   Now modularized: pulls from base tokens, mixins, and sketchbook-specific styles
    ────────────────────────────────────────────────────────────── */
 
+/* Design Tokens */
+@import url("../base/tokens.css");
+
+/* Shared Utilities & Mixins */
+@import url("../base/mixins.css");
+
+/* Shared Base Styles */
+@import url("../base/shared.css");
+
+/* Theme-Specific Styles */
 @import url("sketchbook.css");
 
 /* 
-   This file serves as the main entry point for the Sketchbook theme.
-   It imports the complete theme stylesheet which in turn imports:
-   - ../base/tokens.css (design tokens)
-   - ../base/mixins.css (utility classes)
-   - sketchbook.css (theme-specific styles and animations)
+   Integration Notes:
+   - This replaces the old inline <style> blocks in theme-sketchbook.html
+   - All variables (--bg, --fg, --accent, etc.) now come from tokens.css
+   - Shared utilities are available from mixins.css and shared.css
+   - Theme-specific styles are isolated in sketchbook.css
 */
