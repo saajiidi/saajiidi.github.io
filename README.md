@@ -69,6 +69,13 @@
   <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white" />
   <img src="https://img.shields.io/badge/Excel-217346?style=flat&logo=microsoftexcel&logoColor=white" />
   <img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white" />
+<!-- Full-Stack & Automation Tools -->
+<img src="https://img.shields.io/badge/Fastify-000000?style=flat&logo=fastify&logoColor=white" />
+<img src="https://img.shields.io/badge/React_Native-20232A?style=flat&logo=react&logoColor=61DAFB" />
+<img src="https://img.shields.io/badge/Expo-000000?style=flat&logo=expo&logoColor=white" />
+<img src="https://img.shields.io/badge/n8n-15B326?style=flat&logo=n8n&logoColor=white" />
+<img src="https://img.shields.io/badge/Hermes_Agent-FF6F61?style=flat&logo=robot&logoColor=white" />
+<img src="https://img.shields.io/badge/Telegram-26A5E4?style=flat&logo=telegram&logoColor=white" />
 </p>
 
 <br/>
@@ -77,8 +84,21 @@
 
 ### Featured Projects
 
+<!-- Best viewed on desktop; tables are responsive below 768px -->
 <table>
   <tr>
+<td width="50%">
+      <h3>🛒 DEEN Commerce — Cross-Platform E-commerce Suite</h3>
+      <p>Bangladesh's first denim brand — DEEN, built as a modern full-stack e-commerce suite with React Native (Expo), Fastify + WooCommerce Gateway API, and a Next.js 14 web storefront.</p>
+      <p>
+        <img src="https://img.shields.io/badge/React_Native-20232A?style=flat-square&logo=react&logoColor=61DAFB" />
+        <img src="https://img.shields.io/badge/Fastify-000000?style=flat-square&logo=fastify&logoColor=white" />
+        <img src="https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white" />
+        <img src="https://img.shields.io/badge/WooCommerce-96588A?style=flat-square&logo=woocommerce&logoColor=white" />
+        <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white" />
+      </p>
+      <a href="https://deencommerce.com">Website</a> &bull; <a href="https://github.com/Sajid-ul-Islam/Cross_Ecom_Apps">GitHub Repo</a> &bull; <a href="https://sajid-ul-islam.github.io/Cross_Ecom_Apps">Docs</a>
+    </td>
     <td width="50%">
       <h3>📺 Deakho — Live TV & Entertainment Platform</h3>
       <p>A modern Live TV & Entertainment streaming platform with a Telegram Mini App for channel browsing, scheduling, and notifications.</p>
@@ -170,8 +190,8 @@ Jr. Executive         @ Daraz Bangladesh      (Jan 2020 - Jan 2022)
 ---
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Sajid-ul-Islam&show_icons=true&theme=tokyonight&hide_border=true&count_private=true" width="48%" />
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Sajid-ul-Islam&theme=tokyonight&hide_border=true" width="48%" />
+  <img src="https://github-readme-stats.shion.dev/api?username=Sajid-ul-Islam&show_icons=true&theme=tokyonight&hide_border=true&count_private=true" width="48%" />
+  <img src="https://streak-stats.demolab.com/?user=Sajid-ul-Islam&theme=tokyonight&hide_border=true" width="48%" />
 </p>
 
 <br/>
