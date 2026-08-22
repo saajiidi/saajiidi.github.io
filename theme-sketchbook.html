@@ -602,7 +602,10 @@
   <script type="module">
     // Theme bookkeeping (delegates to module auto-bind)
     const root = document.documentElement;
-    root.setAttribute('data-theme', localStorage.getItem('portfolio-theme') || 'dark');
+    // NOTE: 'tactical-theme' is the dark/light mode key (shared across all
+    // themes). 'portfolio-theme' is an unused visual-theme key from themes/index.js
+    // (dead code) and must NOT be used here.
+    root.setAttribute('data-theme', localStorage.getItem('tactical-theme') || 'dark');
     document.body.setAttribute('data-theme', root.getAttribute('data-theme'));
 
     // Mobile hamburger
