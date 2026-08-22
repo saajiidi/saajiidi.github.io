@@ -1,0 +1,8 @@
+/* ── TACTICAL THEME ENTRY ────────────────────────────────── */
+/*
+ Theme-specific styles for the tactical theme.
+ Inherits base tokens and mixins from themes/base/
+
+ TODO: Future work - extract relevant styles from theme-tactical.html
+ Currently references the legacy file directly.
+*/

@@ -1,0 +1,27 @@
+/* ── SHARED MIXINS & UTILITIES ─────────────────────────────── */
+
+.text-center { text-align: center; }
+.m-auto { margin-left: auto; margin-right: auto; }
+.p-xs { padding: var(--space-xs); }
+.p-sm { padding: var(--space-sm); }
+.p-md { padding: var(--space-md); }
+.mt-md { margin-top: var(--space-md); }
+.mb-md { margin-bottom: var(--space-md); }
+
+/* Flex helpers */
+.flex-center { display: flex; justify-content: center; align-items: center; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+
+/* Utility classes */
+.text-accent { color: var(--color-accent); }
+.text-muted { color: var(--color-muted); }
+.border-accent { border-color: var(--color-accent); }
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

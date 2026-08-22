@@ -1,0 +1,26 @@
+/* ── THEME TOKENS ──────────────────────────────────────────── */
+:root {
+  /* Palette */
+  --color-bg: #0d1117;
+  --color-fg: #c9d1d9;
+  --color-accent: #238636;
+  --color-border: #21262d;
+  --color-muted: #8b949e;
+
+  /* Spacing Scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+
+  /* Typography */
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+}
