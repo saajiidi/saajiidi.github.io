@@ -495,69 +495,98 @@
   outline-offset: 2px;
 }
 
-/* ────────────────────────────────────────────────────────────────
-   MOBILE PERFORMANCE OPTIMIZATIONS
-   ────────────────────────────────────────────────────────────── */
+/* ===============================================================
+   MOBILE UI/UX OPTIMIZATIONS
+   =============================================================== */
 
-/* Touch targets minimum 44px (Apple HIG recommendation) */
+/* ── Touch Target Improvements for Better Mobile UX ─── */
 @media (hover: none) and (pointer: coarse) {
   .ai-chat-toggle,
   .sk-hamburger,
   .theme-switcher-btn,
   .color-swatch,
   .suggestion-chip,
-  .ai-quick-btn {
+  .ai-quick-btn,
+  .sk-nav-link {
     min-width: 44px !important;
     min-height: 44px !important;
     padding: 12px 16px !important;
   }
-  
-  /* Disable hover-only effects on touch devices */
+
+  /* Make theme dropdown always visible on mobile (no hover required) */
   .group:hover .theme-dropdown,
-  .sk-box:hover {
-    transform: none !important;
+  .theme-dropdown {
     opacity: 1 !important;
     visibility: visible !important;
+    transform: translateY(0) !important;
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    z-index: 100 !important;
   }
-  
-  /* Reduce animation intensity on mobile for better performance */
-  .sk-draw-box,
-  .profile-tilt {
-    animation-duration: 0.05s !important;
-  }
-  
-  /* Simplify filters on mobile for GPU acceleration */
-  .sk-text,
-  .sk-ink {
-    filter: url(#sk-rough-1) !important;
+
+  /* Disable hover transforms on touch devices */
+  .sk-box {
+    transform: none !important;
   }
 }
 
-/* Small screens optimization (under 768px) */
+/* ── Mobile Layout Spacing Improvements ─── */
 @media (max-width: 768px) {
-  /* Reduce font sizes for mobile */
-  h1 { font-size: 2rem !important; }
-  h2 { font-size: 1.5rem !important; }
-  h3 { font-size: 1.25rem !important; }
-  
-  /* Reduce padding/margins */
-  section { padding: 2rem 1rem !important; }
+  /* Better typography scaling for mobile */
+  h1 { font-size: 1.75rem !important; line-height: 1.2; }
+  h2 { font-size: 1.35rem !important; line-height: 1.3; }
+  h3 { font-size: 1.1rem !important; line-height: 1.4; }
+  h4 { font-size: 0.95rem !important; }
+
+  /* Increased touch-friendly spacing */
+  section { padding: 1.5rem 1rem !important; }
   .max-w-4xl { max-width: 100% !important; }
+
+  /* Improve grid layouts on mobile */
+  .md\:grid-cols-2 { grid-template-columns: 1fr !important; }
+  .md\:grid-cols-3 { grid-template-columns: 1fr !important; }
   
-  /* Simplify layout for mobile */
-  .lg\\:hidden { display: block !important; }
-  .lg\\:flex { display: none !important; }
-  .lg\\:grid { display: none !important; }
-  
-  /* Chatbot FAB on mobile */
-  .ai-chat-toggle {
-    bottom: 20px !important;
-    right: 20px !important;
-    width: 56px !important;
-    height: 56px !important;
+  /* Better gap spacing */
+  [class*="gap-"] {
+    gap: 0.75rem !important;
+  }
+
+  /* Theme switcher dropdown - always visible tap target */
+  .relative.group {
+    position: static !important;
+  }
+  .theme-dropdown {
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    min-width: 180px !important;
+    background: var(--bg) !important;
+    border: 1px solid var(--ink-faint) !important;
+    border-radius: 8px !important;
+    padding: 0.5rem !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+  }
+  .theme-drop {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 8px 12px !important;
+    cursor: pointer !important;
+    border-radius: 6px !important;
+    transition: background-color 0.2s ease !important;
+  }
+  .theme-drop:hover {
+    background: rgba(0, 0, 0, 0.05) !important;
+  }
+  .theme-swatch {
+    width: 16px !important;
+    height: 16px !important;
+    border-radius: 50% !important;
+    flex-shrink: 0 !important;
   }
   
-  /* Mobile nav dropdown */
+  /* Enhanced mobile nav dropdown */
   .mobile-nav {
     position: fixed !important;
     top: 60px !important;
@@ -565,67 +594,79 @@
     right: 0 !important;
     background: var(--bg) !important;
     flex-direction: column !important;
+    padding: 1.25rem !important;
+    gap: 1rem !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+    z-index: 9999 !important;
+    border-bottom: 1px solid var(--ink-faint) !important;
+  }
+  .mobile-nav.open {
+    display: flex !important;
+    animation: slideDown 0.3s ease-out !important;
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Chatbot FAB - bigger and more accessible on mobile */
+  .ai-chat-toggle {
+    bottom: 20px !important;
+    right: 20px !important;
+    width: 60px !important;
+    height: 60px !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  /* Chat container - full width on mobile */
+  .ai-chat-container {
+    bottom: 80px !important;
+    right: 20px !important;
+    left: 20px !important;
+    width: auto !important;
+    max-width: none !important;
+    height: calc(100vh - 100px) !important;
+    max-height: 600px !important;
+  }
+
+  /* Improve suggestion chips on mobile */
+  .suggestion-chip {
+    font-size: 0.9rem !important;
+    padding: 10px 16px !important;
+    min-height: 44px !important;
+    white-space: nowrap !important;
+    overflow-x: auto !important;
+  }
+  
+  /* Improve chat input on mobile */
+  .ai-chat-input-wrapper {
     padding: 1rem !important;
     gap: 0.75rem !important;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
-    z-index: 9999 !important;
+  }
+  #aiChatInput {
+    font-size: 1rem !important;
+    padding: 12px 16px !important;
+    border-radius: 24px !important;
   }
   
-  /* Reduce container queries complexity */
-  .grid-cols-2,
-  .md\\:grid-cols-2 {
-    grid-template-columns: 1fr !important;
+  /* Better experience sections on mobile */
+  .border-l-2 {
+    border-width: 2px !important;
+    margin-left: 8px !important;
   }
-}
+  .pl-8 {
+    padding-left: 1rem !important;
+  }
 
-/* Extra small screens (under 480px) */
-@media (max-width: 480px) {
-  html {
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
+  /* Improve stats grid on mobile */
+  #stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
   }
-  
-  body {
-    overflow-x: hidden;
-  }
-  
-  .text-4xl { font-size: 1.5rem !important; }
-  .text-5xl { font-size: 1.75rem !important; }
-  .text-6xl { font-size: 2rem !important; }
-  
-  /* Simplify SVG filters on very small screens */
-  #sk-rough-1,
-  #sk-rough-2,
-  #sk-text {
-    display: none !important;
-  }
-  
-  .sk-text, .sk-ink, .sk-grain {
-    filter: none !important;
-  }
-  
-  /* Reduce animation frames */
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
-}
 
-/* Connection-based optimizations */
-@media (max-width: 768px) and (max-resolution: 1.5dppx) {
-  /* Lower quality images on slower connections */
-  img[loading="lazy"] {
-    image-rendering: -webkit-optimize-contrast;
-  }
-}
-
-/* Ensure safe area insets for notch phones */
-@supports (padding: env(safe-area-inset-top)) {
-  .ai-chat-toggle {
-    bottom: calc(20px + env(safe-area-inset-bottom)) !important;
-    left: calc(20px + env(safe-area-inset-left)) !important;
+  /* Improve skills grid on mobile */
+  #skills-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
   }
 }
