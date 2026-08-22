@@ -1,0 +1,67 @@
+[
+  {
+    "id": "deen-commerce",
+    "title": "DEEN Commerce — Cross-Platform E-commerce Suite",
+    "description": "Bangladesh's first denim brand — DEEN, built as a modern full-stack e-commerce suite with React Native (Expo), Fastify + WooCommerce Gateway API, and a Next.js 14 web storefront.",
+    "tags": ["fullstack", "ecommerce"],
+    "technologies": ["React Native", "Fastify", "Next.js 14", "WooCommerce", "Docker"],
+    "links": [
+      {"label": "Website", "url": "https://deencommerce.com"},
+      {"label": "GitHub Repo", "url": "https://github.com/Sajid-ul-Islam/Cross_Ecom_Apps"},
+      {"label": "Docs", "url": "https://sajid-ul-islam.github.io/Cross_Ecom_Apps"}
+    ]
+  },
+  {
+    "id": "deakho-tv",
+    "title": "Dekho — Live TV & Entertainment Platform",
+    "description": "A modern Live TV & Entertainment streaming platform with a Telegram Mini App for channel browsing, scheduling, and notifications.",
+    "tags": ["frontend", "telegram"],
+    "technologies": ["React", "TypeScript", "Node.js", "Telegram", "Vercel"],
+    "links": [
+      {"label": "Web App", "url": "https://deakho.vercel.app/"},
+      {"label": "Telegram Bot", "url": "https://t.me/deakhoBot"},
+      {"label": "GitHub Repo", "url": "https://github.com/Sajid-ul-Islam/Deakho"}
+    ]
+  },
+  {
+    "id": "esco-bot",
+    "title": "ESCO Electricity Usage Assistant Bot",
+    "description": "Interactive Telegram chatbot for DESCO electricity subscribers to track electricity usage, account details, and billing intel.",
+    "tags": ["automation", "telegram"],
+    "technologies": ["Python", "Telegram Bot API", "Chatbot"],
+    "links": [
+      {"label": "Bot Live", "url": "https://t.me/descoTGbot"},
+      {"label": "GitHub Repo", "url": "https://github.com/Sajid-ul-Islam/descoiunfobot"}
+    ]
+  },
+  {
+    "id": "deen-telegram-bot",
+    "title": "DEEN Commerce Telegram Bot",
+    "description": "Automated WooCommerce Telegram bot for real-time order alerts, store notifications, and workflow automation.",
+    "tags": ["automation", "telegram"],
+    "technologies": ["Python", "Telegram", "WooCommerce"],
+    "links": [
+      {"label": "GitHub Repo", "url": "https://github.com/Sajid-ul-Islam/woocom_telegram_bot"}
+    ]
+  },
+  {
+    "id": "streamlit-hub",
+    "title": "Streamlit Prototype Hub",
+    "description": "Centralized command center for 10+ operational data apps — inventory trackers, sales dashboards, and automation tools.",
+    "tags": ["datascience", "dashboard"],
+    "technologies": ["Python", "Streamlit", "Automation"],
+    "links": [
+      {"label": "View Live", "url": "https://share.streamlit.io/user/saajiidi"}
+    ]
+  },
+  {
+    "id": "ecovision",
+    "title": "EconVision Analytics",
+    "description": "Interactive global economic analytics — visual comparisons, macro-trend index insights, and pattern discovery.",
+    "tags": ["datascience", "dataviz"],
+    "technologies": ["Python", "Hugging Face", "Data Viz"],
+    "links": [
+      {"label": "View Live", "url": "https://huggingface.co/spaces/Sajid-ul-Islam/Global-Economical-Analytics"}
+    ]
+  }
+]

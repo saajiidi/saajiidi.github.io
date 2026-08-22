@@ -6,10 +6,13 @@
   <meta name="description" content="Project showcase by Sajid Islam - Full-stack developer & data scientist.">
   <meta name="author" content="Sajid Islam">
   <title>Projects — Sajid Islam</title>
+  
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Instrument+Serif:ital,wght@0,400;1,400&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  
   <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -27,241 +30,115 @@
       }
     }
   </script>
-  <!-- Shared Styles -->
+
+  <!-- Theme Engine -->
   <link href="css/color-palette.css" rel="stylesheet">
   <link href="css/shared-components.css" rel="stylesheet">
-
-  <style>
-    :root {
-      --bg: #0F0F0F;
-      --fg: #F5F5F5;
-      --fg-dim: #C0C0C0;
-      --muted: #6A6A6A;
-      --accent: var(--pal-blue-light);
-      --accent-hover: var(--pal-blue);
-      --accent-rgb: var(--pal-blue-rgb);
-      --ink: rgba(245, 245, 245, 0.4);
-      --ink-faint: rgba(245, 245, 245, 0.18);
-      --border-color: rgba(245, 245, 245, 0.1);
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      background-color: var(--bg);
-      color: var(--fg);
-      font-family: 'Inter', sans-serif;
-      -webkit-font-smoothing: antialiased;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      padding: 2rem 1rem;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.25rem;
-      letter-spacing: 0.05em;
-      margin-bottom: 1.5rem;
-      position: relative;
-      display: inline-block;
-    }
-
-    .section-title::after {
-      content: "";
-      position: absolute;
-      bottom: -6px;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: var(--ink);
-    }
-
-    .project-card {
-      background: rgba(245, 245, 245, 0.03);
-      border: 1px solid var(--border-color);
-      border-radius: 0.5rem;
-      padding: 1.5rem;
-      transition: all 0.2s ease;
-    }
-
-    .project-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    .project-card h3 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .project-card p {
-      font-size: 0.9rem;
-      color: var(--fg-dim);
-      margin-bottom: 0.75rem;
-    }
-
-    .tech-badge {
-      display: inline-block;
-      font-size: 0.7rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 0.25rem;
-      background: rgba(56, 189, 248, 0.1);
-      color: var(--accent);
-      margin: 0.1rem;
-    }
-
-    .project-links a {
-      color: var(--accent);
-      text-decoration: none;
-      margin-right: 1rem;
-    }
-
-    .project-links a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-      body {
-        padding: 1rem 0.5rem;
-      }
-      .project-card {
-        padding: 1rem;
-      }
-    }
-
-    /* Back to Home Button */
-    .back-home {
-      position: fixed;
-      top: 1.5rem;
-      left: 1.5rem;
-      z-index: 100;
-    }
-
-    .back-home a {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: rgba(245, 245, 245, 0.05);
-      border: 1px solid var(--border-color);
-      border-radius: 0.5rem;
-      color: var(--fg-dim);
-      text-decoration: none;
-      transition: all 0.2s ease;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-    }
-
-    .back-home a:hover {
-      color: var(--accent);
-      border-color: var(--accent);
-    }
-  </style>
+  <link href="themes/sketchbook/sketchbook-entry.css" rel="stylesheet">
+  <link href="css/projects.css" rel="stylesheet">
 </head>
 <body>
 
-<div class="back-home">
+<div class="back-to-home">
   <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
 </div>
 
-<div class="container">
+<main class="container">
   <h1 class="section-title">Project Showcase</h1>
 
-  <p style="color: var(--fg-dim); margin-bottom: 2rem;">
+  <p class="intro-text">
     A selection of my featured projects spanning full-stack development, data science, and automation.
   </p>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-    <!-- Project 1 -->
-    <div class="project-card">
-      <h3>🛒 DEEN Commerce</h3>
-      <p>Bangladesh's first denim brand e-commerce suite — React Native (Expo) mobile app, Fastify+WooCommerce gateway API, and Next.js 14 web storefront.</p>
-      <div class="tech-badge">React Native</div>
-      <div class="tech-badge">Next.js 14</div>
-      <div class="tech-badge">Fastify</div>
-      <div class="tech-badge">WooCommerce</div>
-      <div class="project-links">
-        <a href="https://deencommerce.com">Live Site</a>
-        <a href="https://github.com/Sajid-ul-Islam/Cross_Ecom_Apps">GitHub</a>
-      </div>
+  <!-- Filter Controls -->
+  <div class="filter-bar">
+    <input type="search" id="project-search" placeholder="Search projects..." class="search-input" />
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">All Projects</button>
+      <button class="filter-btn" data-filter="fullstack">Full-Stack</button>
+      <button class="filter-btn" data-filter="frontend">Frontend</button>
+      <button class="filter-btn" data-filter="datascience">Data Science</button>
+      <button class="filter-btn" data-filter="automation">Automation</button>
+      <button class="filter-btn" data-filter="telegram">Telegram Bots</button>
     </div>
-
-    <!-- Project 2 -->
-    <div class="project-card">
-      <h3>📺 Deakho Live TV Platform</h3>
-      <p>Modern Live TV & entertainment streaming platform with a Telegram Mini App for channel browsing, scheduling, and notifications.</p>
-      <div class="tech-badge">React</div>
-      <div class="tech-badge">TypeScript</div>
-      <div class="tech-badge">Node.js</div>
-      <div class="tech-badge">Telegram</div>
-      <div class="project-links">
-        <a href="https://deakho.vercel.app/">Live App</a>
-        <a href="https://github.com/Sajid-ul-Islam/Deakho">GitHub</a>
-      </div>
-    </div>
-
-    <!-- Project 3 -->
-    <div class="project-card">
-      <h3>⚡ DESCO Electricity Assistant Bot</h3>
-      <p>Interactive Telegram chatbot for DESCO electricity subscribers to track usage, account details, and billing information.</p>
-      <div class="tech-badge">Python</div>
-      <div class="tech-badge">Telegram Bot API</div>
-      <div class="tech-badge">Chatbot</div>
-      <div class="project-links">
-        <a href="https://t.me/descoTGbot">Bot Live</a>
-        <a href="https://github.com/Sajid-ul-Islam/descoiunfobot">GitHub</a>
-      </div>
-    </div>
-
-    <!-- Project 4 -->
-    <div class="project-card">
-      <h3>🛠️ DEEN Commerce Telegram Bot</h3>
-      <p>Automated WooCommerce Telegram bot for real-time order alerts, store notifications, and workflow automation.</p>
-      <div class="tech-badge">Python</div>
-      <div class="tech-badge">Telegram</div>
-      <div class="tech-badge">WooCommerce</div>
-      <div class="project-links">
-        <a href="https://github.com/Sajid-ul-Islam/woocom_telegram_bot">GitHub</a>
-      </div>
-    </div>
-
-    <!-- Project 5 -->
-    <div class="project-card">
-      <h3>📊 Streamlit Prototype Hub</h3>
-      <p>Centralized command center for 10+ operational data apps — inventory trackers, sales dashboards, and automation tools.</p>
-      <div class="tech-badge">Python</div>
-      <div class="tech-badge">Streamlit</div>
-      <div class="tech-badge">Automation</div>
-      <div class="project-links">
-        <a href="https://share.streamlit.io/user/saajiidi">View Live</a>
-      </div>
-    </div>
-
-    <!-- Project 6 -->
-    <div class="project-card">
-      <h3>📈 EconVision Analytics</h3>
-      <p>Interactive global economic analytics — visual comparisons, macro-trend index insights, and pattern discovery powered by Hugging Face Spaces.</p>
-      <div class="tech-badge">Python</div>
-      <div class="tech-badge">Hugging Face</div>
-      <div class="tech-badge">Data Viz</div>
-      <div class="project-links">
-        <a href="https://huggingface.co/spaces/Sajid-ul-Islam/Global-Economical-Analytics">View Live</a>
-      </div>
-    </div>
-
   </div>
 
-  <div style="margin-top: 3rem; text-align: center; color: var(--muted);">
-    <small>Want to see more projects? Visit my <a href="https://github.com/Sajid-ul-Islam" style="color: var(--accent);">GitHub profile</a>.</small>
+  <!-- Projects Grid -->
+  <div id="projects-grid" class="grid">
+    <!-- Project cards will be dynamically loaded here -->
   </div>
 
-</div>
+  <div class="view-more">
+    <small>Want to see more projects? Visit my <a href="https://github.com/Sajid-ul-Islam">GitHub profile</a>.</small>
+  </div>
+</main>
+
+<script>
+// Project Showcase Script
+document.addEventListener('DOMContentLoaded', async () => {
+  const grid = document.getElementById('projects-grid');
+  const searchInput = document.getElementById('project-search');
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  
+  let projects = [];
+  let activeFilter = 'all';
+  let searchTerm = '';
+
+  // Fetch project data
+  try {
+    const response = await fetch('assets/data/projects.json');
+    projects = await response.json();
+  } catch (error) {
+    console.error('Failed to load projects:', error);
+  }
+
+  // Render projects
+  function renderProjects() {
+    const filtered = projects.filter(project => {
+      const matchesFilter = activeFilter === 'all' || project.tags.includes(activeFilter);
+      const matchesSearch = 
+        project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        project.technologies.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()));
+      
+      return matchesFilter && matchesSearch;
+    });
+
+    grid.innerHTML = filtered.map(project => `
+      <article class="project-card" data-tags="${project.tags.join(' ')}">
+        <h3 class="project-title">${project.title}</h3>
+        <p class="project-description">${project.description}</p>
+        
+        <div class="tech-badges">
+          ${project.technologies.map(tech => `<span class="tech-badge">${tech}</span>`).join('')}
+        </div>
+        
+        <div class="project-links">
+          ${project.links.map(link => `<a href="${link.url}" target="_blank">${link.label}</a>`).join('')}
+        </div>
+      </article>
+    `).join('');
+  }
+
+  // Event listeners
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      renderProjects();
+    });
+  });
+
+  searchInput.addEventListener('input', (e) => {
+    searchTerm = e.target.value;
+    renderProjects();
+  });
+
+  // Initial render
+  renderProjects();
+});
+</script>
 
 <script src="js/theme-accent.js"></script>
 </body>
