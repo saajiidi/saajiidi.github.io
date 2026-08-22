@@ -123,6 +123,16 @@
 
 <body class="relative isolate flex min-h-screen flex-col font-sans">
 
+  <!-- Skip Links for Keyboard Users -->
+  <a href="#main-content"
+    class="skip-link absolute top-0 left-0 bg-[var(--accent)] text-[var(--bg)] px-4 py-2 font-mono text-xs z-[100] transform -translate-y-full focus:translate-y-0 transition-transform duration-200">
+    Skip to main content
+  </a>
+  <a href="#theme-switcher"
+    class="skip-link absolute top-0 left-0 bg-[var(--accent)] text-[var(--bg)] px-4 py-2 font-mono text-xs z-[100] transform -translate-y-full focus:translate-y-0 transition-transform duration-200" style="top: 2.5rem; left: 0;">
+    Skip to theme selector
+  </a>
+
   <!-- SVG Displacement Filters for Sketchy Aesthetics -->
   <svg aria-hidden="true" width="0" height="0" class="pointer-events-none absolute">
     <filter id="sk-rough-1" x="-25%" y="-25%" width="150%" height="150%">
@@ -212,22 +222,59 @@
         </button>
 
         <!-- Theme Switcher Dropdown -->
-        <div class="relative group">
-          <button
-            class="font-mono text-xs tracking-wider uppercase text-[var(--fg)] border border-[var(--ink)] px-4 py-2 hover:bg-[var(--accent)] hover:text-[var(--bg)] transition-colors flex items-center gap-2 rounded-lg btn-sketch">
+        <div class="relative group" id="theme-switcher">
+          <button type="button"
+            class="theme-switcher-btn font-mono text-xs tracking-wider uppercase text-[var(--fg)] border border-[var(--ink)] px-4 py-2 hover:bg-[var(--accent)] hover:text-[var(--bg)] transition-colors flex items-center gap-2 rounded-lg btn-sketch"
+            aria-haspopup="true" aria-expanded="false" aria-label="Switch theme">
             <i class="fas fa-layer-group"></i> THEMES
           </button>
-          <div
-            class="absolute right-0 mt-2 w-48 bg-[var(--bg)] border border-[var(--ink)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all flex flex-col z-50 shadow-lg rounded-lg overflow-hidden">
-            <a href="theme-tactical.html"
-              class="px-4 py-3 text-xs font-mono text-[var(--fg)] hover:bg-[var(--accent)] hover:text-[var(--bg)] transition-colors"><i
-                class="fas fa-terminal w-5"></i> Tactical HUD</a>
-            <a href="theme-ironforge.html"
-              class="px-4 py-3 text-xs font-mono text-[var(--fg)] hover:bg-[var(--accent)] hover:text-[var(--bg)] transition-colors"><i
-                class="fas fa-fire w-5"></i> Ironforge Studio</a>
-            <a href="theme-sketchbook.html"
-              class="px-4 py-3 text-xs font-mono text-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--bg)] transition-colors"><i
-                class="fas fa-pen-nib w-5"></i> Sketchbook Ink</a>
+          <div role="menu" aria-label="Theme selector"
+            class="theme-dropdown absolute right-0 mt-2 w-56 bg-[var(--bg)] border border-[var(--ink)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all flex flex-col z-50 shadow-lg rounded-xl overflow-hidden">
+            <div class="p-2 font-mono text-[9px] text-[var(--muted)] uppercase tracking-widest">Select Theme</div>
+      
+            <div class="theme-option" data-theme="sketchbook">
+              <a href="theme-sketchbook.html" class="flex items-center gap-3 px-4 py-3 text-xs font-mono text-[var(--fg)] hover:bg-[var(--accent)] hover:text-[var(--bg)] transition-colors group/item">
+                <div class="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0 relative">
+                  <div class="absolute inset-0 bg-[#0F0F0F]"></div>
+                  <div class="absolute top-0 left-0 w-full h-2/3 bg-[#F5F5F5]"></div>
+                  <span class="absolute inset-0 flex items-center justify-center text-[7px] font-bold text-white">✦</span>
+                </div>
+                <div class="flex-1">
+                  <span class="block font-semibold text-[var(--fg)] group-hover/item:text-[var(--bg)]">Sketchbook Ink</span>
+                  <span class="text-[var(--muted)] group-hover/item:text-[var(--bg)]/80">Hand-drawn sketch aesthetics</span>
+                </div>
+                <div class="w-2 h-2 rounded-full bg-[var(--accent)] shrink-0 ml-auto mt-1"></div>
+              </a>
+            </div>
+      
+            <div class="theme-option" data-theme="tactical">
+              <a href="theme-tactical.html" class="flex items-center gap-3 px-4 py-3 text-xs font-mono text-[var(--fg)] hover:bg-[var(--accent)] hover:text-[var(--bg)] transition-colors group/item">
+                <div class="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0 relative">
+                  <div class="absolute inset-0 bg-[#0a0a0a]"></div>
+                  <div class="absolute top-0 left-0 w-full h-1/3 bg-[#1a1a2e]"></div>
+                  <span class="absolute inset-0 flex items-center justify-center text-[7px] font-bold" style="color: #00ff88;">▶</span>
+                </div>
+                <div class="flex-1">
+                  <span class="block font-semibold text-[var(--fg)] group-hover/item:text-[var(--bg)]">Tactical HUD</span>
+                  <span class="text-[var(--muted)] group-hover/item:text-[var(--bg)]/80">Terminal-inspired interface</span>
+                </div>
+              </a>
+            </div>
+      
+            <div class="theme-option" data-theme="ironforge">
+              <a href="theme-ironforge.html" class="flex items-center gap-3 px-4 py-3 text-xs font-mono text-[var(--fg)] hover:bg-[var(--accent)] hover:text-[var(--bg)] transition-colors group/item">
+                <div class="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0 relative">
+                  <div class="absolute inset-0 bg-[#111111]"></div>
+                  <div class="absolute top-0 left-0 w-full h-2/3 bg-[#1a1a1a]"></div>
+                  <span class="absolute inset-0 flex items-center justify-center text-[7px] font-bold" style="color: #ff6b35;">⚒</span>
+                </div>
+                <div class="flex-1">
+                  <span class="block font-semibold text-[var(--fg)] group-hover/item:text-[var(--bg)]">Ironforge Studio</span>
+                  <span class="text-[var(--muted)] group-hover/item:text-[var(--bg)]/80">Studio production interface</span>
+                </div>
+                <div class="w-2 h-2 rounded-full bg-orange-500 shrink-0 ml-auto mt-1"></div>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -242,7 +289,7 @@
   </nav>
 
   <div class="flex-1">
-    <main class="relative focus:outline-none">
+    <main id="main-content" class="relative focus:outline-none" tabindex="-1">
 
       <!-- HERO / INTRO SECTION -->
       <section class="relative py-12 md:py-24 mx-auto max-w-4xl px-4 sm:px-6" id="about">
@@ -300,12 +347,12 @@
           </div>
 
           <!-- Social links list -->
-          <ul class="mt-8 flex items-center gap-4">
+          <ul class="mt-8 flex items-center gap-4" role="list" aria-label="Social profiles">
             <li>
               <a href="#" target="_blank" rel="noopener"
                 class="inline-flex size-10 items-center justify-center rounded-full bg-neutral-500/10 text-[var(--fg-dim)] transition-colors hover:bg-neutral-500/20 hover:text-[var(--accent)]"
-                title="GitHub">
-                <svg fill="currentColor" viewBox="0 0 24 24" class="size-5">
+                title="GitHub Profile" aria-label="Visit GitHub profile">
+                <svg fill="currentColor" viewBox="0 0 24 24" class="size-5" aria-hidden="true">
                   <path
                     d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85V21c0 .27.18.58.69.48A10 10 0 0 0 22 12 10 10 0 0 0 12 2Z">
                   </path>
@@ -315,7 +362,7 @@
             <li>
               <a href="#" target="_blank" rel="noopener"
                 class="inline-flex size-10 items-center justify-center rounded-full bg-neutral-500/10 text-[var(--fg-dim)] transition-colors hover:bg-neutral-500/20 hover:text-[var(--accent)]"
-                title="LinkedIn">
+                title="LinkedIn Profile" aria-label="Visit LinkedIn profile">
                 <svg fill="currentColor" viewBox="0 0 24 24" class="size-5">
                   <path
                     d="M6.94 8.5v10.56H3.42V8.5h3.52ZM7.17 5.18a1.83 1.83 0 0 1-1.98 1.83h-.02a1.83 1.83 0 1 1 .04-3.66 1.83 1.83 0 0 1 1.96 1.83Zm5.34 4.9c.47-.73 1.3-1.76 3.17-1.76 2.31 0 4.05 1.51 4.05 4.77v5.97h-3.52v-5.56c0-1.42-.51-2.4-1.79-2.4-.97 0-1.55.66-1.81 1.29-.09.23-.11.55-.11.87v5.8H9.02s.05-9.41 0-10.38h3.5v1.4Z">
@@ -326,7 +373,7 @@
             <li>
               <a href="#" target="_blank" rel="noopener"
                 class="inline-flex size-10 items-center justify-center rounded-full bg-neutral-500/10 text-[var(--fg-dim)] transition-colors hover:bg-neutral-500/20 hover:text-[var(--accent)]"
-                title="Kaggle">
+                title="Kaggle Profile" aria-label="Visit Kaggle profile">
                 <i class="fab fa-kaggle text-lg"></i>
               </a>
             </li>

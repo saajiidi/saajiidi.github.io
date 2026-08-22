@@ -463,3 +463,34 @@
   transition: transform 0.3s, opacity 0.3s;
   filter: url(#sk-rough-1);
 }
+
+/* ── Skip Link Styles ──────────────────────────────────────── */
+.skip-link {
+  transform: translateY(-100%);
+  transition: transform 0.2s ease;
+}
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── Theme Dropdown Styles ─────────────────────────────────── */
+.theme-dropdown {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, visibility 0.2s, transform 0.2s ease;
+}
+.group:hover .theme-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* ── Accessibility Enhancements for Chatbot ─────────────────── */
+.ai-chat-toggle:focus-visible,
+.ai-chat-container:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
