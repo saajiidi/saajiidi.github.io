@@ -516,21 +516,29 @@ if (typeof window !== 'undefined') {
       const icon = document.getElementById('themeToggleIcon');
       if (icon) icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
     };
-    // Persist key differs per theme; read whatever is set, default 'dark'.
-    const saved = localStorage.getItem('portfolio-theme') || localStorage.getItem('tactical-theme') || 'dark';
-    applyTheme(getTheme() === 'light' ? 'light' : saved);
+    // Single canonical key shared by ALL themes (sketchbook / tactical / ironforge)
+    // so switching on one page carries to the others.
+    const THEME_KEY = 'tactical-theme';
+    const saved = localStorage.getItem(THEME_KEY) || 'dark';
+    applyTheme(saved === 'light' ? 'light' : 'dark');
     // initThemeToggleWithRipple sets its own rippleBound guard, so we must NOT
     // pre-set it here (doing so made init early-return and the toggle went dead).
     initThemeToggleWithRipple({
       buttonId: btn.id,
       getTheme,
       applyTheme,
-      saveTheme: (t) => {
-        localStorage.setItem('portfolio-theme', t);
-        localStorage.setItem('tactical-theme', t);
-      }
+      saveTheme: (t) => { localStorage.setItem(THEME_KEY, t); }
     });
   };
+
+  // Cross-tab live sync: if the theme changes in another open tab, apply it here
+  // too (storage events don't fire in the tab that made the change, by design).
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'tactical-theme' && e.newValue) {
+      document.documentElement.setAttribute('data-theme', e.newValue);
+      document.body.setAttribute('data-theme', e.newValue);
+    }
+  });
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', autoBind);
