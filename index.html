@@ -15,9 +15,17 @@
   <meta name="twitter:description" content="Data Scientist & Business Analyst specializing in strategic data analysis, machine learning, and business intelligence.">
   <link rel="icon" href="img/icon.png" type="image/png">
   <link rel="manifest" href="manifest.json">
+  <link rel="canonical" href="https://sajid-ul-islam.github.io/theme-sketchbook.html">
   <script>
     (function() {
-      const savedTheme = localStorage.getItem('portfolio-active-theme') || 'theme-sketchbook.html';
+      // Theme router: ?noredirect=1 stays (for crawlers/debug); otherwise go to saved theme.
+      if (new URLSearchParams(location.search).has('noredirect')) return;
+      let savedTheme = localStorage.getItem('portfolio-active-theme') || 'theme-sketchbook.html';
+      // Ironforge theme retired — migrate stale preference to sketchbook.
+      if (savedTheme.includes('ironforge')) {
+        savedTheme = 'theme-sketchbook.html';
+        localStorage.setItem('portfolio-active-theme', savedTheme);
+      }
       if (savedTheme !== 'index.html') {
         window.location.replace(savedTheme);
       } else {
@@ -67,7 +75,6 @@
     <ul>
       <li><a href="theme-sketchbook.html">Sketchbook Theme</a></li>
       <li><a href="theme-tactical.html">Tactical Theme</a></li>
-      <li><a href="theme-ironforge.html">Ironforge Theme</a></li>
     </ul>
   </noscript>
   <div class="loader-container">

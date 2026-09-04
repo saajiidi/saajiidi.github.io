@@ -32,7 +32,6 @@ Sajid-ul-Islam.github.io/
 ├── index.html                 # Theme Router (gateway / redirect)
 ├── theme-sketchbook.html      # Sketchbook Ink theme (Tailwind)
 ├── theme-tactical.html        # Tactical HUD theme (Bootstrap)
-├── theme-ironforge.html       # Ironforge Studio theme
 ├── resume.html               # Printable resume page
 ├── sw.js                     # Service Worker (PWA offline support)
 ├── manifest.json             # PWA manifest

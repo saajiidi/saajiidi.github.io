@@ -13,9 +13,6 @@
  *   ├── tactical/      -- Military/HUD theme
  *   │   ├── tactical.css
  *   │   └── README.md
- *   └── ironforge/     -- Steampunk/mechanical theme
- *       ├── ironforge.css
- *       └── README.md
  */
 
 // Available Themes
@@ -29,11 +26,6 @@ const THEMES = {
     name: "Tactical HUD",
     file: "themes/tactical/tactical.css",
     description: "Military-inspired interface with telemetry overlays"
-  },
-  ironforge: {
-    name: "Ironforge",
-    file: "themes/ironforge/ironforge.css",
-    description: "Steampunk/mechanical forge design with gear animations"
   }
 };
 
@@ -65,10 +57,9 @@ function switchTheme(themeName) {
 
 // Auto-switch based on saved preference
 (function initTheme() {
-  const savedTheme = localStorage.getItem('portfolio-theme') || DEFAULT_THEME;
-  if (THEMES[savedTheme]) {
-    switchTheme(savedTheme);
-  }
+  let savedTheme = localStorage.getItem('portfolio-theme') || DEFAULT_THEME;
+  if (!THEMES[savedTheme]) savedTheme = DEFAULT_THEME; // e.g. retired ironforge
+  switchTheme(savedTheme);
 })();
 
 console.log("Theme Engine initialized:", Object.keys(THEMES));

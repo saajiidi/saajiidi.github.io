@@ -343,20 +343,6 @@
               </a>
             </div>
       
-            <div class="theme-option" data-theme="ironforge">
-              <a href="theme-ironforge.html" class="flex items-center gap-3 px-4 py-3 text-xs font-mono text-[var(--fg)] hover:bg-[var(--accent)] hover:text-[var(--bg)] transition-colors group/item">
-                <div class="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0 relative">
-                  <div class="absolute inset-0 bg-[#111111]"></div>
-                  <div class="absolute top-0 left-0 w-full h-2/3 bg-[#1a1a1a]"></div>
-                  <span class="absolute inset-0 flex items-center justify-center text-[7px] font-bold" style="color: #ff6b35;">⚒</span>
-                </div>
-                <div class="flex-1">
-                  <span class="block font-semibold text-[var(--fg)] group-hover/item:text-[var(--bg)]">Ironforge Studio</span>
-                  <span class="text-[var(--muted)] group-hover/item:text-[var(--bg)]/80">Studio production interface</span>
-                </div>
-                <div class="w-2 h-2 rounded-full bg-orange-500 shrink-0 ml-auto mt-1"></div>
-              </a>
-            </div>
           </div>
         </div>
       </div>
@@ -667,6 +653,7 @@
 
   <!-- SCRIPT BLOCK -->
   <script type="module">
+    import { PortfolioData } from './js/data/index.js';
     // Theme bookkeeping (delegates to module auto-bind)
     const root = document.documentElement;
     // NOTE: 'tactical-theme' is the dark/light mode key (shared across all
@@ -954,10 +941,10 @@
       });
     }
 
-    // Bootstrap
+    // Bootstrap (module scope: PortfolioData imported above, renderers defined here)
     async function bootstrap() {
       try {
-        const data = await window.PortfolioData.load();
+        const data = await PortfolioData.load();
         renderProfile(data.info);
         renderExperiences(data.experiences);
         renderEducation(data.education);
@@ -979,44 +966,6 @@
   <script type="module" src="js/theme-switcher-ripple.js"></script>
   <script type="module" src="js/ai-bot.js"></script>
   <script type="module" src="js/theme-init.js"></script>
-
-  <!-- Inline bootstrap waits for modules to load -->
-  <script>
-    // Wait for PortfolioData module to be available
-    function waitForData() {
-      return new Promise((resolve) => {
-        if (window.PortfolioData) return resolve();
-        const interval = setInterval(() => {
-          if (window.PortfolioData) {
-            clearInterval(interval);
-            resolve();
-          }
-        }, 50);
-        setTimeout(() => clearInterval(interval), 5000); // 5s timeout
-      });
-    }
-
-    // Bootstrap function waits for data module to be ready
-    async function bootstrap() {
-      await waitForData();
-      try {
-        const data = await window.PortfolioData.load();
-        renderProfile(data.info);
-        renderExperiences(data.experiences);
-        renderEducation(data.education);
-        renderProjects(data.projects);
-        renderSkills(data.skills);
-        // Observe all static sk-reveal elements
-        document.querySelectorAll('.sk-reveal').forEach(el => revealObserver.observe(el));
-        // AI chat auto-initializes via js/ai-bot.js module import
-      } catch (err) {
-        console.error('[SKETCHBOOK] Bootstrap failure', err);
-      }
-    }
-
-    if (document.readyState !== 'loading') bootstrap();
-    else window.addEventListener('DOMContentLoaded', bootstrap);
-  </script>
 </body>
 
 </html>

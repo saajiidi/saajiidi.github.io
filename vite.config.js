@@ -1,9 +1,24 @@
 import { defineConfig } from 'vite';
+import { cpSync, mkdirSync } from 'node:fs';
+import { join } from 'node:path';
 
 export default defineConfig({
   root: '.',
+  // NOTE: no public/ dir in this repo — static assets live at ./img, ./sounds, ./manifest.json.
+  // publicDir:false means Vite copies nothing, so this plugin ships them to dist/ on build.
   publicDir: false,
   plugins: [
+    {
+      name: 'copy-static-to-dist',
+      closeBundle() {
+        const out = join(process.cwd(), 'dist');
+        mkdirSync(out, { recursive: true });
+        for (const entry of ['img', 'sounds', 'manifest.json']) {
+          try { cpSync(entry, join(out, entry), { recursive: true }); }
+          catch (err) { console.warn(`[copy-static] skip ${entry}: ${err.message}`); }
+        }
+      }
+    },
     {
       name: 'disable-stdin-shortcuts',
       configureServer(server) {
@@ -29,7 +44,6 @@ export default defineConfig({
       input: {
         main: 'index.html',
         themeTactical: 'theme-tactical.html',
-        themeIronforge: 'theme-ironforge.html',
         themeSketchbook: 'theme-sketchbook.html',
         resume: 'resume.html'
       },

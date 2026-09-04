@@ -15,9 +15,6 @@ themes/
 ├── tactical/          # Military/HUD theme
 │   ├── tactical.css
 │   └── README.md
-├── ironforge/         # Steampunk/mechanical theme
-│   ├── ironforge.css
-│   └── README.md
 ├── index.js           # Theme registry & switcher
 └── README.md          # This file
 ```

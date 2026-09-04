@@ -6,6 +6,13 @@
 
 import { PROFILE_INFO, PortfolioData } from './data/index.js';
 
+/** Escape untrusted strings before innerHTML interpolation. */
+function esc(s) {
+    return String(s ?? '').replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+}
+
 const DEFAULT_INFO = PROFILE_INFO;
 
 export class Typewriter {
@@ -339,17 +346,18 @@ export function initializeProjectFilters() {
 
 export function renderBlogs(data) {
     const container = document.getElementById('blog-list');
-    if (container) container.innerHTML = data.map(p => `<div class="col-md-4 card-glass p-3 m-2"><h6 class="text-primary">${p.title}</h6><p class="small text-secondary">${p.excerpt}</p></div>`).join('');
+    if (container) container.innerHTML = data.map(p => `<div class="col-md-4 card-glass p-3 m-2"><h6 class="text-primary">${esc(p.title)}</h6><p class="small text-secondary">${esc(p.excerpt)}</p></div>`).join('');
 }
 
 export function renderLearning(data) {
     const container = document.getElementById('learning-list');
-    if (container) container.innerHTML = data.map(l => `<div class="col-md-6 mb-2"><span>${l.name}</span><div class="progress" style="height:4px; background: rgba(var(--primary-color-rgb), 0.08)"><div class="progress-bar" style="width:${l.progress}%; background: var(--primary-color); box-shadow: 0 0 6px var(--primary-color);"></div></div></div>`).join('');
+    const pct = v => Math.max(0, Math.min(100, Number(v) || 0));
+    if (container) container.innerHTML = data.map(l => `<div class="col-md-6 mb-2"><span>${esc(l.name)}</span><div class="progress" style="height:4px; background: rgba(var(--primary-color-rgb), 0.08)"><div class="progress-bar" style="width:${pct(l.progress)}%; background: var(--primary-color); box-shadow: 0 0 6px var(--primary-color);"></div></div></div>`).join('');
 }
 
 export function renderGaming(data) {
     const container = document.getElementById('gaming-stats');
-    if (container) container.innerHTML = data.stats.map(s => `<span>${s.label}: ${s.value}</span>`).join(' | ');
+    if (container) container.innerHTML = data.stats.map(s => `<span>${esc(s.label)}: ${esc(s.value)}</span>`).join(' | ');
 }
 
 export function renderMedia(data) {
@@ -360,14 +368,14 @@ export function renderMedia(data) {
         container.innerHTML = data.map(item => `
             <div class="media-card card-glass p-3 mb-3">
                 <div class="d-flex align-items-center gap-3">
-                    <img src="${item.image || '/img/placeholder-media.png'}" 
-                         alt="${item.title}" 
+                    <img src="${esc(item.image) || '/img/placeholder-media.png'}" 
+                         alt="${esc(item.title)}" 
                          class="media-thumbnail rounded"
                          style="width: 60px; height: 80px; object-fit: cover;"
                          onerror="this.src='/img/placeholder-media.png'">
                     <div>
-                        <h6 class="text-primary mb-1">${item.title}</h6>
-                        <span class="badge bg-secondary">${item.subtitle || 'Media'}</span>
+                        <h6 class="text-primary mb-1">${esc(item.title)}</h6>
+                        <span class="badge bg-secondary">${esc(item.subtitle || 'Media')}</span>
                     </div>
                 </div>
             </div>
@@ -381,10 +389,10 @@ export function renderFileTree(data) {
     const container = document.querySelector('.file-tree-container');
     if (!container) return;
     container.innerHTML = data.map(section => `
-        <div class="file-tree-section" id="tree-sec-${section.id}">
-            <div class="file-tree-header" onclick="toggleTreeSection('${section.id}')"><span>${section.label}</span></div>
+        <div class="file-tree-section" id="tree-sec-${esc(section.id)}">
+            <div class="file-tree-header" onclick="toggleTreeSection('${esc(section.id)}')"><span>${esc(section.label)}</span></div>
             <div class="file-tree-items" style="display: ${section.isOpen ? 'block' : 'none'}">
-                ${section.items.map(item => `<a href="${item.href}" class="file-tree-item" onclick="handleTreeClick(event, '${item.id}')"><span>${item.label}</span></a>`).join('')}
+                ${section.items.map(item => `<a href="${esc(item.href)}" class="file-tree-item" onclick="handleTreeClick(event, '${esc(item.id)}')"><span>${esc(item.label)}</span></a>`).join('')}
             </div>
         </div>`).join('');
 }
@@ -393,9 +401,9 @@ export async function fetchGithubRepos(username) {
     const container = document.getElementById('githubActivity');
     if (!container) return;
     try {
-        const r = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=5`);
+        const r = await fetch(`https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=updated&per_page=5`);
         const repos = await r.json();
-        container.innerHTML = repos.map(repo => `<div class="p-2 border-bottom border-secondary border-opacity-10"><a href="${repo.html_url}" target="_blank" class="small text-primary">${repo.name.toUpperCase()}</a></div>`).join('');
+        container.innerHTML = repos.map(repo => `<div class="p-2 border-bottom border-secondary border-opacity-10"><a href="${esc(repo.html_url)}" target="_blank" rel="noopener" class="small text-primary">${esc(String(repo.name || '').toUpperCase())}</a></div>`).join('');
     } catch { container.innerHTML = 'OFFLINE'; }
 }
 

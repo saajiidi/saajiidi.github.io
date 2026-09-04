@@ -3,7 +3,7 @@
  * PWA Support for offline functionality with Network-First strategy for updates
  */
 
-const CACHE_NAME = 'tactical-intel-v5';
+const CACHE_NAME = 'tactical-intel-v7';
 
 // Only cache HTML entry points and the manifest.
 // Vite-bundled CSS/JS live under dist/assets/ with content-hashed filenames,
@@ -13,22 +13,21 @@ const STATIC_ASSETS = [
     '/index.html',
     '/theme-sketchbook.html',
     '/theme-tactical.html',
-    '/theme-ironforge.html',
     '/resume.html',
     '/manifest.json',
     '/img/profile.jpg',
     '/img/icon.png'
 ];
 
-// Install: Cache static assets
+// Install: Cache static assets (one 404 must not abort the whole install)
 self.addEventListener('install', (event) => {
     console.log('[SW] Installing Tactical Service Worker V2...');
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then((cache) => {
-                console.log('[SW] Caching static assets');
-                return cache.addAll(STATIC_ASSETS);
-            })
+            .then((cache) => Promise.allSettled(
+                STATIC_ASSETS.map(url => cache.add(url).catch(err =>
+                    console.warn('[SW] skip cache:', url, err.message)))
+            ))
             .then(() => self.skipWaiting())
     );
 });

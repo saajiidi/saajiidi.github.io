@@ -6,18 +6,7 @@
 
 import { LOCAL_INTEL } from './data/index.js';
 
-const userTelemetry = { ip: "UNKNOWN", os: "DETECTION_FAILED" };
-
-(async function() {
-    try {
-        const response = await fetch('https://api.ipify.org?format=json');
-        const data = await response.json();
-        userTelemetry.ip = data.ip;
-    } catch { /* IP fetch bypassed */ }
-
-    const osMatch = navigator.userAgent.match(/\(([^)]+)\)/);
-    if (osMatch) userTelemetry.os = osMatch[1];
-})();
+// No visitor telemetry: chatbot runs fully locally, no IP/OS collection.
 
 // SECURITY: No default API keys are stored here.
 const DEFAULT_GEMINI_KEY = null;
@@ -236,23 +225,31 @@ export function initAiChat() {
     function showQuickActions() {
         const actions = document.createElement('div');
         actions.className = 'ai-quick-actions';
+        const waDigits = (LOCAL_INTEL.contact.whatsapp || '').replace(/\D/g, '');
+        const waUrl = `https://wa.me/${waDigits}?text=Hi%20Sajid%2C%20I%20found%20your%20portfolio.`;
+        const tgUrl = (LOCAL_INTEL.contact.telegram && !LOCAL_INTEL.contact.telegram.includes('*'))
+            ? LOCAL_INTEL.contact.telegram : null;
         actions.innerHTML = `
             <button class="ai-quick-btn" onclick="window.open('resume.html', '_blank')">
                 <i class="fas fa-file-pdf"></i> Resume
             </button>
-            <button class="ai-quick-btn" onclick="window.open('https://wa.me/+8801824526054?text=Hi%20Sajid%2C%20I%20found%20your%20portfolio.', '_blank')">
+            <button class="ai-quick-btn" data-qa="wa">
                 <i class="fab fa-whatsapp"></i> WhatsApp
             </button>
-            <button class="ai-quick-btn" onclick="window.open('https://t.me/+8801824526054', '_blank')">
+            ${tgUrl ? `<button class="ai-quick-btn" data-qa="tg">
                 <i class="fab fa-telegram"></i> Telegram
-            </button>
-            <button class="ai-quick-btn" onclick="window.open('https://github.com/Sajid-ul-Islam', '_blank')">
+            </button>` : ''}
+            <button class="ai-quick-btn" onclick="window.open('${LOCAL_INTEL.contact.github}', '_blank')">
                 <i class="fab fa-github"></i> GitHub
             </button>
-            <button class="ai-quick-btn" onclick="window.open('https://www.linkedin.com/in/sajidislamchowdhury/', '_blank')">
+            <button class="ai-quick-btn" onclick="window.open('${LOCAL_INTEL.contact.linkedin}', '_blank')">
                 <i class="fab fa-linkedin"></i> LinkedIn
             </button>
         `;
+        const waBtn = actions.querySelector('[data-qa="wa"]');
+        if (waBtn) waBtn.addEventListener('click', () => window.open(waUrl, '_blank'));
+        const tgBtn = actions.querySelector('[data-qa="tg"]');
+        if (tgBtn) tgBtn.addEventListener('click', () => window.open(tgUrl, '_blank'));
         body.appendChild(actions);
         body.scrollTop = body.scrollHeight;
     }

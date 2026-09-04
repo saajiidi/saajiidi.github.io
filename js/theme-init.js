@@ -74,9 +74,14 @@ function patchLinks() {
   // WhatsApp — href on any wa.me links or .footer-whatsapp
   document.querySelectorAll('a[href*="wa.me"], a.footer-whatsapp').forEach(a => { a.href = wa; });
 
-  // Telegram — href on any t.me links
-  if (PROFILE_INFO.telegram) {
+  // Telegram — href on any t.me links (skip if contact is a masked placeholder)
+  if (PROFILE_INFO.telegram && !PROFILE_INFO.telegram.includes('*')) {
     document.querySelectorAll('a[href*="t.me"]').forEach(a => { a.href = PROFILE_INFO.telegram; });
+  } else {
+    // Hide dead telegram buttons rather than linking to a placeholder
+    document.querySelectorAll('a[href*="t.me"]').forEach(a => {
+      if ((a.getAttribute('href') || '').includes('*')) a.style.display = 'none';
+    });
   }
 
   // Email — mailto: links or .footer-email

@@ -155,10 +155,13 @@ export function initLiveSearch(tacticalData) {
         matches.forEach(match => {
             const resultItem = document.createElement('div');
             resultItem.className = 'search-result-item';
-            resultItem.innerHTML = `
-            <div class="search-result-type">${match.type}</div>
-            <div class="search-result-title">${match.title}</div>
-          `;
+            const typeEl = document.createElement('div');
+            typeEl.className = 'search-result-type';
+            typeEl.textContent = match.type;
+            const titleEl = document.createElement('div');
+            titleEl.className = 'search-result-title';
+            titleEl.textContent = match.title;
+            resultItem.append(typeEl, titleEl);
             resultItem.addEventListener('click', () => {
                 const target = document.getElementById(match.section);
                 if (target) {

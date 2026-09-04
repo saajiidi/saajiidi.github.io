@@ -516,7 +516,7 @@ if (typeof window !== 'undefined') {
       const icon = document.getElementById('themeToggleIcon');
       if (icon) icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
     };
-    // Single canonical key shared by ALL themes (sketchbook / tactical / ironforge)
+    // Single canonical key shared by ALL themes (sketchbook / tactical)
     // so switching on one page carries to the others.
     const THEME_KEY = 'tactical-theme';
     const saved = localStorage.getItem(THEME_KEY) || 'dark';

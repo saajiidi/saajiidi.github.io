@@ -27,7 +27,6 @@ This approach guarantees that:
 ## Current Themes
 - **Sketchbook Ink** (`theme-sketchbook.html`): High-aesthetic hand-drawn sketch dashboard built using Tailwind and SVG filters.
 - **Tactical HUD** (`theme-tactical.html`): Dark terminal hacker grid style built with Bootstrap and canvas telemetry.
-- **Ironforge Studio** (`theme-ironforge.html`): Premium athletic strength style with card flipping, custom reels, and bold headers.
 
 ---
 
@@ -42,7 +41,6 @@ If a developer needs to add a new theme layout (e.g., `theme-cyberpunk.html`):
 3. **Add Navigation Switcher**: Put the Theme switcher dropdown/links in your navigation bar, referencing the separate HTML files:
    - `theme-sketchbook.html`
    - `theme-tactical.html`
-   - `theme-ironforge.html`
    - `theme-cyberpunk.html`
    Remember to update the dropdown switcher list in all other themes too.
 4. **Initialize Switcher & Tracking**: At the end of your theme's script block, register the teardrop ripple handler and trace the active file:
