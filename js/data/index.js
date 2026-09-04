@@ -146,28 +146,27 @@ export const EXPERIENCES = [
 // ===== PROJECTS =====
 export const PROJECTS = [
   {
-    id: 'deakho',
-    title: 'Deakho — Live TV & Entertainment Platform',
-    description: 'A modern Live TV & Entertainment streaming platform featuring a Telegram Mini App for channel browsing, scheduling, and notifications. Built with React, TypeScript, and Node.js.',
+    id: 'langgraph-demo',
+    title: 'LangGraph — Stateful Multi-Agent Workflow',
+    description: 'Stateful multi-agent AI workflow with LangGraph StateGraph — researcher → writer → reviewer with conditional loops and shared state, built on LangChain. Mock-ready with real LLM toggle.',
     image: '/img/projects/streamlit-hub.png',
-    liveUrl: 'https://deakho.vercel.app/',
-    telegramUrl: 'https://t.me/deakhoBot',
-    githubUrl: 'https://github.com/Sajid-ul-Islam/Deakho',
+    liveUrl: 'https://github.com/Sajid-ul-Islam/langgraph-demo',
+    githubUrl: 'https://github.com/Sajid-ul-Islam/langgraph-demo',
     featured: true,
-    technologies: ['React', 'TypeScript', 'Node.js', 'Telegram Mini App', 'Vercel'],
-    category: 'web-app',
+    technologies: ['Python', 'LangGraph', 'LangChain', 'StateGraph', 'OpenAI'],
+    category: 'ai',
     caseStudy: {
-      role: 'Full-Stack Developer & Architect',
-      timeline: '2025',
-      problem: 'Users needed a seamless way to browse live TV channels, schedules, and receive notifications — all within their messaging platform.',
-      solution: 'Built a cross-platform live TV & entertainment platform with a Telegram Mini App frontend, enabling channel discovery, scheduling, and real-time notifications.',
+      role: 'AI Engineer & Architect',
+      timeline: '2026',
+      problem: 'Needed a stateful, loop-aware multi-agent system that could research, draft, and review with conditional revision — beyond simple chains.',
+      solution: 'Built a StateGraph with TypedDict state, 3 nodes (researcher → writer → reviewer) and conditional edges that loop until approved, with add_messages reducer.',
       impact: [
-        'Provided instant access to live TV channels via Telegram.',
-        'Delivered an intuitive Mini App interface for browsing and scheduling.'
+        'Demonstrates LangGraph loops, branching, and shared state.',
+        'Mock-ready workflow with real LLM toggle via ChatOpenAI.'
       ],
       metrics: [
-        { label: 'Platform', value: 'Web + Telegram' },
-        { label: 'Tech Stack', value: 'React / TypeScript / Node.js' }
+        { label: 'Graph', value: 'StateGraph (3 nodes + loop)' },
+        { label: 'Tech Stack', value: 'Python / LangGraph / LangChain' }
       ]
     }
   },

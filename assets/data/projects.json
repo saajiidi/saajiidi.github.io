@@ -1,5 +1,15 @@
 [
   {
+    "id": "langgraph-demo",
+    "title": "LangGraph — Stateful Multi-Agent Workflow",
+    "description": "Stateful multi-agent AI workflow with LangGraph StateGraph — researcher → writer → reviewer with conditional loops and shared state, built on LangChain. Mock-ready with real LLM toggle.",
+    "tags": ["ai", "automation"],
+    "technologies": ["Python", "LangGraph", "LangChain", "StateGraph"],
+    "links": [
+      {"label": "GitHub Repo", "url": "https://github.com/Sajid-ul-Islam/langgraph-demo"}
+    ]
+  },
+  {
     "id": "deen-commerce",
     "title": "DEEN Commerce — Cross-Platform E-commerce Suite",
     "description": "Bangladesh's first denim brand — DEEN, built as a modern full-stack e-commerce suite with React Native (Expo), Fastify + WooCommerce Gateway API, and a Next.js 14 web storefront.",
@@ -9,18 +19,6 @@
       {"label": "Website", "url": "https://deencommerce.com"},
       {"label": "GitHub Repo", "url": "https://github.com/Sajid-ul-Islam/Cross_Ecom_Apps"},
       {"label": "Docs", "url": "https://sajid-ul-islam.github.io/Cross_Ecom_Apps"}
-    ]
-  },
-  {
-    "id": "deakho-tv",
-    "title": "Dekho — Live TV & Entertainment Platform",
-    "description": "A modern Live TV & Entertainment streaming platform with a Telegram Mini App for channel browsing, scheduling, and notifications.",
-    "tags": ["frontend", "telegram"],
-    "technologies": ["React", "TypeScript", "Node.js", "Telegram", "Vercel"],
-    "links": [
-      {"label": "Web App", "url": "https://deakho.vercel.app/"},
-      {"label": "Telegram Bot", "url": "https://t.me/deakhoBot"},
-      {"label": "GitHub Repo", "url": "https://github.com/Sajid-ul-Islam/Deakho"}
     ]
   },
   {
