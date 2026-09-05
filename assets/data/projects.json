@@ -22,8 +22,8 @@
     ]
   },
   {
-    "id": "esco-bot",
-    "title": "ESCO Electricity Usage Assistant Bot",
+    "id": "desco-bot",
+    "title": "DESCO Electricity Usage Assistant Bot",
     "description": "Interactive Telegram chatbot for DESCO electricity subscribers to track electricity usage, account details, and billing intel.",
     "tags": ["automation", "telegram"],
     "technologies": ["Python", "Telegram Bot API", "Chatbot"],
