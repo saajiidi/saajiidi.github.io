@@ -9,7 +9,7 @@
 
     --header-height: 80px;
     --sidenav-width: 260px;
-    --transition-standard: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-standard: transform 0.22s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.2s ease-out, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 [data-theme="light"] {
@@ -396,7 +396,7 @@ p,
 .reveal {
     opacity: 0;
     transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal-active {
@@ -438,7 +438,7 @@ h2::after {
 a {
     color: var(--accent-color);
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: color 0.16s ease, text-decoration-color 0.16s ease;
 }
 
 a:hover {
@@ -448,31 +448,36 @@ a:hover {
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 6px;
+    /* Thinner scrollbar */
+    height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--bg-dark);
+    background: #000;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--secondary-color);
+    background: #222;
+    border-radius: 0;
 }
 
-/* Force Navbar Icon Colors based on inverted theme */
-.navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
 }
 
-/* Sidebar Styling */
-/* Sidebar Styling */
+/* Redesign SideNav & Navbar */
 #sideNav {
-    background-color: var(--sidenav-bg);
-    border-right: var(--glass-border);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
+    background: #000 !important;
+    border-right: 1px solid #111 !important;
+    box-shadow: none !important;
     z-index: 1040;
-    /* Ensure it stays above content */
+}
+
+#sideNav .navbar-brand {
+    padding: 1.5rem 0.5rem;
+    border-bottom: 1px solid #111;
+    margin-bottom: 1rem;
 }
 
 #sideNav .navbar-brand .img-profile {
@@ -495,18 +500,23 @@ a:hover {
     /* More spacing */
     border-radius: 8px;
     /* Rounded corners for hover effect */
-    transition: all 0.3s ease;
+    transition: color 0.16s ease, background-color 0.16s ease, transform 0.16s cubic-bezier(0.23, 1, 0.32, 1);
     margin: 0.2rem 1rem;
     /* Spacing between links */
 }
 
-#sideNav .navbar-nav .nav-item .nav-link:hover,
+@media (hover: hover) and (pointer: fine) {
+    #sideNav .navbar-nav .nav-item .nav-link:hover {
+        color: var(--primary-color);
+        background: rgba(249, 115, 22, 0.1);
+        transform: translateX(5px);
+    }
+}
+
 #sideNav .navbar-nav .nav-item .nav-link.active {
     color: var(--primary-color);
     background: rgba(249, 115, 22, 0.1);
-    /* Subtle background on hover - Indigo-based to match primary */
     transform: translateX(5px);
-    /* Slight movement */
 }
 
 /* Mobile: Center Items */
@@ -644,8 +654,12 @@ a:hover {
     align-items: center;
     justify-content: center;
     box-shadow: 0 0 10px rgba(22, 101, 52, 0.2);
-    transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+    transition: transform 0.16s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.2s ease, background-color 0.2s ease;
     cursor: pointer;
+}
+
+.md-fab:active {
+    transform: scale(0.95);
 }
 
 [data-theme="light"] .md-fab {
@@ -688,13 +702,18 @@ a:hover {
     transform: translateY(-1px);
 }
 
-/* Ripple Effect Base */
+.btn-primary:active {
+    transform: scale(0.96);
+}
+
+/* Ripple Effect Base (Emil Kowalski Rule: Avoid scale(0) start) */
 .ripple {
     position: absolute;
     background: rgba(255, 255, 255, 0.3);
     border-radius: 50%;
-    transform: scale(0);
-    animation: ripple-animation 0.6s linear;
+    transform: scale(0.1);
+    opacity: 0.6;
+    animation: ripple-animation 0.5s ease-out;
     pointer-events: none;
 }
 
@@ -923,8 +942,12 @@ a:hover {
     font-weight: 600;
     font-size: 0.85rem;
     text-transform: capitalize;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color 0.16s ease, border-color 0.16s ease, transform 0.16s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.16s ease;
     border-width: 2px;
+}
+
+.project-filters .btn:active {
+    transform: scale(0.96);
 }
 
 .project-filters .btn-primary {
@@ -934,9 +957,11 @@ a:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
-.project-filters .btn-outline-primary:hover {
-    background: rgba(249, 115, 22, 0.1);
-    transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+    .project-filters .btn-outline-primary:hover {
+        background: rgba(249, 115, 22, 0.1);
+        transform: translateY(-2px);
+    }
 }
 
 /* Interest Cards: Side-by-Side Layout */
@@ -956,9 +981,11 @@ a:hover {
     height: 100%;
 }
 
-.interest-card:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.05);
+@media (hover: hover) and (pointer: fine) {
+    .interest-card:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.05);
+    }
 }
 
 .interest-icon {
@@ -1000,7 +1027,7 @@ a:hover {
     margin-bottom: 2rem;
     border-radius: 0 !important;
     /* Sharp corners */
-    transition: all 0.2s ease;
+    transition: border-color 0.2s ease, transform 0.2s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.2s ease, background-color 0.2s ease;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -1137,16 +1164,22 @@ a:hover {
     border-radius: 12px;
     color: var(--text-secondary);
     font-size: 1.25rem;
-    transition: all 0.3s ease;
+    transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
     text-decoration: none;
 }
 
-.social-icons-modern .social-link:hover {
-    background: var(--primary-color);
-    color: white;
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px -5px rgba(249, 115, 22, 0.4);
-    border-color: var(--primary-color);
+@media (hover: hover) and (pointer: fine) {
+    .social-icons-modern .social-link:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px -5px rgba(249, 115, 22, 0.4);
+        border-color: var(--primary-color);
+    }
+}
+
+.social-icons-modern .social-link:active {
+    transform: scale(0.95);
 }
 
 /* Refined Skill Progress Bars */
@@ -1174,26 +1207,27 @@ a:hover {
     background: var(--glass-bg);
     border: var(--glass-border);
     border-radius: 20px;
-    transition: all 0.3s ease;
+    transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.2s ease, background-color 0.2s ease;
     height: 100%;
 }
 
-.tech-skill-card:hover {
-    background: rgba(255, 255, 255, 0.03);
-    border-color: var(--primary-color);
-    transform: translateY(-5px);
+@media (hover: hover) and (pointer: fine) {
+    .tech-skill-card:hover {
+        background: rgba(255, 255, 255, 0.03);
+        border-color: var(--primary-color);
+        transform: translateY(-5px);
+    }
+
+    .tech-skill-card:hover i {
+        opacity: 1;
+        transform: scale(1.1);
+    }
 }
 
 .tech-skill-card i {
     opacity: 0.8;
-    transition: all 0.3s ease;
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
-
-.tech-skill-card:hover i {
-    opacity: 1;
-    transform: scale(1.1);
-}
-
 
 /* Social Icons */
 .social-icons a {
@@ -1207,14 +1241,20 @@ a:hover {
     border-radius: 50%;
     font-size: 1.5rem;
     margin-right: 1rem;
-    transition: all 0.3s ease;
+    transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.2s ease, color 0.2s ease;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.social-icons a:hover {
-    background-color: var(--primary-color);
-    color: white;
-    transform: translateY(-3px);
+@media (hover: hover) and (pointer: fine) {
+    .social-icons a:hover {
+        background-color: var(--primary-color);
+        color: white;
+        transform: translateY(-3px);
+    }
+}
+
+.social-icons a:active {
+    transform: scale(0.95);
 }
 
 /* Skills */
@@ -1325,7 +1365,7 @@ a:hover {
     cursor: pointer;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s ease;
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.2s ease;
     z-index: 1000;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     border: none;
@@ -1336,10 +1376,16 @@ a:hover {
     visibility: visible;
 }
 
-.back-to-top:hover {
-    background: var(--primary-dark);
-    transform: translateY(-5px);
-    color: white;
+@media (hover: hover) and (pointer: fine) {
+    .back-to-top:hover {
+        background: var(--primary-dark);
+        transform: translateY(-5px);
+        color: white;
+    }
+}
+
+.back-to-top:active {
+    transform: scale(0.95);
 }
 
 /* Productivity: Search Bar in Sidebar */
@@ -1355,7 +1401,7 @@ a:hover {
     color: white;
     padding: 0.5rem 1rem;
     width: 100%;
-    transition: all 0.3s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .sidebar-search input:focus {
@@ -1391,16 +1437,22 @@ a:hover {
     font-size: 0.65rem;
     font-weight: 600;
     text-decoration: none !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: color 0.16s ease, transform 0.16s cubic-bezier(0.23, 1, 0.32, 1);
     position: relative;
     padding: 0.5rem 0;
     min-width: 60px;
+    min-height: 44px;
+    justify-content: center;
+}
+
+.mobile-nav-item:active {
+    transform: scale(0.95);
 }
 
 .mobile-nav-item i {
     font-size: 1.3rem;
     margin-bottom: 4px;
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
 }
 
 .mobile-nav-item.active {
@@ -1470,7 +1522,7 @@ a:hover {
         background-color: var(--text-primary);
         position: relative;
         display: block;
-        transition: all 0.3s ease;
+        transition: transform 0.22s ease, background-color 0.2s ease;
     }
 
     .navbar-toggler-icon::before,
@@ -1481,7 +1533,7 @@ a:hover {
         background-color: var(--text-primary);
         position: absolute;
         left: 0;
-        transition: all 0.3s ease;
+        transition: transform 0.22s ease, top 0.22s ease;
     }
 
     .navbar-toggler-icon::before {
@@ -1672,13 +1724,15 @@ a:hover {
     /* Diamond shape */
     z-index: 10;
     box-shadow: 0 0 10px var(--primary-color);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.timeline-item:hover .timeline-dot {
-    background: var(--primary-color);
-    transform: translateX(-50%) rotate(45deg) scale(1.5);
-    box-shadow: 0 0 20px var(--primary-color);
+@media (hover: hover) and (pointer: fine) {
+    .timeline-item:hover .timeline-dot {
+        background: var(--primary-color);
+        transform: translateX(-50%) rotate(45deg) scale(1.5);
+        box-shadow: 0 0 20px var(--primary-color);
+    }
 }
 
 .resume-date {
@@ -1707,12 +1761,14 @@ a:hover {
     height: 1px;
     background: rgba(255, 255, 255, 0.1);
     z-index: 1;
-    transition: all 0.3s ease;
+    transition: width 0.2s ease, background-color 0.2s ease;
 }
 
-.timeline-item:hover::after {
-    background: var(--primary-color);
-    width: 1.8rem;
+@media (hover: hover) and (pointer: fine) {
+    .timeline-item:hover::after {
+        background: var(--primary-color);
+        width: 1.8rem;
+    }
 }
 
 /* Adjust resume-item for timeline usage */

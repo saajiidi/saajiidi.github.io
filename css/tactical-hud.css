@@ -19,7 +19,12 @@
     --radius-lg: 14px;
     --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
     --shadow-card-hover: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(var(--primary-color-rgb), 0.15);
-    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    /* Emil Kowalski & Jakub Krehel High-Performance Curves & Specific Transitions */
+    --ease-out-tactical: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+    --transition-smooth: transform 0.24s var(--ease-out-tactical), opacity 0.2s ease-out, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    --transition-fast: transform 0.16s var(--ease-out-tactical), opacity 0.16s ease-out, background-color 0.16s ease;
 }
 
 /* --- TACTICAL SCROLLBAR --- */
@@ -345,7 +350,7 @@
     border-style: solid;
     opacity: 0.3;
     pointer-events: none;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: top 0.22s var(--ease-out-tactical), bottom 0.22s var(--ease-out-tactical), left 0.22s var(--ease-out-tactical), right 0.22s var(--ease-out-tactical), width 0.22s ease, height 0.22s ease, opacity 0.2s ease;
 }
 
 .card-glass::before {
@@ -361,20 +366,22 @@
 }
 
 /* --- Animated Target Lock on Hover --- */
-.card-glass:hover::before {
-    top: -1px;
-    left: -1px;
-    width: 14px;
-    height: 14px;
-    opacity: 0.6;
-}
+@media (hover: hover) and (pointer: fine) {
+    .card-glass:hover::before {
+        top: -1px;
+        left: -1px;
+        width: 14px;
+        height: 14px;
+        opacity: 0.6;
+    }
 
-.card-glass:hover::after {
-    bottom: -1px;
-    right: -1px;
-    width: 14px;
-    height: 14px;
-    opacity: 0.6;
+    .card-glass:hover::after {
+        bottom: -1px;
+        right: -1px;
+        width: 14px;
+        height: 14px;
+        opacity: 0.6;
+    }
 }
 
 /* --- Theme Toggle --- */
@@ -771,14 +778,22 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: color 0.16s ease, background-color 0.16s ease, border-color 0.16s ease, transform 0.16s var(--ease-out-tactical);
     border-bottom: 2px solid transparent;
     white-space: nowrap;
 }
-.cc-tab:hover {
-    color: var(--primary-light);
-    background: rgba(var(--primary-color-rgb), 0.05);
+
+@media (hover: hover) and (pointer: fine) {
+    .cc-tab:hover {
+        color: var(--primary-light);
+        background: rgba(var(--primary-color-rgb), 0.05);
+    }
 }
+
+.cc-tab:active {
+    transform: scale(0.96);
+}
+
 .cc-tab.active {
     color: var(--primary-color);
     border-bottom-color: var(--primary-color);
@@ -844,18 +859,20 @@
     justify-content: center;
     z-index: 2100;
     cursor: pointer;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.22s var(--ease-out-tactical), box-shadow 0.22s ease;
     box-shadow:
         0 4px 15px rgba(var(--primary-color-rgb), 0.4),
         0 0 0 0 rgba(var(--primary-color-rgb), 0.3);
     overflow: visible;
 }
 
-.ai-chat-toggle:hover {
-    transform: scale(1.08) translateY(-2px);
-    box-shadow:
-        0 8px 25px rgba(var(--primary-color-rgb), 0.5),
-        0 0 0 4px rgba(var(--primary-color-rgb), 0.15);
+@media (hover: hover) and (pointer: fine) {
+    .ai-chat-toggle:hover {
+        transform: scale(1.08) translateY(-2px);
+        box-shadow:
+            0 8px 25px rgba(var(--primary-color-rgb), 0.5),
+            0 0 0 4px rgba(var(--primary-color-rgb), 0.15);
+    }
 }
 
 .ai-chat-toggle:active {
@@ -1061,7 +1078,7 @@
     justify-content: center;
     opacity: 0;
     pointer-events: none;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.22s ease-out;
 }
 
 .portfolio-bridge-overlay.active {
@@ -1087,8 +1104,9 @@
     max-width: 1400px;
     display: flex;
     flex-direction: column;
-    transform: scale(0.9) translateY(20px);
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: scale(0.96) translateY(12px);
+    opacity: 0;
+    transition: transform 0.25s var(--ease-out-tactical), opacity 0.22s ease-out;
     border: 1px solid var(--primary-color);
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(22, 101, 52, 0.2);
     overflow: hidden;
@@ -1098,7 +1116,9 @@
 
 .portfolio-bridge-overlay.active .bridge-window {
     transform: scale(1) translateY(0);
+    opacity: 1;
 }
+
 
 .bridge-header {
     height: 60px;
@@ -1154,15 +1174,21 @@
     color: #25D366;
     text-decoration: none;
     font-size: 1rem;
-    transition: all 0.2s ease;
+    transition: transform 0.16s var(--ease-out-tactical), background-color 0.2s ease, box-shadow 0.2s ease;
     border: 1px solid rgba(37, 211, 102, 0.25);
 }
 
-.chat-wa-btn:hover {
-    background: #25D366;
-    color: #fff;
-    box-shadow: 0 0 12px rgba(37, 211, 102, 0.4);
-    transform: scale(1.08);
+@media (hover: hover) and (pointer: fine) {
+    .chat-wa-btn:hover {
+        background: #25D366;
+        color: #fff;
+        box-shadow: 0 0 12px rgba(37, 211, 102, 0.4);
+        transform: scale(1.08);
+    }
+}
+
+.chat-wa-btn:active {
+    transform: scale(0.95);
 }
 
 /* WhatsApp suggestion chip */
@@ -1185,10 +1211,16 @@
     color: #0088cc;
 }
 
-.chat-tg-btn:hover {
-    background: #0088cc;
-    color: #fff;
-    box-shadow: 0 0 12px rgba(0, 136, 204, 0.4);
+@media (hover: hover) and (pointer: fine) {
+    .chat-tg-btn:hover {
+        background: #0088cc;
+        color: #fff;
+        box-shadow: 0 0 12px rgba(0, 136, 204, 0.4);
+    }
+}
+
+.chat-tg-btn:active {
+    transform: scale(0.95);
 }
 
 /* Telegram suggestion chip */
@@ -1220,12 +1252,18 @@
     padding: 0 15px;
     cursor: pointer;
     font-size: 1.1rem;
-    transition: all 0.3s;
+    transition: transform 0.16s var(--ease-out-tactical), color 0.2s ease;
 }
 
-.btn-ai-send:hover {
-    color: var(--primary-light);
-    transform: scale(1.1);
+@media (hover: hover) and (pointer: fine) {
+    .btn-ai-send:hover {
+        color: var(--primary-light);
+        transform: scale(1.1);
+    }
+}
+
+.btn-ai-send:active {
+    transform: scale(0.95);
 }
 
 .ai-message.system.loading {
@@ -1274,21 +1312,28 @@
     font-size: 0.7rem;
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease, transform 0.16s var(--ease-out-tactical);
     font-family: var(--font-mono);
     margin-left: 8px;
+    min-height: 28px;
 }
 
-.btn-bridge-ctrl:hover {
-    background: rgba(22, 101, 52, 0.2);
-    border-color: var(--primary-color);
-    color: var(--primary-light);
+@media (hover: hover) and (pointer: fine) {
+    .btn-bridge-ctrl:hover {
+        background: rgba(22, 101, 52, 0.2);
+        border-color: var(--primary-color);
+        color: var(--primary-light);
+    }
+
+    .btn-bridge-ctrl.btn-exit:hover {
+        background: #ef4444;
+        border-color: #ef4444;
+        color: #fff;
+    }
 }
 
-.btn-bridge-ctrl.btn-exit:hover {
-    background: #ef4444;
-    border-color: #ef4444;
-    color: #fff;
+.btn-bridge-ctrl:active {
+    transform: scale(0.95);
 }
 
 .bridge-window.maximized {
@@ -1315,7 +1360,7 @@
 
 .command-palette.active {
     display: flex;
-    animation: fadeIn 0.3s ease;
+    animation: fadeIn 0.2s ease;
 }
 
 .palette-backdrop {
@@ -1365,7 +1410,7 @@
     color: #94a3b8;
     cursor: pointer;
     border-radius: 4px;
-    transition: all 0.2s;
+    transition: background-color 0.1s ease, color 0.1s ease;
     display: flex;
     justify-content: space-between;
 }
@@ -1652,24 +1697,30 @@ body {
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    transition: all 0.3s ease;
+    transition: transform 0.2s var(--ease-out-tactical), background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .bridge-taskbar.active {
     display: flex;
     align-items: center;
-    animation: slideInLeft 0.5s ease forwards;
+    animation: slideInLeft 0.35s var(--ease-out-tactical) forwards;
 }
 
-.bridge-taskbar:hover {
-    background: var(--primary-color);
-    color: var(--bg-page);
-    box-shadow: 0 0 20px var(--primary-color);
+@media (hover: hover) and (pointer: fine) {
+    .bridge-taskbar:hover {
+        background: var(--primary-color);
+        color: var(--bg-page);
+        box-shadow: 0 0 20px var(--primary-color);
+    }
+}
+
+.bridge-taskbar:active {
+    transform: scale(0.96);
 }
 
 @keyframes slideInLeft {
     from {
-        transform: translateX(-50px);
+        transform: translateX(-30px);
         opacity: 0;
     }
 
@@ -1702,12 +1753,19 @@ body {
     font-size: 0.72rem;
     text-transform: uppercase;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: color 0.16s ease, border-color 0.16s ease, background-color 0.16s ease, transform 0.16s var(--ease-out-tactical);
     white-space: nowrap;
+    min-height: 34px;
 }
 
-.terminal-tab:hover {
-    color: #fff;
+@media (hover: hover) and (pointer: fine) {
+    .terminal-tab:hover {
+        color: #fff;
+    }
+}
+
+.terminal-tab:active {
+    transform: scale(0.96);
 }
 
 .terminal-tab.active {
@@ -1795,13 +1853,19 @@ body {
     justify-content: center;
     font-size: 0.7rem;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: transform 0.16s var(--ease-out-tactical), box-shadow 0.2s ease;
     box-shadow: 0 0 10px var(--primary-color);
 }
 
-.btn-music-play:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px var(--primary-light);
+@media (hover: hover) and (pointer: fine) {
+    .btn-music-play:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px var(--primary-light);
+    }
+}
+
+.btn-music-play:active {
+    transform: scale(0.92);
 }
 
 /* --- 3D SKILL CLUSTER CONTAINER --- */
@@ -1876,7 +1940,7 @@ body {
     padding: 0 5px;
     cursor: pointer;
     line-height: 1;
-    transition: all 0.2s;
+    transition: color 0.16s ease, text-shadow 0.16s ease;
 }
 
 .bottom-terminal .btn-terminal-max:hover {
@@ -1896,16 +1960,28 @@ body {
     align-items: center;
     gap: 4px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: color 0.16s ease, border-color 0.16s ease, background-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s var(--ease-out-tactical);
     line-height: 1.2;
 }
 
-.status-btn:hover,
+@media (hover: hover) and (pointer: fine) {
+    .status-btn:hover {
+        color: var(--primary-light);
+        border-color: var(--primary-color);
+        background: rgba(var(--primary-color-rgb), 0.15);
+        box-shadow: 0 0 8px rgba(var(--primary-color-rgb), 0.25);
+    }
+}
+
 .status-btn.active {
     color: var(--primary-light);
     border-color: var(--primary-color);
     background: rgba(var(--primary-color-rgb), 0.15);
     box-shadow: 0 0 8px rgba(var(--primary-color-rgb), 0.25);
+}
+
+.status-btn:active {
+    transform: scale(0.96);
 }
 
 .terminal-quick-chips {
@@ -1921,14 +1997,16 @@ body {
     padding: 2px 7px;
     border-radius: 3px;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: transform 0.16s var(--ease-out-tactical), background-color 0.16s ease, color 0.16s ease, box-shadow 0.16s ease;
 }
 
-.quick-chip:hover {
-    background: var(--primary-color);
-    color: #000;
-    box-shadow: 0 0 8px var(--primary-color);
-    transform: translateY(-1px);
+@media (hover: hover) and (pointer: fine) {
+    .quick-chip:hover {
+        background: var(--primary-color);
+        color: #000;
+        box-shadow: 0 0 8px var(--primary-color);
+        transform: translateY(-1px);
+    }
 }
 
 .quick-chip:active {
@@ -1942,13 +2020,19 @@ body {
     padding: 2px 8px !important;
     font-size: 0.65rem !important;
     border-radius: 3px !important;
-    transition: all 0.2s ease !important;
+    transition: transform 0.16s var(--ease-out-tactical), background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease !important;
 }
 
-.workbench-preset-chip:hover {
-    color: var(--primary-light) !important;
-    border-color: var(--primary-color) !important;
-    background: rgba(var(--primary-color-rgb), 0.1) !important;
+@media (hover: hover) and (pointer: fine) {
+    .workbench-preset-chip:hover {
+        color: var(--primary-light) !important;
+        border-color: var(--primary-color) !important;
+        background: rgba(var(--primary-color-rgb), 0.1) !important;
+    }
+}
+
+.workbench-preset-chip:active {
+    transform: scale(0.96) !important;
 }
 
 .workbench-preset-chip.active {
@@ -2002,7 +2086,7 @@ body {
     cursor: pointer;
     overflow: hidden;
     min-height: 80px;
-    transition: all 0.3s ease;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .redacted-text {
@@ -2674,5 +2758,62 @@ body {
         height: 45px;
         background-color: rgba(var(--primary-color-rgb), 0.1);
         border-color: rgba(var(--primary-color-rgb), 0.8);
+    }
+}
+
+/* ==========================================================================
+   DESIGN ENGINEERING: ACCESSIBILITY & MOTION RESTRAINT
+   (Emil Kowalski & Jakub Krehel Curated Rules)
+   ========================================================================== */
+
+/* 1. Motion Restraint & Reduced Motion (Vestibular Protection) */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .radar-sweep,
+    .scanner-line,
+    .crt-overlay::after,
+    .chat-pulse-ring,
+    .pulse-glow {
+        display: none !important;
+        animation: none !important;
+    }
+
+    .card-glass::before,
+    .card-glass::after,
+    .bridge-window,
+    .bottom-terminal,
+    .portfolio-bridge-overlay {
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+/* 2. Touch Hit-Area Compliance (Min 40-44px Touch Targets on Mobile) */
+@media (max-width: 768px) {
+    .sys-status-btn,
+    .status-btn,
+    .quick-chip,
+    .filter-btn,
+    .btn-terminal-min,
+    .btn-terminal-close,
+    .btn-terminal-max {
+        min-height: 40px;
+        min-width: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .fab-item {
+        min-width: 44px;
+        min-height: 44px;
     }
 }

@@ -306,7 +306,7 @@ a:hover, button:hover, .nav-link:hover, .btn:hover,
     gap: 1rem;
     padding: 0.75rem 1.5rem;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: background-color 0.1s ease, border-left-color 0.1s ease;
     border-left: 3px solid transparent;
 }
 
@@ -506,13 +506,17 @@ a:hover, button:hover, .nav-link:hover, .btn:hover,
     width: 32px;
     height: 32px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.16s ease, color 0.16s ease, transform 0.16s var(--ease-out-tactical, cubic-bezier(0.23, 1, 0.32, 1));
     font-family: var(--font-mono);
 }
 
 .testimonial-btn:hover {
     background: var(--primary-color);
     color: #000;
+}
+
+.testimonial-btn:active {
+    transform: scale(0.95);
 }
 
 .testimonial-dots {
@@ -524,7 +528,7 @@ a:hover, button:hover, .nav-link:hover, .btn:hover,
     width: 8px;
     height: 8px;
     background: rgba(163, 230, 53, 0.3);
-    transition: all 0.3s ease;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .testimonial-dots .dot.active {
@@ -583,11 +587,17 @@ html[data-theme] .zen-toggle {
 
 /* ===== 11. ENHANCED HOVER EFFECTS ===== */
 a, button, .btn, .nav-link, .social-link, .filter-btn {
-    transition: all 0.2s ease;
+    transition: color 0.16s ease, background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s var(--ease-out-tactical, cubic-bezier(0.23, 1, 0.32, 1));
 }
 
-a:hover, button:hover, .btn:hover {
-    text-shadow: 0 0 10px var(--primary-light);
+@media (hover: hover) and (pointer: fine) {
+    a:hover, button:hover, .btn:hover {
+        text-shadow: 0 0 10px var(--primary-light);
+    }
+}
+
+button:active, .btn:active {
+    transform: scale(0.96);
 }
 
 /* ===== 12. KEYBOARD SHORTCUT HINTS ===== */
@@ -722,15 +732,21 @@ a:hover, button:hover, .btn:hover {
     font-size: 0.7rem;
     z-index: 100;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: box-shadow 0.2s ease, transform 0.16s var(--ease-out-tactical, cubic-bezier(0.23, 1, 0.32, 1));
 }
 
 [data-theme="light"] .system-status-widget {
     background: rgba(255, 255, 255, 0.95);
 }
 
-.system-status-widget:hover {
-    box-shadow: 0 0 15px rgba(163, 230, 53, 0.3);
+@media (hover: hover) and (pointer: fine) {
+    .system-status-widget:hover {
+        box-shadow: 0 0 15px rgba(163, 230, 53, 0.3);
+    }
+}
+
+.system-status-widget:active {
+    transform: scale(0.96);
 }
 
 .status-indicator {
@@ -765,7 +781,7 @@ a:hover, button:hover, .btn:hover {
     z-index: 99;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s ease;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
 .live-search-container.active {
@@ -830,7 +846,7 @@ a:hover, button:hover, .btn:hover {
     padding: 0.75rem 1rem;
     border-bottom: 1px solid rgba(22, 101, 52, 0.2);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.1s ease;
 }
 
 .search-result-item:hover,
@@ -861,7 +877,7 @@ a:hover, button:hover, .btn:hover {
     border: 1px solid var(--primary-color);
     font-family: var(--font-mono);
     z-index: 98;
-    transition: all 0.3s ease;
+    transition: box-shadow 0.2s ease, opacity 0.2s ease;
 }
 
 [data-theme="light"] .github-widget {
@@ -940,18 +956,24 @@ a:hover, button:hover, .btn:hover {
     color: #ef4444;
     cursor: pointer;
     z-index: 1000;
-    transition: all 0.3s ease;
+    transition: transform 0.16s var(--ease-out-tactical, cubic-bezier(0.23, 1, 0.32, 1)), background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 [data-theme="light"] .pdf-fab {
     background: rgba(255, 255, 255, 0.95);
 }
 
-.pdf-fab:hover {
-    background: #ef4444;
-    color: #000;
-    box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
-    transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+    .pdf-fab:hover {
+        background: #ef4444;
+        color: #000;
+        box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+        transform: translateY(-2px);
+    }
+}
+
+.pdf-fab:active {
+    transform: scale(0.95);
 }
 
 .pdf-label {
@@ -972,7 +994,7 @@ a:hover, button:hover, .btn:hover {
     color: var(--primary-light);
     cursor: pointer;
     z-index: 1000;
-    transition: all 0.3s ease;
+    transition: transform 0.16s var(--ease-out-tactical, cubic-bezier(0.23, 1, 0.32, 1)), background-color 0.2s ease, color 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -982,10 +1004,20 @@ a:hover, button:hover, .btn:hover {
     background: rgba(255, 255, 255, 0.95);
 }
 
-.zen-toggle:hover,
+@media (hover: hover) and (pointer: fine) {
+    .zen-toggle:hover {
+        background: var(--primary-color);
+        color: #000;
+    }
+}
+
 .zen-toggle.active {
     background: var(--primary-color);
     color: #000;
+}
+
+.zen-toggle:active {
+    transform: scale(0.95);
 }
 
 body.zen-mode .scanlines,
@@ -1011,7 +1043,7 @@ body.zen-mode * {
     border: 1px solid var(--primary-color);
     font-family: var(--font-mono);
     z-index: 95;
-    transition: all 0.3s ease;
+    transition: box-shadow 0.2s ease, opacity 0.2s ease;
 }
 
 [data-theme="light"] .data-viz-widget {

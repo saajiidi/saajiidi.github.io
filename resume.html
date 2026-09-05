@@ -368,12 +368,16 @@
             border-radius: 8px;
             box-shadow: var(--shadow-subtle);
             min-height: 44px;
-            transition: all 0.2s ease;
+            transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
         }
 
         .nav-back-link:hover {
             background: #f1f5f9;
             color: #0f172a;
+        }
+
+        .nav-back-link:active {
+            transform: scale(0.96);
         }
 
         .btn-print {
@@ -390,11 +394,15 @@
             cursor: pointer;
             box-shadow: var(--shadow-subtle);
             min-height: 44px;
-            transition: all 0.2s ease;
+            transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
         }
 
         .btn-print:hover {
             background: #f1f5f9;
+        }
+
+        .btn-print:active {
+            transform: scale(0.96);
         }
 
         /* Mobile Layout */

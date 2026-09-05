@@ -41,7 +41,11 @@
     border-radius: 6px;
     cursor: pointer;
     font-size: 0.85rem;
-    transition: all 0.2s ease;
+    transition: background-color 0.16s ease, color 0.16s ease, transform 0.16s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.feed-filter:active {
+    transform: scale(0.96);
 }
 
 .feed-filter:hover {
@@ -163,12 +167,18 @@
     border-radius: 6px;
     cursor: pointer;
     font-size: 0.85rem;
-    transition: all 0.2s ease;
+    transition: background-color 0.16s ease, transform 0.16s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.load-more-btn:hover {
-    background: rgba(var(--primary-color-rgb), 0.2);
-    transform: translateY(-1px);
+@media (hover: hover) and (pointer: fine) {
+    .load-more-btn:hover {
+        background: rgba(var(--primary-color-rgb), 0.2);
+        transform: translateY(-1px);
+    }
+}
+
+.load-more-btn:active {
+    transform: scale(0.96);
 }
 
 /* Activity type specific colors */

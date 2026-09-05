@@ -421,7 +421,11 @@
   min-height: 44px;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: border-color 0.16s ease, background-color 0.16s ease, transform 0.16s ease;
+}
+
+.sk-hamburger:active {
+  transform: scale(0.95);
 }
 
 .sk-hamburger:hover {
@@ -469,7 +473,7 @@
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    transition: all 0.2s;
+    transition: color 0.16s ease, background-color 0.16s ease, padding-left 0.16s ease;
     border-radius: 6px;
   }
 

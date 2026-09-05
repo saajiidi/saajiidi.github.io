@@ -53,7 +53,7 @@
 .fw-controls { display: flex; gap: 4px; flex-shrink: 0; }
 
 .fw-btn {
-    width: 20px; height: 20px;
+    width: 22px; height: 22px;
     border: 1px solid rgba(var(--primary-color-rgb),0.18);
     background: rgba(var(--primary-color-rgb),0.05);
     color: #64748b;
@@ -65,8 +65,18 @@
     font-size: 12px;
     font-weight: 700;
     line-height: 1;
-    transition: all 0.15s ease;
+    position: relative;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
+.fw-btn::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    bottom: -8px;
+    left: -6px;
+    right: -6px;
+}
+.fw-btn:active       { transform: scale(0.92); }
 .fw-btn:hover        { background: rgba(var(--primary-color-rgb),0.15); color: var(--primary-light); }
 .fw-close:hover      { background: rgba(239,68,68,0.2) !important; color: #f87171 !important; border-color: rgba(239,68,68,0.4) !important; }
 

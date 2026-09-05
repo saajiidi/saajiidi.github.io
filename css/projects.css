@@ -90,13 +90,20 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: color 0.16s ease, border-color 0.16s ease, background-color 0.16s ease, transform 0.16s cubic-bezier(0.23, 1, 0.32, 1);
+  min-height: 38px;
 }
 
-.filter-btn:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-  background: rgba(var(--accent-rgb), 0.05);
+@media (hover: hover) and (pointer: fine) {
+  .filter-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.05);
+  }
+}
+
+.filter-btn:active {
+  transform: scale(0.96);
 }
 
 .filter-btn.active {
@@ -118,16 +125,18 @@
   border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   padding: 1.5rem;
-  transition: all 0.2s ease;
+  transition: border-color 0.2s ease, transform 0.2s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.project-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
 }
 
 /* Project Title */
@@ -222,15 +231,21 @@
   border-radius: 0.5rem;
   color: var(--fg-dim);
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: color 0.16s ease, border-color 0.16s ease, transform 0.16s cubic-bezier(0.23, 1, 0.32, 1);
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.85rem;
   min-height: 44px;
 }
 
-.back-to-home a:hover {
-  color: var(--accent);
-  border-color: var(--accent);
+@media (hover: hover) and (pointer: fine) {
+  .back-to-home a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+}
+
+.back-to-home a:active {
+  transform: scale(0.96);
 }
 
 /* Mobile Adjustments */

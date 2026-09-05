@@ -4,6 +4,64 @@
  * Import after color-palette.css and before theme-specific CSS.
  */
 
+:root {
+    /* Emil Kowalski & Jakub Krehel Curated Easing Curves */
+    --ease-out-ui: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out-ui: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-spring-ui: cubic-bezier(0.32, 0.72, 0, 1);
+    --ease-tactical: cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* Targeted transitions (Avoiding transition: all anti-pattern) */
+    --transition-transform: transform 0.2s var(--ease-out-ui);
+    --transition-opacity: opacity 0.2s ease-out;
+    --transition-surface: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    --transition-interactive: transform 0.16s var(--ease-out-ui), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+    --transition-standard: transform 0.24s var(--ease-out-ui), opacity 0.2s ease-out, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    --transition-fast: transform 0.16s var(--ease-out-ui), opacity 0.16s ease-out, background-color 0.16s ease;
+}
+
+/* Global Font Smoothing & Legibility (Jakub Krehel Rule #8) */
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Typographic Balance & Orphan Prevention (Jakub Krehel Rule #10) */
+h1, h2, h3, h4, h5, h6,
+.section-heading, .terminal-banner {
+    text-wrap: balance;
+}
+
+p, .lead, .hero-bio, .project-card-description, .card-desc {
+    text-wrap: pretty;
+}
+
+/* Tabular Numbers for Jitter-Free Digits (Jakub Krehel Rule #9) */
+.tabular-nums,
+.stat-val,
+.data-metric-val,
+.wb-metric-value,
+.hud-metric,
+.sys-status-btn,
+.telemetry-coordinates,
+.coordinate-tag,
+#missionClock,
+#terminalClock,
+#statFps,
+#statMemory,
+#statSpeed,
+#statUptime,
+#netLatency,
+#fpsDisplay,
+.tactical-table td,
+.tactical-table th,
+.table-data,
+.code-line-num {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+}
+
 /* ── Section Label ────────────────────────────────────────── */
 .section-label {
     display: inline-block;
@@ -42,7 +100,7 @@
     padding: 8px 14px;
     background: var(--bg-card, rgba(10, 16, 8, 0.7));
     border: 1px solid rgba(var(--primary-color-rgb), 0.08);
-    transition: var(--transition-standard, all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94));
+    transition: var(--transition-standard);
     cursor: default;
     position: relative;
     overflow: hidden;
@@ -85,23 +143,29 @@
     background: var(--glass-bg, rgba(10, 16, 8, 0.7));
     border: var(--glass-border, 1px solid rgba(var(--primary-color-rgb), 0.08));
     border-radius: var(--radius-md, 10px);
-    transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.22s var(--ease-out-ui), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     height: 100%;
 }
 
-.tech-chip:hover {
-    background: rgba(var(--primary-color-rgb), 0.08);
-    border-color: rgba(var(--primary-color-rgb), 0.3);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+@media (hover: hover) and (pointer: fine) {
+    .tech-chip:hover {
+        background: rgba(var(--primary-color-rgb), 0.08);
+        border-color: rgba(var(--primary-color-rgb), 0.3);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .tech-chip:hover i {
+        transform: scale(1.1);
+    }
+}
+
+.tech-chip:active {
+    transform: scale(0.96);
 }
 
 .tech-chip i {
-    transition: transform 0.3s ease;
-}
-
-.tech-chip:hover i {
-    transform: scale(1.1);
+    transition: transform 0.2s var(--ease-out-ui);
 }
 
 /* ── Filter Button ────────────────────────────────────────── */
@@ -115,16 +179,32 @@
     text-transform: uppercase;
     letter-spacing: 1.5px;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.16s var(--ease-out-ui), background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     border-radius: var(--radius-sm, 4px);
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.filter-btn:hover,
+@media (hover: hover) and (pointer: fine) {
+    .filter-btn:hover {
+        background: rgba(var(--primary-color-rgb), 0.1);
+        color: var(--primary-light);
+        border-color: rgba(var(--primary-color-rgb), 0.4);
+        box-shadow: 0 0 12px rgba(var(--primary-color-rgb), 0.1);
+    }
+}
+
 .filter-btn.active {
     background: rgba(var(--primary-color-rgb), 0.1);
     color: var(--primary-light);
     border-color: rgba(var(--primary-color-rgb), 0.4);
     box-shadow: 0 0 12px rgba(var(--primary-color-rgb), 0.1);
+}
+
+.filter-btn:active {
+    transform: scale(0.96);
 }
 
 /* ── Tag Tactical ─────────────────────────────────────────── */
@@ -161,14 +241,23 @@
     text-transform: uppercase;
     white-space: nowrap;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: transform 0.16s var(--ease-out-ui), background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
     border-radius: 3px;
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
 }
 
-.suggestion-chip:hover {
-    background: var(--primary-color);
-    color: #fff;
-    box-shadow: 0 0 15px rgba(var(--primary-color-rgb), 0.4);
+@media (hover: hover) and (pointer: fine) {
+    .suggestion-chip:hover {
+        background: var(--primary-color);
+        color: #fff;
+        box-shadow: 0 0 15px rgba(var(--primary-color-rgb), 0.4);
+    }
+}
+
+.suggestion-chip:active {
+    transform: scale(0.96);
 }
 
 /* ── Progress Bars ────────────────────────────────────────── */
@@ -404,13 +493,15 @@ tr:hover {
     justify-content: center;
     z-index: 2100;
     cursor: pointer;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.22s var(--ease-out-ui), box-shadow 0.22s ease;
     box-shadow: 0 4px 15px rgba(var(--primary-color-rgb), 0.4);
 }
 
-.ai-chat-toggle:hover {
-    transform: scale(1.08) translateY(-2px);
-    box-shadow: 0 8px 25px rgba(var(--primary-color-rgb), 0.5);
+@media (hover: hover) and (pointer: fine) {
+    .ai-chat-toggle:hover {
+        transform: scale(1.08) translateY(-2px);
+        box-shadow: 0 8px 25px rgba(var(--primary-color-rgb), 0.5);
+    }
 }
 
 .ai-chat-toggle:active {
@@ -621,16 +712,22 @@ tr:hover {
     font-size: 0.7rem;
     font-family: var(--font-mono, monospace);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: transform 0.16s var(--ease-out-ui), background-color 0.2s ease, color 0.2s ease;
     display: inline-flex;
     align-items: center;
     gap: 4px;
 }
 
-.ai-quick-btn:hover {
-    background: var(--primary-color);
-    color: #fff;
-    transform: translateY(-1px);
+@media (hover: hover) and (pointer: fine) {
+    .ai-quick-btn:hover {
+        background: var(--primary-color);
+        color: #fff;
+        transform: translateY(-1px);
+    }
+}
+
+.ai-quick-btn:active {
+    transform: scale(0.96);
 }
 
 /* Help list */
@@ -690,13 +787,19 @@ tr:hover {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: transform 0.16s var(--ease-out-ui), box-shadow 0.2s ease;
     flex-shrink: 0;
 }
 
-.btn-ai-send:hover {
-    transform: scale(1.1);
-    box-shadow: 0 2px 8px rgba(var(--primary-color-rgb), 0.4);
+@media (hover: hover) and (pointer: fine) {
+    .btn-ai-send:hover {
+        transform: scale(1.1);
+        box-shadow: 0 2px 8px rgba(var(--primary-color-rgb), 0.4);
+    }
+}
+
+.btn-ai-send:active {
+    transform: scale(0.95);
 }
 
 /* WhatsApp & Telegram buttons */
@@ -711,15 +814,21 @@ tr:hover {
     color: #25D366;
     text-decoration: none;
     font-size: 0.9rem;
-    transition: all 0.2s ease;
+    transition: transform 0.16s var(--ease-out-ui), background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
     border: 1px solid rgba(37, 211, 102, 0.25);
 }
 
-.chat-wa-btn:hover {
-    background: #25D366;
-    color: #fff;
-    box-shadow: 0 0 10px rgba(37, 211, 102, 0.4);
-    transform: scale(1.08);
+@media (hover: hover) and (pointer: fine) {
+    .chat-wa-btn:hover {
+        background: #25D366;
+        color: #fff;
+        box-shadow: 0 0 10px rgba(37, 211, 102, 0.4);
+        transform: scale(1.08);
+    }
+}
+
+.chat-wa-btn:active {
+    transform: scale(0.95);
 }
 
 .chat-tg-btn {
@@ -728,10 +837,17 @@ tr:hover {
     color: #0088cc;
 }
 
-.chat-tg-btn:hover {
-    background: #0088cc;
-    color: #fff;
-    box-shadow: 0 0 10px rgba(0, 136, 204, 0.4);
+@media (hover: hover) and (pointer: fine) {
+    .chat-tg-btn:hover {
+        background: #0088cc;
+        color: #fff;
+        box-shadow: 0 0 10px rgba(0, 136, 204, 0.4);
+        transform: scale(1.08);
+    }
+}
+
+.chat-tg-btn:active {
+    transform: scale(0.95);
 }
 
 /* Suggestion chips for messaging */
