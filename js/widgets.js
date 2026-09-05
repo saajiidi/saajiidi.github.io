@@ -49,15 +49,12 @@ export function initScrollProgress() {
 
         const navbar = /** @type {HTMLElement | null} */ (document.querySelector('.navbar'));
         if (navbar) {
-            if (scrollPosition > 50) {
-                const cs = getComputedStyle(document.documentElement);
-                const bgCard = cs.getPropertyValue('--bg-card').trim() || 'rgba(12, 20, 10, 0.82)';
-                navbar.style.background = bgCard;
-                navbar.style.backdropFilter = 'blur(10px)';
-            } else {
-                navbar.style.background = 'transparent';
-                navbar.style.backdropFilter = 'none';
-            }
+            navbar.classList.toggle('scrolled', scrollPosition > 50);
+        }
+
+        const fab = document.querySelector('.fab-container');
+        if (fab) {
+            fab.classList.toggle('visible', scrollPosition > 300);
         }
         ticking = false;
     }

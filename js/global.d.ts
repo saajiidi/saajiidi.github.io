@@ -29,6 +29,12 @@ interface Window {
   switchTerminalTab: (tabId: string) => void;
   toggleBottomTerminal: () => void;
   minimizeBottomTerminal?: () => void;
+  maximizeBottomTerminal?: () => void;
+  runWorkbenchCode?: () => void;
+  loadWorkbenchPreset?: (presetKey: string) => void;
+  executeQuickCommand?: (cmd: string) => void;
+  toggleDecryptAll?: () => void;
+  toggleTelemetryWidget?: () => void;
   __aiChatBound?: boolean;
   __toggleAiChat?: (minimize?: boolean) => void;
   __minimizeAiChat?: () => void;

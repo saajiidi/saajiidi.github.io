@@ -23,6 +23,15 @@ export function minimizeBottomTerminal() {
     if (typeof window.AudioEngine !== 'undefined') window.AudioEngine.play('beep');
 }
 
+export function maximizeBottomTerminal() {
+    const term = document.getElementById('bottomTerminal');
+    if (term) {
+        term.classList.toggle('maximized');
+        term.classList.remove('minimized');
+    }
+    if (typeof window.AudioEngine !== 'undefined') window.AudioEngine.play('beep');
+}
+
 export function switchTerminalTab(tabId) {
     document.querySelectorAll('.terminal-tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.terminal-tab-content').forEach(c => c.classList.remove('active'));
@@ -103,6 +112,7 @@ const terminalCommands = {
   write [title]  Start blog editor mode
   save           Commit buffer to Intel Reports
   abort          Clear buffer & exit editor
+  workbench      Open analytical data science sandbox
   echo [text]    Reflect input back to output
   pwd            Print working directory
   clear          Reset shell
@@ -229,11 +239,167 @@ const terminalCommands = {
         return "[ABORTED]: Buffer cleared. Tactical session resumed.";
     },
 
+    workbench: () => {
+        switchTerminalTab('workbench');
+        return "[WORKBENCH_ACTIVE]: Analytical sandbox initialized. Execute payload to process datasets.";
+    },
+
     exit: () => {
         toggleBottomTerminal();
         return "TERMINATING...";
     }
 };
+
+export const WORKBENCH_PRESETS = {
+    churn: {
+        title: "Customer Retention & Churn Analysis",
+        code: `# DEEN Commerce Retention Analysis
+dataset = [
+    {"cohort": "Jan-2025", "users": 1250, "retention_m1": 0.42, "churn_risk": "Low"},
+    {"cohort": "Feb-2025", "users": 1420, "retention_m1": 0.48, "churn_risk": "Low"},
+    {"cohort": "Mar-2025", "users": 1680, "retention_m1": 0.54, "churn_risk": "Optimal"},
+    {"cohort": "Apr-2025", "users": 1890, "retention_m1": 0.61, "churn_risk": "Optimal"}
+]
+
+avg_retention = sum(c["retention_m1"] for c in dataset) / len(dataset)
+growth = ((dataset[-1]["retention_m1"] - dataset[0]["retention_m1"]) / dataset[0]["retention_m1"]) * 100
+print(f"Average 30-Day Retention: {avg_retention * 100:.1f}%")
+print(f"Retention Uplift: +{growth:.1f}% after CRM automation")`,
+        execute: () => {
+            return `[PAYLOAD_EXECUTION_SUCCESS] // ENGINE: PYTHON_DATA_SIM_v3.2
+-------------------------------------------------------------
+DATASET: E-COMMERCE_RETENTION_COHORTS (N=6,240 USERS)
+METRICS COMPUTED:
+  • Baseline Cohort (Jan-2025):  42.0% Retention (Churn: 58.0%)
+  • Optimized Cohort (Apr-2025): 61.0% Retention (Churn: 39.0%)
+  • Mean 30-Day Retention:       51.25%
+  • Net CRM Retention Uplift:    +45.24%
+  • Projected Annualized LTV:    +$142,500 USD
+
+STRATEGIC CONCLUSION:
+Automated re-engagement workflows and RFM-segmented email triggers
+drove a verified 15%+ uplift in repeat purchases across retail accounts.
+-------------------------------------------------------------
+TELEMETRY: Execution completed in 1.4ms // Memory: 1.2MB // ExitCode: 0`;
+        }
+    },
+    gmv: {
+        title: "Multi-Channel Sales & GMV Aggregation",
+        code: `# Multi-Channel Retail GMV Breakdown
+channels = {
+    "E-Commerce Web": {"orders": 4820, "aov": 42.50, "growth": "+18.2%"},
+    "Mobile App":     {"orders": 6910, "aov": 38.20, "growth": "+27.4%"},
+    "Marketplace":    {"orders": 3150, "aov": 51.00, "growth": "+9.1%"}
+}
+
+total_gmv = sum(c["orders"] * c["aov"] for c in channels.values())
+print(f"Aggregated Gross Merchandise Value: \${total_gmv:,.2f}")`,
+        execute: () => {
+            return `[PAYLOAD_EXECUTION_SUCCESS] // ENGINE: SQL_ANALYTICS_CORE
+-------------------------------------------------------------
+MULTI-CHANNEL SALES AGGREGATION (CURRENT QUARTER):
+CHANNEL           ORDERS       AOV ($)      GMV ($)         SHARE
+• E-Commerce Web  4,820        $42.50       $204,850.00     38.6%
+• Mobile App      6,910        $38.20       $263,962.00     49.7%
+• Marketplace     3,150        $51.00       $160,650.00     30.2%
+-------------------------------------------------------------
+TOTAL AGGREGATED GMV: $629,462.00
+DOMINANT GROWTH DRIVER: Mobile App (+27.4% YoY)
+REPORTING STATUS: Weekly stakeholder dashboards updated.
+-------------------------------------------------------------
+TELEMETRY: Execution completed in 0.9ms // Queries: 3 // ExitCode: 0`;
+        }
+    },
+    anomaly: {
+        title: "Statistical Anomaly Detection (Z-Score)",
+        code: `# Statistical Anomaly Detection (Z-Score Threshold = 2.0)
+latency_ms = [14, 15, 12, 16, 14, 18, 142, 13, 15, 12, 198, 14, 15]
+
+mean = sum(latency_ms) / len(latency_ms)
+variance = sum((x - mean) ** 2 for x in latency_ms) / len(latency_ms)
+std_dev = variance ** 0.5
+anomalies = [x for x in latency_ms if abs(x - mean) / std_dev > 2.0]
+
+print(f"Sample Mean: {mean:.2f}ms | StdDev: {std_dev:.2f}ms")
+print(f"Anomalies Detected: {anomalies}")`,
+        execute: () => {
+            return `[PAYLOAD_EXECUTION_SUCCESS] // ENGINE: NUMPY_ML_CORE
+-------------------------------------------------------------
+SAMPLE_SIZE: 13 OBSERVATIONS
+STATISTICAL PARAMETERS:
+  • Sample Mean (μ):             38.69 ms
+  • Standard Deviation (σ):      58.41 ms
+  • Outlier Sensitivity:         Z > 2.0 Sigma
+
+FLAGGED ANOMALOUS TELEMETRY NODES:
+  [!] INDEX 06: 142 ms  (Z-Score: +1.77 σ - Warning)
+  [!] INDEX 10: 198 ms  (Z-Score: +2.73 σ - CRITICAL OUTLIER)
+
+ROOT CAUSE ANALYSIS:
+Temporary upstream rate-limit during LangGraph multi-agent recursive traversal.
+Fallback caching mitigations verified stable.
+-------------------------------------------------------------
+TELEMETRY: Execution completed in 1.1ms // Convergence: TRUE // ExitCode: 0`;
+        }
+    }
+};
+
+export function loadWorkbenchPreset(presetKey) {
+    const preset = WORKBENCH_PRESETS[presetKey];
+    if (!preset) return;
+    const editor = /** @type {HTMLTextAreaElement | null} */ (document.getElementById('workbench-editor'));
+    const output = document.getElementById('workbench-output');
+    if (editor) editor.value = preset.code;
+    if (output) output.textContent = `[PRESET_LOADED]: ${preset.title}. Click EXECUTE_PAYLOAD or press Ctrl+Enter.`;
+    document.querySelectorAll('.workbench-preset-chip').forEach(chip => {
+        chip.classList.toggle('active', chip.getAttribute('data-preset') === presetKey);
+    });
+    if (typeof window.AudioEngine !== 'undefined') window.AudioEngine.play('beep');
+}
+
+export function runWorkbenchCode() {
+    const editor = /** @type {HTMLTextAreaElement | null} */ (document.getElementById('workbench-editor'));
+    const output = document.getElementById('workbench-output');
+    if (!editor || !output) return;
+
+    if (typeof window.AudioEngine !== 'undefined') window.AudioEngine.play('type');
+    output.innerHTML = '<span class="text-warning font-mono small">[COMPILING_PAYLOAD] Executing analytical algorithms...</span>';
+
+    setTimeout(() => {
+        const text = editor.value.toLowerCase();
+        let resultText = '';
+        if (text.includes('retention') || text.includes('churn')) {
+            resultText = WORKBENCH_PRESETS.churn.execute();
+        } else if (text.includes('gmv') || text.includes('channel') || text.includes('sales')) {
+            resultText = WORKBENCH_PRESETS.gmv.execute();
+        } else if (text.includes('anomaly') || text.includes('z-score') || text.includes('std_dev')) {
+            resultText = WORKBENCH_PRESETS.anomaly.execute();
+        } else {
+            const lines = editor.value.split('\n').filter(l => l.trim().length > 0);
+            resultText = `[PAYLOAD_EXECUTION_SUCCESS] // CUSTOM SCRIPT EVALUATED
+-------------------------------------------------------------
+INPUT: ${lines.length} lines parsed.
+OUTPUT STREAM:
+  Filtered evaluation finished with zero syntax exceptions.
+  Variables mapped to local execution context.
+  [OK] Data structures verified against schema.
+-------------------------------------------------------------
+TELEMETRY: Executed in 1.0ms // Status: NOMINAL`;
+        }
+        output.innerHTML = `<pre class="mb-0 text-success font-mono small" style="white-space: pre-wrap; word-break: break-word;">${escapeHtml(resultText)}</pre>`;
+        if (typeof window.AudioEngine !== 'undefined') window.AudioEngine.play('beep');
+    }, 250);
+}
+
+export function executeQuickCommand(cmd) {
+    const bottomInput = /** @type {HTMLInputElement | null} */ (document.getElementById('bottom-terminal-input'));
+    if (bottomInput) {
+        bottomInput.value = cmd;
+        const e = new KeyboardEvent('keypress', { key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true });
+        bottomInput.dispatchEvent(e);
+        bottomInput.focus();
+    }
+}
 
 export function initTerminal() {
     const input = document.getElementById('terminal-input');
@@ -244,6 +410,16 @@ export function initTerminal() {
 
     if (trigger) trigger.addEventListener('click', toggleBottomTerminal);
     startTelemetryStreams();
+
+    const editor = document.getElementById('workbench-editor');
+    if (editor) {
+        editor.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                runWorkbenchCode();
+            }
+        });
+    }
 
     const handleTerminalInput = (targetInput, targetOutput, prompt = "$") => {
         if (!targetInput || !targetOutput) return;

@@ -120,16 +120,27 @@
   <div class="scanlines"></div>
   <div class="system-status-bar">
     <div class="container d-flex justify-content-between align-items-center">
-      <div class="status-left">
+      <div class="status-left d-flex align-items-center flex-wrap">
         <span class="status-label">IDENTITY:</span> <span class="status-value">SAJID_ISLAM</span>
         <span class="status-sep">|</span>
         <span class="status-label">CLEARANCE:</span> <span class="status-value">LVL_5_ADMIN</span>
         <span class="status-sep">|</span>
         <span class="status-label">TERMINAL:</span> <span class="status-value cursor-pointer text-primary" id="statusTerminalTrigger" aria-label="Open terminal">[ACCESS_GRANTED]</span>
-        
       </div>
-      <div class="status-right d-none d-md-flex align-items-center gap-3">
-        <span class="status-label">SYSTEM_INTEGRITY:</span> <span class="status-value status-online">OPTIMAL</span>
+      <div class="status-right d-none d-md-flex align-items-center gap-2">
+        <button class="status-btn" onclick="switchTerminalTab('workbench'); const t = document.getElementById('bottomTerminal'); if (t && !t.classList.contains('active')) toggleBottomTerminal();" title="Open Analytical Workbench">
+          <i class="fas fa-flask"></i> <span>WORKBENCH</span>
+        </button>
+        <span class="status-sep">|</span>
+        <button class="status-btn" onclick="toggleTelemetryWidget()" title="Toggle Command Center Telemetry">
+          <i class="fas fa-chart-bar"></i> <span>TELEMETRY</span>
+        </button>
+        <span class="status-sep">|</span>
+        <button class="status-btn" id="hudAudioToggle" onclick="window.AudioEngine && window.AudioEngine.toggle()" title="Toggle Mission Audio Engine">
+          <i class="fas fa-volume-up"></i> <span>AUDIO</span>
+        </button>
+        <span class="status-sep">|</span>
+        <span class="status-label">SYS:</span> <span class="status-value status-online">OPTIMAL</span>
         <span class="status-sep">|</span>
         <div class="digital-clock" id="digitalClock"><span class="clock-hours-minutes"></span>:<span class="clock-seconds"></span></div>
       </div>
@@ -418,14 +429,19 @@
         <span class="section-label">OPERATIONS_LOG</span>
         <h2 class="mb-4">Featured Work</h2>
 
-        <!-- Project Filter -->
-        <div class="project-filters mb-5" id="projectFilters">
-          <button class="filter-btn active" data-filter="all">[ALL_OPS]</button>
-          <button class="filter-btn" data-filter="ai">[AI_OPS]</button>
-          <button class="filter-btn" data-filter="bi-viz">[BI_VIZ]</button>
-          <button class="filter-btn" data-filter="ml-ai">[ML_AI]</button>
-          <button class="filter-btn" data-filter="web-apps">[WEB_APPS]</button>
-          <button class="filter-btn" data-filter="automation">[AUTOMATION]</button>
+        <!-- Project Filter and Batch Actions -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-5">
+          <div class="project-filters mb-0" id="projectFilters">
+            <button class="filter-btn active" data-filter="all">[ALL_OPS]</button>
+            <button class="filter-btn" data-filter="ai">[AI_OPS]</button>
+            <button class="filter-btn" data-filter="bi-viz">[BI_VIZ]</button>
+            <button class="filter-btn" data-filter="ml-ai">[ML_AI]</button>
+            <button class="filter-btn" data-filter="web-apps">[WEB_APPS]</button>
+            <button class="filter-btn" data-filter="automation">[AUTOMATION]</button>
+          </div>
+          <button class="btn btn-outline-primary btn-sm font-mono" id="decryptAllBtn" onclick="toggleDecryptAll()" title="Batch decrypt all intelligence dossiers">
+            <i class="fas fa-unlock-alt me-1"></i> [DECRYPT_ALL]
+          </button>
         </div>
 
         <div class="row g-4 project-grid" id="project-list"></div>
@@ -583,51 +599,6 @@
     </button>
   </div>
 
-  <!-- Terminal Contact Modal -->
-  <div class="modal fade" id="terminalContactModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content terminal-modal">
-        <div class="terminal-header">
-          <span class="terminal-title">sajid@portfolio:~$ contact</span>
-          <button type="button" class="terminal-close" data-bs-dismiss="modal" aria-label="Close">×</button>
-        </div>
-        <div class="terminal-body" id="terminal-output">
-          <div class="terminal-line"><span class="terminal-prompt">$</span> <span class="terminal-cmd">init_contact_protocol</span></div>
-          <div class="terminal-line terminal-response">[SYSTEM] Contact terminal initialized. Type 'help' for available commands.</div>
-          <div class="terminal-line"><span class="terminal-prompt">$</span> <span class="terminal-cursor">_</span></div>
-                <div class="terminal-tab" data-tab="tab-workbench" onclick="switchTerminalTab('tab-workbench')">
-            <i class="fas fa-flask me-2"></i> WORKBENCH
-          </div>
-        </div>
-        <div class="terminal-body p-0" id="terminalBody">
-          <div class="tab-content active" id="tab-terminal">
-            <div id="terminal-content"></div>
-            <div class="terminal-input-line">
-              <span class="terminal-prompt">$</span>
-              <input type="text" id="terminal-input" spellcheck="false" autocomplete="off">
-            </div>
-          </div>
-          <div class="tab-content p-4" id="tab-workbench" style="display:none; height: 100%; overflow-y: auto;">
-             <div class="d-flex justify-content-between align-items-center mb-4">
-                <span class="font-mono text-primary small">[ANALYTICAL_SANDBOX_V1]</span>
-                <button class="btn btn-sm btn-outline-primary" onclick="runWorkbenchCode()">EXECUTE_PAYLOAD</button>
-             </div>
-             <textarea id="workbench-editor" class="w-100 bg-dark bg-opacity-25 border-primary border-opacity-10 text-primary p-3 font-mono" style="height: 250px; outline: none; border-radius: 4px;"># Python Snippet: Data Filtering
-data = [12, 45, 67, 23, 89, 5]
-threshold = 20
-filtered = [x for x in data if x > threshold]
-print(f"Filtered Results: {filtered}")
-             </textarea>
-             <div class="mt-4 p-3 bg-black bg-opacity-50 border border-primary border-opacity-10">
-                <label class="section-label small mb-2">OUTPUT_TELEMETRY</label>
-                <div id="workbench-output" class="font-mono small opacity-50">READY...</div>
-             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- System Status Widget -->
   <div class="system-status-widget" id="systemStatus">
     <div class="status-indicator available"></div>
@@ -662,6 +633,7 @@ print(f"Filtered Results: {filtered}")
         <i class="fas fa-terminal small text-primary"></i>
         <div class="terminal-tabs" id="terminalTabs">
           <button class="terminal-tab active" onclick="switchTerminalTab('terminal')">[TERMINAL]</button>
+          <button class="terminal-tab" onclick="switchTerminalTab('workbench')"><i class="fas fa-flask me-1"></i>[WORKBENCH]</button>
           <button class="terminal-tab" onclick="switchTerminalTab('problems')">[PROBLEMS]</button>
           <button class="terminal-tab" onclick="switchTerminalTab('debug')">[DEBUG_CONSOLE]</button>
           <button class="terminal-tab" onclick="switchTerminalTab('output')">[OUTPUT]</button>
@@ -673,8 +645,9 @@ print(f"Filtered Results: {filtered}")
           <button class="btn-music-play" id="musicToggle" style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-play fa-xs"></i></button>
         </div>
         <div class="terminal-controls ms-2">
-          <button class="btn-terminal-min" onclick="minimizeBottomTerminal()">_</button>
-          <button class="btn-terminal-close" onclick="toggleBottomTerminal()">×</button>
+          <button class="btn-terminal-min" onclick="minimizeBottomTerminal()" title="Minimize">_</button>
+          <button class="btn-terminal-max" onclick="maximizeBottomTerminal()" title="Maximize / Restore">□</button>
+          <button class="btn-terminal-close" onclick="toggleBottomTerminal()" title="Close">×</button>
         </div>
       </div>
     </div>
@@ -688,14 +661,72 @@ print(f"Filtered Results: {filtered}")
         <span class="text-secondary">MEM: <span id="memoryNode" class="text-success">----</span></span>
         <span class="text-secondary">OS: <span id="osNode" class="text-success">----</span></span>
       </div>
+      <!-- Quick Command Chips -->
+      <div class="terminal-quick-chips p-2 border-bottom border-secondary border-opacity-10 d-flex gap-2 flex-wrap align-items-center">
+        <span class="text-secondary font-mono" style="font-size: 0.65rem;">QUICK_OPS:</span>
+        <button class="quick-chip" onclick="executeQuickCommand('help')">help</button>
+        <button class="quick-chip" onclick="executeQuickCommand('projects')">projects</button>
+        <button class="quick-chip" onclick="executeQuickCommand('langgraph')">langgraph</button>
+        <button class="quick-chip" onclick="executeQuickCommand('skills')">skills</button>
+        <button class="quick-chip" onclick="executeQuickCommand('contact')">contact</button>
+        <button class="quick-chip" onclick="executeQuickCommand('workbench')">workbench</button>
+        <button class="quick-chip" onclick="executeQuickCommand('neofetch')">neofetch</button>
+        <button class="quick-chip" onclick="executeQuickCommand('clear')">clear</button>
+      </div>
       <div class="terminal-body" id="bottom-terminal-output">
         <div class="terminal-line"><span class="terminal-prompt">PS C:\Users\Sajid></span> <span class="terminal-cmd">init_tactical_shell</span></div>
-        <div class="terminal-line terminal-response">[UPLINK_SUCCESSFUL]: Mission environment 5.1 initialized.</div>
+        <div class="terminal-line terminal-response">[UPLINK_SUCCESSFUL]: Mission environment 5.1 initialized. Type 'help' or 'workbench'.</div>
       </div>
       <div class="terminal-input-line">
         <span class="terminal-prompt">PS C:\Users\Sajid></span>
-        <input type="text" class="terminal-input" id="bottom-terminal-input" placeholder="Enter command..." autocomplete="off">
+        <input type="text" class="terminal-input" id="bottom-terminal-input" placeholder="Enter command (e.g. projects, skills, workbench)..." autocomplete="off">
         <span class="block-cursor"></span>
+      </div>
+    </div>
+
+    <!-- Tab Content: WORKBENCH -->
+    <div class="terminal-tab-content" id="tab-workbench">
+      <div class="p-3" style="height: 100%; overflow-y: auto;">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 pb-2 border-bottom border-primary border-opacity-10">
+          <div class="d-flex align-items-center gap-2">
+            <span class="font-mono text-primary small fw-bold">[ANALYTICAL_WORKBENCH_V2]</span>
+            <span class="badge border border-primary border-opacity-25 font-mono text-secondary" style="font-size: 0.65rem;">PYTHON/SQL SIMULATOR</span>
+          </div>
+          <div class="d-flex align-items-center gap-2 flex-wrap">
+            <span class="text-secondary small font-mono d-none d-sm-inline" style="font-size: 0.7rem;">PRESETS:</span>
+            <button class="btn btn-xs btn-outline-secondary font-mono workbench-preset-chip active" data-preset="churn" onclick="loadWorkbenchPreset('churn')">CHURN</button>
+            <button class="btn btn-xs btn-outline-secondary font-mono workbench-preset-chip" data-preset="gmv" onclick="loadWorkbenchPreset('gmv')">GMV_SALES</button>
+            <button class="btn btn-xs btn-outline-secondary font-mono workbench-preset-chip" data-preset="anomaly" onclick="loadWorkbenchPreset('anomaly')">ANOMALIES</button>
+            <button class="btn btn-sm btn-primary ms-sm-2 font-mono" onclick="runWorkbenchCode()"><i class="fas fa-play me-1"></i> EXECUTE_PAYLOAD</button>
+          </div>
+        </div>
+        <div class="row g-3">
+          <div class="col-lg-6">
+            <label class="section-label small mb-1">PAYLOAD_SCRIPT (PYTHON/PANDAS/SQL SYNTAX)</label>
+            <textarea id="workbench-editor" class="w-100 bg-dark bg-opacity-50 border border-primary border-opacity-25 text-primary p-3 font-mono small" style="height: 180px; outline: none; border-radius: 4px; resize: vertical;" spellcheck="false"># DEEN Commerce Retention Analysis
+dataset = [
+    {"cohort": "Jan-2025", "users": 1250, "retention_m1": 0.42, "churn_risk": "Low"},
+    {"cohort": "Feb-2025", "users": 1420, "retention_m1": 0.48, "churn_risk": "Low"},
+    {"cohort": "Mar-2025", "users": 1680, "retention_m1": 0.54, "churn_risk": "Optimal"},
+    {"cohort": "Apr-2025", "users": 1890, "retention_m1": 0.61, "churn_risk": "Optimal"}
+]
+
+avg_retention = sum(c["retention_m1"] for c in dataset) / len(dataset)
+growth = ((dataset[-1]["retention_m1"] - dataset[0]["retention_m1"]) / dataset[0]["retention_m1"]) * 100
+print(f"Average 30-Day Retention: {avg_retention * 100:.1f}%")
+print(f"Retention Uplift: +{growth:.1f}% after CRM automation")</textarea>
+            <div class="d-flex justify-content-between text-secondary font-mono mt-1" style="font-size: 0.65rem;">
+              <span>Shortcut: <kbd class="bg-dark text-primary px-1">Ctrl+Enter</kbd> to execute</span>
+              <span>Editable script buffer</span>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <label class="section-label small mb-1">OUTPUT_TELEMETRY</label>
+            <div id="workbench-output" class="p-3 bg-black bg-opacity-75 border border-primary border-opacity-25 font-mono small" style="height: 180px; overflow-y: auto; border-radius: 4px;">
+              <span class="opacity-50">READY FOR EXECUTION. Click [EXECUTE_PAYLOAD] or press Ctrl+Enter to compute analytical metrics.</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

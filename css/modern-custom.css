@@ -615,9 +615,21 @@ a:hover {
 /* Material Design FAB (Floating Action Button) */
 .fab-container {
     position: fixed;
-    bottom: 2rem;
+    bottom: 5.5rem;
     right: 2rem;
     z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px) scale(0.95);
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s ease;
+    pointer-events: none;
+}
+
+.fab-container.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
 }
 
 .md-fab {

@@ -170,18 +170,15 @@ export class FloatingWidget {
     }
 
     _destroy() {
-        document.removeEventListener('mousemove', this._onMove);
-        document.removeEventListener('mouseup', this._onUp);
-        document.removeEventListener('touchmove', this._onTouchMove);
-        document.removeEventListener('touchend', this._onTouchUp);
         this.element.style.display = 'none';
+        this.element.classList.add('fw-hidden');
     }
 
     _minimize() {
         this.element.classList.toggle('fw-minimized');
         const isMin = this.element.classList.contains('fw-minimized');
         this.element.querySelectorAll(':scope > *:not(.fw-header):not(.fw-resize)').forEach(el => {
-            el.style.display = isMin ? 'none' : '';
+            if (el instanceof HTMLElement) el.style.display = isMin ? 'none' : '';
         });
     }
 
@@ -206,6 +203,21 @@ export class FloatingWidget {
     }
 }
 
+export function toggleTelemetryWidget() {
+    const cmdCenter = document.getElementById('commandCenterWidget');
+    if (!cmdCenter) return;
+    const isHidden = cmdCenter.style.display === 'none' || cmdCenter.classList.contains('fw-hidden');
+    if (isHidden) {
+        cmdCenter.style.display = 'block';
+        cmdCenter.classList.remove('fw-hidden');
+        cmdCenter.style.zIndex = '1600';
+    } else {
+        cmdCenter.style.display = 'none';
+        cmdCenter.classList.add('fw-hidden');
+    }
+    if (typeof window.AudioEngine !== 'undefined') window.AudioEngine.play('beep');
+}
+
 export function initFloatingWidgets() {
     if (window._fwDone) return;
     window._fwDone = true;
@@ -214,14 +226,17 @@ export function initFloatingWidgets() {
     const cmdCenter = document.getElementById('commandCenterWidget');
     if (cmdCenter) {
         const isMobile = window.innerWidth < 768;
-        new FloatingWidget(cmdCenter, {
+        const fw = new FloatingWidget(cmdCenter, {
             title: '[COMMAND_CENTER]',
             defW: isMobile ? Math.min(280, window.innerWidth - 24) : 300,
             defH: isMobile ? 320 : 400,
             minW: 240, minH: 260,
             defX: isMobile ? 12 : window.innerWidth - 340,
-            defY: isMobile ? 80 : 80,
+            defY: isMobile ? 70 : 80,
             zBase: 1500
         });
+        if (isMobile) {
+            fw._minimize();
+        }
     }
 }

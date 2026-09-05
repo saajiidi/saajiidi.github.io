@@ -35,6 +35,7 @@ import {
   renderProjects, renderBlogs, renderLearning, renderGaming,
   renderMedia, renderFileTree, fetchGithubRepos,
   decryptDossier, toggleCaseStudy, initializeProjectFilters,
+  toggleDecryptAll,
   openCaseStudy, closeCaseStudy,
   toggleTreeSection, toggleMobileSidebar, handleTreeClick,
   runTypewriter
@@ -42,7 +43,8 @@ import {
 
 // ===== TERMINAL =====
 import { 
-  toggleBottomTerminal, minimizeBottomTerminal, switchTerminalTab, startTelemetryStreams,
+  toggleBottomTerminal, minimizeBottomTerminal, maximizeBottomTerminal, switchTerminalTab, startTelemetryStreams,
+  runWorkbenchCode, loadWorkbenchPreset, executeQuickCommand,
   cleanupTerminal, initTerminal
 } from './terminal.js';
 
@@ -53,7 +55,7 @@ import { initCommandPalette, togglePalette } from './command-palette.js';
 import { initAccentSwitcher } from './theme-accent.js';
 
 // ===== FLOATING WIDGETS =====
-import { FloatingWidget, initFloatingWidgets } from './floating-widgets.js';
+import { FloatingWidget, initFloatingWidgets, toggleTelemetryWidget } from './floating-widgets.js';
 
 // ===== GITHUB FEED =====
 import { initGitHubFeed } from './github-feed.js';
@@ -179,6 +181,12 @@ window.handleTreeClick = handleTreeClick;
 window.switchTerminalTab = switchTerminalTab;
 window.toggleBottomTerminal = toggleBottomTerminal;
 window.minimizeBottomTerminal = minimizeBottomTerminal;
+window.maximizeBottomTerminal = maximizeBottomTerminal;
+window.runWorkbenchCode = runWorkbenchCode;
+window.loadWorkbenchPreset = loadWorkbenchPreset;
+window.executeQuickCommand = executeQuickCommand;
+window.toggleDecryptAll = toggleDecryptAll;
+window.toggleTelemetryWidget = toggleTelemetryWidget;
 window.togglePalette = togglePalette;
 window.copyEmail = copyEmail;
 window.handleSuggestion = handleSuggestion;
@@ -445,11 +453,12 @@ export {
   renderEducation, renderSkillGroups,
   renderProjects, renderBlogs, renderLearning, renderGaming,
   renderMedia, renderFileTree, fetchGithubRepos,
-  decryptDossier, toggleCaseStudy, initializeProjectFilters,
+  decryptDossier, toggleCaseStudy, initializeProjectFilters, toggleDecryptAll,
   openCaseStudy, closeCaseStudy,
-  toggleBottomTerminal, minimizeBottomTerminal, switchTerminalTab, startTelemetryStreams,
+  toggleBottomTerminal, minimizeBottomTerminal, maximizeBottomTerminal, switchTerminalTab, startTelemetryStreams,
+  runWorkbenchCode, loadWorkbenchPreset, executeQuickCommand,
   cleanupTerminal, initTerminal, initCommandPalette, togglePalette,
-  FloatingWidget, initFloatingWidgets, initGitHubFeed,
+  FloatingWidget, initFloatingWidgets, toggleTelemetryWidget, initGitHubFeed,
   openBridge, closeBridge, minimizePortfolioBridge, restorePortfolioBridge,
   toggleMaximizeBridge, initResizableBridge, EXTERNAL_BLOCK_LIST,
   initDigitalClock, initScrollProgress, initSystemStatus,

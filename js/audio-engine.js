@@ -18,6 +18,11 @@ export class AudioEngineClass {
     document.addEventListener('click', () => this._ensureContext(), { once: true });
     document.addEventListener('keydown', () => this._ensureContext(), { once: true });
     this._generateSounds();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => this.updateAudioUI());
+    } else {
+      this.updateAudioUI();
+    }
   }
 
   _ensureContext() {
@@ -146,9 +151,36 @@ export class AudioEngineClass {
     }
   }
 
+  updateAudioUI() {
+    const trackName = document.getElementById('trackName');
+    const musicToggle = document.getElementById('musicToggle');
+    const hudAudioBtn = document.getElementById('hudAudioToggle');
+
+    if (trackName) {
+      trackName.textContent = this.enabled ? '[MISSION_AUDIO: ONLINE]' : '[MISSION_AUDIO: MUTED]';
+      trackName.style.color = this.enabled ? 'var(--primary-light)' : 'var(--text-secondary)';
+    }
+    if (musicToggle) {
+      const icon = musicToggle.querySelector('i');
+      if (icon) {
+        icon.className = this.enabled ? 'fas fa-volume-up fa-xs' : 'fas fa-volume-mute fa-xs';
+      }
+      musicToggle.title = this.enabled ? 'Mute Mission Audio' : 'Enable Mission Audio';
+    }
+    if (hudAudioBtn) {
+      const icon = hudAudioBtn.querySelector('i');
+      if (icon) {
+        icon.className = this.enabled ? 'fas fa-volume-up' : 'fas fa-volume-mute';
+      }
+      hudAudioBtn.classList.toggle('active', this.enabled);
+    }
+  }
+
   toggle() {
     this.enabled = !this.enabled;
     localStorage.setItem('tactical-audio', this.enabled ? 'enabled' : 'disabled');
+    this.updateAudioUI();
+    if (this.enabled) this.play('beep');
     return this.enabled;
   }
 

@@ -329,6 +329,35 @@ export function toggleCaseStudy(id, _btn) {
     if (el) { el.style.display = el.style.display === 'none' ? 'block' : 'none'; }
 }
 
+export function toggleDecryptAll() {
+    const list = window.projectsList || (window.DATA && window.DATA.projects) || [];
+    const btn = document.getElementById('decryptAllBtn');
+    const isDecryptingAll = btn ? btn.getAttribute('data-state') !== 'decrypted' : true;
+
+    list.forEach((project, idx) => {
+        const descEl = document.getElementById(`desc-${project.id}`);
+        const dossier = document.getElementById(`dossier-${project.id}`);
+        if (!descEl || !dossier) return;
+
+        if (isDecryptingAll) {
+            setTimeout(() => {
+                decryptDossier(project.id, descEl, true);
+            }, idx * 50);
+        } else {
+            descEl.textContent = String(project.description || '').split(' ').map(w => '█'.repeat(w.length)).join(' ');
+            descEl.classList.remove('decrypted', 'decrypting');
+            dossier.classList.remove('scanning');
+        }
+    });
+
+    if (btn) {
+        btn.setAttribute('data-state', isDecryptingAll ? 'decrypted' : 'redacted');
+        btn.innerHTML = isDecryptingAll 
+            ? '<i class="fas fa-lock me-1"></i> [REDACT_ALL]'
+            : '<i class="fas fa-unlock-alt me-1"></i> [DECRYPT_ALL]';
+    }
+}
+
 export function initializeProjectFilters() {
     const filters = document.querySelectorAll('.filter-btn');
     filters.forEach(btn => {

@@ -15,18 +15,20 @@ export function initCommandPalette() {
     if (!palette || !input || !results) return;
 
     document.addEventListener('keydown', (e) => {
-        if (e.ctrlKey && e.key === 'k') {
+        if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && !e.ctrlKey && !e.altKey && !e.metaKey && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA')) {
             e.preventDefault();
             togglePalette();
+            return;
         }
 
         if (e.key === 'Escape' && paletteActive) {
             togglePalette();
+            return;
         }
 
         if (!paletteActive) return;
 
-        const items = results.querySelectorAll('.palette-item');
+        const items = results.querySelectorAll('.palette-result-item');
         if (items.length > 0) {
             if (e.key === 'ArrowDown') {
                 e.preventDefault();

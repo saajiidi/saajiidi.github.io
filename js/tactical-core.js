@@ -115,7 +115,7 @@ export const SkillsGlobe = {
         if (!this.canvas) return;
         this.ctx = this.canvas.getContext('2d');
         this._refreshColor();
-        const skillList = ["PYTHON", "SQL", "POWER_BI", "TABLEAU", "MACHINE_LEARNING", "NLP", "DEEP_LEARNING", "BUSINESS_OPS", "CHURN_ANALYSIS", "STREAMLIT", "EXCEL", "PANDAS", "DASHBOARDING", "DATA_OPS", "SCRUTINY", "VIZ"];
+        const skillList = ["PYTHON", "SQL", "LANGGRAPH", "AI_AGENTS", "POWER_BI", "TABLEAU", "MACHINE_LEARNING", "NLP", "FASTAPI", "BUSINESS_OPS", "CHURN_ANALYSIS", "STREAMLIT", "PANDAS", "DASHBOARDING", "DATA_OPS", "PYTORCH", "DOCKER", "VIZ"];
 
         this.tags = skillList.map((text, i) => {
             const phi = Math.acos(-1 + (2 * i) / skillList.length);
