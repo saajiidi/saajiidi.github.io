@@ -60,13 +60,13 @@ export const EXPERIENCES = [
     location: 'Mirpur, Dhaka',
     startDate: 'June 2025',
     current: true,
-    description: 'Leading Business Strategy and CRM growth through granular performance tracking. Architecting weekly performance dashboards.',
+    description: 'Leading Business Strategy and CRM retention growth through granular performance tracking. Architected weekly automated performance dashboards reducing reporting overhead by 40%.',
     highlights: [
-      'CRM Improvisation',
-      'Business Strategy',
-      'Architecting weekly performance dashboards for stakeholder reporting'
+      'Architected weekly automated performance dashboards across sales and retention, reducing reporting overhead by 40%',
+      'Optimized CRM workflows and customer re-engagement funnels, driving a 15% uplift in repeat purchases',
+      'Formulated data-driven inventory and promotional strategies leveraging multi-channel retail analytics'
     ],
-    technologies: ['CRM', 'Business Analysis', 'Strategy']
+    technologies: ['CRM', 'Business Analysis', 'Strategy', 'SQL', 'Power BI']
   },
   {
     id: 'gearmaster',

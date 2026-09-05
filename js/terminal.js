@@ -93,6 +93,10 @@ const terminalCommands = {
   neofetch       System summary & specs
   ls             List project archive nodes
   cat [id]       Display project dossier
+  projects       Summary of deployed projects
+  langgraph      Deep dive on LangGraph multi-agent AI system
+  skills         Technical arsenal breakdown
+  contact        Operational comms matrix
   whoami         Operative identification
   status         System diagnostics
   clearance      Elevate security clearance
@@ -136,6 +140,35 @@ const terminalCommands = {
         if (!project) return `[FILE_NOT_FOUND]: ${args[0]}`;
         const techStr = Array.isArray(project.technologies) ? project.technologies.join(', ') : (project.tools || 'N/A');
         return `[PROJECT_NODE]: ${project.title}\nSTATUS: DEPLOYED\nTECH: ${techStr}\nINTEL: ${project.description}`;
+    },
+
+    projects: () => {
+        const list = (window.DATA && window.DATA.projects) ? window.DATA.projects : [];
+        if (!list.length) return "NO_PROJECTS_LOADED";
+        return list.map((p, i) => `[${i + 1}] ${p.title}\n    TECH: ${(p.technologies || []).join(', ')}\n    URL: ${p.liveUrl || p.githubUrl || 'N/A'}`).join('\n\n');
+    },
+
+    langgraph: () => {
+        const list = (window.DATA && window.DATA.projects) ? window.DATA.projects : [];
+        const lg = list.find(p => p.id === 'langgraph-demo') || list[0];
+        if (!lg) return "LangGraph dossier not found.";
+        return `[FEATURED_AI_NODE]: ${lg.title}\nROLE: AI Engineer & Architect\nTECH: ${(lg.technologies || []).join(', ')}\nURL: ${lg.githubUrl || lg.liveUrl}\nINTEL: ${lg.description}\nARCHITECTURE: StateGraph (researcher -> writer -> reviewer with conditional loops)`;
+    },
+
+    skills: () => {
+        const groups = (window.DATA && window.DATA.skillGroups) ? window.DATA.skillGroups : [];
+        if (!groups.length) return "NO_SKILLS_LOADED";
+        return groups.map(g => `[${g.name.toUpperCase()}]:\n  ${g.skills.map(s => `${s.name} (${s.level}%)`).join(', ')}`).join('\n');
+    },
+
+    contact: () => {
+        return `COMMUNICATION_CHANNELS:
+  Email:    sajid.islam.chowdhury@gmail.com
+  WhatsApp: +880 182 452 6054 (https://wa.me/8801824526054)
+  Telegram: @descoTGbot / https://t.me/+8801824526054
+  LinkedIn: https://www.linkedin.com/in/sajidislamchowdhury/
+  GitHub:   https://github.com/Sajid-ul-Islam
+  Kaggle:   https://www.kaggle.com/saajiidi`;
     },
 
     whoami: () => "IDENTITY_CONFIRMED: Sajid Islam // ROLE: Operative_Data_Analyst // ID: SI-2025-DHAKA",
