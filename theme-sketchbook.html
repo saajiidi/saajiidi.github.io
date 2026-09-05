@@ -106,9 +106,8 @@
   <link href="css/shared-components.css" rel="stylesheet">
   
   <!-- Modular Sketchbook Theme -->
-  <!-- Theme CSS (entry point uses @import chain) -->
   <link href="themes/sketchbook/sketchbook-entry.css" rel="stylesheet">
-  <noscript><link href="themes/sketchbook/sketchbook.css" rel="stylesheet"></noscript>
+  <link href="themes/sketchbook/sketchbook.css" rel="stylesheet">
 
   <style>
     /* Theme Variables & Overrides - These now come from sketchbook.css */
@@ -207,11 +206,11 @@
 
   <!-- Skip Links for Keyboard Users -->
   <a href="#main-content"
-    class="skip-link absolute top-0 left-0 bg-[var(--accent)] text-[var(--bg)] px-4 py-2 font-mono text-xs z-[100] transform -translate-y-full focus:translate-y-0 transition-transform duration-200">
+    class="skip-link sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 bg-[var(--accent)] text-[var(--bg)] px-4 py-2 font-mono text-xs z-[100] rounded shadow-lg">
     Skip to main content
   </a>
   <a href="#theme-switcher"
-    class="skip-link absolute top-0 left-0 bg-[var(--accent)] text-[var(--bg)] px-4 py-2 font-mono text-xs z-[100] transform -translate-y-full focus:translate-y-0 transition-transform duration-200" style="top: 2.5rem; left: 0;">
+    class="skip-link sr-only focus:not-sr-only focus:fixed focus:top-14 focus:left-3 bg-[var(--accent)] text-[var(--bg)] px-4 py-2 font-mono text-xs z-[100] rounded shadow-lg">
     Skip to theme selector
   </a>
 
@@ -242,11 +241,11 @@
 
   <!-- NAVIGATION BAR -->
   <nav
-    class="relative z-50 flex items-center justify-center px-4 py-4 lg:py-8 border-b border-[var(--border-color)] bg-[var(--bg)]/90 backdrop-blur-md sticky top-0"
+    class="relative z-50 flex items-center justify-center px-4 py-4 lg:py-6 border-b border-[var(--border-color)] bg-[var(--bg)]/90 backdrop-blur-md sticky top-0"
     id="main-nav">
     <div class="flex w-full max-w-6xl items-center justify-between gap-4">
-      <span class="flex items-center font-mono text-xl font-bold tracking-wider">
-        <a href="/" class="sk-text text-[var(--fg)] hover:text-[var(--accent)] transition-colors owner-name"></a>
+      <span class="flex items-center font-mono text-xl font-bold tracking-wider whitespace-nowrap">
+        <a href="/" class="sk-text text-[var(--fg)] hover:text-[var(--accent)] transition-colors owner-name whitespace-nowrap">Sajid Islam</a>
       </span>
 
       <!-- Desktop Links -->
@@ -356,7 +355,7 @@
     </div>
 
     <!-- Mobile Navigation Menu -->
-    <div id="sk-mobile-nav" class="sk-mobile-nav" role="menu" aria-label="Mobile navigation">
+    <div id="sk-mobile-nav" class="sk-mobile-nav hidden lg:hidden" role="menu" aria-label="Mobile navigation">
       <a href="#about" data-section="about" role="menuitem"><i class="fas fa-home me-2 text-[var(--accent)]"></i> Home</a>
       <a href="#experience" data-section="experience" role="menuitem"><i class="fas fa-briefcase me-2 text-[var(--accent)]"></i> Experience</a>
       <a href="#projects" data-section="projects" role="menuitem"><i class="fas fa-code-branch me-2 text-[var(--accent)]"></i> Featured Works</a>

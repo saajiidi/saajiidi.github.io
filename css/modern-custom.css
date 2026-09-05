@@ -496,13 +496,11 @@ a:hover {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05rem;
-    padding: 0.75rem 1.5rem;
-    /* More spacing */
-    border-radius: 8px;
-    /* Rounded corners for hover effect */
+    font-size: 0.78rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
     transition: color 0.16s ease, background-color 0.16s ease, transform 0.16s cubic-bezier(0.23, 1, 0.32, 1);
-    margin: 0.2rem 1rem;
-    /* Spacing between links */
+    margin: 0 0.15rem;
 }
 
 @media (hover: hover) and (pointer: fine) {

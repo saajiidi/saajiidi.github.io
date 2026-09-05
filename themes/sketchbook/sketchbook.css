@@ -432,11 +432,15 @@
   border-color: var(--accent);
 }
 
+.sk-mobile-nav {
+  display: none !important;
+}
+
 @media (max-width: 1023px) {
   .sk-hamburger { display: flex; }
 
   .sk-mobile-nav {
-    display: none;
+    display: none !important;
     flex-direction: column;
     gap: 0.25rem;
     position: absolute;
@@ -457,7 +461,7 @@
   }
 
   .sk-mobile-nav.open {
-    display: flex;
+    display: flex !important;
     opacity: 1;
     transform: translateY(0);
   }

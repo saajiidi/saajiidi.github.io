@@ -226,7 +226,7 @@ export function initFloatingWidgets() {
     const cmdCenter = document.getElementById('commandCenterWidget');
     if (cmdCenter) {
         const isMobile = window.innerWidth < 768;
-        const fw = new FloatingWidget(cmdCenter, {
+        new FloatingWidget(cmdCenter, {
             title: '[COMMAND_CENTER]',
             defW: isMobile ? Math.min(280, window.innerWidth - 24) : 300,
             defH: isMobile ? 320 : 400,
@@ -236,7 +236,8 @@ export function initFloatingWidgets() {
             zBase: 1500
         });
         if (isMobile) {
-            fw._minimize();
+            cmdCenter.style.display = 'none';
+            cmdCenter.classList.add('fw-hidden');
         }
     }
 }
