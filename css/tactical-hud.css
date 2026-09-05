@@ -2194,16 +2194,16 @@ body {
     }
 
     .ai-chat-container {
-        width: calc(100vw - 20px);
-        right: 10px;
-        bottom: 5rem;
-        height: 350px;
+        width: calc(100vw - 20px - env(safe-area-inset-left) - env(safe-area-inset-right));
+        right: calc(10px + env(safe-area-inset-right));
+        bottom: calc(5rem + env(safe-area-inset-bottom));
+        height: min(380px, 60vh);
         border-radius: 4px;
     }
 
     .ai-chat-toggle {
-        right: 10px;
-        bottom: 1rem;
+        right: calc(10px + env(safe-area-inset-right));
+        bottom: calc(1rem + env(safe-area-inset-bottom));
         width: 50px;
         height: 50px;
     }
@@ -2213,9 +2213,15 @@ body {
         height: 22px;
     }
 
+    .bottom-terminal {
+        height: 45vh;
+        max-height: 380px;
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
     .pdf-fab {
-        bottom: 4.5rem;
-        right: 0.5rem;
+        bottom: calc(4.5rem + env(safe-area-inset-bottom));
+        right: calc(0.5rem + env(safe-area-inset-right));
         padding: 5px 8px;
         font-size: 0.6rem;
     }
@@ -2225,20 +2231,30 @@ body {
     }
 
     .zen-toggle {
-        bottom: 6.5rem;
-        right: 0.5rem;
-        width: 32px;
-        height: 32px;
+        bottom: calc(6.5rem + env(safe-area-inset-bottom));
+        right: calc(0.5rem + env(safe-area-inset-right));
+        width: 36px;
+        height: 36px;
         font-size: 0.8rem;
     }
 
     .terminal-tabs {
-        font-size: 0.5rem;
+        font-size: 0.65rem;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        max-width: calc(100vw - 110px);
+    }
+
+    .terminal-tabs::-webkit-scrollbar {
+        display: none;
     }
 
     .terminal-tab {
-        padding: 5px 8px;
-        font-size: 0.5rem;
+        padding: 8px 10px;
+        font-size: 0.65rem;
+        min-height: 36px;
     }
 
     .command-palette {
@@ -2342,17 +2358,17 @@ body {
     }
 
     .ai-chat-container {
-        width: calc(100vw - 16px);
-        right: 8px;
-        bottom: 4.5rem;
-        height: 300px;
+        width: calc(100vw - 16px - env(safe-area-inset-left) - env(safe-area-inset-right));
+        right: calc(8px + env(safe-area-inset-right));
+        bottom: calc(4.5rem + env(safe-area-inset-bottom));
+        height: min(320px, 60vh);
     }
 
     .ai-chat-toggle {
-        right: 8px;
-        bottom: 0.75rem;
-        width: 44px;
-        height: 44px;
+        right: calc(8px + env(safe-area-inset-right));
+        bottom: calc(0.75rem + env(safe-area-inset-bottom));
+        width: 48px;
+        height: 48px;
     }
 
     .ai-chat-toggle .chat-icon-svg {
@@ -2361,16 +2377,16 @@ body {
     }
 
     .pdf-fab {
-        bottom: 3.5rem;
-        right: 0.5rem;
+        bottom: calc(3.5rem + env(safe-area-inset-bottom));
+        right: calc(0.5rem + env(safe-area-inset-right));
     }
 
     .zen-toggle {
-        bottom: 5.5rem;
-        right: 0.5rem;
-        width: 28px;
-        height: 28px;
-        font-size: 0.7rem;
+        bottom: calc(5.5rem + env(safe-area-inset-bottom));
+        right: calc(0.5rem + env(safe-area-inset-right));
+        width: 32px;
+        height: 32px;
+        font-size: 0.75rem;
     }
 
     .resume-section {
@@ -2410,11 +2426,17 @@ body {
 /* --- TACTICAL HUD MOBILE OVERRIDES --- */
 @media (max-width: 991px) {
     #sideNav {
-        padding: 0.5rem 1rem !important;
+        padding: max(0.5rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) 0.5rem max(1rem, env(safe-area-inset-left)) !important;
         background: rgba(10, 16, 8, 0.98) !important;
         backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
         border-bottom: 1px solid rgba(var(--primary-color-rgb), 0.3) !important;
         z-index: 1040;
+    }
+
+    .main-content-wrapper {
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
     }
 
     .navbar-toggler {
@@ -2423,7 +2445,11 @@ body {
         padding: 0.4rem 0.6rem !important;
         border-radius: 4px;
         opacity: 1 !important;
-        display: block !important;
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        min-width: 44px;
+        min-height: 44px;
     }
     
     .navbar-toggler-icon {
@@ -2439,6 +2465,21 @@ body {
         margin-top: 15px;
         padding: 1rem !important;
         border-radius: 8px;
+    }
+
+    #sideNav .navbar-nav .nav-link {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0.75rem;
+    }
+
+    #sideNav .navbar-nav .btn-theme-toggle {
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 
     #sideNav .navbar-nav .nav-item.dropdown {

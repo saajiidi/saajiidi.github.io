@@ -2,7 +2,7 @@
 <html lang="en" data-theme="dark" data-accent="blue">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="Project showcase by Sajid Islam - Full-stack developer & data scientist.">
   <meta name="author" content="Sajid Islam">
   <title>Projects — Sajid Islam</title>
@@ -52,8 +52,8 @@
 
   <!-- Filter Controls -->
   <div class="filter-bar">
-    <input type="search" id="project-search" placeholder="Search projects..." class="search-input" />
-    <div class="filter-buttons">
+    <input type="search" id="project-search" placeholder="Search projects..." aria-label="Search projects" class="search-input" />
+    <div class="filter-buttons" role="group" aria-label="Filter projects by category">
       <button class="filter-btn active" data-filter="all">All Projects</button>
       <button class="filter-btn" data-filter="fullstack">Full-Stack</button>
       <button class="filter-btn" data-filter="frontend">Frontend</button>
@@ -69,7 +69,7 @@
   </div>
 
   <div class="view-more">
-    <small>Want to see more projects? Visit my <a href="https://github.com/Sajid-ul-Islam">GitHub profile</a>.</small>
+    <small>Want to see more projects? Visit my <a href="https://github.com/Sajid-ul-Islam" target="_blank" rel="noopener noreferrer">GitHub profile</a>.</small>
   </div>
 </main>
 
@@ -87,34 +87,46 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Fetch project data
   try {
     const response = await fetch('assets/data/projects.json');
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
     projects = await response.json();
   } catch (error) {
     console.error('Failed to load projects:', error);
+    if (grid) {
+      grid.innerHTML = '<div class="col-span-full p-6 text-center text-muted">Unable to load projects list. Please visit <a href="https://github.com/Sajid-ul-Islam" class="underline" target="_blank" rel="noopener noreferrer">GitHub</a>.</div>';
+    }
+    return;
   }
 
   // Render projects
   function renderProjects() {
+    if (!grid) return;
     const filtered = projects.filter(project => {
-      const matchesFilter = activeFilter === 'all' || project.tags.includes(activeFilter);
+      const matchesFilter = activeFilter === 'all' || (project.tags && project.tags.includes(activeFilter));
+      const search = searchTerm.toLowerCase();
       const matchesSearch = 
-        project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.technologies.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()));
+        (project.title && project.title.toLowerCase().includes(search)) ||
+        (project.description && project.description.toLowerCase().includes(search)) ||
+        (project.technologies && project.technologies.some(tech => tech.toLowerCase().includes(search)));
       
       return matchesFilter && matchesSearch;
     });
 
+    if (filtered.length === 0) {
+      grid.innerHTML = '<div class="col-span-full p-6 text-center text-muted">No projects found matching current criteria.</div>';
+      return;
+    }
+
     grid.innerHTML = filtered.map(project => `
-      <article class="project-card" data-tags="${project.tags.join(' ')}">
-        <h3 class="project-title">${project.title}</h3>
-        <p class="project-description">${project.description}</p>
+      <article class="project-card" data-tags="${(project.tags || []).join(' ')}">
+        <h3 class="project-title">${project.title || ''}</h3>
+        <p class="project-description">${project.description || ''}</p>
         
         <div class="tech-badges">
-          ${project.technologies.map(tech => `<span class="tech-badge">${tech}</span>`).join('')}
+          ${(project.technologies || []).map(tech => `<span class="tech-badge">${tech}</span>`).join('')}
         </div>
         
         <div class="project-links">
-          ${project.links.map(link => `<a href="${link.url}" target="_blank">${link.label}</a>`).join('')}
+          ${(project.links || []).map(link => `<a href="${link.url}" target="_blank" rel="noopener noreferrer">${link.label}</a>`).join('')}
         </div>
       </article>
     `).join('');
@@ -125,21 +137,30 @@ document.addEventListener('DOMContentLoaded', async () => {
     btn.addEventListener('click', () => {
       filterButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      activeFilter = btn.dataset.filter;
+      activeFilter = btn.dataset.filter || 'all';
       renderProjects();
     });
   });
 
-  searchInput.addEventListener('input', (e) => {
-    searchTerm = e.target.value;
-    renderProjects();
-  });
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchTerm = e.target.value;
+      renderProjects();
+    });
+  }
 
   // Initial render
   renderProjects();
 });
 </script>
 
-<script src="js/theme-accent.js"></script>
+<script type="module">
+  import { initAccentSwitcher } from './js/theme-accent.js';
+  try {
+    initAccentSwitcher();
+  } catch (err) {
+    console.warn('Accent switcher init:', err);
+  }
+</script>
 </body>
 </html>

@@ -13,8 +13,8 @@ export const EXTERNAL_BLOCK_LIST = [
 export function openPortfolioBridge(e, url) {
     if (e) e.preventDefault();
     const bridge = document.getElementById('portfolioBridge');
-    const iframe = document.getElementById('portfolioIframe');
-    const loader = bridge?.querySelector('.bridge-loader');
+    const iframe = /** @type {HTMLIFrameElement | null} */ (document.getElementById('portfolioIframe'));
+    const loader = /** @type {HTMLElement | null} */ (bridge?.querySelector('.bridge-loader') || null);
     const displayUrl = document.getElementById('bridgeDisplayUrl');
 
     const normalizedUrl = url.toLowerCase();
@@ -101,7 +101,7 @@ export function initResizableBridge() {
 
 export function closePortfolioBridge() {
     const bridge = document.getElementById('portfolioBridge');
-    const iframe = document.getElementById('portfolioIframe');
+    const iframe = /** @type {HTMLIFrameElement | null} */ (document.getElementById('portfolioIframe'));
     if (!bridge || !iframe) return;
 
     bridge.classList.remove('active');

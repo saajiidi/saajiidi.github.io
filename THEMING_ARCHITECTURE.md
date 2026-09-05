@@ -28,6 +28,10 @@ This approach guarantees that:
 - **Sketchbook Ink** (`theme-sketchbook.html`): High-aesthetic hand-drawn sketch dashboard built using Tailwind and SVG filters.
 - **Tactical HUD** (`theme-tactical.html`): Dark terminal hacker grid style built with Bootstrap and canvas telemetry.
 
+## Secondary Showcase Pages
+- **Standalone Projects Archive** (`projects.html`): Searchable and filterable gallery of featured projects loaded from `assets/data/projects.json`.
+- **Printable / Accessible Resume** (`resume.html`): Clean, printable curriculum vitae with profile image controls, contact info, and PDF export formatting.
+
 ---
 
 ## How to Add a New Theme

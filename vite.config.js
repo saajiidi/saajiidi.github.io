@@ -13,7 +13,7 @@ export default defineConfig({
       closeBundle() {
         const out = join(process.cwd(), 'dist');
         mkdirSync(out, { recursive: true });
-        for (const entry of ['img', 'sounds', 'manifest.json']) {
+        for (const entry of ['img', 'sounds', 'manifest.json', 'assets']) {
           try { cpSync(entry, join(out, entry), { recursive: true }); }
           catch (err) { console.warn(`[copy-static] skip ${entry}: ${err.message}`); }
         }
@@ -45,7 +45,8 @@ export default defineConfig({
         main: 'index.html',
         themeTactical: 'theme-tactical.html',
         themeSketchbook: 'theme-sketchbook.html',
-        resume: 'resume.html'
+        resume: 'resume.html',
+        projects: 'projects.html'
       },
     },
   },

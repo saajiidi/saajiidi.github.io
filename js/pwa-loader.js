@@ -11,8 +11,8 @@ export function initPWA() {
                 .then(registration => {
                     const installingWorker = registration.installing;
                     if (installingWorker) {
-                        installingWorker.addEventListener('statechange', (e) => {
-                            if (e.target.state === 'installed' && navigator.serviceWorker.controller) {
+                        installingWorker.addEventListener('statechange', () => {
+                            if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
                                 if (window.confirm('New content available! Reload to update?')) {
                                     window.location.reload();
                                 }

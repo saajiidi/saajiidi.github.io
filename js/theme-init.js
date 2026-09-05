@@ -49,8 +49,10 @@ function patchMeta() {
 // ── Patch profile image(s) ────────────────────────────────────────────────────
 function patchProfilePhoto() {
   document.querySelectorAll('img[alt="Sajid Islam"], img[alt="Profile"]').forEach(img => {
-    img.src = PROFILE_INFO.photo;
-    img.alt = PROFILE_INFO.name;
+    if (img instanceof HTMLImageElement) {
+      img.src = PROFILE_INFO.photo;
+      img.alt = PROFILE_INFO.name;
+    }
   });
 }
 
@@ -72,20 +74,20 @@ function patchLinks() {
   const wa = waLink(PROFILE_INFO.whatsapp);
 
   // WhatsApp — href on any wa.me links or .footer-whatsapp
-  document.querySelectorAll('a[href*="wa.me"], a.footer-whatsapp').forEach(a => { a.href = wa; });
+  document.querySelectorAll('a[href*="wa.me"], a.footer-whatsapp').forEach(a => { if (a instanceof HTMLAnchorElement) a.href = wa; });
 
   // Telegram — href on any t.me links (skip if contact is a masked placeholder)
   if (PROFILE_INFO.telegram && !PROFILE_INFO.telegram.includes('*')) {
-    document.querySelectorAll('a[href*="t.me"]').forEach(a => { a.href = PROFILE_INFO.telegram; });
+    document.querySelectorAll('a[href*="t.me"]').forEach(a => { if (a instanceof HTMLAnchorElement) a.href = PROFILE_INFO.telegram; });
   } else {
     // Hide dead telegram buttons rather than linking to a placeholder
     document.querySelectorAll('a[href*="t.me"]').forEach(a => {
-      if ((a.getAttribute('href') || '').includes('*')) a.style.display = 'none';
+      if (a instanceof HTMLElement && (a.getAttribute('href') || '').includes('*')) a.style.display = 'none';
     });
   }
 
   // Email — mailto: links or .footer-email
-  document.querySelectorAll('a[href^="mailto:"], a.footer-email').forEach(a => { a.href = `mailto:${PROFILE_INFO.email}`; });
+  document.querySelectorAll('a[href^="mailto:"], a.footer-email').forEach(a => { if (a instanceof HTMLAnchorElement) a.href = `mailto:${PROFILE_INFO.email}`; });
 
   // Email text spans
   document.querySelectorAll('[data-field="email"]').forEach(el => { el.textContent = PROFILE_INFO.email; });
@@ -93,24 +95,24 @@ function patchLinks() {
 
   // GitHub links
   document.querySelectorAll('a[href*="github.com"]').forEach(a => {
-    if (a.href.includes('Sajid') || a.href === '#' && a.title === 'GitHub') a.href = PROFILE_INFO.github;
+    if (a instanceof HTMLAnchorElement && (a.href.includes('Sajid') || (a.href === '#' && a.title === 'GitHub'))) a.href = PROFILE_INFO.github;
   });
   // GitHub icon links with title
-  document.querySelectorAll('a[title="GitHub"]').forEach(a => { a.href = PROFILE_INFO.github; });
+  document.querySelectorAll('a[title="GitHub"]').forEach(a => { if (a instanceof HTMLAnchorElement) a.href = PROFILE_INFO.github; });
 
   // LinkedIn links
   document.querySelectorAll('a[href*="linkedin.com"], a[title="LinkedIn"]').forEach(a => {
-    a.href = PROFILE_INFO.linkedin;
+    if (a instanceof HTMLAnchorElement) a.href = PROFILE_INFO.linkedin;
   });
 
   // Kaggle links
   document.querySelectorAll('a[href*="kaggle.com"], a[title="Kaggle"]').forEach(a => {
-    a.href = PROFILE_INFO.kaggle;
+    if (a instanceof HTMLAnchorElement) a.href = PROFILE_INFO.kaggle;
   });
 
   // Hugging Face links
   document.querySelectorAll('a[href*="huggingface.co"]').forEach(a => {
-    a.href = PROFILE_INFO.huggingface;
+    if (a instanceof HTMLAnchorElement) a.href = PROFILE_INFO.huggingface;
   });
 }
 
@@ -178,7 +180,7 @@ function patchHeroText() {
 function patchStats() {
   // Ironforge: elements with [data-count] attribute
   document.querySelectorAll('[data-count]').forEach((el, i) => {
-    if (STATS[i]) el.setAttribute('data-count', STATS[i].value);
+    if (STATS[i]) el.setAttribute('data-count', String(STATS[i].value));
   });
 
   // Sketchbook: h3 inside #stats section

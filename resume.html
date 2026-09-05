@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Resume - Sajid Islam</title>
     <!-- Modern Fonts: Inter (structure) & Playfair Display (elegance) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -343,29 +343,103 @@
             margin-bottom: 10px !important;
         }
 
+        /* Top Navigation Bar */
+        .resume-nav-bar {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .nav-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--primary);
+            text-decoration: none;
+            padding: 8px 16px;
+            background: var(--white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            box-shadow: var(--shadow-subtle);
+            min-height: 44px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-back-link:hover {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .btn-print {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--primary);
+            background: var(--white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            padding: 8px 16px;
+            cursor: pointer;
+            box-shadow: var(--shadow-subtle);
+            min-height: 44px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-print:hover {
+            background: #f1f5f9;
+        }
+
         /* Mobile Layout */
         @media (max-width: 768px) {
+            body {
+                padding: max(16px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .resume-nav-bar {
+                margin-bottom: 12px;
+            }
+
             .resume-container {
                 grid-template-columns: 1fr;
+                border-radius: 8px;
             }
 
             .sidebar {
-                padding: 30px;
+                padding: 24px 16px;
+                gap: 24px;
                 background: #fcfcfc;
                 border-bottom: 1px solid #eee;
                 border-right: none;
             }
 
             .main-content {
-                padding: 30px;
+                padding: 24px 16px;
             }
 
             .name {
-                font-size: 2.2rem;
+                font-size: 1.8rem;
+                line-height: 1.2;
             }
 
             .item-head {
                 flex-direction: column;
+                gap: 4px;
+            }
+
+            .profile-wrapper {
+                width: 120px;
+                height: 120px;
             }
         }
 
@@ -374,6 +448,10 @@
             body {
                 background: white;
                 padding: 0;
+            }
+
+            .resume-nav-bar {
+                display: none !important;
             }
 
             .resume-container {
@@ -397,6 +475,11 @@
 </head>
 
 <body>
+
+    <nav class="resume-nav-bar" aria-label="Resume actions">
+        <a href="index.html" class="nav-back-link">&#8592; Back to Portfolio</a>
+        <button type="button" onclick="window.print()" class="btn-print">&#128438; Print / Save PDF</button>
+    </nav>
 
     <div class="resume-container">
         <!-- Sidebar Area -->

@@ -9,7 +9,7 @@ let selectedIndex = -1;
 
 export function initCommandPalette() {
     const palette = document.getElementById('commandPalette');
-    const input = document.getElementById('paletteInput');
+    const input = /** @type {HTMLInputElement | null} */ (document.getElementById('paletteInput'));
     const results = document.getElementById('paletteResults');
 
     if (!palette || !input || !results) return;
@@ -24,8 +24,10 @@ export function initCommandPalette() {
             togglePalette();
         }
 
-        if (paletteActive) {
-            const items = results.querySelectorAll('.palette-result-item');
+        if (!paletteActive) return;
+
+        const items = results.querySelectorAll('.palette-item');
+        if (items.length > 0) {
             if (e.key === 'ArrowDown') {
                 e.preventDefault();
                 selectedIndex = (selectedIndex + 1) % items.length;
@@ -36,13 +38,14 @@ export function initCommandPalette() {
                 updateSelection(items);
             } else if (e.key === 'Enter' && selectedIndex >= 0) {
                 e.preventDefault();
-                items[selectedIndex].click();
+                const activeItem = /** @type {HTMLElement | undefined} */ (items[selectedIndex]);
+                activeItem?.click();
             }
         }
     });
 
-    input.addEventListener('input', (e) => {
-        const query = e.target.value.trim().toLowerCase();
+    input.addEventListener('input', () => {
+        const query = input.value.trim().toLowerCase();
         if (!query) {
             results.innerHTML = '<div class="palette-hint p-4 text-center text-secondary small">SEARCH_INDEX_ACTIVE: Type keywords...</div>';
             return;
@@ -56,7 +59,7 @@ export function initCommandPalette() {
 
 export function togglePalette() {
     const palette = document.getElementById('commandPalette');
-    const input = document.getElementById('paletteInput');
+    const input = /** @type {HTMLInputElement | null} */ (document.getElementById('paletteInput'));
     if (!palette || !input) return;
     
     paletteActive = !paletteActive;

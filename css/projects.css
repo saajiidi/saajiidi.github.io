@@ -108,7 +108,7 @@
 /* Projects Grid */
 #projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   gap: 1.5rem;
 }
 
@@ -205,8 +205,8 @@
 /* Back to Home Button */
 .back-to-home {
   position: fixed;
-  top: 1.5rem;
-  left: 1.5rem;
+  top: max(1rem, env(safe-area-inset-top));
+  left: max(1rem, env(safe-area-inset-left));
   z-index: 100;
 }
 
@@ -215,7 +215,9 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background: rgba(245, 245, 245, 0.05);
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   color: var(--fg-dim);
@@ -223,6 +225,7 @@
   transition: all 0.2s ease;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.85rem;
+  min-height: 44px;
 }
 
 .back-to-home a:hover {
@@ -232,21 +235,43 @@
 
 /* Mobile Adjustments */
 @media (max-width: 768px) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
   .container {
-    padding: 1rem 0.5rem;
+    padding: calc(4.5rem + env(safe-area-inset-top)) 1rem max(2rem, env(safe-area-inset-bottom)) 1rem;
   }
   
   .project-card {
-    padding: 1rem;
+    padding: 1.25rem 1rem;
   }
   
   .filter-buttons {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
     padding-bottom: 0.5rem;
+    flex-wrap: nowrap;
+  }
+
+  .filter-buttons::-webkit-scrollbar {
+    display: none;
   }
   
   .filter-btn {
     flex-shrink: 0;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+  }
+
+  #projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }
 

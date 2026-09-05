@@ -25,7 +25,7 @@ export function initDigitalClock() {
         if (secondsSpan) {
             // Apply animation class
             secondsSpan.classList.remove('animate-second'); // Remove to re-trigger animation
-            void secondsSpan.offsetWidth; // Trigger reflow
+            if (secondsSpan instanceof HTMLElement) void secondsSpan.offsetWidth; // Trigger reflow
             secondsSpan.textContent = seconds;
             secondsSpan.classList.add('animate-second');
         }
@@ -47,7 +47,7 @@ export function initScrollProgress() {
         const progressPercentage = (scrollPosition / windowHeight) * 100;
         progressHUD.style.width = `${progressPercentage  }%`;
 
-        const navbar = document.querySelector('.navbar');
+        const navbar = /** @type {HTMLElement | null} */ (document.querySelector('.navbar'));
         if (navbar) {
             if (scrollPosition > 50) {
                 const cs = getComputedStyle(document.documentElement);
@@ -91,7 +91,7 @@ export function initSystemStatus() {
 
 export function initLiveSearch(tacticalData) {
     const searchContainer = document.getElementById('liveSearch');
-    const searchInput = document.getElementById('globalSearch');
+    const searchInput = /** @type {HTMLInputElement | null} */ (document.getElementById('globalSearch'));
     const results = document.getElementById('searchResults');
     if (!searchContainer || !searchInput || !results) return;
 
@@ -110,8 +110,8 @@ export function initLiveSearch(tacticalData) {
     experience.forEach(item => {
         searchIndex.push({
             type: 'Experience',
-            title: item.title || item.Role,
-            text: item.company || item.Company,
+            title: item.company,
+            text: `${item.title  } ${  item.description}`,
             section: 'experience'
         });
     });
@@ -121,7 +121,7 @@ export function initLiveSearch(tacticalData) {
             searchIndex.push({
                 type: 'Skill',
                 title: skill.name,
-                text: group.name,
+                text: `${group.title  } proficiency: ${  skill.level  }%`,
                 section: 'skills'
             });
         });
@@ -129,7 +129,7 @@ export function initLiveSearch(tacticalData) {
 
     document.addEventListener('keydown', (e) => {
         if (e.key === '/' && !e.ctrlKey && !e.altKey && !e.metaKey) {
-            if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+            if (document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
                 e.preventDefault();
                 searchContainer.classList.add('active');
                 searchInput.focus();
@@ -141,8 +141,8 @@ export function initLiveSearch(tacticalData) {
         }
     });
 
-    searchInput.addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase();
+    searchInput.addEventListener('input', () => {
+        const query = searchInput.value.toLowerCase();
         results.innerHTML = '';
 
         if (query.length < 2) return;
@@ -205,15 +205,16 @@ export function initZenMode() {
     toggle.addEventListener('click', () => {
         body.classList.toggle('zen-mode');
         toggle.classList.toggle('active');
-        localStorage.setItem('zen-mode', body.classList.contains('zen-mode'));
+        localStorage.setItem('zen-mode', String(body.classList.contains('zen-mode')));
     });
 }
 
 export function initDataViz() {
-    const canvas = document.getElementById('liveMetricsChart');
+    const canvas = /** @type {HTMLCanvasElement | null} */ (document.getElementById('liveMetricsChart'));
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
+    if (!ctx) return;
     const pageViewsEl = document.getElementById('pageViews');
     const activeTimeEl = document.getElementById('activeTime');
 
@@ -222,8 +223,8 @@ export function initDataViz() {
     const dataPoints = Array(20).fill(0);
 
     pageViews++;
-    sessionStorage.setItem('pageViews', pageViews);
-    if (pageViewsEl) pageViewsEl.textContent = pageViews;
+    sessionStorage.setItem('pageViews', String(pageViews));
+    if (pageViewsEl) pageViewsEl.textContent = String(pageViews);
 
     function drawChart() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);

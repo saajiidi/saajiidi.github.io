@@ -94,7 +94,7 @@ let exchangeCount = 0;
 let chatHistory = [];
 
 export const handleSuggestion = (text) => {
-    const input = document.getElementById('aiChatInput');
+    const input = /** @type {HTMLInputElement | null} */ (document.getElementById('aiChatInput'));
     if (input) {
         input.value = text;
         const sendBtn = document.getElementById('sendAiMessage');
@@ -111,7 +111,7 @@ export function initAiChat() {
     const toggle = document.getElementById('aiChatToggle');
     const container = document.getElementById('aiChatContainer');
     const closeBtn = document.getElementById('closeAiChat');
-    const input = document.getElementById('aiChatInput');
+    const input = /** @type {HTMLInputElement | null} */ (document.getElementById('aiChatInput'));
     const sendBtn = document.getElementById('sendAiMessage');
     const body = document.getElementById('aiChatBody');
     const clearBtn = document.getElementById('clearAiChat');
@@ -436,7 +436,7 @@ if (typeof window !== 'undefined') {
   const autoInitChat = () => {
     if (document.getElementById('aiChatToggle') && !window.__aiChatBound) {
       window.__aiChatBound = true;
-      try { initAiChat(); } catch (e) { /* chat markup absent */ }
+      try { initAiChat(); } catch { /* chat markup absent */ }
     }
   };
   if (document.readyState === 'loading') {

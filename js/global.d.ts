@@ -8,6 +8,7 @@
 
 interface Window {
   DATA: any;
+  bootstrap?: any;
   AudioEngine: any;
   MISSION_SECRETS: Record<string, string>;
   PortfolioData: any;
@@ -27,6 +28,10 @@ interface Window {
   handleTreeClick: (e: Event, id: string) => void;
   switchTerminalTab: (tabId: string) => void;
   toggleBottomTerminal: () => void;
+  minimizeBottomTerminal?: () => void;
+  __aiChatBound?: boolean;
+  __toggleAiChat?: (minimize?: boolean) => void;
+  __minimizeAiChat?: () => void;
   togglePalette: () => void;
   copyEmail: (email: string, event: Event) => void;
   handleSuggestion: ((text: string) => void) | null;
@@ -42,6 +47,9 @@ interface Window {
   isWritingMode?: boolean;
   webkitAudioContext?: typeof AudioContext;
 }
+
+/** AudioEngine loaded globally */
+declare const AudioEngine: any;
 
 /** Chart.js loaded via CDN script tag */
 declare const Chart: any;

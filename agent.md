@@ -32,7 +32,8 @@ Sajid-ul-Islam.github.io/
 ├── index.html                 # Theme Router (gateway / redirect)
 ├── theme-sketchbook.html      # Sketchbook Ink theme (Tailwind)
 ├── theme-tactical.html        # Tactical HUD theme (Bootstrap)
-├── resume.html               # Printable resume page
+├── resume.html               # Printable / accessible resume page
+├── projects.html             # Standalone project archive showcase
 ├── sw.js                     # Service Worker (PWA offline support)
 ├── manifest.json             # PWA manifest
 ├── package.json              # NPM dependencies & build scripts
@@ -42,6 +43,12 @@ Sajid-ul-Islam.github.io/
 ├── main.js                   # Module load-order documentation
 ├── tsconfig.json             # TypeScript config for JS type checking
 │
+├── assets/                   # Static data assets
+│   └── data/projects.json    # Project archive records
+│
+├── themes/                   # Theme entry bundles
+│   └── sketchbook/           # Sketchbook Ink assets & styles
+│
 ├── css/                      # Stylesheets (modular architecture)
 │   ├── color-palette.css     # Shared accent color definitions (20 palettes)
 │   ├── modern-custom.css     # Core styles + Bootstrap overrides
@@ -50,6 +57,7 @@ Sajid-ul-Islam.github.io/
 │   ├── shared-components.css # Shared component styles across themes
 │   ├── floating-widgets.css  # HUD widget styling
 │   ├── github-feed.css       # GitHub integration styles
+│   ├── projects.css          # Projects showcase styling
 │   └── deep-black-terminal.css # Terminal-specific styling
 │
 ├── js/                       # JavaScript modules (tactical architecture)
@@ -70,6 +78,7 @@ Sajid-ul-Islam.github.io/
 │   ├── portfolio-bridge.js   # External project viewer
 │   ├── github-feed.js        # GitHub repo fetching
 │   ├── floating-widgets.js   # Floating HUD widgets
+│   ├── global.d.ts           # Type definitions for TypeScript checking
 │   └── pwa-loader.js         # Service Worker registration
 │
 │   Note: Bootstrap 5.3 & Font Awesome 6.4 are loaded via CDN.

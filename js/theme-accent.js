@@ -20,8 +20,8 @@ export function setAccent(name) {
 
 /**
  * Wire up all `.color-swatch` buttons and restore the saved accent.
- * @param {object} opts
- * @param {string} opts.defaultAccent - fallback if nothing saved
+ * @param {object} [opts]
+ * @param {string} [opts.defaultAccent] - fallback if nothing saved
  * @param {function} [opts.onChange]   - optional callback(accentName)
  */
 export function initAccentSwitcher({ defaultAccent = 'green', onChange } = {}) {
@@ -30,7 +30,8 @@ export function initAccentSwitcher({ defaultAccent = 'green', onChange } = {}) {
 
   document.querySelectorAll('.color-swatch').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      const name = e.currentTarget.getAttribute('data-color');
+      const target = /** @type {HTMLElement | null} */ (e.currentTarget);
+      const name = target ? target.getAttribute('data-color') : null;
       if (!name) return;
       setAccent(name);
       if (onChange) onChange(name);

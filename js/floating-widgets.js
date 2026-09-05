@@ -28,6 +28,13 @@ export class FloatingWidget {
 
         this._onMove = this._move.bind(this);
         this._onUp   = this._up.bind(this);
+        /** @param {TouchEvent} ev */
+        this._onTouchMove = (ev) => {
+            if (this._dragging && ev.touches.length === 1) {
+                this._move(ev.touches[0]);
+            }
+        };
+        this._onTouchUp = () => this._up();
         this._setup();
     }
 
@@ -57,12 +64,21 @@ export class FloatingWidget {
             r.addEventListener('mousedown', ev => this._startResize(ev));
         });
 
+        const initialW = Math.min(this.opts.defW, Math.max(220, window.innerWidth - 24));
+        const initialH = Math.min(this.opts.defH, Math.max(200, window.innerHeight - 100));
+        const initialLeft = this.opts.defX !== null
+            ? Math.max(12, Math.min(this.opts.defX, window.innerWidth - initialW - 12))
+            : Math.max(12, window.innerWidth - initialW - 24);
+        const initialTop = this.opts.defY !== null
+            ? Math.max(70, Math.min(this.opts.defY, window.innerHeight - initialH - 70))
+            : Math.max(70, window.innerHeight - initialH - 110);
+
         e.style.cssText += `
             position: fixed !important;
-            width:  ${this.opts.defW}px;
-            height: ${this.opts.defH}px;
-            left: ${this.opts.defX !== null ? this.opts.defX : Math.max(0, window.innerWidth  - this.opts.defW - 24)}px;
-            top:  ${this.opts.defY !== null ? this.opts.defY : Math.max(0, window.innerHeight - this.opts.defH - 110)}px;
+            width:  ${initialW}px;
+            height: ${initialH}px;
+            left: ${initialLeft}px;
+            top:  ${initialTop}px;
             z-index: ${this.opts.zBase};
             overflow: hidden;
         `;
@@ -70,6 +86,9 @@ export class FloatingWidget {
         const header = e.querySelector('.fw-header');
         if (header) {
             header.addEventListener('mousedown', ev => this._startDrag(ev));
+            header.addEventListener('touchstart', ev => {
+                if (ev.touches.length === 1) this._startDrag(ev.touches[0]);
+            }, { passive: true });
         }
 
         e.querySelector('.fw-min')  ?.addEventListener('click', () => this._minimize());
@@ -80,17 +99,23 @@ export class FloatingWidget {
 
         document.addEventListener('mousemove', this._onMove);
         document.addEventListener('mouseup',   this._onUp);
+        document.addEventListener('touchmove', this._onTouchMove, { passive: true });
+        document.addEventListener('touchend',   this._onTouchUp, { passive: true });
     }
 
+    /** @param {MouseEvent | Touch} e */
     _startDrag(e) {
-        if (e.target.closest('.fw-controls')) return;
+        if ('target' in e && e.target instanceof Element && e.target.closest('.fw-controls')) return;
         this._dragging = true;
         this._dsx = e.clientX;
         this._dsy = e.clientY;
         this._del = parseInt(this.element.style.left) || 0;
         this._det = parseInt(this.element.style.top)  || 0;
-        this.element.querySelector('.fw-header').style.cursor = 'grabbing';
-        e.preventDefault();
+        const header = /** @type {HTMLElement | null} */ (this.element.querySelector('.fw-header'));
+        if (header) header.style.cursor = 'grabbing';
+        if ('preventDefault' in e && typeof e.preventDefault === 'function') {
+            e.preventDefault();
+        }
     }
 
     _startResize(e) {
@@ -104,12 +129,17 @@ export class FloatingWidget {
         this._rst  = parseInt(this.element.style.top)    || 0;
     }
 
+    /** @param {MouseEvent | Touch} e */
     _move(e) {
         if (this._dragging) {
             const dx = e.clientX - this._dsx;
             const dy = e.clientY - this._dsy;
-            this.element.style.left = `${Math.max(0, this._del + dx)  }px`;
-            this.element.style.top  = `${Math.max(0, this._det + dy)  }px`;
+            const curW = parseInt(this.element.style.width) || this.opts.defW;
+            const curH = parseInt(this.element.style.height) || this.opts.defH;
+            const maxX = Math.max(0, window.innerWidth - curW);
+            const maxY = Math.max(0, window.innerHeight - Math.min(curH, 60));
+            this.element.style.left = `${Math.max(0, Math.min(maxX, this._del + dx))}px`;
+            this.element.style.top  = `${Math.max(0, Math.min(maxY, this._det + dy))}px`;
         }
         if (this._resizing) {
             const { minW, minH, maxW, maxH } = this.opts;
@@ -132,7 +162,7 @@ export class FloatingWidget {
 
     _up() {
         if (this._dragging) {
-            const h = this.element.querySelector('.fw-header');
+            const h = /** @type {HTMLElement | null} */ (this.element.querySelector('.fw-header'));
             if (h) h.style.cursor = 'grab';
         }
         this._dragging = this._resizing = false;
@@ -142,6 +172,8 @@ export class FloatingWidget {
     _destroy() {
         document.removeEventListener('mousemove', this._onMove);
         document.removeEventListener('mouseup', this._onUp);
+        document.removeEventListener('touchmove', this._onTouchMove);
+        document.removeEventListener('touchend', this._onTouchUp);
         this.element.style.display = 'none';
     }
 
@@ -167,8 +199,10 @@ export class FloatingWidget {
     }
 
     _toFront() {
-        document.querySelectorAll('.floating-widget').forEach(w => w.style.zIndex = this.opts.zBase);
-        this.element.style.zIndex = this.opts.zBase + 10;
+        document.querySelectorAll('.floating-widget').forEach(w => {
+            if (w instanceof HTMLElement) w.style.zIndex = String(this.opts.zBase);
+        });
+        this.element.style.zIndex = String(this.opts.zBase + 10);
     }
 }
 
@@ -179,12 +213,14 @@ export function initFloatingWidgets() {
     // Unified Command Center Widget
     const cmdCenter = document.getElementById('commandCenterWidget');
     if (cmdCenter) {
+        const isMobile = window.innerWidth < 768;
         new FloatingWidget(cmdCenter, {
             title: '[COMMAND_CENTER]',
-            defW: 300, defH: 400,
-            minW: 260, minH: 300,
-            defX: window.innerWidth - 340,
-            defY: 80,
+            defW: isMobile ? Math.min(280, window.innerWidth - 24) : 300,
+            defH: isMobile ? 320 : 400,
+            minW: 240, minH: 260,
+            defX: isMobile ? 12 : window.innerWidth - 340,
+            defY: isMobile ? 80 : 80,
             zBase: 1500
         });
     }

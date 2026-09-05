@@ -340,3 +340,27 @@
 /* Scrollbar in feed */
 #githubActivity::-webkit-scrollbar { width: 4px; }
 #githubActivity::-webkit-scrollbar-thumb { background: rgba(163,230,53,0.2); border-radius: 2px; }
+
+/* Mobile responsiveness & touch safety */
+@media (max-width: 768px) {
+    .floating-widget {
+        max-width: calc(100vw - 20px - env(safe-area-inset-left) - env(safe-area-inset-right)) !important;
+        max-height: calc(100dvh - 120px) !important;
+        box-sizing: border-box;
+    }
+
+    .fw-header {
+        min-height: 38px;
+        padding: 6px 10px;
+    }
+
+    .fw-btn {
+        width: 26px;
+        height: 26px;
+        font-size: 13px;
+    }
+
+    .fw-resize {
+        display: none !important;
+    }
+}

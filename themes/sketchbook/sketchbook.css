@@ -411,12 +411,21 @@
 .sk-hamburger {
   display: none;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
   cursor: pointer;
-  padding: 6px;
-  border-radius: 6px;
+  padding: 10px;
+  border-radius: 8px;
   background: transparent;
-  border: none;
+  border: 1px solid var(--border-color);
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.sk-hamburger:hover {
+  border-color: var(--accent);
 }
 
 @media (max-width: 1023px) {
@@ -425,43 +434,70 @@
   .sk-mobile-nav {
     display: none;
     flex-direction: column;
-    gap: 0;
+    gap: 0.25rem;
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
     background: var(--bg);
-    border-bottom: 1px solid var(--border-color);
-    z-index: 40;
-    padding: 1rem 1.5rem;
+    border-bottom: 2px solid var(--border-color);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+    z-index: 50;
+    padding: 1.25rem 1.5rem;
+    max-height: calc(100dvh - 65px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
   }
 
   .sk-mobile-nav.open {
     display: flex;
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .sk-mobile-nav a {
-    padding: 0.75rem 0;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 0.5rem;
     border-bottom: 1px solid var(--border-color);
     color: var(--muted);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    transition: color 0.2s;
+    letter-spacing: 0.08em;
+    transition: all 0.2s;
+    border-radius: 6px;
   }
 
-  .sk-mobile-nav a:hover {
+  .sk-mobile-nav a:hover,
+  .sk-mobile-nav a:active {
     color: var(--accent);
+    background: rgba(var(--accent-rgb, 45, 122, 107), 0.08);
+    padding-left: 0.75rem;
   }
 }
 
 .sk-hamburger-line {
-  width: 20px;
-  height: 1.5px;
+  width: 22px;
+  height: 2px;
   background: var(--fg);
-  transition: transform 0.3s, opacity 0.3s;
-  filter: url(#sk-rough-1);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  border-radius: 2px;
+}
+
+.sk-hamburger[aria-expanded="true"] .sk-hamburger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.sk-hamburger[aria-expanded="true"] .sk-hamburger-line:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.sk-hamburger[aria-expanded="true"] .sk-hamburger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 /* ── Skip Link Styles ──────────────────────────────────────── */
@@ -675,17 +711,18 @@
 @supports (padding: env(safe-area-inset-top)) {
   .ai-chat-toggle {
     bottom: calc(20px + env(safe-area-inset-bottom)) !important;
-    left: calc(20px + env(safe-area-inset-left)) !important;
+    right: calc(20px + env(safe-area-inset-right)) !important;
+    left: auto !important;
   }
   
   body {
-    padding-left: env(safe-area-inset-left);
-    padding-right: env(safe-area-inset-right);
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   
-  .mobile-nav {
-    top: calc(60px + env(safe-area-inset-top)) !important;
+  .sk-mobile-nav {
+    top: 100% !important;
   }
 }

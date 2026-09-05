@@ -244,7 +244,7 @@ const runTeardropTransition = async (activeObj, btnElement, targetTheme, applyTh
   // Apply the theme synchronously and INDEPENDENTLY of the animation so the
   // dark/light swap ALWAYS happens even if the water-drop/WebGL animation fails,
   // throws, or never resolves. The teardrop is purely cosmetic from here on.
-  try { applyThemeCallback(targetTheme); } catch (_) {}
+  try { applyThemeCallback(targetTheme); } catch {}
 
   const width = visualViewport?.width ?? innerWidth;
   const height = visualViewport?.height ?? innerHeight;
@@ -284,7 +284,8 @@ const runTeardropTransition = async (activeObj, btnElement, targetTheme, applyTh
   document.body.appendChild(overlay);
   activeObj.overlay = overlay;
 
-  const teardrop = overlay.querySelector('.theme-drop');
+  const teardrop = /** @type {HTMLElement | null} */ (overlay.querySelector('.theme-drop'));
+  if (!teardrop) return;
   teardrop.style.left = `${startX}px`;
   teardrop.style.transformOrigin = '50% 0%';
   const transformKeyframes = (yVal) => `translate(-50%, ${yVal}px)`;
@@ -351,7 +352,7 @@ const runTeardropTransition = async (activeObj, btnElement, targetTheme, applyTh
   const tasks = [];
   if (useWebgl) {
     try {
-      overlay.querySelector('#theme-warp-anim')?.beginElement();
+      (/** @type {SVGAnimateElement | null} */ (overlay.querySelector('#theme-warp-anim')))?.beginElement();
     } catch {}
     tasks.push(renderWebGLRipple(overlay.querySelector('.theme-water'), startX, splashY, maxDist));
   }
@@ -381,25 +382,27 @@ const runTeardropTransition = async (activeObj, btnElement, targetTheme, applyTh
         { transform: `translateX(${cfg.dx}px)` }
       ], { duration: cfg.duration, easing: 'linear', fill: 'both' }).finished,
       
-      drop.firstElementChild.animate([
+      drop.firstElementChild?.animate([
         { transform: 'translateY(0) scale(1)', opacity: 0.95, easing: 'cubic-bezier(0.2, 0.7, 0.4, 1)' },
         { transform: `translateY(${-cfg.rise}px) scale(0.8)`, opacity: 0.95, offset: 0.52, easing: 'cubic-bezier(0.6, 0, 0.85, 0.45)' },
         { transform: 'translateY(5px) scale(0.4)', opacity: 0 }
-      ], { duration: cfg.duration, fill: 'both' }).finished
+      ], { duration: cfg.duration, fill: 'both' })?.finished || Promise.resolve()
     );
   }
 
-  const bead = overlay.querySelector('.theme-drop-bead');
-  bead.style.left = `${startX}px`;
-  bead.style.top = `${splashY - 5}px`;
-  
-  tasks.push(
-    bead.animate([
-      { transform: 'translate(-50%, 0) scale(1)', opacity: 0.9, easing: 'cubic-bezier(0.2, 0.8, 0.4, 1)' },
-      { transform: 'translate(-50%, -46px) scale(0.7)', opacity: 0.9, offset: 0.5, easing: 'cubic-bezier(0.55, 0, 0.8, 0.4)' },
-      { transform: 'translate(-50%, 4px) scale(0.45)', opacity: 0 }
-    ], { delay: 90, duration: 480, fill: 'both' }).finished
-  );
+  const bead = /** @type {HTMLElement | null} */ (overlay.querySelector('.theme-drop-bead'));
+  if (bead) {
+    bead.style.left = `${startX}px`;
+    bead.style.top = `${splashY - 5}px`;
+    
+    tasks.push(
+      bead.animate([
+        { transform: 'translate(-50%, 0) scale(1)', opacity: 0.9, easing: 'cubic-bezier(0.2, 0.8, 0.4, 1)' },
+        { transform: 'translate(-50%, -46px) scale(0.7)', opacity: 0.9, offset: 0.5, easing: 'cubic-bezier(0.55, 0, 0.8, 0.4)' },
+        { transform: 'translate(-50%, 4px) scale(0.45)', opacity: 0 }
+      ], { delay: 90, duration: 480, fill: 'both' }).finished
+    );
+  }
 
   transition.finished.then(() => activeObj.revealed = true, () => activeObj.revealed = true);
   tasks.push(transition.finished);
@@ -434,8 +437,8 @@ const toggleThemeWithAnimation = (btnElement, nextTheme, getThemeCallback, apply
 export function initThemeToggleWithRipple({
   buttonId = 'theme-toggle',
   getTheme = () => document.documentElement.getAttribute('data-theme') || 'dark',
-  applyTheme = () => {},
-  saveTheme = () => {}
+  applyTheme = (_theme) => {},
+  saveTheme = (_theme) => {}
 }) {
   // Look for button elements with either ID (theme-toggle or themeToggle)
   let btn = document.getElementById(buttonId);

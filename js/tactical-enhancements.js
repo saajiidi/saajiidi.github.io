@@ -10,7 +10,7 @@ export class ScrollGlitchEffect {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !entry.target.classList.contains('glitched')) {
                     entry.target.classList.add('glitched');
-                    if (typeof window.glitchEffect === 'function') {
+                    if (typeof window.glitchEffect === 'function' && entry.target instanceof HTMLElement) {
                         window.glitchEffect(entry.target);
                     }
                 }
@@ -149,9 +149,9 @@ export class AnimatedCounters {
         const counters = document.querySelectorAll('.animated-counter');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting && entry.target instanceof HTMLElement) {
                     const counter = entry.target;
-                    const target = parseInt(counter.dataset.target);
+                    const target = parseInt(counter.dataset.target || '0');
                     const suffix = counter.dataset.suffix || '';
                     const prefix = counter.dataset.prefix || '';
                     AnimatedCounters.animate(counter, target, prefix, suffix);
@@ -213,9 +213,11 @@ export class SkillProgressBars {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.querySelectorAll('.skill-progress-fill').forEach((fill, i) => {
-                        setTimeout(() => {
-                            fill.style.width = `${fill.dataset.level}%`;
-                        }, i * 100);
+                        if (fill instanceof HTMLElement) {
+                            setTimeout(() => {
+                                fill.style.width = `${fill.dataset.level || '0'}%`;
+                            }, i * 100);
+                        }
                     });
                     observer.unobserve(entry.target);
                 }
@@ -309,8 +311,8 @@ export class ScanlinePulse {
 
 // Initialize Custom Tactical Cursor
 function initCustomCursor() {
-    const cursor = document.querySelector('.custom-cursor');
-    const follower = document.querySelector('.cursor-follower');
+    const cursor = /** @type {HTMLElement | null} */ (document.querySelector('.custom-cursor'));
+    const follower = /** @type {HTMLElement | null} */ (document.querySelector('.cursor-follower'));
     if (!cursor || !follower) return;
 
     let posX = 0, posY = 0, mouseX = 0, mouseY = 0;

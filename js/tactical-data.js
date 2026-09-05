@@ -142,9 +142,9 @@ export function renderInfo(info) {
     if (!name) return;
     runTypewriter(info);
     document.title = `${name} || [TACTICAL_INTEL]`;
-    document.querySelectorAll('.data-name').forEach(el => el.innerText = name);
+    document.querySelectorAll('.data-name').forEach(el => { if (el instanceof HTMLElement) el.innerText = name; });
     const role = info.Role || info.role;
-    if (role) document.querySelectorAll('.data-role').forEach(el => el.innerText = role);
+    if (role) document.querySelectorAll('.data-role').forEach(el => { if (el instanceof HTMLElement) el.innerText = role; });
     window.TACTICAL_INFO = info;
 
     const github = info.Github || info.github;
@@ -152,10 +152,10 @@ export function renderInfo(info) {
     const kaggle = info.Kaggle || info.kaggle;
     const huggingface = info.HuggingFace || info.huggingface || PROFILE_INFO.huggingface;
 
-    if (github) document.querySelectorAll('[title="GitHub"]').forEach(a => a.href = github);
-    if (linkedin) document.querySelectorAll('[title="LinkedIn"]').forEach(a => a.href = linkedin);
-    if (kaggle) document.querySelectorAll('[title="Kaggle"]').forEach(a => a.href = kaggle);
-    if (huggingface) document.querySelectorAll('[title="Hugging Face"]').forEach(a => a.href = huggingface);
+    if (github) document.querySelectorAll('[title="GitHub"]').forEach(a => { if (a instanceof HTMLAnchorElement) a.href = github; });
+    if (linkedin) document.querySelectorAll('[title="LinkedIn"]').forEach(a => { if (a instanceof HTMLAnchorElement) a.href = linkedin; });
+    if (kaggle) document.querySelectorAll('[title="Kaggle"]').forEach(a => { if (a instanceof HTMLAnchorElement) a.href = kaggle; });
+    if (huggingface) document.querySelectorAll('[title="Hugging Face"]').forEach(a => { if (a instanceof HTMLAnchorElement) a.href = huggingface; });
 
     const waSpan = document.getElementById('contact-details');
     if (waSpan && info.Whatsapp && info.Email) {
@@ -188,17 +188,17 @@ export function renderExperience(data) {
     container.innerHTML = '';
     try {
         data.forEach(item => {
-            const highlights = item.highlights ? item.highlights.map(h => `<li class="mb-2"><i class="fas fa-microchip text-primary me-2"></i> ${h}</li>`).join('') : '';
+            const highlights = item.highlights ? item.highlights.map(h => `<li class="mb-2"><i class="fas fa-microchip text-primary me-2"></i> ${esc(h)}</li>`).join('') : '';
             container.insertAdjacentHTML('beforeend', `
               <div class="timeline-item">
                 <div class="timeline-dot"></div>
                 <div class="resume-item mb-5">
                   <div class="resume-content">
-                    <h3 class="mb-1 text-light">${item.title || item.Role}</h3>
-                    <div class="subheading mb-3 text-primary">${item.company || item.Company}</div>
+                    <h3 class="mb-1 text-light">${esc(item.title || item.Role)}</h3>
+                    <div class="subheading mb-3 text-primary">${esc(item.company || item.Company)}</div>
                     <ul class="list-unstyled text-secondary">${highlights}</ul>
                   </div>
-                  <div class="resume-date"><span>${item.startDate || item.Date}${item.endDate ? ` — ${item.endDate}` : ''}</span></div>
+                  <div class="resume-date"><span>${esc(item.startDate || item.Date)}${item.endDate ? ` — ${esc(item.endDate)}` : ''}</span></div>
                 </div>
               </div>
             `);
@@ -221,9 +221,9 @@ export function renderEducation(data) {
             container.insertAdjacentHTML('beforeend', `
               <div class="timeline-item"><div class="timeline-dot"></div>
                 <div class="resume-item mb-4">
-                  <h3 class="mb-0">${item.Institution || item.institution || ''}</h3>
-                  <div class="subheading mb-2 text-primary">${item.Degree || item.degree || ''}</div>
-                  <div class="resume-date"><span>${item.Date || item.date || ''}</span></div>
+                  <h3 class="mb-0">${esc(item.Institution || item.institution || '')}</h3>
+                  <div class="subheading mb-2 text-primary">${esc(item.Degree || item.degree || '')}</div>
+                  <div class="resume-date"><span>${esc(item.Date || item.date || '')}</span></div>
                 </div>
               </div>
             `);
@@ -255,7 +255,7 @@ export function renderSkillGroups(groups) {
                 return `
                     <div class="skill-pill-tactical">
                         <i class="${icon} text-primary"></i>
-                        <span class="font-mono small">${skill.name.toUpperCase()}</span>
+                        <span class="font-mono small">${esc(String(skill.name || '').toUpperCase())}</span>
                     </div>`;
             }).join('');
         }
@@ -288,13 +288,13 @@ export function renderProjects(data) {
                     <span class="font-mono small text-primary opacity-50">[DOSSIER_ID: ${item.id || 'PRJ_01'}]</span>
                     ${item.featured ? '<span class="badge badge-featured">FEATURED_OP</span>' : ''}
                 </div>
-                <h5 class="card-title text-light mb-3 text-uppercase tracking-widest">${item.title}</h5>
+                <h5 class="card-title text-light mb-3 text-uppercase tracking-widest">${esc(item.title)}</h5>
                 <div class="redaction-container mb-3" onclick="decryptDossier('${item.id}', this)">
-                    <p class="card-text redacted-text" id="desc-${item.id}">${item.description.split(' ').map(w => '█'.repeat(w.length)).join(' ')}</p>
+                    <p class="card-text redacted-text" id="desc-${item.id}">${String(item.description || '').split(' ').map(w => '█'.repeat(w.length)).join(' ')}</p>
                     <div class="redaction-overlay"><span class="decrypt-prompt">DECRYPT_INTEL</span></div>
                 </div>
                 <div class="d-flex flex-wrap gap-2 mb-4">
-                    ${item.technologies ? item.technologies.slice(0, 4).map(t => `<span class="tag-tactical">#${t.toUpperCase()}</span>`).join('') : ''}
+                    ${item.technologies ? item.technologies.slice(0, 4).map(t => `<span class="tag-tactical">#${esc(String(t)).toUpperCase()}</span>`).join('') : ''}
                 </div>
                 ${caseStudyHtml}
                 <div class="d-flex gap-2 mt-auto">
@@ -332,21 +332,25 @@ export function toggleCaseStudy(id, _btn) {
 export function initializeProjectFilters() {
     const filters = document.querySelectorAll('.filter-btn');
     filters.forEach(btn => {
-        btn.onclick = () => {
-            const f = btn.getAttribute('data-filter');
-            filters.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            document.querySelectorAll('.project-item').forEach(item => {
-                const cat = item.getAttribute('data-category');
-                item.style.display = (f === 'all' || cat === f) ? 'block' : 'none';
-            });
-        };
+        if (btn instanceof HTMLElement) {
+            btn.onclick = () => {
+                const f = btn.getAttribute('data-filter');
+                filters.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.querySelectorAll('.project-item').forEach(item => {
+                    if (item instanceof HTMLElement) {
+                        const cat = item.getAttribute('data-category');
+                        item.style.display = (f === 'all' || cat === f) ? 'block' : 'none';
+                    }
+                });
+            };
+        }
     });
 }
 
 export function renderBlogs(data) {
     const container = document.getElementById('blog-list');
-    if (container) container.innerHTML = data.map(p => `<div class="col-md-4 card-glass p-3 m-2"><h6 class="text-primary">${esc(p.title)}</h6><p class="small text-secondary">${esc(p.excerpt)}</p></div>`).join('');
+    if (container) container.innerHTML = data.map(p => `<div class="col-md-4 card-glass p-3 m-2"><h6 class="text-primary">${esc(p.title)}</h6><p class="small text-secondary">${esc(p.excerpt)}</p>${p.url ? `<a href="${esc(p.url)}" target="_blank" rel="noopener" class="small text-primary">READ_INTEL →</a>` : ''}</div>`).join('');
 }
 
 export function renderLearning(data) {
@@ -421,24 +425,24 @@ export function openCaseStudy(e, projectId) {
     }
 
     const caseStudy = project.caseStudy || {};
-    const impacts = caseStudy.impact ? caseStudy.impact.map(i => `<li>${i}</li>`).join('') : '<li>Metrics still compiling...</li>';
-    const tech = project.technologies ? project.technologies.map(t => `<span class="tag-tactical">#${t}</span>`).join('') : '';
+    const impacts = caseStudy.impact ? caseStudy.impact.map(i => `<li>${esc(i)}</li>`).join('') : '<li>Metrics still compiling...</li>';
+    const tech = project.technologies ? project.technologies.map(t => `<span class="tag-tactical">#${esc(t)}</span>`).join('') : '';
 
     overlay.innerHTML = `
         <div class="bridge-backdrop" onclick="closeCaseStudy()"></div>
         <div class="bridge-window">
             <div class="bridge-header">
-                <div class="d-flex align-items-center gap-2"><div class="pulse-indicator"></div><span class="bridge-title">[CASE_STUDY: ${project.title}]</span></div>
+                <div class="d-flex align-items-center gap-2"><div class="pulse-indicator"></div><span class="bridge-title">[CASE_STUDY: ${esc(project.title)}]</span></div>
                 <div class="d-flex align-items-center"><span class="telemetry-data d-none d-md-block">STATUS: DECRYPTED</span><button class="btn-bridge-ctrl btn-exit" onclick="closeCaseStudy()">ABORT</button></div>
             </div>
             <div class="bridge-content p-4 overflow-auto" style="background: var(--bg-page) !important;">
                 <div class="row">
                     <div class="col-lg-8">
-                        <h2 class="text-primary mb-3">${project.title}</h2>
-                        <p class="lead text-secondary">${project.description}</p>
+                        <h2 class="text-primary mb-3">${esc(project.title)}</h2>
+                        <p class="lead text-secondary">${esc(project.description)}</p>
                         <div class="mt-4 p-3 border border-secondary border-opacity-25 bg-dark bg-opacity-25">
-                            <h6 class="text-highlight">[MISSION_PROBLEM]</h6><p class="small">${caseStudy.problem || 'N/A'}</p>
-                            <h6 class="text-highlight mt-3">[TACTICAL_SOLUTION]</h6><p class="small">${caseStudy.solution || 'N/A'}</p>
+                            <h6 class="text-highlight">[MISSION_PROBLEM]</h6><p class="small">${esc(caseStudy.problem || 'N/A')}</p>
+                            <h6 class="text-highlight mt-3">[TACTICAL_SOLUTION]</h6><p class="small">${esc(caseStudy.solution || 'N/A')}</p>
                             <h6 class="text-highlight mt-3">[IMPACT_METRICS]</h6><ul class="small text-secondary">${impacts}</ul>
                         </div>
                     </div>
@@ -446,8 +450,8 @@ export function openCaseStudy(e, projectId) {
                         <h6 class="text-primary mb-3">SYSTEM_SPECS</h6>
                         <div class="d-flex flex-wrap gap-2 mb-4">${tech}</div>
                         <div class="d-grid gap-3 mt-4">
-                            ${project.liveUrl ? `<a href="${project.liveUrl}" target="_blank" class="btn btn-primary"><i class="fas fa-external-link-alt me-2"></i> INITIATE_LIVE_UPLINK</a>` : ''}
-                            ${project.githubUrl ? `<a href="${project.githubUrl}" target="_blank" class="btn btn-outline-secondary"><i class="fab fa-github me-2"></i> VIEW_SOURCE_CODE</a>` : ''}
+                            ${project.liveUrl ? `<a href="${esc(project.liveUrl)}" target="_blank" rel="noopener" class="btn btn-primary"><i class="fas fa-external-link-alt me-2"></i> INITIATE_LIVE_UPLINK</a>` : ''}
+                            ${project.githubUrl ? `<a href="${esc(project.githubUrl)}" target="_blank" rel="noopener" class="btn btn-outline-secondary"><i class="fab fa-github me-2"></i> VIEW_SOURCE_CODE</a>` : ''}
                         </div>
                     </div>
                 </div>
@@ -466,7 +470,7 @@ export function closeCaseStudy() {
 }
 
 export function toggleTreeSection(id) {
-    const el = document.querySelector(`#tree-sec-${id} .file-tree-items`);
+    const el = /** @type {HTMLElement | null} */ (document.querySelector(`#tree-sec-${id} .file-tree-items`));
     if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
 }
 

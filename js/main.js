@@ -308,6 +308,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   AnimatedCounters.init();
   SkillProgressBars.init();
   TestimonialsCarousel.init();
+
+  // Auto-collapse mobile navbar on link click
+  const navCollapse = document.getElementById('navbarSupportedContent');
+  if (navCollapse) {
+    navCollapse.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 992 && navCollapse.classList.contains('show')) {
+          if (window.bootstrap?.Collapse) {
+            const bsCollapse = window.bootstrap.Collapse.getInstance(navCollapse) || new window.bootstrap.Collapse(navCollapse, { toggle: false });
+            bsCollapse.hide();
+          } else {
+            navCollapse.classList.remove('show');
+          }
+        }
+      });
+    });
+  }
 });
 
 // ===== SKILLS RADAR CHART =====
@@ -317,7 +334,7 @@ function initSkillsRadarChart() {
   const baseData = [90, 88, 88, 80, 78, 78];
   window.chartBaseData = [...baseData];
 
-  if (canvas && typeof Chart !== 'undefined') {
+  if (canvas instanceof HTMLCanvasElement && typeof Chart !== 'undefined') {
     const ctx = canvas.getContext('2d');
     const cs = getComputedStyle(document.documentElement);
     const initColor = cs.getPropertyValue('--primary-color').trim() || '#4ade80';
@@ -329,48 +346,52 @@ function initSkillsRadarChart() {
       data: {
         labels: ['Python', 'SQL', 'Pandas', 'ML', 'JavaScript', 'AI/RAG'],
         datasets: [{
-          label: '[SKILL_POWER_LEVEL]',
+          label: 'Capability Index',
           data: [...baseData],
           backgroundColor: `rgba(${initRGB}, 0.2)`,
           borderColor: initColor,
-          borderWidth: 1,
-          pointBackgroundColor: initColor
+          borderWidth: 1.5,
+          pointBackgroundColor: initColor,
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: initColor
         }]
       },
       options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: { duration: 400 },
         scales: {
           r: {
-            angleLines: { color: `rgba(${initRGB}, 0.1)` },
-            grid: { color: `rgba(${initRGB}, 0.1)` },
-            pointLabels: { color: initText, font: { family: 'JetBrains Mono' } },
-            ticks: { display: false },
-            suggestedMin: 0,
-            suggestedMax: 100
+            angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+            pointLabels: {
+              color: initText,
+              font: { family: 'JetBrains Mono', size: 11 }
+            },
+            ticks: { display: false, maxTicksLimit: 5 }
           }
         },
-        plugins: { legend: { display: false } }
+        plugins: {
+          legend: { display: false }
+        },
+        responsive: true,
+        maintainAspectRatio: false
       }
     });
 
-    // Expose update function for accent changes
-    window.updateChartColors = function() {
-      const chart = window.skillsRadarChart;
-      if (!chart) return;
-      const cs = getComputedStyle(document.documentElement);
-      const color = cs.getPropertyValue('--primary-color').trim() || '#4ade80';
-      const rgb = cs.getPropertyValue('--primary-color-rgb').trim() || '74, 222, 128';
-      const textSec = cs.getPropertyValue('--text-secondary').trim() || '#a3b89c';
+    // Color synchronization handler
+    window.updateChartColors = () => {
+      if (!window.skillsRadarChart) return;
+      const computed = getComputedStyle(document.documentElement);
+      const color = computed.getPropertyValue('--primary-color').trim() || '#4ade80';
+      const rgb = computed.getPropertyValue('--primary-color-rgb').trim() || '74, 222, 128';
+      const text = computed.getPropertyValue('--text-secondary').trim() || '#a3b89c';
 
-      chart.data.datasets[0].backgroundColor = `rgba(${rgb}, 0.2)`;
+      const chart = window.skillsRadarChart;
       chart.data.datasets[0].borderColor = color;
       chart.data.datasets[0].pointBackgroundColor = color;
-      chart.options.scales.r.angleLines.color = `rgba(${rgb}, 0.1)`;
-      chart.options.scales.r.grid.color = `rgba(${rgb}, 0.1)`;
-      chart.options.scales.r.pointLabels.color = textSec;
-      chart.update('none');
+      chart.data.datasets[0].pointHoverBorderColor = color;
+      chart.data.datasets[0].backgroundColor = `rgba(${rgb}, 0.2)`;
+      chart.options.scales.r.pointLabels.color = text;
+      chart.update();
     };
 
     // Initial color read
@@ -378,8 +399,9 @@ function initSkillsRadarChart() {
     
     // Gamify connections using Event Delegation
     document.addEventListener('mouseover', (e) => {
-      const badge = e.target.closest('.skill-pill-tactical, .tech-chip');
-      if (badge && window.skillsRadarChart) {
+      const target = /** @type {Element | null} */ (e.target);
+      const badge = target?.closest('.skill-pill-tactical, .tech-chip');
+      if (badge instanceof HTMLElement && window.skillsRadarChart) {
         badge.style.cursor = 'pointer';
         const skill = badge.textContent.trim().toUpperCase();
         let index = skillMap[skill];
@@ -400,7 +422,8 @@ function initSkillsRadarChart() {
     });
     
     document.addEventListener('mouseout', (e) => {
-      const badge = e.target.closest('.skill-pill-tactical, .tech-chip');
+      const target = /** @type {Element | null} */ (e.target);
+      const badge = target?.closest('.skill-pill-tactical, .tech-chip');
       if (badge && window.skillsRadarChart) {
         window.skillsRadarChart.data.datasets[0].data = [...(window.chartBaseData || baseData)];
         window.skillsRadarChart.update('none');
